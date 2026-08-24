@@ -1,4 +1,8 @@
 /* =====================================================
+   MI TIENDA - DISEÑO PROFESIONAL
+   ===================================================== */
+
+/* =====================================================
    CONFIGURACIÓN GENERAL
    ===================================================== */
 
@@ -12,6 +16,7 @@ html {
     width: 100%;
     max-width: 100%;
     overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -19,28 +24,30 @@ body {
     max-width: 100%;
     min-width: 0;
 
-    font-family: Arial, sans-serif;
-    color: #333;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #17202a;
 
     overflow-x: hidden;
 
     /*
-    ================================================
-    FONDO DE LA PÁGINA
-    ================================================
-    
-    mi-fondo.png está en la misma carpeta que
-    style.css, por eso solamente escribimos:
+    =====================================================
+    FONDO PRINCIPAL
+    =====================================================
     */
 
-    background-image: url("mi-fondo.png");
+    background-image:
+        linear-gradient(
+            rgba(255, 255, 255, 0.12),
+            rgba(255, 255, 255, 0.12)
+        ),
+        url("mi-fondo.png");
 
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
-
-    /* En computadora */
     background-attachment: fixed;
+
+    background-color: #e9eef2;
 }
 
 
@@ -52,22 +59,30 @@ header {
     width: 100%;
     max-width: 100%;
 
-    background: rgba(76, 175, 32, 0.96);
+    background: rgba(10, 35, 51, 0.96);
 
-    padding: 20px 6%;
+    padding: 18px 6%;
 
     display: flex;
     align-items: center;
 
-    gap: 25px;
+    gap: 22px;
 
     overflow: hidden;
+
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.18);
+
+    position: relative;
+    z-index: 10;
 }
 
 header h1 {
-    color: white;
+    color: #ffffff;
 
-    font-size: 32px;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: 1px;
 
     white-space: nowrap;
 
@@ -79,15 +94,35 @@ header input {
 
     min-width: 0;
 
-    padding: 15px 20px;
+    padding: 14px 20px;
 
     border-radius: 30px;
 
-    border: none;
+    border: 2px solid transparent;
 
-    font-size: 16px;
+    background: rgba(255, 255, 255, 0.97);
+
+    color: #17202a;
+
+    font-family: inherit;
+    font-size: 15px;
 
     outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+header input::placeholder {
+    color: #7b8790;
+}
+
+header input:focus {
+    border-color: #f4a62a;
+
+    box-shadow:
+        0 0 0 3px rgba(244, 166, 42, 0.18);
 }
 
 
@@ -98,19 +133,45 @@ header input {
 button {
     border: none;
 
-    border-radius: 25px;
+    border-radius: 10px;
 
     padding: 12px 20px;
 
     cursor: pointer;
 
-    font-weight: bold;
+    font-family: inherit;
 
-    font-family: Arial, sans-serif;
+    font-weight: 700;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 button:hover {
-    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   BOTÓN ENTRAR
+   ===================================================== */
+
+.boton-entrar {
+    background: transparent;
+
+    border: 1px solid rgba(255, 255, 255, 0.45);
+
+    color: white;
+
+    white-space: nowrap;
+
+    flex-shrink: 0;
+}
+
+.boton-entrar:hover {
+    background: rgba(255, 255, 255, 0.12);
 }
 
 
@@ -119,21 +180,29 @@ button:hover {
    ===================================================== */
 
 #boton-carrito {
-    background: white;
+    background: #f4a62a;
 
-    color: #39891f;
+    color: #17202a;
 
     white-space: nowrap;
 
     flex-shrink: 0;
+
+    box-shadow:
+        0 4px 12px rgba(244, 166, 42, 0.25);
 }
 
 #boton-carrito:hover {
-    background: #f2f2f2;
+    background: #ffb63d;
+
+    box-shadow:
+        0 6px 16px rgba(244, 166, 42, 0.35);
 }
 
 
-/* CONTADOR */
+/* =====================================================
+   CONTADOR DEL CARRITO
+   ===================================================== */
 
 #contador-carrito {
     display: inline-flex;
@@ -150,7 +219,7 @@ button:hover {
 
     border-radius: 50%;
 
-    background: #ff0033;
+    background: #c0392b;
 
     color: white;
 
@@ -166,31 +235,42 @@ nav {
     width: 100%;
     max-width: 100%;
 
-    background: rgba(57, 137, 31, 0.96);
+    background: rgba(16, 55, 75, 0.95);
 
-    padding: 15px 6%;
+    padding: 14px 6%;
 
     display: flex;
 
-    gap: 40px;
+    gap: 36px;
 
     align-items: center;
 
     overflow: hidden;
+
+    box-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.12);
 }
 
 nav a {
-    color: white;
+    color: #ffffff;
 
     text-decoration: none;
 
-    font-weight: bold;
+    font-size: 14px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.2px;
 
     white-space: nowrap;
+
+    transition:
+        color 0.2s ease,
+        opacity 0.2s ease;
 }
 
 nav a:hover {
-    text-decoration: underline;
+    color: #f4a62a;
 }
 
 
@@ -202,45 +282,80 @@ nav a:hover {
     width: 100%;
     max-width: 100%;
 
-    min-height: 300px;
+    min-height: 350px;
 
-    background: rgba(255, 255, 255, 0.86);
+    /*
+    Fondo transparente para que se vea
+    claramente mi-fondo.png
+    */
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(8, 28, 40, 0.78),
+            rgba(8, 28, 40, 0.30),
+            rgba(8, 28, 40, 0.05)
+        );
 
     display: flex;
 
     align-items: center;
 
-    padding: 40px 8%;
+    padding: 55px 8%;
 
     overflow: hidden;
 }
 
+.banner > div {
+    max-width: 650px;
+}
+
 .banner h2 {
-    font-size: 48px;
+    color: white;
 
-    line-height: 1.15;
+    font-size: clamp(36px, 5vw, 58px);
 
-    margin-bottom: 15px;
+    line-height: 1.05;
+
+    margin-bottom: 18px;
+
+    font-weight: 800;
+
+    letter-spacing: -1px;
+
+    text-shadow:
+        0 3px 15px rgba(0, 0, 0, 0.35);
 }
 
 .banner p {
+    color: rgba(255, 255, 255, 0.95);
+
     font-size: 20px;
 
     line-height: 1.5;
 
-    margin-bottom: 25px;
+    margin-bottom: 28px;
+
+    max-width: 560px;
 }
 
 .banner button {
-    background: #f59a00;
+    background: #f4a62a;
 
-    color: white;
+    color: #17202a;
 
     font-size: 16px;
+
+    padding: 14px 25px;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.2);
 }
 
 .banner button:hover {
-    background: #d98200;
+    background: #ffb63d;
 }
 
 
@@ -252,20 +367,33 @@ nav a:hover {
     width: 100%;
     max-width: 100%;
 
-    padding: 40px 6%;
+    padding: 55px 6%;
 
-    background: rgba(255, 255, 255, 0.90);
+    /*
+    Mucho más transparente que antes.
+    */
+
+    background: rgba(255, 255, 255, 0.16);
 
     overflow: hidden;
+
+    backdrop-filter: blur(2px);
 }
 
 .categorias h2,
 .productos h2 {
+    color: #ffffff;
+
     font-size: 32px;
 
     line-height: 1.2;
 
     margin-bottom: 30px;
+
+    font-weight: 800;
+
+    text-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.35);
 }
 
 .categorias-container {
@@ -274,7 +402,7 @@ nav a:hover {
 
     display: flex;
 
-    gap: 30px;
+    gap: 22px;
 
     flex-wrap: wrap;
 }
@@ -283,28 +411,68 @@ nav a:hover {
     text-align: center;
 
     min-width: 0;
+
+    flex: 1 1 140px;
+
+    padding: 18px 10px;
+
+    border-radius: 16px;
+
+    background: rgba(255, 255, 255, 0.18);
+
+    border: 1px solid rgba(255, 255, 255, 0.30);
+
+    backdrop-filter: blur(7px);
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.10);
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+.categoria:hover {
+    transform: translateY(-5px);
+
+    background: rgba(255, 255, 255, 0.28);
 }
 
 .icono {
-    width: 120px;
-    height: 120px;
+    width: 90px;
+    height: 90px;
 
     border-radius: 50%;
 
-    background: #f59a00;
+    background:
+        linear-gradient(
+            135deg,
+            #f4a62a,
+            #e67e22
+        );
 
     display: flex;
 
     align-items: center;
     justify-content: center;
 
-    font-size: 45px;
+    font-size: 38px;
 
-    margin-bottom: 10px;
+    margin: 0 auto 12px;
+
+    box-shadow:
+        0 8px 18px rgba(0, 0, 0, 0.18);
 }
 
 .categoria p {
-    font-weight: bold;
+    color: white;
+
+    font-weight: 700;
+
+    font-size: 15px;
+
+    text-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.35);
 }
 
 
@@ -316,9 +484,13 @@ nav a:hover {
     width: 100%;
     max-width: 100%;
 
-    padding: 40px 6%;
+    padding: 55px 6%;
 
-    background: rgba(247, 247, 247, 0.92);
+    /*
+    Transparente para que el fondo siga visible.
+    */
+
+    background: rgba(9, 32, 45, 0.20);
 
     overflow: hidden;
 }
@@ -335,32 +507,45 @@ nav a:hover {
     gap: 25px;
 }
 
+
+/* =====================================================
+   TARJETA DEL PRODUCTO
+   ===================================================== */
+
 .producto {
     width: 100%;
 
     min-width: 0;
 
-    background: rgba(255, 255, 255, 0.97);
+    /*
+    Tarjeta semitransparente tipo vidrio.
+    */
 
-    padding: 20px;
+    background: rgba(255, 255, 255, 0.86);
 
-    border-radius: 10px;
+    padding: 18px;
+
+    border-radius: 16px;
+
+    border: 1px solid rgba(255, 255, 255, 0.60);
 
     box-shadow:
-        0 3px 10px rgba(0, 0, 0, 0.12);
+        0 10px 30px rgba(0, 0, 0, 0.18);
+
+    backdrop-filter: blur(8px);
 
     transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
 
     overflow: hidden;
 }
 
 .producto:hover {
-    transform: translateY(-3px);
+    transform: translateY(-6px);
 
     box-shadow:
-        0 6px 16px rgba(0, 0, 0, 0.16);
+        0 16px 35px rgba(0, 0, 0, 0.25);
 }
 
 
@@ -373,7 +558,12 @@ nav a:hover {
 
     height: 180px;
 
-    background: #eeeeee;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(16, 55, 75, 0.10),
+            rgba(244, 166, 42, 0.12)
+        );
 
     display: flex;
 
@@ -383,9 +573,9 @@ nav a:hover {
 
     font-size: 60px;
 
-    border-radius: 8px;
+    border-radius: 12px;
 
-    margin-bottom: 15px;
+    margin-bottom: 16px;
 
     overflow: hidden;
 }
@@ -403,19 +593,27 @@ nav a:hover {
    ===================================================== */
 
 .producto h3 {
-    margin-bottom: 10px;
+    color: #102f41;
+
+    margin-bottom: 9px;
 
     line-height: 1.25;
+
+    font-size: 19px;
+
+    font-weight: 750;
 
     overflow-wrap: break-word;
 }
 
 .producto p {
-    color: #777;
+    color: #5f6b73;
 
     margin-bottom: 15px;
 
-    line-height: 1.4;
+    line-height: 1.45;
+
+    font-size: 14px;
 
     overflow-wrap: break-word;
 }
@@ -423,21 +621,32 @@ nav a:hover {
 .producto strong {
     display: block;
 
-    font-size: 22px;
+    color: #0d5c72;
+
+    font-size: 23px;
 
     margin-bottom: 15px;
+
+    font-weight: 800;
 }
 
 .producto button {
-    background: #4caf20;
+    background: #0d5c72;
 
     color: white;
 
     width: 100%;
+
+    border-radius: 9px;
+
+    padding: 12px;
 }
 
 .producto button:hover {
-    background: #39891f;
+    background: #083f4f;
+
+    box-shadow:
+        0 5px 14px rgba(13, 92, 114, 0.25);
 }
 
 
@@ -455,7 +664,7 @@ nav a:hover {
     width: 100vw;
     height: 100vh;
 
-    background: rgba(0, 0, 0, 0.55);
+    background: rgba(3, 15, 22, 0.72);
 
     justify-content: center;
 
@@ -466,6 +675,8 @@ nav a:hover {
     z-index: 9999;
 
     overflow: hidden;
+
+    backdrop-filter: blur(4px);
 }
 
 
@@ -476,7 +687,7 @@ nav a:hover {
 .carrito-contenido {
     position: relative;
 
-    background: white;
+    background: #ffffff;
 
     width: 100%;
 
@@ -488,12 +699,12 @@ nav a:hover {
 
     overflow-x: hidden;
 
-    padding: 25px;
+    padding: 28px;
 
-    border-radius: 15px;
+    border-radius: 18px;
 
     box-shadow:
-        0 10px 40px rgba(0, 0, 0, 0.25);
+        0 20px 60px rgba(0, 0, 0, 0.35);
 }
 
 
@@ -510,19 +721,23 @@ nav a:hover {
 
     border: none;
 
-    background: transparent;
+    background: #eef2f4;
 
-    color: #333;
+    color: #17202a;
 
-    font-size: 24px;
+    font-size: 20px;
 
-    padding: 5px;
+    padding: 7px 10px;
 
     cursor: pointer;
+
+    border-radius: 8px;
 }
 
 .cerrar-carrito:hover {
-    color: #ff0033;
+    background: #dfe6ea;
+
+    color: #c0392b;
 }
 
 
@@ -535,7 +750,11 @@ nav a:hover {
 
     margin-bottom: 25px;
 
-    color: #39891f;
+    color: #10374b;
+
+    font-size: 26px;
+
+    font-weight: 800;
 }
 
 
@@ -558,7 +777,7 @@ nav a:hover {
 
     padding: 15px 0;
 
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #e1e6e9;
 
     min-width: 0;
 }
@@ -574,13 +793,13 @@ nav a:hover {
 }
 
 .info-producto strong {
-    color: #333;
+    color: #17202a;
 
     overflow-wrap: break-word;
 }
 
 .info-producto span {
-    color: #777;
+    color: #6c7880;
 }
 
 
@@ -602,17 +821,17 @@ nav a:hover {
 
     padding: 0;
 
-    border-radius: 5px;
+    border-radius: 7px;
 
-    background: #eeeeee;
+    background: #e9eef1;
 
-    color: #333;
+    color: #173546;
 
     font-size: 18px;
 }
 
 .controles-cantidad button:hover {
-    background: #d9d9d9;
+    background: #d8e0e4;
 }
 
 .controles-cantidad span {
@@ -620,7 +839,7 @@ nav a:hover {
 
     text-align: center;
 
-    font-weight: bold;
+    font-weight: 700;
 }
 
 
@@ -629,7 +848,9 @@ nav a:hover {
    ===================================================== */
 
 .subtotal {
-    font-weight: bold;
+    color: #0d5c72;
+
+    font-weight: 800;
 
     white-space: nowrap;
 }
@@ -665,7 +886,7 @@ nav a:hover {
 
     padding: 30px 10px;
 
-    color: #777;
+    color: #78858d;
 }
 
 
@@ -680,13 +901,15 @@ nav a:hover {
 
     align-items: center;
 
+    color: #173546;
+
     font-size: 20px;
 
     margin-top: 25px;
 
     padding-top: 20px;
 
-    border-top: 2px solid #ddd;
+    border-top: 2px solid #dce3e7;
 }
 
 
@@ -703,7 +926,7 @@ nav a:hover {
 
     border: none;
 
-    border-radius: 8px;
+    border-radius: 10px;
 
     background: #25D366;
 
@@ -711,13 +934,19 @@ nav a:hover {
 
     font-size: 16px;
 
-    font-weight: bold;
+    font-weight: 700;
 
     cursor: pointer;
+
+    box-shadow:
+        0 5px 15px rgba(37, 211, 102, 0.20);
 }
 
 .finalizar-compra:hover {
     background: #1da851;
+
+    box-shadow:
+        0 7px 18px rgba(37, 211, 102, 0.30);
 }
 
 
@@ -744,11 +973,7 @@ nav a:hover {
     }
 
     .banner {
-        padding: 35px 5%;
-    }
-
-    .banner h2 {
-        font-size: 40px;
+        padding: 45px 5%;
     }
 
     .categorias,
@@ -782,9 +1007,7 @@ nav a:hover {
     }
 
 
-    /* ================================================
-       HEADER
-       ================================================ */
+    /* HEADER */
 
     header {
         width: 100%;
@@ -852,9 +1075,7 @@ nav a:hover {
     }
 
 
-    /* ================================================
-       MENÚ
-       ================================================ */
+    /* MENÚ */
 
     nav {
         width: 100%;
@@ -885,30 +1106,33 @@ nav a:hover {
     }
 
 
-    /* ================================================
-       BANNER
-       ================================================ */
+    /* BANNER */
 
     .banner {
         width: 100%;
 
         max-width: 100%;
 
-        min-height: 240px;
+        min-height: 270px;
 
-        padding: 30px 18px;
+        padding: 40px 18px;
 
         text-align: center;
 
         justify-content: center;
 
-        background: rgba(255, 255, 255, 0.88);
+        background:
+            linear-gradient(
+                180deg,
+                rgba(8, 28, 40, 0.70),
+                rgba(8, 28, 40, 0.20)
+            );
     }
 
     .banner h2 {
-        font-size: 31px;
+        font-size: 32px;
 
-        line-height: 1.15;
+        line-height: 1.12;
     }
 
     .banner p {
@@ -918,20 +1142,16 @@ nav a:hover {
     }
 
 
-    /* ================================================
-       CATEGORÍAS
-       ================================================ */
+    /* CATEGORÍAS */
 
     .categorias {
         width: 100%;
 
         max-width: 100%;
 
-        padding: 30px 15px;
+        padding: 35px 15px;
 
-        background: rgba(255, 255, 255, 0.92);
-
-        overflow: hidden;
+        background: rgba(255, 255, 255, 0.12);
     }
 
     .categorias h2,
@@ -953,38 +1173,36 @@ nav a:hover {
         grid-template-columns:
             repeat(2, minmax(0, 1fr));
 
-        gap: 20px;
+        gap: 14px;
     }
 
     .categoria {
         min-width: 0;
+
+        padding: 14px 8px;
     }
 
     .icono {
-        width: 80px;
+        width: 72px;
 
-        height: 80px;
+        height: 72px;
 
-        margin: auto;
+        margin: auto auto 9px;
 
-        font-size: 32px;
+        font-size: 29px;
     }
 
 
-    /* ================================================
-       PRODUCTOS
-       ================================================ */
+    /* PRODUCTOS */
 
     .productos {
         width: 100%;
 
         max-width: 100%;
 
-        padding: 30px 12px;
+        padding: 35px 12px;
 
-        background: rgba(247, 247, 247, 0.94);
-
-        overflow: hidden;
+        background: rgba(9, 32, 45, 0.18);
     }
 
     .productos-container {
@@ -1005,29 +1223,31 @@ nav a:hover {
 
         min-width: 0;
 
-        padding: 12px;
+        padding: 11px;
 
-        overflow: hidden;
+        border-radius: 13px;
+
+        background: rgba(255, 255, 255, 0.90);
     }
 
     .producto-imagen {
         width: 100%;
 
-        height: 130px;
+        height: 125px;
 
         font-size: 45px;
     }
 
     .producto h3 {
-        font-size: 16px;
+        font-size: 15px;
 
         line-height: 1.2;
     }
 
     .producto p {
-        font-size: 13px;
+        font-size: 12px;
 
-        line-height: 1.4;
+        line-height: 1.35;
     }
 
     .producto strong {
@@ -1039,13 +1259,11 @@ nav a:hover {
 
         padding: 10px 5px;
 
-        font-size: 13px;
+        font-size: 12px;
     }
 
 
-    /* ================================================
-       CARRITO
-       ================================================ */
+    /* CARRITO */
 
     .carrito-ventana {
         width: 100vw;
@@ -1064,7 +1282,7 @@ nav a:hover {
 
         padding: 20px 15px;
 
-        border-radius: 12px;
+        border-radius: 14px;
     }
 
     .carrito-contenido h2 {
@@ -1132,6 +1350,8 @@ nav a:hover {
 
     header h1 {
         font-size: 22px;
+
+        letter-spacing: 0.5px;
     }
 
     header input {
@@ -1170,8 +1390,22 @@ nav a:hover {
         padding: 5px;
     }
 
+    .banner {
+        min-height: 250px;
+
+        padding: 35px 15px;
+    }
+
+    .banner h2 {
+        font-size: 28px;
+    }
+
+    .banner p {
+        font-size: 15px;
+    }
+
     .productos {
-        padding: 25px 10px;
+        padding: 30px 10px;
     }
 
     .productos-container {
@@ -1181,7 +1415,7 @@ nav a:hover {
     .producto {
         padding: 9px;
 
-        border-radius: 9px;
+        border-radius: 11px;
     }
 
     .producto-imagen {
