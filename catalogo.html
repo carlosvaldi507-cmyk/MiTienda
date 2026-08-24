@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Catálogo - Mi Tienda</title>
@@ -13,125 +12,270 @@
 
 <body>
 
-    <header>
+    <!-- ================= HEADER ================= -->
+
+    <header class="header">
 
         <h1>MI TIENDA</h1>
 
-       <input
-    type="text"
-    id="buscador"
-    placeholder="¿Qué estás buscando?"
->
+        <div class="buscador-container">
 
-        <button>Entrar</button>
+            <input
+                type="text"
+                id="buscador"
+                placeholder="¿Qué estás buscando?"
+            >
 
-        <button>🛒 Carrito</button>
+        </div>
+
+        <button class="boton-entrar">
+            Entrar
+        </button>
+
+        <button id="boton-carrito" class="boton-carrito">
+
+            🛒 Carrito
+
+            <span id="contador-carrito">
+                0
+            </span>
+
+        </button>
 
     </header>
 
 
-    <nav>
+    <!-- ================= NAVEGACIÓN ================= -->
 
-        <a href="index.html">Inicio</a>
+    <nav class="nav">
 
-        <a href="catalogo.html">Catálogo</a>
+        <a href="index.html">
+            Inicio
+        </a>
 
-        <a href="#">Promociones</a>
+        <a href="catalogo.html">
+            Catálogo
+        </a>
 
-        <a href="#">Comprar</a>
+        <a href="#">
+            Promociones
+        </a>
+
+        <a href="#">
+            Comprar
+        </a>
 
     </nav>
 
 
+    <!-- ================= CATÁLOGO ================= -->
+
     <main class="productos">
 
-        <h2>Catálogo de productos</h2>
+        <h2>
+            Catálogo de productos
+        </h2>
 
 
         <div class="productos-container">
 
 
-            <div class="producto">
+            <!-- PRODUCTO 1 -->
+
+            <article class="producto">
 
                 <div class="producto-imagen">
-                    📷
+
+                    <span>📷</span>
+
                 </div>
 
-                <h3>Cámara IP</h3>
+                <h3>
+                    Cámara IP
+                </h3>
 
-                <p>Cámara de seguridad para interiores y exteriores.</p>
+                <p>
+                    Cámara de seguridad para interiores y exteriores.
+                </p>
 
-                <strong>C$ 500</strong>
+                <strong>
+                    C$ 2,500
+                </strong>
 
-                <button>
+                <button
+                    class="agregar-carrito"
+                    data-nombre="Cámara IP"
+                    data-precio="2500"
+                >
                     Agregar al carrito
                 </button>
 
-            </div>
+            </article>
 
 
-            <div class="producto">
+            <!-- PRODUCTO 2 -->
+
+            <article class="producto">
 
                 <div class="producto-imagen">
-                    📦
+
+                    <span>📦</span>
+
                 </div>
 
-                <h3>DVR 8 canales</h3>
+                <h3>
+                    DVR 8 canales
+                </h3>
 
-                <p>Grabador para sistemas de videovigilancia.</p>
+                <p>
+                    Grabador para sistemas de videovigilancia.
+                </p>
 
-                <strong>C$ 4,200</strong>
+                <strong>
+                    C$ 4,200
+                </strong>
 
-                <button>
+                <button
+                    class="agregar-carrito"
+                    data-nombre="DVR 8 canales"
+                    data-precio="4200"
+                >
                     Agregar al carrito
                 </button>
 
-            </div>
+            </article>
 
 
-            <div class="producto">
+            <!-- PRODUCTO 3 -->
+
+            <article class="producto">
 
                 <div class="producto-imagen">
-                    🔌
+
+                    <span>🔌</span>
+
                 </div>
 
-                <h3>Cable Cat6</h3>
+                <h3>
+                    Cable Cat6
+                </h3>
 
-                <p>Cable de red para instalaciones.</p>
+                <p>
+                    Cable de red para instalaciones.
+                </p>
 
-                <strong>C$ 3,500</strong>
+                <strong>
+                    C$ 3,500
+                </strong>
 
-                <button>
+                <button
+                    class="agregar-carrito"
+                    data-nombre="Cable Cat6"
+                    data-precio="3500"
+                >
                     Agregar al carrito
                 </button>
 
-            </div>
+            </article>
 
 
-            <div class="producto">
+            <!-- PRODUCTO 4 -->
+
+            <article class="producto">
 
                 <div class="producto-imagen">
-                    🔧
+
+                    <span>🔧</span>
+
                 </div>
 
-                <h3>Kit de herramientas</h3>
+                <h3>
+                    Kit de herramientas
+                </h3>
 
-                <p>Herramientas para instalación y mantenimiento.</p>
+                <p>
+                    Herramientas para instalación y mantenimiento.
+                </p>
 
-                <strong>C$ 1,800</strong>
+                <strong>
+                    C$ 1,800
+                </strong>
 
-                <button>
+                <button
+                    class="agregar-carrito"
+                    data-nombre="Kit de herramientas"
+                    data-precio="1800"
+                >
                     Agregar al carrito
                 </button>
 
-            </div>
+            </article>
 
 
         </div>
 
     </main>
 
-<script src="script.js"></script>
+
+    <!-- ================= VENTANA DEL CARRITO ================= -->
+
+    <div
+        id="ventana-carrito"
+        class="carrito-ventana"
+    >
+
+        <div class="carrito-contenido">
+
+            <button
+                id="cerrar-carrito"
+                class="cerrar-carrito"
+            >
+                ✕
+            </button>
+
+
+            <h2>
+                🛒 Mi carrito
+            </h2>
+
+
+            <div id="lista-carrito">
+
+                <p class="carrito-vacio">
+                    Tu carrito está vacío.
+                </p>
+
+            </div>
+
+
+            <div class="total-carrito">
+
+                <strong>
+                    Total:
+                </strong>
+
+                <span>
+                    C$ <span id="total-carrito">0</span>
+                </span>
+
+            </div>
+
+
+            <button
+                id="finalizar-compra"
+                class="finalizar-compra"
+            >
+                Finalizar compra
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script src="script.js"></script>
 
 </body>
 
