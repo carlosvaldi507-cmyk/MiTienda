@@ -67,6 +67,9 @@ body {
     font-weight: 800;
 
     text-align: center;
+
+    position: relative;
+    z-index: 10000;
 }
 
 
@@ -74,7 +77,8 @@ body {
    HEADER
    ===================================================== */
 
-header {
+header,
+.header {
     width: 100%;
     max-width: 100%;
 
@@ -87,13 +91,14 @@ header {
 
     gap: 22px;
 
-    overflow: hidden;
+    overflow: visible;
 
     box-shadow:
         0 4px 20px rgba(0, 0, 0, 0.18);
 
     position: relative;
-    z-index: 100;
+
+    z-index: 99999;
 }
 
 
@@ -130,7 +135,7 @@ header {
 }
 
 
-/* COMPATIBILIDAD CON TU HEADER ACTUAL */
+/* COMPATIBILIDAD CON HEADER ACTUAL */
 
 header > h1 {
     color: white;
@@ -159,6 +164,8 @@ header > h1 {
 
     display: flex;
     align-items: center;
+
+    z-index: 100;
 }
 
 .buscador-principal input,
@@ -205,7 +212,7 @@ header > input:focus,
 
 
 /* =====================================================
-   BOTONES
+   BOTONES GENERALES
    ===================================================== */
 
 button {
@@ -306,6 +313,170 @@ button:hover {
 
 
 /* =====================================================
+   SELECTOR DE IDIOMA
+   ===================================================== */
+
+.selector-idioma {
+    position: relative;
+
+    display: inline-block;
+
+    flex-shrink: 0;
+
+    z-index: 999999 !important;
+}
+
+
+/* BOTÓN DEL IDIOMA */
+
+#boton-idioma {
+    position: relative;
+
+    z-index: 1000000;
+
+    background: #ffffff;
+
+    color: #102c3d;
+
+    border: 1px solid #d9e1e5;
+
+    border-radius: 12px;
+
+    padding: 12px 18px;
+
+    min-width: 145px;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.10);
+}
+
+#boton-idioma:hover {
+    background: #f7fafb;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 6px 18px rgba(0,0,0,0.15);
+}
+
+
+/* =====================================================
+   MENÚ DESPLEGABLE DE IDIOMAS
+   ===================================================== */
+
+.menu-idiomas {
+
+    position: absolute;
+
+    top: calc(100% + 8px);
+
+    right: 0;
+
+    width: 180px;
+
+    padding: 7px;
+
+    background: #ffffff;
+
+    border: 1px solid #e1e6e9;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,0.28);
+
+    display: none;
+
+    flex-direction: column;
+
+    gap: 4px;
+
+    z-index: 9999999 !important;
+
+    visibility: hidden;
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+
+/* MENÚ ABIERTO */
+
+.menu-idiomas.abierto {
+
+    display: flex !important;
+
+    visibility: visible !important;
+
+    opacity: 1 !important;
+
+    pointer-events: auto !important;
+
+    z-index: 9999999 !important;
+}
+
+
+/* OPCIONES */
+
+.menu-idiomas button {
+
+    width: 100%;
+
+    border: none;
+
+    background: #ffffff;
+
+    color: #183b4d;
+
+    padding: 11px 13px;
+
+    border-radius: 8px;
+
+    text-align: left;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transform: none;
+
+    transition:
+        background .2s ease,
+        color .2s ease;
+}
+
+.menu-idiomas button:hover {
+
+    background: #eef5f7;
+
+    color: #12677a;
+
+    transform: none;
+}
+
+
+/* IDIOMA ACTIVO */
+
+.menu-idiomas button.idioma-activo {
+
+    background: #12677a;
+
+    color: #ffffff;
+}
+
+
+/* =====================================================
    NAVEGACIÓN
    ===================================================== */
 
@@ -324,13 +495,14 @@ nav,
 
     align-items: center;
 
-    overflow: hidden;
+    overflow: visible;
 
     box-shadow:
         0 3px 12px rgba(0,0,0,0.12);
 
     position: relative;
-    z-index: 90;
+
+    z-index: 100;
 }
 
 nav a,
@@ -357,7 +529,7 @@ nav a:hover,
 
 
 /* =====================================================
-   BANNER / CARRUSEL
+   CARRUSEL
    ===================================================== */
 
 .carrusel {
@@ -371,6 +543,8 @@ nav a:hover,
 
     background:
         rgba(8,28,40,0.25);
+
+    z-index: 1;
 }
 
 .slide {
@@ -402,7 +576,7 @@ nav a:hover,
 
 
 /* =====================================================
-   CONTENIDO DEL SLIDE
+   CONTENIDO SLIDE
    ===================================================== */
 
 .slide-contenido {
@@ -511,7 +685,7 @@ nav a:hover,
 
 
 /* =====================================================
-   SLIDE VISUAL
+   VISUAL SLIDE
    ===================================================== */
 
 .slide-visual {
@@ -766,11 +940,6 @@ nav a:hover,
     gap: 25px;
 }
 
-
-/* =====================================================
-   PRODUCTO
-   ===================================================== */
-
 .producto {
     width: 100%;
 
@@ -905,7 +1074,7 @@ nav a:hover,
 
 
 /* =====================================================
-   CONTACTO WHATSAPP
+   CONTACTO
    ===================================================== */
 
 .contacto {
@@ -989,7 +1158,7 @@ nav a:hover,
 
     padding: 20px;
 
-    z-index: 9999;
+    z-index: 99999999;
 
     backdrop-filter: blur(4px);
 }
@@ -1247,11 +1416,6 @@ nav a:hover,
     transform: translateY(-4px);
 }
 
-
-/* =====================================================
-   FOOTER CONTENIDO
-   ===================================================== */
-
 .footer-contenido {
     width: 100%;
 
@@ -1300,11 +1464,6 @@ nav a:hover,
 
     transform: translateX(4px);
 }
-
-
-/* =====================================================
-   FOOTER FINAL
-   ===================================================== */
 
 .footer-final {
     width: 100%;
@@ -1367,7 +1526,8 @@ nav a:hover,
 
 @media (max-width: 900px) {
 
-    header {
+    header,
+    .header {
         padding: 15px 4%;
 
         gap: 15px;
@@ -1421,11 +1581,10 @@ nav a:hover,
     }
 
 
-    /* =================================================
-       HEADER MÓVIL
-       ================================================= */
+    /* HEADER MÓVIL */
 
-    header {
+    header,
+    .header {
         width: 100%;
 
         padding: 15px 12px;
@@ -1439,11 +1598,16 @@ nav a:hover,
         grid-template-areas:
             "titulo titulo"
             "buscador buscador"
-            "entrar carrito";
+            "entrar carrito"
+            "idioma idioma";
 
         gap: 11px;
 
         overflow: visible;
+
+        position: relative;
+
+        z-index: 999999;
     }
 
 
@@ -1473,14 +1637,14 @@ nav a:hover,
     }
 
 
-    /* =================================================
-       BUSCADOR GRANDE
-       ================================================= */
+    /* BUSCADOR */
 
     .buscador-principal {
         grid-area: buscador;
 
         width: 100%;
+
+        z-index: 100;
     }
 
     .buscador-principal input,
@@ -1503,7 +1667,7 @@ nav a:hover,
     }
 
 
-    /* BOTONES */
+    /* BOTÓN ENTRAR */
 
     .boton-entrar {
         grid-area: entrar;
@@ -1514,6 +1678,9 @@ nav a:hover,
 
         font-size: 15px;
     }
+
+
+    /* CARRITO */
 
     #boton-carrito {
         grid-area: carrito;
@@ -1528,9 +1695,50 @@ nav a:hover,
     }
 
 
-    /* =================================================
-       MENÚ MÓVIL
-       ================================================= */
+    /* IDIOMA EN MÓVIL */
+
+    .selector-idioma {
+        grid-area: idioma;
+
+        justify-self: center;
+
+        width: auto;
+
+        position: relative;
+
+        z-index: 9999999 !important;
+    }
+
+    #boton-idioma {
+        min-width: 180px;
+
+        height: 48px;
+
+        padding: 10px 16px;
+
+        font-size: 14px;
+
+        position: relative;
+
+        z-index: 10000000;
+    }
+
+    .menu-idiomas {
+        top: calc(100% + 7px);
+
+        left: 50%;
+
+        right: auto;
+
+        transform: translateX(-50%);
+
+        width: 190px;
+
+        z-index: 99999999 !important;
+    }
+
+
+    /* NAVEGACIÓN */
 
     nav,
     .nav {
@@ -1547,6 +1755,10 @@ nav a:hover,
         gap: 5px;
 
         flex-wrap: wrap;
+
+        position: relative;
+
+        z-index: 100;
     }
 
     nav a,
@@ -1557,12 +1769,14 @@ nav a:hover,
     }
 
 
-    /* =================================================
-       CARRUSEL MÓVIL
-       ================================================= */
+    /* CARRUSEL */
 
     .carrusel {
         min-height: 390px;
+
+        position: relative;
+
+        z-index: 1;
     }
 
     .slide {
@@ -1600,6 +1814,9 @@ nav a:hover,
         display: none;
     }
 
+
+    /* FLECHAS */
+
     .flecha-carrusel {
         width: 42px;
         height: 42px;
@@ -1616,9 +1833,7 @@ nav a:hover,
     }
 
 
-    /* =================================================
-       CATEGORÍAS
-       ================================================= */
+    /* CATEGORÍAS */
 
     .categorias {
         padding: 35px 15px;
@@ -1648,9 +1863,7 @@ nav a:hover,
     }
 
 
-    /* =================================================
-       PRODUCTOS
-       ================================================= */
+    /* PRODUCTOS */
 
     .productos {
         padding: 35px 12px;
@@ -1696,9 +1909,7 @@ nav a:hover,
     }
 
 
-    /* =================================================
-       CONTACTO
-       ================================================= */
+    /* CONTACTO */
 
     .contacto {
         flex-direction: column;
@@ -1721,9 +1932,7 @@ nav a:hover,
     }
 
 
-    /* =================================================
-       CARRITO MÓVIL
-       ================================================= */
+    /* CARRITO */
 
     .carrito-ventana {
         width: 100vw;
@@ -1771,9 +1980,7 @@ nav a:hover,
     }
 
 
-    /* =================================================
-       WHATSAPP
-       ================================================= */
+    /* WHATSAPP */
 
     .whatsapp-flotante {
         width: 57px;
@@ -1783,12 +1990,12 @@ nav a:hover,
         bottom: 15px;
 
         font-size: 27px;
+
+        z-index: 9000;
     }
 
 
-    /* =================================================
-       FOOTER
-       ================================================= */
+    /* FOOTER */
 
     .footer-redes {
         min-height: 70px;
@@ -1847,7 +2054,8 @@ nav a:hover,
 
     /* HEADER */
 
-    header {
+    header,
+    .header {
         padding: 13px 9px;
 
         gap: 8px;
@@ -1880,6 +2088,27 @@ nav a:hover,
         font-size: 13px;
 
         padding: 8px;
+    }
+
+
+    /* IDIOMA */
+
+    #boton-idioma {
+        min-width: 175px;
+
+        height: 46px;
+
+        font-size: 13px;
+    }
+
+    .menu-idiomas {
+        width: 180px;
+    }
+
+    .menu-idiomas button {
+        padding: 10px;
+
+        font-size: 13px;
     }
 
 
@@ -2049,14 +2278,16 @@ nav a:hover,
 
 @media (max-width: 360px) {
 
-    header {
+    header,
+    .header {
         grid-template-columns:
             1fr 1fr;
 
         grid-template-areas:
             "titulo titulo"
             "buscador buscador"
-            "entrar carrito";
+            "entrar carrito"
+            "idioma idioma";
     }
 
     .logo {
@@ -2076,6 +2307,10 @@ nav a:hover,
         grid-area: carrito;
     }
 
+    .selector-idioma {
+        grid-area: idioma;
+    }
+
     nav a,
     .nav a {
         font-size: 11px;
@@ -2092,145 +2327,55 @@ nav a:hover,
     }
 }
 
+
 /* =====================================================
-   SELECTOR DE IDIOMA
-===================================================== */
+   PROTECCIÓN FINAL DEL MENÚ DE IDIOMAS
+   ===================================================== */
+
+/*
+   Estas reglas tienen prioridad sobre las anteriores
+   para impedir que el carrusel o el fondo oculten
+   el menú desplegable.
+*/
+
+header,
+.header {
+    position: relative !important;
+    z-index: 999999 !important;
+
+    overflow: visible !important;
+}
 
 .selector-idioma {
-    position: relative;
-    display: inline-block;
-    z-index: 1000;
+    position: relative !important;
+
+    z-index: 9999999 !important;
 }
-
-
-/* BOTÓN PRINCIPAL */
 
 #boton-idioma {
-    background: rgba(255, 255, 255, 0.96);
-    color: #102c3d;
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    border-radius: 12px;
-    padding: 12px 18px;
-    min-width: 145px;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
+    position: relative !important;
 
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        background 0.2s ease;
+    z-index: 99999999 !important;
 }
-
-#boton-idioma:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-}
-
-
-/* MENÚ DESPLEGABLE */
 
 .menu-idiomas {
-    position: absolute;
-    top: calc(100% + 8px);
-    right: 0;
+    position: absolute !important;
 
-    min-width: 170px;
-
-    background: white;
-
-    border-radius: 12px;
-
-    padding: 7px;
-
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.18);
-
-    border: 1px solid #e5e7eb;
-
-    display: none;
-
-    flex-direction: column;
-
-    gap: 4px;
+    z-index: 999999999 !important;
 }
-
-
-/* CUANDO SE ABRE */
 
 .menu-idiomas.abierto {
-    display: flex;
+    display: flex !important;
+
+    visibility: visible !important;
+
+    opacity: 1 !important;
+
+    pointer-events: auto !important;
+
+    z-index: 999999999 !important;
 }
 
-
-/* OPCIONES */
-
-.menu-idiomas button {
-    width: 100%;
-
-    border: none;
-
-    background: transparent;
-
-    color: #183b4d;
-
-    padding: 11px 13px;
-
-    border-radius: 8px;
-
-    text-align: left;
-
-    font-size: 14px;
-
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition:
-        background 0.2s ease,
-        color 0.2s ease;
-}
-
-
-/* HOVER */
-
-.menu-idiomas button:hover {
-    background: #eef5f7;
-    color: #12677a;
-}
-
-
-/* IDIOMA ACTIVO */
-
-.menu-idiomas button.idioma-activo {
-    background: #12677a;
-    color: white;
-}
-
-
-/* =====================================================
-   RESPONSIVE
-===================================================== */
-
-@media (max-width: 768px) {
-
-    .selector-idioma {
-        width: auto;
-    }
-
-    #boton-idioma {
-        min-width: 120px;
-        padding: 10px 12px;
-        font-size: 13px;
-    }
-
-    .menu-idiomas {
-        right: 0;
-        min-width: 155px;
-    }
-
-    .menu-idiomas button {
-        padding: 10px;
-        font-size: 13px;
-    }
+.carrusel {
+    z-index: 1 !important;
 }
