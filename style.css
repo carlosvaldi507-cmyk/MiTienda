@@ -30,10 +30,12 @@ body {
 
     overflow-x: hidden;
 
+    background-color: #dfe7ec;
+
     background-image:
         linear-gradient(
-            rgba(255, 255, 255, 0.08),
-            rgba(255, 255, 255, 0.08)
+            rgba(15, 35, 48, 0.08),
+            rgba(15, 35, 48, 0.08)
         ),
         url("mi-fondo.png");
 
@@ -41,33 +43,27 @@ body {
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-
-    background-color: #e9eef2;
 }
 
 
 /* =====================================================
-   BARRA SUPERIOR DE OFERTAS
+   BARRA DE OFERTAS
    ===================================================== */
 
 .barra-oferta {
     width: 100%;
-
     min-height: 34px;
 
     display: flex;
-
     align-items: center;
     justify-content: center;
 
     padding: 7px 15px;
 
     background: #f4a62a;
-
     color: #17202a;
 
     font-size: 14px;
-
     font-weight: 800;
 
     text-align: center;
@@ -75,7 +71,7 @@ body {
 
 
 /* =====================================================
-   ENCABEZADO
+   HEADER
    ===================================================== */
 
 header {
@@ -87,7 +83,6 @@ header {
     padding: 18px 6%;
 
     display: flex;
-
     align-items: center;
 
     gap: 22px;
@@ -98,8 +93,7 @@ header {
         0 4px 20px rgba(0, 0, 0, 0.18);
 
     position: relative;
-
-    z-index: 10;
+    z-index: 100;
 }
 
 
@@ -111,17 +105,15 @@ header {
     flex-shrink: 0;
 
     display: flex;
-
     flex-direction: column;
 
     gap: 3px;
 }
 
 .logo h1 {
-    color: #ffffff;
+    color: white;
 
     font-size: 30px;
-
     font-weight: 850;
 
     letter-spacing: 1px;
@@ -130,7 +122,7 @@ header {
 }
 
 .logo span {
-    color: rgba(255, 255, 255, 0.68);
+    color: rgba(255,255,255,0.68);
 
     font-size: 10px;
 
@@ -138,13 +130,12 @@ header {
 }
 
 
-/* Compatibilidad con el header antiguo */
+/* COMPATIBILIDAD CON TU HEADER ACTUAL */
 
 header > h1 {
-    color: #ffffff;
+    color: white;
 
     font-size: 30px;
-
     font-weight: 800;
 
     letter-spacing: 1px;
@@ -156,7 +147,7 @@ header > h1 {
 
 
 /* =====================================================
-   BUSCADOR PRINCIPAL
+   BUSCADOR
    ===================================================== */
 
 .buscador-principal {
@@ -167,83 +158,54 @@ header > h1 {
     position: relative;
 
     display: flex;
-
     align-items: center;
 }
 
 .buscador-principal input,
-header > input {
+header > input,
+#buscador {
     width: 100%;
-
     min-width: 0;
 
-    padding: 14px 50px 14px 20px;
+    padding: 15px 22px;
 
     border-radius: 30px;
 
     border: 2px solid transparent;
 
-    background: rgba(255, 255, 255, 0.97);
+    background: rgba(255,255,255,0.98);
 
     color: #17202a;
 
     font-family: inherit;
 
-    font-size: 15px;
+    font-size: 16px;
 
     outline: none;
 
     transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
+        border-color .2s ease,
+        box-shadow .2s ease;
 }
 
 .buscador-principal input::placeholder,
-header > input::placeholder {
+header > input::placeholder,
+#buscador::placeholder {
     color: #7b8790;
 }
 
 .buscador-principal input:focus,
-header > input:focus {
+header > input:focus,
+#buscador:focus {
     border-color: #f4a62a;
 
     box-shadow:
-        0 0 0 3px rgba(244, 166, 42, 0.18);
-}
-
-.buscador-principal button {
-    position: absolute;
-
-    right: 7px;
-
-    top: 50%;
-
-    transform: translateY(-50%);
-
-    width: 38px;
-
-    height: 38px;
-
-    padding: 0;
-
-    border-radius: 50%;
-
-    background: transparent;
-
-    color: #173546;
-
-    font-size: 17px;
-}
-
-.buscador-principal button:hover {
-    background: #edf1f3;
-
-    transform: translateY(-50%);
+        0 0 0 3px rgba(244,166,42,0.18);
 }
 
 
 /* =====================================================
-   BOTONES GENERALES
+   BOTONES
    ===================================================== */
 
 button {
@@ -260,9 +222,9 @@ button {
     font-weight: 700;
 
     transition:
-        transform 0.2s ease,
-        background 0.2s ease,
-        box-shadow 0.2s ease;
+        transform .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
 }
 
 button:hover {
@@ -277,7 +239,7 @@ button:hover {
 .boton-entrar {
     background: transparent;
 
-    border: 1px solid rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(255,255,255,0.45);
 
     color: white;
 
@@ -287,7 +249,7 @@ button:hover {
 }
 
 .boton-entrar:hover {
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255,255,255,0.12);
 }
 
 
@@ -305,14 +267,14 @@ button:hover {
     flex-shrink: 0;
 
     box-shadow:
-        0 4px 12px rgba(244, 166, 42, 0.25);
+        0 4px 12px rgba(244,166,42,0.25);
 }
 
 #boton-carrito:hover {
     background: #ffb63d;
 
     box-shadow:
-        0 6px 16px rgba(244, 166, 42, 0.35);
+        0 6px 16px rgba(244,166,42,0.35);
 }
 
 
@@ -327,7 +289,6 @@ button:hover {
     justify-content: center;
 
     min-width: 22px;
-
     height: 22px;
 
     padding: 2px 6px;
@@ -353,7 +314,7 @@ nav,
     width: 100%;
     max-width: 100%;
 
-    background: rgba(16, 55, 75, 0.97);
+    background: rgba(16,55,75,0.98);
 
     padding: 14px 6%;
 
@@ -366,26 +327,27 @@ nav,
     overflow: hidden;
 
     box-shadow:
-        0 3px 12px rgba(0, 0, 0, 0.12);
+        0 3px 12px rgba(0,0,0,0.12);
+
+    position: relative;
+    z-index: 90;
 }
 
 nav a,
 .nav a {
-    color: #ffffff;
+    color: white;
 
     text-decoration: none;
 
-    font-size: 14px;
+    font-size: 15px;
 
-    font-weight: 650;
-
-    letter-spacing: 0.2px;
+    font-weight: 700;
 
     white-space: nowrap;
 
     transition:
-        color 0.2s ease,
-        opacity 0.2s ease;
+        color .2s ease,
+        opacity .2s ease;
 }
 
 nav a:hover,
@@ -395,7 +357,7 @@ nav a:hover,
 
 
 /* =====================================================
-   CARRUSEL PRINCIPAL
+   BANNER / CARRUSEL
    ===================================================== */
 
 .carrusel {
@@ -408,13 +370,8 @@ nav a:hover,
     overflow: hidden;
 
     background:
-        rgba(8, 28, 40, 0.28);
+        rgba(8,28,40,0.25);
 }
-
-
-/* =====================================================
-   SLIDES
-   ===================================================== */
 
 .slide {
     width: 100%;
@@ -424,7 +381,6 @@ nav a:hover,
     display: none;
 
     align-items: center;
-
     justify-content: space-between;
 
     position: relative;
@@ -434,9 +390,9 @@ nav a:hover,
     background:
         linear-gradient(
             90deg,
-            rgba(8, 28, 40, 0.88),
-            rgba(8, 28, 40, 0.48),
-            rgba(8, 28, 40, 0.15)
+            rgba(8,28,40,0.88),
+            rgba(8,28,40,0.48),
+            rgba(8,28,40,0.15)
         );
 }
 
@@ -464,7 +420,7 @@ nav a:hover,
 .slide-contenido h2 {
     color: white;
 
-    font-size: clamp(36px, 5vw, 62px);
+    font-size: clamp(36px,5vw,62px);
 
     line-height: 1.04;
 
@@ -475,11 +431,11 @@ nav a:hover,
     letter-spacing: -1px;
 
     text-shadow:
-        0 4px 16px rgba(0, 0, 0, 0.4);
+        0 4px 16px rgba(0,0,0,0.4);
 }
 
 .slide-contenido p {
-    color: rgba(255, 255, 255, 0.94);
+    color: rgba(255,255,255,0.94);
 
     font-size: 19px;
 
@@ -518,9 +474,6 @@ nav a:hover,
     padding: 14px 24px;
 
     border-radius: 9px;
-
-    box-shadow:
-        0 7px 20px rgba(0, 0, 0, 0.22);
 }
 
 .slide-contenido button:hover {
@@ -529,7 +482,7 @@ nav a:hover,
 
 
 /* =====================================================
-   IMAGEN DEL SLIDE
+   IMAGEN SLIDE
    ===================================================== */
 
 .slide-imagen {
@@ -542,7 +495,6 @@ nav a:hover,
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     overflow: hidden;
@@ -550,17 +502,16 @@ nav a:hover,
 
 .slide-imagen img {
     width: 100%;
-
     height: 100%;
 
     object-fit: cover;
 
-    opacity: 0.92;
+    opacity: .92;
 }
 
 
 /* =====================================================
-   SLIDES VISUALES
+   SLIDE VISUAL
    ===================================================== */
 
 .slide-visual {
@@ -571,7 +522,6 @@ nav a:hover,
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     font-size: 150px;
@@ -579,7 +529,7 @@ nav a:hover,
     background:
         radial-gradient(
             circle,
-            rgba(244, 166, 42, 0.30),
+            rgba(244,166,42,0.30),
             transparent 65%
         );
 }
@@ -587,25 +537,7 @@ nav a:hover,
 .slide-visual span {
     filter:
         drop-shadow(
-            0 15px 20px rgba(0, 0, 0, 0.35)
-        );
-}
-
-.slide-seguridad {
-    background:
-        linear-gradient(
-            135deg,
-            rgba(13, 92, 114, 0.80),
-            rgba(8, 28, 40, 0.30)
-        );
-}
-
-.slide-herramientas {
-    background:
-        linear-gradient(
-            135deg,
-            rgba(244, 166, 42, 0.55),
-            rgba(8, 28, 40, 0.25)
+            0 15px 20px rgba(0,0,0,.35)
         );
 }
 
@@ -622,25 +554,19 @@ nav a:hover,
     transform: translateY(-50%);
 
     width: 50px;
-
     height: 50px;
 
     padding: 0;
 
     border-radius: 50%;
 
-    background: rgba(255, 255, 255, 0.90);
+    background: rgba(255,255,255,.92);
 
     color: #173546;
 
-    font-size: 36px;
-
-    line-height: 1;
+    font-size: 32px;
 
     z-index: 5;
-
-    box-shadow:
-        0 5px 18px rgba(0, 0, 0, 0.20);
 }
 
 .flecha-carrusel:hover {
@@ -682,59 +608,21 @@ nav a:hover,
 
 .indicador {
     width: 11px;
-
     height: 11px;
 
     padding: 0;
 
     border-radius: 50%;
 
-    background: rgba(255, 255, 255, 0.60);
+    background: rgba(255,255,255,.60);
 
-    border: 2px solid rgba(255, 255, 255, 0.50);
+    border: 2px solid rgba(255,255,255,.50);
 }
 
 .indicador.activo {
     background: #f4a62a;
 
     border-color: #f4a62a;
-}
-
-.indicador:hover {
-    transform: scale(1.15);
-}
-
-
-/* =====================================================
-   TÍTULOS DE SECCIÓN
-   ===================================================== */
-
-.seccion-titulo {
-    margin-bottom: 30px;
-}
-
-.seccion-titulo > span {
-    display: block;
-
-    color: #f4a62a;
-
-    font-size: 12px;
-
-    font-weight: 850;
-
-    letter-spacing: 2px;
-
-    margin-bottom: 6px;
-}
-
-.seccion-titulo h2 {
-    margin-bottom: 8px;
-}
-
-.seccion-titulo p {
-    color: rgba(255, 255, 255, 0.88);
-
-    font-size: 16px;
 }
 
 
@@ -744,11 +632,10 @@ nav a:hover,
 
 .categorias {
     width: 100%;
-    max-width: 100%;
 
     padding: 55px 6%;
 
-    background: rgba(255, 255, 255, 0.16);
+    background: rgba(255,255,255,0.18);
 
     overflow: hidden;
 
@@ -757,7 +644,7 @@ nav a:hover,
 
 .categorias h2,
 .productos h2 {
-    color: #ffffff;
+    color: white;
 
     font-size: 32px;
 
@@ -765,18 +652,19 @@ nav a:hover,
 
     font-weight: 800;
 
+    margin-bottom: 30px;
+
     text-shadow:
-        0 2px 8px rgba(0, 0, 0, 0.35);
+        0 2px 8px rgba(0,0,0,.45);
 }
 
 .categorias-container {
     width: 100%;
-    max-width: 100%;
 
     display: grid;
 
     grid-template-columns:
-        repeat(5, minmax(0, 1fr));
+        repeat(5,minmax(0,1fr));
 
     gap: 20px;
 }
@@ -790,35 +678,32 @@ nav a:hover,
 
     border-radius: 16px;
 
-    background: rgba(255, 255, 255, 0.20);
+    background: rgba(255,255,255,.24);
 
-    border: 1px solid rgba(255, 255, 255, 0.30);
+    border: 1px solid rgba(255,255,255,.35);
 
     backdrop-filter: blur(8px);
 
     box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.10);
+        0 8px 25px rgba(0,0,0,.10);
 
     text-align: center;
 
     color: white;
-}
 
-button.categoria {
-    cursor: pointer;
-
-    font-family: inherit;
+    transition:
+        transform .2s ease,
+        background .2s ease;
 }
 
 .categoria:hover {
     transform: translateY(-5px);
 
-    background: rgba(255, 255, 255, 0.30);
+    background: rgba(255,255,255,.35);
 }
 
 .icono {
     width: 90px;
-
     height: 90px;
 
     border-radius: 50%;
@@ -833,7 +718,6 @@ button.categoria {
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     font-size: 38px;
@@ -841,26 +725,19 @@ button.categoria {
     margin: 0 auto 13px;
 
     box-shadow:
-        0 8px 18px rgba(0, 0, 0, 0.18);
+        0 8px 18px rgba(0,0,0,.18);
 }
 
+.categoria p,
 .categoria strong {
-    display: block;
-
     color: white;
 
     font-size: 16px;
 
-    margin-bottom: 4px;
+    font-weight: 800;
 
     text-shadow:
-        0 2px 6px rgba(0, 0, 0, 0.35);
-}
-
-.categoria > span {
-    color: rgba(255, 255, 255, 0.72);
-
-    font-size: 12px;
+        0 2px 6px rgba(0,0,0,.35);
 }
 
 
@@ -870,30 +747,28 @@ button.categoria {
 
 .productos {
     width: 100%;
-    max-width: 100%;
 
     padding: 55px 6%;
 
-    background: rgba(9, 32, 45, 0.20);
+    background: rgba(9,32,45,0.20);
 
     overflow: hidden;
 }
 
 .productos-container {
     width: 100%;
-    max-width: 100%;
 
     display: grid;
 
     grid-template-columns:
-        repeat(4, minmax(0, 1fr));
+        repeat(4,minmax(0,1fr));
 
     gap: 25px;
 }
 
 
 /* =====================================================
-   TARJETA PRODUCTO
+   PRODUCTO
    ===================================================== */
 
 .producto {
@@ -901,31 +776,31 @@ button.categoria {
 
     min-width: 0;
 
-    background: rgba(255, 255, 255, 0.90);
+    background: rgba(255,255,255,.93);
 
     padding: 18px;
 
     border-radius: 16px;
 
-    border: 1px solid rgba(255, 255, 255, 0.60);
+    border: 1px solid rgba(255,255,255,.70);
 
     box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.18);
+        0 10px 30px rgba(0,0,0,.18);
 
     backdrop-filter: blur(8px);
 
-    transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
-
     overflow: hidden;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
 }
 
 .producto:hover {
     transform: translateY(-6px);
 
     box-shadow:
-        0 16px 35px rgba(0, 0, 0, 0.25);
+        0 16px 35px rgba(0,0,0,.25);
 }
 
 
@@ -941,14 +816,13 @@ button.categoria {
     background:
         linear-gradient(
             135deg,
-            rgba(16, 55, 75, 0.10),
-            rgba(244, 166, 42, 0.12)
+            rgba(16,55,75,.10),
+            rgba(244,166,42,.12)
         );
 
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     font-size: 60px;
@@ -962,7 +836,6 @@ button.categoria {
 
 .producto-imagen img {
     width: 100%;
-
     height: 100%;
 
     object-fit: contain;
@@ -970,28 +843,8 @@ button.categoria {
 
 
 /* =====================================================
-   INFORMACIÓN
+   INFORMACIÓN PRODUCTO
    ===================================================== */
-
-.producto-info {
-    min-width: 0;
-}
-
-.producto-categoria {
-    display: inline-block;
-
-    color: #0d5c72;
-
-    font-size: 11px;
-
-    font-weight: 800;
-
-    text-transform: uppercase;
-
-    letter-spacing: 0.8px;
-
-    margin-bottom: 6px;
-}
 
 .producto h3 {
     color: #102f41;
@@ -1047,41 +900,12 @@ button.categoria {
     background: #083f4f;
 
     box-shadow:
-        0 5px 14px rgba(13, 92, 114, 0.25);
+        0 5px 14px rgba(13,92,114,.25);
 }
 
 
 /* =====================================================
-   BOTÓN VER CATÁLOGO
-   ===================================================== */
-
-.boton-ver-catalogo {
-    width: 100%;
-
-    display: flex;
-
-    justify-content: center;
-
-    margin-top: 35px;
-}
-
-.boton-ver-catalogo button {
-    background: #f4a62a;
-
-    color: #17202a;
-
-    padding: 14px 28px;
-
-    font-size: 15px;
-}
-
-.boton-ver-catalogo button:hover {
-    background: #ffb63d;
-}
-
-
-/* =====================================================
-   SECCIÓN WHATSAPP
+   CONTACTO WHATSAPP
    ===================================================== */
 
 .contacto {
@@ -1100,43 +924,25 @@ button.categoria {
     background:
         linear-gradient(
             135deg,
-            rgba(13, 92, 114, 0.96),
-            rgba(10, 35, 51, 0.97)
+            rgba(13,92,114,.97),
+            rgba(10,35,51,.98)
         );
 
     color: white;
-}
-
-.contacto > div {
-    min-width: 0;
-}
-
-.contacto > div > span {
-    color: #f4a62a;
-
-    font-size: 12px;
-
-    font-weight: 850;
-
-    letter-spacing: 1.5px;
 }
 
 .contacto h2 {
     font-size: 30px;
 
     margin: 7px 0 8px;
-
-    font-weight: 800;
 }
 
 .contacto p {
-    color: rgba(255, 255, 255, 0.78);
+    color: rgba(255,255,255,.78);
 
     font-size: 15px;
 
     line-height: 1.5;
-
-    max-width: 650px;
 }
 
 .boton-whatsapp-contacto {
@@ -1153,13 +959,6 @@ button.categoria {
     text-decoration: none;
 
     font-weight: 800;
-
-    box-shadow:
-        0 7px 18px rgba(0, 0, 0, 0.20);
-
-    transition:
-        transform 0.2s ease,
-        background 0.2s ease;
 }
 
 .boton-whatsapp-contacto:hover {
@@ -1181,20 +980,16 @@ button.categoria {
     inset: 0;
 
     width: 100vw;
-
     height: 100vh;
 
-    background: rgba(3, 15, 22, 0.72);
+    background: rgba(3,15,22,.72);
 
     justify-content: center;
-
     align-items: center;
 
     padding: 20px;
 
     z-index: 9999;
-
-    overflow: hidden;
 
     backdrop-filter: blur(4px);
 }
@@ -1202,7 +997,7 @@ button.categoria {
 .carrito-contenido {
     position: relative;
 
-    background: #ffffff;
+    background: white;
 
     width: 100%;
 
@@ -1212,21 +1007,18 @@ button.categoria {
 
     overflow-y: auto;
 
-    overflow-x: hidden;
-
     padding: 28px;
 
     border-radius: 18px;
 
     box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.35);
+        0 20px 60px rgba(0,0,0,.35);
 }
 
 .cerrar-carrito {
     position: absolute;
 
     right: 15px;
-
     top: 15px;
 
     background: #eef2f4;
@@ -1238,29 +1030,17 @@ button.categoria {
     padding: 7px 10px;
 }
 
-.cerrar-carrito:hover {
-    background: #dfe6ea;
-
-    color: #c0392b;
-}
-
 .carrito-contenido h2 {
-    margin-top: 0;
-
-    margin-bottom: 25px;
-
     color: #10374b;
 
-    font-size: 26px;
-
-    font-weight: 800;
+    margin-bottom: 25px;
 }
 
 .item-carrito {
     display: grid;
 
     grid-template-columns:
-        minmax(0, 1fr)
+        minmax(0,1fr)
         auto
         auto
         auto;
@@ -1271,9 +1051,8 @@ button.categoria {
 
     padding: 15px 0;
 
-    border-bottom: 1px solid #e1e6e9;
-
-    min-width: 0;
+    border-bottom:
+        1px solid #e1e6e9;
 }
 
 .info-producto {
@@ -1286,16 +1065,6 @@ button.categoria {
     min-width: 0;
 }
 
-.info-producto strong {
-    color: #17202a;
-
-    overflow-wrap: break-word;
-}
-
-.info-producto span {
-    color: #6c7880;
-}
-
 .controles-cantidad {
     display: flex;
 
@@ -1306,30 +1075,13 @@ button.categoria {
 
 .controles-cantidad button {
     width: 30px;
-
     height: 30px;
 
     padding: 0;
 
-    border-radius: 7px;
-
     background: #e9eef1;
 
     color: #173546;
-
-    font-size: 18px;
-}
-
-.controles-cantidad button:hover {
-    background: #d8e0e4;
-}
-
-.controles-cantidad span {
-    min-width: 20px;
-
-    text-align: center;
-
-    font-weight: 700;
 }
 
 .subtotal {
@@ -1343,9 +1095,9 @@ button.categoria {
 .eliminar-producto {
     background: transparent;
 
-    font-size: 18px;
-
     padding: 5px;
+
+    font-size: 18px;
 }
 
 .carrito-vacio {
@@ -1371,7 +1123,8 @@ button.categoria {
 
     padding-top: 20px;
 
-    border-top: 2px solid #dce3e7;
+    border-top:
+        2px solid #dce3e7;
 }
 
 .finalizar-compra {
@@ -1381,18 +1134,11 @@ button.categoria {
 
     padding: 14px;
 
-    border-radius: 10px;
-
     background: #25D366;
 
     color: white;
 
     font-size: 16px;
-
-    font-weight: 700;
-
-    box-shadow:
-        0 5px 15px rgba(37, 211, 102, 0.20);
 }
 
 .finalizar-compra:hover {
@@ -1408,17 +1154,14 @@ button.categoria {
     position: fixed;
 
     right: 22px;
-
     bottom: 22px;
 
     width: 62px;
-
     height: 62px;
 
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     border-radius: 50%;
@@ -1432,15 +1175,11 @@ button.categoria {
     font-size: 31px;
 
     box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.28);
+        0 8px 25px rgba(0,0,0,.28);
 
     z-index: 9000;
 
-    border: 4px solid rgba(255, 255, 255, 0.85);
-
-    transition:
-        transform 0.2s ease,
-        background 0.2s ease;
+    border: 4px solid rgba(255,255,255,.85);
 }
 
 .whatsapp-flotante:hover {
@@ -1457,22 +1196,13 @@ button.categoria {
 .footer {
     width: 100%;
 
-    max-width: 100%;
-
-    background: rgba(10, 35, 51, 0.98);
+    background: rgba(10,35,51,.98);
 
     color: white;
 
-    overflow: hidden;
-
     border-top:
-        1px solid rgba(255, 255, 255, 0.12);
+        1px solid rgba(255,255,255,.12);
 }
-
-
-/* =====================================================
-   REDES
-   ===================================================== */
 
 .footer-redes {
     width: 100%;
@@ -1482,25 +1212,22 @@ button.categoria {
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     gap: 55px;
 
-    background: rgba(13, 92, 114, 0.96);
+    background: rgba(13,92,114,.96);
 
     padding: 18px 20px;
 }
 
 .footer-redes a {
     width: 42px;
-
     height: 42px;
 
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     color: white;
@@ -1509,27 +1236,20 @@ button.categoria {
 
     font-size: 25px;
 
-    font-weight: 700;
-
     border-radius: 50%;
-
-    transition:
-        transform 0.2s ease,
-        background 0.2s ease,
-        color 0.2s ease;
 }
 
 .footer-redes a:hover {
-    transform: translateY(-4px);
-
-    background: rgba(244, 166, 42, 0.95);
+    background: #f4a62a;
 
     color: #17202a;
+
+    transform: translateY(-4px);
 }
 
 
 /* =====================================================
-   CONTENIDO FOOTER
+   FOOTER CONTENIDO
    ===================================================== */
 
 .footer-contenido {
@@ -1544,7 +1264,7 @@ button.categoria {
     display: grid;
 
     grid-template-columns:
-        repeat(4, minmax(0, 1fr));
+        repeat(4,minmax(0,1fr));
 
     gap: 40px;
 }
@@ -1565,22 +1285,14 @@ button.categoria {
     font-size: 18px;
 
     font-weight: 800;
-
-    margin-bottom: 8px;
 }
 
 .footer-columna a {
-    color: rgba(255, 255, 255, 0.78);
+    color: rgba(255,255,255,.78);
 
     text-decoration: none;
 
     font-size: 14px;
-
-    line-height: 1.5;
-
-    transition:
-        color 0.2s ease,
-        transform 0.2s ease;
 }
 
 .footer-columna a:hover {
@@ -1591,14 +1303,14 @@ button.categoria {
 
 
 /* =====================================================
-   PARTE FINAL
+   FOOTER FINAL
    ===================================================== */
 
 .footer-final {
     width: 100%;
 
     border-top:
-        1px solid rgba(255, 255, 255, 0.12);
+        1px solid rgba(255,255,255,.12);
 
     padding: 20px 6%;
 
@@ -1610,34 +1322,32 @@ button.categoria {
 
     gap: 20px;
 
-    background: rgba(5, 22, 32, 0.96);
+    background: rgba(5,22,32,.96);
 }
 
 .footer-final p {
-    color: rgba(255, 255, 255, 0.65);
+    color: rgba(255,255,255,.65);
 
     font-size: 13px;
 
     line-height: 1.5;
-
-    margin: 0;
 }
 
 
 /* =====================================================
-   TABLETS
+   TABLET
    ===================================================== */
 
 @media (max-width: 1100px) {
 
     .productos-container {
         grid-template-columns:
-            repeat(2, minmax(0, 1fr));
+            repeat(2,minmax(0,1fr));
     }
 
     .categorias-container {
         grid-template-columns:
-            repeat(3, minmax(0, 1fr));
+            repeat(3,minmax(0,1fr));
     }
 
     .slide-contenido {
@@ -1652,7 +1362,7 @@ button.categoria {
 
 
 /* =====================================================
-   TABLET
+   TABLET PEQUEÑA
    ===================================================== */
 
 @media (max-width: 900px) {
@@ -1663,8 +1373,8 @@ button.categoria {
         gap: 15px;
     }
 
-    .logo h1,
-    header > h1 {
+    header > h1,
+    .logo h1 {
         font-size: 26px;
     }
 
@@ -1678,19 +1388,12 @@ button.categoria {
     .categorias,
     .productos {
         padding-left: 4%;
-
         padding-right: 4%;
-    }
-
-    .footer-redes {
-        gap: 40px;
     }
 
     .footer-contenido {
         grid-template-columns:
-            repeat(2, minmax(0, 1fr));
-
-        gap: 35px;
+            repeat(2,minmax(0,1fr));
     }
 }
 
@@ -1704,7 +1407,6 @@ button.categoria {
     html,
     body {
         width: 100%;
-
         max-width: 100%;
 
         overflow-x: hidden;
@@ -1714,29 +1416,38 @@ button.categoria {
         background-attachment: scroll;
 
         background-position: center top;
+
+        background-size: cover;
     }
 
 
-    /* HEADER */
+    /* =================================================
+       HEADER MÓVIL
+       ================================================= */
 
     header {
         width: 100%;
 
-        padding: 14px 12px;
+        padding: 15px 12px;
 
         display: grid;
 
         grid-template-columns:
-            minmax(0, 1fr)
-            auto
-            auto;
+            minmax(0,1fr)
+            minmax(0,1fr);
 
         grid-template-areas:
-            "titulo titulo titulo"
-            "buscador entrar carrito";
+            "titulo titulo"
+            "buscador buscador"
+            "entrar carrito";
 
-        gap: 10px;
+        gap: 11px;
+
+        overflow: visible;
     }
+
+
+    /* LOGO */
 
     .logo {
         grid-area: titulo;
@@ -1750,12 +1461,21 @@ button.categoria {
 
     .logo h1,
     header > h1 {
-        font-size: 25px;
+        font-size: 28px;
+
+        text-align: center;
+
+        width: 100%;
     }
 
     .logo span {
         display: none;
     }
+
+
+    /* =================================================
+       BUSCADOR GRANDE
+       ================================================= */
 
     .buscador-principal {
         grid-area: buscador;
@@ -1763,36 +1483,60 @@ button.categoria {
         width: 100%;
     }
 
-    header > input {
-        grid-area: buscador;
+    .buscador-principal input,
+    header > input,
+    #buscador {
+        width: 100%;
+
+        height: 54px;
+
+        padding: 0 20px;
+
+        border-radius: 30px;
+
+        font-size: 17px;
+
+        border: 2px solid #d9e0e4;
+
+        box-shadow:
+            0 4px 12px rgba(0,0,0,.12);
     }
 
-    header button {
-        min-width: 0;
 
-        padding: 10px 12px;
-
-        font-size: 13px;
-    }
+    /* BOTONES */
 
     .boton-entrar {
         grid-area: entrar;
+
+        width: 100%;
+
+        height: 50px;
+
+        font-size: 15px;
     }
 
     #boton-carrito {
         grid-area: carrito;
 
-        max-width: 110px;
+        width: 100%;
+
+        max-width: none;
+
+        height: 50px;
+
+        font-size: 15px;
     }
 
 
-    /* NAV */
+    /* =================================================
+       MENÚ MÓVIL
+       ================================================= */
 
     nav,
     .nav {
         width: 100%;
 
-        padding: 11px 8px;
+        padding: 12px 7px;
 
         display: flex;
 
@@ -1800,7 +1544,7 @@ button.categoria {
 
         align-items: center;
 
-        gap: 4px;
+        gap: 5px;
 
         flex-wrap: wrap;
     }
@@ -1809,11 +1553,13 @@ button.categoria {
     .nav a {
         font-size: 13px;
 
-        padding: 5px 7px;
+        padding: 6px 8px;
     }
 
 
-    /* CARRUSEL */
+    /* =================================================
+       CARRUSEL MÓVIL
+       ================================================= */
 
     .carrusel {
         min-height: 390px;
@@ -1843,14 +1589,10 @@ button.categoria {
 
     .slide-contenido h2 {
         font-size: 34px;
-
-        line-height: 1.1;
     }
 
     .slide-contenido p {
         font-size: 16px;
-
-        max-width: 500px;
     }
 
     .slide-imagen,
@@ -1860,22 +1602,23 @@ button.categoria {
 
     .flecha-carrusel {
         width: 42px;
-
         height: 42px;
 
-        font-size: 30px;
+        font-size: 28px;
     }
 
     .flecha-carrusel.anterior {
-        left: 10px;
+        left: 9px;
     }
 
     .flecha-carrusel.siguiente {
-        right: 10px;
+        right: 9px;
     }
 
 
-    /* CATEGORÍAS */
+    /* =================================================
+       CATEGORÍAS
+       ================================================= */
 
     .categorias {
         padding: 35px 15px;
@@ -1883,12 +1626,12 @@ button.categoria {
 
     .categorias h2,
     .productos h2 {
-        font-size: 26px;
+        font-size: 27px;
     }
 
     .categorias-container {
         grid-template-columns:
-            repeat(2, minmax(0, 1fr));
+            repeat(2,minmax(0,1fr));
 
         gap: 14px;
     }
@@ -1899,14 +1642,15 @@ button.categoria {
 
     .icono {
         width: 72px;
-
         height: 72px;
 
-        font-size: 29px;
+        font-size: 30px;
     }
 
 
-    /* PRODUCTOS */
+    /* =================================================
+       PRODUCTOS
+       ================================================= */
 
     .productos {
         padding: 35px 12px;
@@ -1914,7 +1658,7 @@ button.categoria {
 
     .productos-container {
         grid-template-columns:
-            repeat(2, minmax(0, 1fr));
+            repeat(2,minmax(0,1fr));
 
         gap: 12px;
     }
@@ -1926,17 +1670,19 @@ button.categoria {
     }
 
     .producto-imagen {
-        height: 125px;
+        height: 135px;
 
         font-size: 45px;
     }
 
     .producto h3 {
-        font-size: 15px;
+        font-size: 16px;
     }
 
     .producto p {
         font-size: 12px;
+
+        line-height: 1.4;
     }
 
     .producto strong {
@@ -1944,13 +1690,15 @@ button.categoria {
     }
 
     .producto button {
-        padding: 10px 5px;
+        padding: 11px 5px;
 
         font-size: 12px;
     }
 
 
-    /* CONTACTO */
+    /* =================================================
+       CONTACTO
+       ================================================= */
 
     .contacto {
         flex-direction: column;
@@ -1964,10 +1712,6 @@ button.categoria {
         font-size: 26px;
     }
 
-    .contacto p {
-        font-size: 14px;
-    }
-
     .boton-whatsapp-contacto {
         width: 100%;
 
@@ -1977,11 +1721,12 @@ button.categoria {
     }
 
 
-    /* CARRITO */
+    /* =================================================
+       CARRITO MÓVIL
+       ================================================= */
 
     .carrito-ventana {
         width: 100vw;
-
         height: 100vh;
 
         padding: 10px;
@@ -2001,7 +1746,7 @@ button.categoria {
 
     .item-carrito {
         grid-template-columns:
-            minmax(0, 1fr)
+            minmax(0,1fr)
             auto;
 
         gap: 10px;
@@ -2026,22 +1771,24 @@ button.categoria {
     }
 
 
-    /* WHATSAPP */
+    /* =================================================
+       WHATSAPP
+       ================================================= */
 
     .whatsapp-flotante {
-        width: 56px;
-
-        height: 56px;
+        width: 57px;
+        height: 57px;
 
         right: 15px;
-
         bottom: 15px;
 
         font-size: 27px;
     }
 
 
-    /* FOOTER */
+    /* =================================================
+       FOOTER
+       ================================================= */
 
     .footer-redes {
         min-height: 70px;
@@ -2053,7 +1800,6 @@ button.categoria {
 
     .footer-redes a {
         width: 38px;
-
         height: 38px;
 
         font-size: 22px;
@@ -2061,7 +1807,7 @@ button.categoria {
 
     .footer-contenido {
         grid-template-columns:
-            repeat(2, minmax(0, 1fr));
+            repeat(2,minmax(0,1fr));
 
         gap: 30px 20px;
 
@@ -2082,12 +1828,6 @@ button.categoria {
         text-align: center;
 
         padding: 18px 15px;
-
-        gap: 8px;
-    }
-
-    .footer-final p {
-        font-size: 12px;
     }
 }
 
@@ -2104,53 +1844,59 @@ button.categoria {
         min-height: 30px;
     }
 
+
+    /* HEADER */
+
     header {
-        padding: 12px 8px;
+        padding: 13px 9px;
 
-        grid-template-columns:
-            minmax(0, 1fr)
-            auto
-            auto;
-
-        gap: 7px;
+        gap: 8px;
     }
 
     .logo h1,
     header > h1 {
-        font-size: 22px;
-
-        letter-spacing: 0.5px;
+        font-size: 24px;
     }
+
+
+    /* BUSCADOR */
 
     .buscador-principal input,
-    header > input {
-        font-size: 13px;
+    header > input,
+    #buscador {
+        height: 56px;
 
-        padding: 11px 40px 11px 12px;
+        font-size: 16px;
+
+        padding: 0 18px;
     }
+
+
+    /* BOTONES */
 
     header button {
-        font-size: 12px;
+        height: 48px;
 
-        padding: 9px 8px;
+        font-size: 13px;
+
+        padding: 8px;
     }
 
-    #boton-carrito {
-        max-width: 95px;
-    }
+
+    /* MENÚ */
 
     nav,
     .nav {
-        padding: 10px 5px;
-
         gap: 2px;
+
+        padding: 10px 4px;
     }
 
     nav a,
     .nav a {
         font-size: 12px;
 
-        padding: 5px;
+        padding: 5px 6px;
     }
 
 
@@ -2173,12 +1919,6 @@ button.categoria {
         font-size: 14px;
     }
 
-    .slide-contenido button {
-        font-size: 14px;
-
-        padding: 12px 19px;
-    }
-
 
     /* CATEGORÍAS */
 
@@ -2196,18 +1936,14 @@ button.categoria {
 
     .icono {
         width: 65px;
-
         height: 65px;
 
         font-size: 27px;
     }
 
+    .categoria p,
     .categoria strong {
         font-size: 14px;
-    }
-
-    .categoria > span {
-        font-size: 10px;
     }
 
 
@@ -2228,7 +1964,7 @@ button.categoria {
     }
 
     .producto-imagen {
-        height: 105px;
+        height: 115px;
 
         font-size: 40px;
     }
@@ -2256,18 +1992,16 @@ button.categoria {
     }
 
 
-    /* CONTACTO */
+    /* WHATSAPP */
 
-    .contacto {
-        padding: 30px 15px;
-    }
+    .whatsapp-flotante {
+        width: 54px;
+        height: 54px;
 
-    .contacto h2 {
-        font-size: 23px;
-    }
+        right: 12px;
+        bottom: 12px;
 
-    .contacto p {
-        font-size: 13px;
+        font-size: 25px;
     }
 
 
@@ -2281,7 +2015,6 @@ button.categoria {
 
     .footer-redes a {
         width: 34px;
-
         height: 34px;
 
         font-size: 20px;
@@ -2297,7 +2030,7 @@ button.categoria {
 
     .footer-columna {
         border-bottom:
-            1px solid rgba(255, 255, 255, 0.10);
+            1px solid rgba(255,255,255,.10);
 
         padding-bottom: 20px;
     }
@@ -2306,10 +2039,6 @@ button.categoria {
         border-bottom: none;
 
         padding-bottom: 0;
-    }
-
-    .footer-final {
-        padding: 16px 12px;
     }
 }
 
@@ -2321,7 +2050,8 @@ button.categoria {
 @media (max-width: 360px) {
 
     header {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns:
+            1fr 1fr;
 
         grid-template-areas:
             "titulo titulo"
@@ -2344,8 +2074,6 @@ button.categoria {
 
     #boton-carrito {
         grid-area: carrito;
-
-        max-width: none;
     }
 
     nav a,
@@ -2361,9 +2089,5 @@ button.categoria {
 
     .producto-imagen {
         height: 150px;
-    }
-
-    .categorias-container {
-        grid-template-columns: 1fr 1fr;
     }
 }

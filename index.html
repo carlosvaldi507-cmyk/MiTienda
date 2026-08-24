@@ -5,10 +5,7 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta
         name="description"
@@ -17,10 +14,7 @@
 
     <title>Mi Tienda Online</title>
 
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
+    <link rel="stylesheet" href="style.css">
 
 </head>
 
@@ -34,7 +28,9 @@
 
 <div class="barra-oferta">
 
-    🎁 Ofertas especiales de Mi Tienda
+    🎁 <span data-text="ofertaSuperior">
+        Ofertas especiales de Mi Tienda
+    </span>
 
 </div>
 
@@ -52,7 +48,7 @@
             MI TIENDA
         </h1>
 
-        <span>
+        <span data-text="eslogan">
             Soluciones para tu hogar y negocio
         </span>
 
@@ -73,6 +69,7 @@
         <button
             type="button"
             id="boton-buscar"
+            aria-label="Buscar"
         >
             🔍
         </button>
@@ -87,7 +84,7 @@
         type="button"
         onclick="window.location.href='catalogo.html'"
     >
-        👤 Entrar
+        👤 <span data-text="entrar">Entrar</span>
     </button>
 
 
@@ -99,13 +96,69 @@
         type="button"
     >
 
-        🛒 Carrito
+        🛒 <span data-text="carrito">Carrito</span>
 
         <span id="contador-carrito">
             0
         </span>
 
     </button>
+
+
+    <!-- =================================================
+         SELECTOR DE IDIOMA
+    ================================================== -->
+
+    <div class="selector-idioma">
+
+        <button
+            id="boton-idioma"
+            type="button"
+            aria-label="Seleccionar idioma"
+        >
+            🌐 Español ▾
+        </button>
+
+
+        <div
+            id="menu-idiomas"
+            class="menu-idiomas"
+        >
+
+            <button
+                type="button"
+                data-idioma="es"
+            >
+                🇪🇸 Español
+            </button>
+
+
+            <button
+                type="button"
+                data-idioma="en"
+            >
+                🇺🇸 English
+            </button>
+
+
+            <button
+                type="button"
+                data-idioma="fr"
+            >
+                🇫🇷 Français
+            </button>
+
+
+            <button
+                type="button"
+                data-idioma="pt"
+            >
+                🇧🇷 Português
+            </button>
+
+        </div>
+
+    </div>
 
 </header>
 
@@ -117,23 +170,27 @@
 
 <nav class="nav">
 
-    <a href="index.html">
+    <a href="index.html" data-text="inicio">
         Inicio
     </a>
 
-    <a href="#categorias">
+
+    <a href="#categorias" data-text="categorias">
         Categorías
     </a>
 
-    <a href="#promociones">
+
+    <a href="#promociones" data-text="promociones">
         Promociones
     </a>
 
-    <a href="catalogo.html">
+
+    <a href="catalogo.html" data-text="catalogo">
         Catálogo
     </a>
 
-    <a href="#productos">
+
+    <a href="#productos" data-text="comprar">
         Comprar
     </a>
 
@@ -158,21 +215,27 @@
         <div class="slide-contenido">
 
             <span class="etiqueta-promocion">
-                OFERTA
+                <span data-text="oferta">
+                    OFERTA
+                </span>
             </span>
 
-            <h2>
+
+            <h2 data-text="tituloOferta">
                 Grandes promociones
             </h2>
 
-            <p>
+
+            <p data-text="textoOferta">
                 Encuentra productos de calidad
                 para tu hogar y negocio.
             </p>
 
+
             <button
                 type="button"
                 onclick="window.location.href='catalogo.html'"
+                data-text="comprarAhora"
             >
                 Comprar ahora →
             </button>
@@ -200,21 +263,27 @@
         <div class="slide-contenido">
 
             <span class="etiqueta-promocion">
-                SEGURIDAD
+                <span data-text="seguridad">
+                    SEGURIDAD
+                </span>
             </span>
 
-            <h2>
+
+            <h2 data-text="tituloSeguridad">
                 Protege lo que más importa
             </h2>
 
-            <p>
+
+            <p data-text="textoSeguridad">
                 Soluciones de seguridad para
                 tu hogar y negocio.
             </p>
 
+
             <button
                 type="button"
                 onclick="window.location.href='catalogo.html'"
+                data-text="verProductos"
             >
                 Ver productos →
             </button>
@@ -241,21 +310,27 @@
         <div class="slide-contenido">
 
             <span class="etiqueta-promocion">
-                HERRAMIENTAS
+                <span data-text="herramientas">
+                    HERRAMIENTAS
+                </span>
             </span>
 
-            <h2>
+
+            <h2 data-text="tituloHerramientas">
                 Todo para tus proyectos
             </h2>
 
-            <p>
+
+            <p data-text="textoHerramientas">
                 Encuentra herramientas para
                 instalación y mantenimiento.
             </p>
 
+
             <button
                 type="button"
                 onclick="window.location.href='catalogo.html'"
+                data-text="verCatalogo"
             >
                 Ver catálogo →
             </button>
@@ -309,11 +384,13 @@
             type="button"
         ></button>
 
+
         <button
             class="indicador"
             data-slide="1"
             type="button"
         ></button>
+
 
         <button
             class="indicador"
@@ -338,11 +415,12 @@
 
     <div class="seccion-titulo">
 
-        <span>
+        <span data-text="explora">
             EXPLORA
         </span>
 
-        <h2>
+
+        <h2 data-text="tituloCategorias">
             Compra por categorías
         </h2>
 
@@ -362,11 +440,13 @@
                 🔨
             </div>
 
-            <strong>
+
+            <strong data-text="ferreteria">
                 Ferretería
             </strong>
 
-            <span>
+
+            <span data-text="verProductos">
                 Ver productos
             </span>
 
@@ -384,11 +464,13 @@
                 🔧
             </div>
 
-            <strong>
+
+            <strong data-text="herramientasCategoria">
                 Herramientas
             </strong>
 
-            <span>
+
+            <span data-text="verProductos">
                 Ver productos
             </span>
 
@@ -406,11 +488,13 @@
                 💡
             </div>
 
-            <strong>
+
+            <strong data-text="electrico">
                 Eléctrico
             </strong>
 
-            <span>
+
+            <span data-text="verProductos">
                 Ver productos
             </span>
 
@@ -428,11 +512,13 @@
                 🏠
             </div>
 
-            <strong>
+
+            <strong data-text="hogar">
                 Hogar
             </strong>
 
-            <span>
+
+            <span data-text="verProductos">
                 Ver productos
             </span>
 
@@ -450,11 +536,13 @@
                 🚿
             </div>
 
-            <strong>
+
+            <strong data-text="bano">
                 Baño
             </strong>
 
-            <span>
+
+            <span data-text="verProductos">
                 Ver productos
             </span>
 
@@ -478,15 +566,17 @@
 
     <div class="seccion-titulo">
 
-        <span>
+        <span data-text="destacados">
             DESTACADOS
         </span>
 
-        <h2>
+
+        <h2 data-text="productosDestacados">
             Productos destacados
         </h2>
 
-        <p>
+
+        <p data-text="descripcionDestacados">
             Algunos de nuestros productos disponibles.
         </p>
 
@@ -515,14 +605,17 @@
                     Seguridad
                 </span>
 
+
                 <h3>
                     Cámara IP
                 </h3>
+
 
                 <p>
                     Cámara de seguridad para
                     interiores y exteriores.
                 </p>
+
 
                 <strong>
                     C$ 2,500
@@ -535,7 +628,9 @@
                     data-nombre="Cámara IP"
                     data-precio="2500"
                 >
-                    🛒 Agregar al carrito
+                    🛒 <span data-text="agregarCarrito">
+                        Agregar al carrito
+                    </span>
                 </button>
 
             </div>
@@ -563,14 +658,17 @@
                     Seguridad
                 </span>
 
+
                 <h3>
                     DVR 8 canales
                 </h3>
+
 
                 <p>
                     Grabador para sistemas
                     de videovigilancia.
                 </p>
+
 
                 <strong>
                     C$ 4,200
@@ -583,7 +681,9 @@
                     data-nombre="DVR 8 canales"
                     data-precio="4200"
                 >
-                    🛒 Agregar al carrito
+                    🛒 <span data-text="agregarCarrito">
+                        Agregar al carrito
+                    </span>
                 </button>
 
             </div>
@@ -611,14 +711,17 @@
                     Eléctrico
                 </span>
 
+
                 <h3>
                     Cable Cat6
                 </h3>
+
 
                 <p>
                     Cable de red para
                     instalaciones.
                 </p>
+
 
                 <strong>
                     C$ 3,500
@@ -631,7 +734,9 @@
                     data-nombre="Cable Cat6"
                     data-precio="3500"
                 >
-                    🛒 Agregar al carrito
+                    🛒 <span data-text="agregarCarrito">
+                        Agregar al carrito
+                    </span>
                 </button>
 
             </div>
@@ -659,14 +764,17 @@
                     Herramientas
                 </span>
 
+
                 <h3>
                     Kit de herramientas
                 </h3>
+
 
                 <p>
                     Herramientas para instalación
                     y mantenimiento.
                 </p>
+
 
                 <strong>
                     C$ 1,800
@@ -679,7 +787,9 @@
                     data-nombre="Kit de herramientas"
                     data-precio="1800"
                 >
-                    🛒 Agregar al carrito
+                    🛒 <span data-text="agregarCarrito">
+                        Agregar al carrito
+                    </span>
                 </button>
 
             </div>
@@ -695,6 +805,7 @@
         <button
             type="button"
             onclick="window.location.href='catalogo.html'"
+            data-text="verCatalogoCompleto"
         >
             Ver catálogo completo →
         </button>
@@ -713,15 +824,17 @@
 
     <div>
 
-        <span>
+        <span data-text="necesitasAyuda">
             ¿NECESITAS AYUDA?
         </span>
 
-        <h2>
+
+        <h2 data-text="estamosAyudarte">
             Estamos para ayudarte
         </h2>
 
-        <p>
+
+        <p data-text="textoWhatsApp">
             Consulta disponibilidad, precios o realiza
             tu pedido directamente por WhatsApp.
         </p>
@@ -736,7 +849,9 @@
         rel="noopener noreferrer"
     >
 
-        💬 Escribir por WhatsApp
+        💬 <span data-text="escribirWhatsApp">
+            Escribir por WhatsApp
+        </span>
 
     </a>
 
@@ -766,14 +881,14 @@
         </button>
 
 
-        <h2>
+        <h2 data-text="miCarrito">
             🛒 Mi carrito
         </h2>
 
 
         <div id="lista-carrito">
 
-            <p class="carrito-vacio">
+            <p class="carrito-vacio" data-text="carritoVacio">
                 Tu carrito está vacío.
             </p>
 
@@ -782,15 +897,18 @@
 
         <div class="total-carrito">
 
-            <strong>
+            <strong data-text="total">
                 Total:
             </strong>
 
+
             <span>
                 C$
+
                 <span id="total-carrito">
                     0
                 </span>
+
             </span>
 
         </div>
@@ -801,7 +919,9 @@
             class="finalizar-compra"
             type="button"
         >
-            💬 Finalizar compra por WhatsApp
+            💬 <span data-text="finalizarWhatsApp">
+                Finalizar compra por WhatsApp
+            </span>
         </button>
 
 
@@ -822,9 +942,7 @@
     rel="noopener noreferrer"
     aria-label="Contactar por WhatsApp"
 >
-
     💬
-
 </a>
 
 
@@ -836,30 +954,19 @@
 <footer class="footer">
 
 
-    <!-- REDES -->
-
     <div class="footer-redes">
 
-        <a
-            href="#"
-            aria-label="X"
-        >
+        <a href="#" aria-label="X">
             𝕏
         </a>
 
 
-        <a
-            href="#"
-            aria-label="Instagram"
-        >
+        <a href="#" aria-label="Instagram">
             ◎
         </a>
 
 
-        <a
-            href="#"
-            aria-label="Facebook"
-        >
+        <a href="#" aria-label="Facebook">
             f
         </a>
 
@@ -874,10 +981,7 @@
         </a>
 
 
-        <a
-            href="#"
-            aria-label="YouTube"
-        >
+        <a href="#" aria-label="YouTube">
             ▶
         </a>
 
@@ -885,32 +989,40 @@
 
 
 
-    <!-- COLUMNAS -->
-
     <div class="footer-contenido">
 
 
         <div class="footer-columna">
 
-            <h3>
+            <h3 data-text="atencionCliente">
                 Atención al cliente
             </h3>
 
-            <a href="catalogo.html">
+
+            <a
+                href="catalogo.html"
+                data-text="comoComprar"
+            >
                 Cómo comprar
             </a>
 
-            <a href="https://wa.me/50576823472"
-               target="_blank"
-               rel="noopener noreferrer">
+
+            <a
+                href="https://wa.me/50576823472"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-text="contactarnos"
+            >
                 Contactarnos
             </a>
 
-            <a href="#">
+
+            <a href="#" data-text="preguntas">
                 Preguntas frecuentes
             </a>
 
-            <a href="#">
+
+            <a href="#" data-text="terminos">
                 Términos y condiciones
             </a>
 
@@ -920,23 +1032,27 @@
 
         <div class="footer-columna">
 
-            <h3>
+            <h3 data-text="miTienda">
                 Mi tienda
             </h3>
 
-            <a href="index.html">
+
+            <a href="index.html" data-text="inicio">
                 Inicio
             </a>
 
-            <a href="catalogo.html">
+
+            <a href="catalogo.html" data-text="catalogo">
                 Catálogo
             </a>
 
-            <a href="#promociones">
+
+            <a href="#promociones" data-text="promociones">
                 Promociones
             </a>
 
-            <a href="#productos">
+
+            <a href="#productos" data-text="productos">
                 Productos
             </a>
 
@@ -946,23 +1062,27 @@
 
         <div class="footer-columna">
 
-            <h3>
+            <h3 data-text="informacion">
                 Información
             </h3>
 
-            <a href="#">
+
+            <a href="#" data-text="sobreNosotros">
                 Sobre nosotros
             </a>
 
-            <a href="#">
+
+            <a href="#" data-text="formasPago">
                 Formas de pago
             </a>
 
-            <a href="#">
+
+            <a href="#" data-text="informacionEnvio">
                 Información de envío
             </a>
 
-            <a href="#">
+
+            <a href="#" data-text="privacidad">
                 Política de privacidad
             </a>
 
@@ -972,30 +1092,36 @@
 
         <div class="footer-columna">
 
-            <h3>
+            <h3 data-text="contacto">
                 Contacto
             </h3>
+
 
             <a
                 href="https://wa.me/50576823472"
                 target="_blank"
                 rel="noopener noreferrer"
+                data-text="whatsapp"
             >
                 WhatsApp
             </a>
 
-            <a href="#">
+
+            <a href="#" data-text="facebook">
                 Facebook
             </a>
 
-            <a href="#">
+
+            <a href="#" data-text="instagram">
                 Instagram
             </a>
+
 
             <a
                 href="https://wa.me/50576823472"
                 target="_blank"
                 rel="noopener noreferrer"
+                data-text="escribenos"
             >
                 Escríbenos
             </a>
@@ -1007,15 +1133,14 @@
 
 
 
-    <!-- PARTE FINAL -->
-
     <div class="footer-final">
 
-        <p>
+        <p data-text="derechos">
             © 2026 Mi Tienda — Todos los derechos reservados
         </p>
 
-        <p>
+
+        <p data-text="comprasSeguras">
             Compras fáciles, rápidas y seguras.
         </p>
 
