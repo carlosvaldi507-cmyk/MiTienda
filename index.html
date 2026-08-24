@@ -1,195 +1,502 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Mi Tienda Online</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
 </head>
+
 
 <body>
 
-    <header>
-        <h1>MI TIENDA</h1>
 
-        <input 
-            type="text" 
+    <!-- =====================================================
+         ENCABEZADO
+    ====================================================== -->
+
+    <header>
+
+        <h1>
+            MI TIENDA
+        </h1>
+
+
+        <!-- BUSCADOR -->
+
+        <input
+            type="text"
+            id="buscador"
             placeholder="¿Qué estás buscando?"
+            autocomplete="off"
         >
 
-        <button>Entrar</button>
 
-        <button>🛒 Carrito</button>
+        <!-- ENTRAR -->
+
+        <button
+            type="button"
+            onclick="window.location.href='catalogo.html'"
+        >
+            Entrar
+        </button>
+
+
+        <!-- CARRITO -->
+
+        <button
+            id="boton-carrito"
+            type="button"
+        >
+
+            🛒 Carrito
+
+            <span id="contador-carrito">
+                0
+            </span>
+
+        </button>
+
     </header>
 
+
+
+    <!-- =====================================================
+         NAVEGACIÓN
+    ====================================================== -->
+
     <nav>
-        <a href="#">Categorías</a>
-        <a href="#">Promociones</a>
-      <a href="catalogo.html">Catálogo</a>
-        <a href="#">Comprar</a>
+
+        <a href="index.html">
+            Inicio
+        </a>
+
+
+        <a href="#categorias">
+            Categorías
+        </a>
+
+
+        <a href="#promociones">
+            Promociones
+        </a>
+
+
+        <a href="catalogo.html">
+            Catálogo
+        </a>
+
+
+        <a href="#productos">
+            Comprar
+        </a>
+
     </nav>
 
-    <section class="banner">
+
+
+    <!-- =====================================================
+         BANNER
+    ====================================================== -->
+
+    <section
+        class="banner"
+        id="promociones"
+    >
 
         <div>
-            <h2>Grandes promociones</h2>
+
+            <h2>
+                Grandes promociones
+            </h2>
+
 
             <p>
                 Encuentra los mejores productos
                 al mejor precio.
             </p>
 
-            <button>Comprar ahora</button>
+
+            <button
+                type="button"
+                onclick="window.location.href='catalogo.html'"
+            >
+                Comprar ahora
+            </button>
+
         </div>
 
     </section>
 
-    <section class="categorias">
 
-        <h2>Compra por categorías</h2>
+
+    <!-- =====================================================
+         CATEGORÍAS
+    ====================================================== -->
+
+    <section
+        class="categorias"
+        id="categorias"
+    >
+
+        <h2>
+            Compra por categorías
+        </h2>
+
 
         <div class="categorias-container">
 
-            <div class="categoria">
-                <div class="icono">🔨</div>
-                <p>Ferretería</p>
-            </div>
 
             <div class="categoria">
-                <div class="icono">🔧</div>
-                <p>Herramientas</p>
+
+                <div class="icono">
+                    🔨
+                </div>
+
+                <p>
+                    Ferretería
+                </p>
+
             </div>
 
-            <div class="categoria">
-                <div class="icono">💡</div>
-                <p>Eléctrico</p>
-            </div>
 
             <div class="categoria">
-                <div class="icono">🏠</div>
-                <p>Hogar</p>
+
+                <div class="icono">
+                    🔧
+                </div>
+
+                <p>
+                    Herramientas
+                </p>
+
             </div>
 
+
             <div class="categoria">
-                <div class="icono">🚿</div>
-                <p>Baño</p>
+
+                <div class="icono">
+                    💡
+                </div>
+
+                <p>
+                    Eléctrico
+                </p>
+
             </div>
+
+
+            <div class="categoria">
+
+                <div class="icono">
+                    🏠
+                </div>
+
+                <p>
+                    Hogar
+                </p>
+
+            </div>
+
+
+            <div class="categoria">
+
+                <div class="icono">
+                    🚿
+                </div>
+
+                <p>
+                    Baño
+                </p>
+
+            </div>
+
 
         </div>
 
     </section>
 
-    <section class="productos">
 
-        <h2>Productos destacados</h2>
+
+    <!-- =====================================================
+         PRODUCTOS DESTACADOS
+    ====================================================== -->
+
+    <section
+        class="productos"
+        id="productos"
+    >
+
+        <h2>
+            Productos destacados
+        </h2>
+
 
         <div class="productos-container">
 
-            <div class="producto">
-    <div class="producto-imagen">
-        📷
-    </div>
 
-    <h3>Cámara IP</h3>
+            <!-- =================================================
+                 PRODUCTO 1
+            ================================================== -->
 
-    <p>Cámara de seguridad para interiores y exteriores.</p>
-
-    <strong>C$ 2,500</strong>
-
-    <button>
-        Agregar al carrito
-    </button>
-</div>
+            <article class="producto">
 
                 <div class="producto-imagen">
-                    📷
+                    <span>📷</span>
                 </div>
 
-                <h3>Cámara IP</h3>
 
-                <p>Producto de seguridad</p>
+                <h3>
+                    Cámara IP
+                </h3>
 
-                <strong>C$ 2,500</strong>
 
-                <button>
+                <p>
+                    Cámara de seguridad para
+                    interiores y exteriores.
+                </p>
+
+
+                <strong>
+                    C$ 2,500
+                </strong>
+
+
+                <button
+                    type="button"
+                    class="agregar-carrito"
+                    data-nombre="Cámara IP"
+                    data-precio="2500"
+                >
                     Agregar al carrito
                 </button>
 
-            </div>
+            </article>
 
 
-           <div class="producto">
-    <div class="producto-imagen">
-        📷
-    </div>
 
-    <h3>Cámara IP</h3>
+            <!-- =================================================
+                 PRODUCTO 2
+            ================================================== -->
 
-    <p>Cámara de seguridad para interiores y exteriores.</p>
-
-    <strong>C$ 2,500</strong>
-
-    <button>
-        Agregar al carrito
-    </button>
-</div>
+            <article class="producto">
 
                 <div class="producto-imagen">
-                    📦
+                    <span>📦</span>
                 </div>
 
-                <h3>DVR 8 canales</h3>
 
-                <p>Grabador de video</p>
+                <h3>
+                    DVR 8 canales
+                </h3>
 
-                <strong>C$ 4,200</strong>
 
-                <button>
+                <p>
+                    Grabador para sistemas
+                    de videovigilancia.
+                </p>
+
+
+                <strong>
+                    C$ 4,200
+                </strong>
+
+
+                <button
+                    type="button"
+                    class="agregar-carrito"
+                    data-nombre="DVR 8 canales"
+                    data-precio="4200"
+                >
                     Agregar al carrito
                 </button>
 
-            </div>
+            </article>
 
 
-           <div class="producto">
-    <div class="producto-imagen">
-        📷
-    </div>
 
-    <h3>Cámara IP</h3>
+            <!-- =================================================
+                 PRODUCTO 3
+            ================================================== -->
 
-    <p>Cámara de seguridad para interiores y exteriores.</p>
-
-    <strong>C$ 2,500</strong>
-
-    <button>
-        Agregar al carrito
-    </button>
-</div>
+            <article class="producto">
 
                 <div class="producto-imagen">
-                    🔌
+                    <span>🔌</span>
                 </div>
 
-                <h3>Cable Cat6</h3>
 
-                <p>Cable de red</p>
+                <h3>
+                    Cable Cat6
+                </h3>
 
-                <strong>C$ 3,500</strong>
 
-                <button>
+                <p>
+                    Cable de red para
+                    instalaciones.
+                </p>
+
+
+                <strong>
+                    C$ 3,500
+                </strong>
+
+
+                <button
+                    type="button"
+                    class="agregar-carrito"
+                    data-nombre="Cable Cat6"
+                    data-precio="3500"
+                >
                     Agregar al carrito
                 </button>
 
-            </div>
+            </article>
+
+
+
+            <!-- =================================================
+                 PRODUCTO 4
+            ================================================== -->
+
+            <article class="producto">
+
+                <div class="producto-imagen">
+                    <span>🔧</span>
+                </div>
+
+
+                <h3>
+                    Kit de herramientas
+                </h3>
+
+
+                <p>
+                    Herramientas para instalación
+                    y mantenimiento.
+                </p>
+
+
+                <strong>
+                    C$ 1,800
+                </strong>
+
+
+                <button
+                    type="button"
+                    class="agregar-carrito"
+                    data-nombre="Kit de herramientas"
+                    data-precio="1800"
+                >
+                    Agregar al carrito
+                </button>
+
+            </article>
+
 
         </div>
 
-        <!-- MiTienda publicada -->
-
     </section>
 
+
+
+    <!-- =====================================================
+         VENTANA DEL CARRITO
+    ====================================================== -->
+
+    <div
+        id="ventana-carrito"
+        class="carrito-ventana"
+    >
+
+        <div class="carrito-contenido">
+
+
+            <!-- CERRAR -->
+
+            <button
+                id="cerrar-carrito"
+                class="cerrar-carrito"
+                type="button"
+            >
+                ✕
+            </button>
+
+
+            <h2>
+                🛒 Mi carrito
+            </h2>
+
+
+            <!-- PRODUCTOS DEL CARRITO -->
+
+            <div id="lista-carrito">
+
+                <p class="carrito-vacio">
+                    Tu carrito está vacío.
+                </p>
+
+            </div>
+
+
+            <!-- TOTAL -->
+
+            <div class="total-carrito">
+
+                <strong>
+                    Total:
+                </strong>
+
+
+                <span>
+
+                    C$
+
+                    <span id="total-carrito">
+                        0
+                    </span>
+
+                </span>
+
+            </div>
+
+
+            <!-- FINALIZAR -->
+
+            <button
+                id="finalizar-compra"
+                class="finalizar-compra"
+                type="button"
+            >
+                Finalizar compra
+            </button>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script src="script.js"></script>
+
+
 </body>
+
 </html>

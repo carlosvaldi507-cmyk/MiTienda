@@ -3,7 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Catálogo - Mi Tienda</title>
 
@@ -12,11 +14,15 @@
 
 <body>
 
-    <!-- ================= HEADER ================= -->
+    <!-- =====================================================
+         ENCABEZADO
+    ====================================================== -->
 
     <header class="header">
 
         <h1>MI TIENDA</h1>
+
+        <!-- BUSCADOR -->
 
         <div class="buscador-container">
 
@@ -24,28 +30,43 @@
                 type="text"
                 id="buscador"
                 placeholder="¿Qué estás buscando?"
+                autocomplete="off"
             >
 
         </div>
 
-        <button class="boton-entrar">
+
+        <!-- BOTÓN ENTRAR -->
+
+        <button
+            class="boton-entrar"
+            type="button"
+            onclick="window.location.href='index.html'"
+        >
             Entrar
         </button>
 
-        <button id="boton-carrito" class="boton-carrito">
+
+        <!-- CARRITO -->
+
+        <button
+            id="boton-carrito"
+            class="boton-carrito"
+            type="button"
+        >
 
             🛒 Carrito
 
-            <span id="contador-carrito">
-                0
-            </span>
+            <span id="contador-carrito">0</span>
 
         </button>
 
     </header>
 
 
-    <!-- ================= NAVEGACIÓN ================= -->
+    <!-- =====================================================
+         NAVEGACIÓN
+    ====================================================== -->
 
     <nav class="nav">
 
@@ -57,18 +78,20 @@
             Catálogo
         </a>
 
-        <a href="#">
+        <a href="index.html#promociones">
             Promociones
         </a>
 
-        <a href="#">
+        <a href="index.html#productos">
             Comprar
         </a>
 
     </nav>
 
 
-    <!-- ================= CATÁLOGO ================= -->
+    <!-- =====================================================
+         CATÁLOGO
+    ====================================================== -->
 
     <main class="productos">
 
@@ -80,14 +103,14 @@
         <div class="productos-container">
 
 
-            <!-- PRODUCTO 1 -->
+            <!-- =================================================
+                 PRODUCTO 1
+            ================================================== -->
 
             <article class="producto">
 
                 <div class="producto-imagen">
-
                     <span>📷</span>
-
                 </div>
 
                 <h3>
@@ -103,6 +126,7 @@
                 </strong>
 
                 <button
+                    type="button"
                     class="agregar-carrito"
                     data-nombre="Cámara IP"
                     data-precio="2500"
@@ -113,14 +137,14 @@
             </article>
 
 
-            <!-- PRODUCTO 2 -->
+            <!-- =================================================
+                 PRODUCTO 2
+            ================================================== -->
 
             <article class="producto">
 
                 <div class="producto-imagen">
-
                     <span>📦</span>
-
                 </div>
 
                 <h3>
@@ -136,6 +160,7 @@
                 </strong>
 
                 <button
+                    type="button"
                     class="agregar-carrito"
                     data-nombre="DVR 8 canales"
                     data-precio="4200"
@@ -146,14 +171,14 @@
             </article>
 
 
-            <!-- PRODUCTO 3 -->
+            <!-- =================================================
+                 PRODUCTO 3
+            ================================================== -->
 
             <article class="producto">
 
                 <div class="producto-imagen">
-
                     <span>🔌</span>
-
                 </div>
 
                 <h3>
@@ -169,6 +194,7 @@
                 </strong>
 
                 <button
+                    type="button"
                     class="agregar-carrito"
                     data-nombre="Cable Cat6"
                     data-precio="3500"
@@ -179,14 +205,14 @@
             </article>
 
 
-            <!-- PRODUCTO 4 -->
+            <!-- =================================================
+                 PRODUCTO 4
+            ================================================== -->
 
             <article class="producto">
 
                 <div class="producto-imagen">
-
                     <span>🔧</span>
-
                 </div>
 
                 <h3>
@@ -202,6 +228,7 @@
                 </strong>
 
                 <button
+                    type="button"
                     class="agregar-carrito"
                     data-nombre="Kit de herramientas"
                     data-precio="1800"
@@ -217,7 +244,9 @@
     </main>
 
 
-    <!-- ================= VENTANA DEL CARRITO ================= -->
+    <!-- =====================================================
+         VENTANA DEL CARRITO
+    ====================================================== -->
 
     <div
         id="ventana-carrito"
@@ -226,9 +255,13 @@
 
         <div class="carrito-contenido">
 
+
+            <!-- CERRAR -->
+
             <button
                 id="cerrar-carrito"
                 class="cerrar-carrito"
+                type="button"
             >
                 ✕
             </button>
@@ -239,6 +272,8 @@
             </h2>
 
 
+            <!-- LISTA DE PRODUCTOS -->
+
             <div id="lista-carrito">
 
                 <p class="carrito-vacio">
@@ -247,6 +282,8 @@
 
             </div>
 
+
+            <!-- TOTAL -->
 
             <div class="total-carrito">
 
@@ -261,9 +298,12 @@
             </div>
 
 
+            <!-- FINALIZAR COMPRA -->
+
             <button
                 id="finalizar-compra"
                 class="finalizar-compra"
+                type="button"
             >
                 Finalizar compra
             </button>
@@ -273,7 +313,9 @@
     </div>
 
 
-    <!-- ================= JAVASCRIPT ================= -->
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
 
     <script src="script.js"></script>
 
