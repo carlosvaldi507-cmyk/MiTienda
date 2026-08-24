@@ -5,16 +5,48 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="description"
-        content="Mi Tienda Online - Productos, herramientas y soluciones para tu hogar y negocio."
-    >
+    <meta name="description"
+          content="Mi Tienda Online - Productos, herramientas y soluciones para tu hogar y negocio.">
+
+    <meta name="theme-color"
+          content="#0d5c72">
 
     <title>Mi Tienda Online</title>
 
-    <link rel="stylesheet" href="style.css">
+
+    <!-- =====================================================
+         ESTILOS
+    ====================================================== -->
+
+    <link rel="stylesheet"
+          href="style.css">
+
+
+    <!-- =====================================================
+         PWA
+    ====================================================== -->
+
+    <link rel="manifest"
+          href="manifest.json">
+
+    <link rel="icon"
+          type="image/png"
+          href="icon-192.png">
+
+    <meta name="mobile-web-app-capable"
+          content="yes">
+
+    <meta name="apple-mobile-web-app-capable"
+          content="yes">
+
+    <meta name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent">
+
+    <meta name="apple-mobile-web-app-title"
+          content="Mi Tienda">
 
 </head>
 
@@ -28,7 +60,9 @@
 
 <div class="barra-oferta">
 
-    🎁 <span data-text="ofertaSuperior">
+    🎁
+
+    <span data-text="ofertaSuperior">
         Ofertas especiales de Mi Tienda
     </span>
 
@@ -42,6 +76,9 @@
 
 <header class="header">
 
+
+    <!-- LOGO -->
+
     <div class="logo">
 
         <h1>
@@ -53,6 +90,7 @@
         </span>
 
     </div>
+
 
 
     <!-- BUSCADOR -->
@@ -77,6 +115,7 @@
     </div>
 
 
+
     <!-- ENTRAR -->
 
     <button
@@ -84,8 +123,15 @@
         type="button"
         onclick="window.location.href='catalogo.html'"
     >
-        👤 <span data-text="entrar">Entrar</span>
+
+        👤
+
+        <span data-text="entrar">
+            Entrar
+        </span>
+
     </button>
+
 
 
     <!-- CARRITO -->
@@ -96,7 +142,11 @@
         type="button"
     >
 
-        🛒 <span data-text="carrito">Carrito</span>
+        🛒
+
+        <span data-text="carrito">
+            Carrito
+        </span>
 
         <span id="contador-carrito">
             0
@@ -105,19 +155,24 @@
     </button>
 
 
+
     <!-- =================================================
          SELECTOR DE IDIOMA
     ================================================== -->
 
     <div class="selector-idioma">
 
+
         <button
             id="boton-idioma"
             type="button"
             aria-label="Seleccionar idioma"
         >
+
             🌐 Español ▾
+
         </button>
+
 
 
         <div
@@ -170,28 +225,43 @@
 
 <nav class="nav">
 
-    <a href="index.html" data-text="inicio">
+    <a href="index.html"
+       data-text="inicio">
+
         Inicio
+
     </a>
 
 
-    <a href="#categorias" data-text="categorias">
+    <a href="#categorias"
+       data-text="categorias">
+
         Categorías
+
     </a>
 
 
-    <a href="#promociones" data-text="promociones">
+    <a href="#promociones"
+       data-text="promociones">
+
         Promociones
+
     </a>
 
 
-    <a href="catalogo.html" data-text="catalogo">
+    <a href="catalogo.html"
+       data-text="catalogo">
+
         Catálogo
+
     </a>
 
 
-    <a href="#productos" data-text="comprar">
+    <a href="#productos"
+       data-text="comprar">
+
         Comprar
+
     </a>
 
 </nav>
@@ -212,12 +282,16 @@
 
     <article class="slide activo">
 
+
         <div class="slide-contenido">
 
+
             <span class="etiqueta-promocion">
+
                 <span data-text="oferta">
                     OFERTA
                 </span>
+
             </span>
 
 
@@ -227,8 +301,10 @@
 
 
             <p data-text="textoOferta">
+
                 Encuentra productos de calidad
                 para tu hogar y negocio.
+
             </p>
 
 
@@ -237,10 +313,13 @@
                 onclick="window.location.href='catalogo.html'"
                 data-text="comprarAhora"
             >
+
                 Comprar ahora →
+
             </button>
 
         </div>
+
 
 
         <div class="slide-imagen">
@@ -260,12 +339,16 @@
 
     <article class="slide">
 
+
         <div class="slide-contenido">
 
+
             <span class="etiqueta-promocion">
+
                 <span data-text="seguridad">
                     SEGURIDAD
                 </span>
+
             </span>
 
 
@@ -275,8 +358,10 @@
 
 
             <p data-text="textoSeguridad">
+
                 Soluciones de seguridad para
                 tu hogar y negocio.
+
             </p>
 
 
@@ -285,10 +370,13 @@
                 onclick="window.location.href='catalogo.html'"
                 data-text="verProductos"
             >
+
                 Ver productos →
+
             </button>
 
         </div>
+
 
 
         <div class="slide-visual slide-seguridad">
@@ -307,12 +395,16 @@
 
     <article class="slide">
 
+
         <div class="slide-contenido">
 
+
             <span class="etiqueta-promocion">
+
                 <span data-text="herramientas">
                     HERRAMIENTAS
                 </span>
+
             </span>
 
 
@@ -322,8 +414,10 @@
 
 
             <p data-text="textoHerramientas">
+
                 Encuentra herramientas para
                 instalación y mantenimiento.
+
             </p>
 
 
@@ -332,10 +426,13 @@
                 onclick="window.location.href='catalogo.html'"
                 data-text="verCatalogo"
             >
+
                 Ver catálogo →
+
             </button>
 
         </div>
+
 
 
         <div class="slide-visual slide-herramientas">
@@ -358,8 +455,11 @@
         type="button"
         aria-label="Promoción anterior"
     >
+
         ‹
+
     </button>
+
 
 
     <!-- FLECHA SIGUIENTE -->
@@ -370,13 +470,17 @@
         type="button"
         aria-label="Siguiente promoción"
     >
+
         ›
+
     </button>
+
 
 
     <!-- INDICADORES -->
 
     <div class="indicadores">
+
 
         <button
             class="indicador activo"
@@ -413,7 +517,9 @@
     id="categorias"
 >
 
+
     <div class="seccion-titulo">
+
 
         <span data-text="explora">
             EXPLORA
@@ -425,6 +531,7 @@
         </h2>
 
     </div>
+
 
 
     <div class="categorias-container">
@@ -548,7 +655,6 @@
 
         </button>
 
-
     </div>
 
 </section>
@@ -564,7 +670,9 @@
     id="productos"
 >
 
+
     <div class="seccion-titulo">
+
 
         <span data-text="destacados">
             DESTACADOS
@@ -577,10 +685,13 @@
 
 
         <p data-text="descripcionDestacados">
+
             Algunos de nuestros productos disponibles.
+
         </p>
 
     </div>
+
 
 
     <div class="productos-container">
@@ -589,6 +700,7 @@
         <!-- PRODUCTO 1 -->
 
         <article class="producto">
+
 
             <div class="producto-imagen">
 
@@ -601,6 +713,7 @@
 
             <div class="producto-info">
 
+
                 <span class="producto-categoria">
                     Seguridad
                 </span>
@@ -612,8 +725,10 @@
 
 
                 <p>
+
                     Cámara de seguridad para
                     interiores y exteriores.
+
                 </p>
 
 
@@ -628,9 +743,13 @@
                     data-nombre="Cámara IP"
                     data-precio="2500"
                 >
-                    🛒 <span data-text="agregarCarrito">
+
+                    🛒
+
+                    <span data-text="agregarCarrito">
                         Agregar al carrito
                     </span>
+
                 </button>
 
             </div>
@@ -643,6 +762,7 @@
 
         <article class="producto">
 
+
             <div class="producto-imagen">
 
                 <span>
@@ -653,6 +773,7 @@
 
 
             <div class="producto-info">
+
 
                 <span class="producto-categoria">
                     Seguridad
@@ -665,8 +786,10 @@
 
 
                 <p>
+
                     Grabador para sistemas
                     de videovigilancia.
+
                 </p>
 
 
@@ -681,9 +804,13 @@
                     data-nombre="DVR 8 canales"
                     data-precio="4200"
                 >
-                    🛒 <span data-text="agregarCarrito">
+
+                    🛒
+
+                    <span data-text="agregarCarrito">
                         Agregar al carrito
                     </span>
+
                 </button>
 
             </div>
@@ -696,6 +823,7 @@
 
         <article class="producto">
 
+
             <div class="producto-imagen">
 
                 <span>
@@ -706,6 +834,7 @@
 
 
             <div class="producto-info">
+
 
                 <span class="producto-categoria">
                     Eléctrico
@@ -718,8 +847,10 @@
 
 
                 <p>
+
                     Cable de red para
                     instalaciones.
+
                 </p>
 
 
@@ -734,9 +865,13 @@
                     data-nombre="Cable Cat6"
                     data-precio="3500"
                 >
-                    🛒 <span data-text="agregarCarrito">
+
+                    🛒
+
+                    <span data-text="agregarCarrito">
                         Agregar al carrito
                     </span>
+
                 </button>
 
             </div>
@@ -749,6 +884,7 @@
 
         <article class="producto">
 
+
             <div class="producto-imagen">
 
                 <span>
@@ -759,6 +895,7 @@
 
 
             <div class="producto-info">
+
 
                 <span class="producto-categoria">
                     Herramientas
@@ -771,8 +908,10 @@
 
 
                 <p>
+
                     Herramientas para instalación
                     y mantenimiento.
+
                 </p>
 
 
@@ -787,9 +926,13 @@
                     data-nombre="Kit de herramientas"
                     data-precio="1800"
                 >
-                    🛒 <span data-text="agregarCarrito">
+
+                    🛒
+
+                    <span data-text="agregarCarrito">
                         Agregar al carrito
                     </span>
+
                 </button>
 
             </div>
@@ -800,14 +943,18 @@
     </div>
 
 
+
     <div class="boton-ver-catalogo">
+
 
         <button
             type="button"
             onclick="window.location.href='catalogo.html'"
             data-text="verCatalogoCompleto"
         >
+
             Ver catálogo completo →
+
         </button>
 
     </div>
@@ -822,7 +969,9 @@
 
 <section class="contacto">
 
+
     <div>
+
 
         <span data-text="necesitasAyuda">
             ¿NECESITAS AYUDA?
@@ -835,11 +984,14 @@
 
 
         <p data-text="textoWhatsApp">
+
             Consulta disponibilidad, precios o realiza
             tu pedido directamente por WhatsApp.
+
         </p>
 
     </div>
+
 
 
     <a
@@ -849,7 +1001,9 @@
         rel="noopener noreferrer"
     >
 
-        💬 <span data-text="escribirWhatsApp">
+        💬
+
+        <span data-text="escribirWhatsApp">
             Escribir por WhatsApp
         </span>
 
@@ -868,6 +1022,7 @@
     class="carrito-ventana"
 >
 
+
     <div class="carrito-contenido">
 
 
@@ -877,7 +1032,9 @@
             type="button"
             aria-label="Cerrar carrito"
         >
+
             ✕
+
         </button>
 
 
@@ -888,14 +1045,22 @@
 
         <div id="lista-carrito">
 
-            <p class="carrito-vacio" data-text="carritoVacio">
+
+            <p
+                class="carrito-vacio"
+                data-text="carritoVacio"
+            >
+
                 Tu carrito está vacío.
+
             </p>
 
         </div>
 
 
+
         <div class="total-carrito">
+
 
             <strong data-text="total">
                 Total:
@@ -903,6 +1068,7 @@
 
 
             <span>
+
                 C$
 
                 <span id="total-carrito">
@@ -914,14 +1080,19 @@
         </div>
 
 
+
         <button
             id="finalizar-compra"
             class="finalizar-compra"
             type="button"
         >
-            💬 <span data-text="finalizarWhatsApp">
+
+            💬
+
+            <span data-text="finalizarWhatsApp">
                 Finalizar compra por WhatsApp
             </span>
+
         </button>
 
 
@@ -942,7 +1113,9 @@
     rel="noopener noreferrer"
     aria-label="Contactar por WhatsApp"
 >
+
     💬
+
 </a>
 
 
@@ -955,6 +1128,7 @@
 
 
     <div class="footer-redes">
+
 
         <a href="#" aria-label="X">
             𝕏
@@ -977,7 +1151,9 @@
             rel="noopener noreferrer"
             aria-label="WhatsApp"
         >
+
             💬
+
         </a>
 
 
@@ -993,6 +1169,7 @@
 
 
         <div class="footer-columna">
+
 
             <h3 data-text="atencionCliente">
                 Atención al cliente
@@ -1032,27 +1209,40 @@
 
         <div class="footer-columna">
 
+
             <h3 data-text="miTienda">
                 Mi tienda
             </h3>
 
 
-            <a href="index.html" data-text="inicio">
+            <a
+                href="index.html"
+                data-text="inicio"
+            >
                 Inicio
             </a>
 
 
-            <a href="catalogo.html" data-text="catalogo">
+            <a
+                href="catalogo.html"
+                data-text="catalogo"
+            >
                 Catálogo
             </a>
 
 
-            <a href="#promociones" data-text="promociones">
+            <a
+                href="#promociones"
+                data-text="promociones"
+            >
                 Promociones
             </a>
 
 
-            <a href="#productos" data-text="productos">
+            <a
+                href="#productos"
+                data-text="productos"
+            >
                 Productos
             </a>
 
@@ -1061,6 +1251,7 @@
 
 
         <div class="footer-columna">
+
 
             <h3 data-text="informacion">
                 Información
@@ -1091,6 +1282,7 @@
 
 
         <div class="footer-columna">
+
 
             <h3 data-text="contacto">
                 Contacto
@@ -1128,12 +1320,12 @@
 
         </div>
 
-
     </div>
 
 
 
     <div class="footer-final">
+
 
         <p data-text="derechos">
             © 2026 Mi Tienda — Todos los derechos reservados
@@ -1146,7 +1338,6 @@
 
     </div>
 
-
 </footer>
 
 
@@ -1156,6 +1347,42 @@
 ====================================================== -->
 
 <script src="script.js"></script>
+
+
+
+<!-- =====================================================
+     REGISTRO DE LA PWA
+====================================================== -->
+
+<script>
+
+if ("serviceWorker" in navigator) {
+
+    window.addEventListener("load", function () {
+
+        navigator.serviceWorker
+            .register("./service-worker.js")
+            .then(function () {
+
+                console.log(
+                    "Mi Tienda: aplicación lista para instalar."
+                );
+
+            })
+            .catch(function (error) {
+
+                console.error(
+                    "Error al registrar la aplicación:",
+                    error
+                );
+
+            });
+
+    });
+
+}
+
+</script>
 
 
 </body>

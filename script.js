@@ -1717,3 +1717,33 @@ actualizarContador();
 // =====================================================
 // FIN
 // =====================================================
+
+// =====================================================
+// PWA - SERVICE WORKER
+// =====================================================
+
+if ("serviceWorker" in navigator) {
+
+    window.addEventListener("load", function() {
+
+        navigator.serviceWorker
+            .register("./service-worker.js")
+            .then(function() {
+
+                console.log(
+                    "Mi Tienda: aplicación instalada correctamente."
+                );
+
+            })
+            .catch(function(error) {
+
+                console.error(
+                    "Error al registrar la aplicación:",
+                    error
+                );
+
+            });
+
+    });
+
+}
