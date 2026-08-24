@@ -10,6 +10,11 @@
         content="width=device-width, initial-scale=1.0"
     >
 
+    <meta
+        name="description"
+        content="Mi Tienda Online - Productos, herramientas y soluciones para tu hogar y negocio."
+    >
+
     <title>Mi Tienda Online</title>
 
     <link
@@ -23,18 +28,40 @@
 <body>
 
 
-    <!-- =====================================================
-         ENCABEZADO
-    ====================================================== -->
+<!-- =====================================================
+     BARRA SUPERIOR
+====================================================== -->
 
-    <header>
+<div class="barra-oferta">
+
+    🎁 Ofertas especiales de Mi Tienda
+
+</div>
+
+
+
+<!-- =====================================================
+     ENCABEZADO
+====================================================== -->
+
+<header class="header">
+
+    <div class="logo">
 
         <h1>
             MI TIENDA
         </h1>
 
+        <span>
+            Soluciones para tu hogar y negocio
+        </span>
 
-        <!-- BUSCADOR -->
+    </div>
+
+
+    <!-- BUSCADOR -->
+
+    <div class="buscador-principal">
 
         <input
             type="text"
@@ -43,231 +70,459 @@
             autocomplete="off"
         >
 
-
-        <!-- ENTRAR -->
-
         <button
             type="button"
-            onclick="window.location.href='catalogo.html'"
+            id="boton-buscar"
         >
-            Entrar
+            🔍
         </button>
 
-
-        <!-- CARRITO -->
-
-        <button
-            id="boton-carrito"
-            type="button"
-        >
-
-            🛒 Carrito
-
-            <span id="contador-carrito">
-                0
-            </span>
-
-        </button>
-
-    </header>
+    </div>
 
 
+    <!-- ENTRAR -->
 
-    <!-- =====================================================
-         NAVEGACIÓN
-    ====================================================== -->
-
-    <nav>
-
-        <a href="index.html">
-            Inicio
-        </a>
-
-
-        <a href="#categorias">
-            Categorías
-        </a>
+    <button
+        class="boton-entrar"
+        type="button"
+        onclick="window.location.href='catalogo.html'"
+    >
+        👤 Entrar
+    </button>
 
 
-        <a href="#promociones">
-            Promociones
-        </a>
+    <!-- CARRITO -->
 
-
-        <a href="catalogo.html">
-            Catálogo
-        </a>
-
-
-        <a href="#productos">
-            Comprar
-        </a>
-
-    </nav>
-
-
-
-    <!-- =====================================================
-         BANNER
-    ====================================================== -->
-
-    <section
-        class="banner"
-        id="promociones"
+    <button
+        id="boton-carrito"
+        class="boton-carrito"
+        type="button"
     >
 
-        <div>
+        🛒 Carrito
+
+        <span id="contador-carrito">
+            0
+        </span>
+
+    </button>
+
+</header>
+
+
+
+<!-- =====================================================
+     NAVEGACIÓN
+====================================================== -->
+
+<nav class="nav">
+
+    <a href="index.html">
+        Inicio
+    </a>
+
+    <a href="#categorias">
+        Categorías
+    </a>
+
+    <a href="#promociones">
+        Promociones
+    </a>
+
+    <a href="catalogo.html">
+        Catálogo
+    </a>
+
+    <a href="#productos">
+        Comprar
+    </a>
+
+</nav>
+
+
+
+<!-- =====================================================
+     CARRUSEL
+====================================================== -->
+
+<section
+    class="carrusel"
+    id="promociones"
+>
+
+
+    <!-- SLIDE 1 -->
+
+    <article class="slide activo">
+
+        <div class="slide-contenido">
+
+            <span class="etiqueta-promocion">
+                OFERTA
+            </span>
 
             <h2>
                 Grandes promociones
             </h2>
 
-
             <p>
-                Encuentra los mejores productos
-                al mejor precio.
+                Encuentra productos de calidad
+                para tu hogar y negocio.
             </p>
-
 
             <button
                 type="button"
                 onclick="window.location.href='catalogo.html'"
             >
-                Comprar ahora
+                Comprar ahora →
             </button>
 
         </div>
 
-    </section>
+
+        <div class="slide-imagen">
+
+            <img
+                src="mi-fondo.png"
+                alt="Promociones de Mi Tienda"
+            >
+
+        </div>
+
+    </article>
 
 
 
-    <!-- =====================================================
-         CATEGORÍAS
-    ====================================================== -->
+    <!-- SLIDE 2 -->
 
-    <section
-        class="categorias"
-        id="categorias"
+    <article class="slide">
+
+        <div class="slide-contenido">
+
+            <span class="etiqueta-promocion">
+                SEGURIDAD
+            </span>
+
+            <h2>
+                Protege lo que más importa
+            </h2>
+
+            <p>
+                Soluciones de seguridad para
+                tu hogar y negocio.
+            </p>
+
+            <button
+                type="button"
+                onclick="window.location.href='catalogo.html'"
+            >
+                Ver productos →
+            </button>
+
+        </div>
+
+
+        <div class="slide-visual slide-seguridad">
+
+            <span>
+                📹
+            </span>
+
+        </div>
+
+    </article>
+
+
+
+    <!-- SLIDE 3 -->
+
+    <article class="slide">
+
+        <div class="slide-contenido">
+
+            <span class="etiqueta-promocion">
+                HERRAMIENTAS
+            </span>
+
+            <h2>
+                Todo para tus proyectos
+            </h2>
+
+            <p>
+                Encuentra herramientas para
+                instalación y mantenimiento.
+            </p>
+
+            <button
+                type="button"
+                onclick="window.location.href='catalogo.html'"
+            >
+                Ver catálogo →
+            </button>
+
+        </div>
+
+
+        <div class="slide-visual slide-herramientas">
+
+            <span>
+                🔧
+            </span>
+
+        </div>
+
+    </article>
+
+
+
+    <!-- FLECHA ANTERIOR -->
+
+    <button
+        id="slide-anterior"
+        class="flecha-carrusel anterior"
+        type="button"
+        aria-label="Promoción anterior"
     >
+        ‹
+    </button>
+
+
+    <!-- FLECHA SIGUIENTE -->
+
+    <button
+        id="slide-siguiente"
+        class="flecha-carrusel siguiente"
+        type="button"
+        aria-label="Siguiente promoción"
+    >
+        ›
+    </button>
+
+
+    <!-- INDICADORES -->
+
+    <div class="indicadores">
+
+        <button
+            class="indicador activo"
+            data-slide="0"
+            type="button"
+        ></button>
+
+        <button
+            class="indicador"
+            data-slide="1"
+            type="button"
+        ></button>
+
+        <button
+            class="indicador"
+            data-slide="2"
+            type="button"
+        ></button>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CATEGORÍAS
+====================================================== -->
+
+<section
+    class="categorias"
+    id="categorias"
+>
+
+    <div class="seccion-titulo">
+
+        <span>
+            EXPLORA
+        </span>
 
         <h2>
             Compra por categorías
         </h2>
 
+    </div>
 
-        <div class="categorias-container">
+
+    <div class="categorias-container">
 
 
-            <div class="categoria">
+        <button
+            class="categoria"
+            type="button"
+            onclick="window.location.href='catalogo.html'"
+        >
 
-                <div class="icono">
-                    🔨
-                </div>
-
-                <p>
-                    Ferretería
-                </p>
-
+            <div class="icono">
+                🔨
             </div>
 
+            <strong>
+                Ferretería
+            </strong>
 
-            <div class="categoria">
+            <span>
+                Ver productos
+            </span>
 
-                <div class="icono">
-                    🔧
-                </div>
+        </button>
 
-                <p>
-                    Herramientas
-                </p>
 
+
+        <button
+            class="categoria"
+            type="button"
+            onclick="window.location.href='catalogo.html'"
+        >
+
+            <div class="icono">
+                🔧
             </div>
 
+            <strong>
+                Herramientas
+            </strong>
 
-            <div class="categoria">
+            <span>
+                Ver productos
+            </span>
 
-                <div class="icono">
-                    💡
-                </div>
+        </button>
 
-                <p>
-                    Eléctrico
-                </p>
 
+
+        <button
+            class="categoria"
+            type="button"
+            onclick="window.location.href='catalogo.html'"
+        >
+
+            <div class="icono">
+                💡
             </div>
 
+            <strong>
+                Eléctrico
+            </strong>
 
-            <div class="categoria">
+            <span>
+                Ver productos
+            </span>
 
-                <div class="icono">
-                    🏠
-                </div>
+        </button>
 
-                <p>
-                    Hogar
-                </p>
 
+
+        <button
+            class="categoria"
+            type="button"
+            onclick="window.location.href='catalogo.html'"
+        >
+
+            <div class="icono">
+                🏠
             </div>
 
+            <strong>
+                Hogar
+            </strong>
 
-            <div class="categoria">
+            <span>
+                Ver productos
+            </span>
 
-                <div class="icono">
-                    🚿
-                </div>
+        </button>
 
-                <p>
-                    Baño
-                </p>
 
+
+        <button
+            class="categoria"
+            type="button"
+            onclick="window.location.href='catalogo.html'"
+        >
+
+            <div class="icono">
+                🚿
             </div>
 
+            <strong>
+                Baño
+            </strong>
 
-        </div>
+            <span>
+                Ver productos
+            </span>
 
-    </section>
+        </button>
+
+
+    </div>
+
+</section>
 
 
 
-    <!-- =====================================================
-         PRODUCTOS DESTACADOS
-    ====================================================== -->
+<!-- =====================================================
+     PRODUCTOS DESTACADOS
+====================================================== -->
 
-    <section
-        class="productos"
-        id="productos"
-    >
+<section
+    class="productos"
+    id="productos"
+>
+
+    <div class="seccion-titulo">
+
+        <span>
+            DESTACADOS
+        </span>
 
         <h2>
             Productos destacados
         </h2>
 
+        <p>
+            Algunos de nuestros productos disponibles.
+        </p>
 
-        <div class="productos-container">
+    </div>
 
 
-            <!-- =================================================
-                 PRODUCTO 1
-            ================================================== -->
+    <div class="productos-container">
 
-            <article class="producto">
 
-                <div class="producto-imagen">
-                    <span>📷</span>
-                </div>
+        <!-- PRODUCTO 1 -->
 
+        <article class="producto">
+
+            <div class="producto-imagen">
+
+                <span>
+                    📷
+                </span>
+
+            </div>
+
+
+            <div class="producto-info">
+
+                <span class="producto-categoria">
+                    Seguridad
+                </span>
 
                 <h3>
                     Cámara IP
                 </h3>
 
-
                 <p>
                     Cámara de seguridad para
                     interiores y exteriores.
                 </p>
-
 
                 <strong>
                     C$ 2,500
@@ -280,34 +535,42 @@
                     data-nombre="Cámara IP"
                     data-precio="2500"
                 >
-                    Agregar al carrito
+                    🛒 Agregar al carrito
                 </button>
 
-            </article>
+            </div>
+
+        </article>
 
 
 
-            <!-- =================================================
-                 PRODUCTO 2
-            ================================================== -->
+        <!-- PRODUCTO 2 -->
 
-            <article class="producto">
+        <article class="producto">
 
-                <div class="producto-imagen">
-                    <span>📦</span>
-                </div>
+            <div class="producto-imagen">
 
+                <span>
+                    📦
+                </span>
+
+            </div>
+
+
+            <div class="producto-info">
+
+                <span class="producto-categoria">
+                    Seguridad
+                </span>
 
                 <h3>
                     DVR 8 canales
                 </h3>
 
-
                 <p>
                     Grabador para sistemas
                     de videovigilancia.
                 </p>
-
 
                 <strong>
                     C$ 4,200
@@ -320,34 +583,42 @@
                     data-nombre="DVR 8 canales"
                     data-precio="4200"
                 >
-                    Agregar al carrito
+                    🛒 Agregar al carrito
                 </button>
 
-            </article>
+            </div>
+
+        </article>
 
 
 
-            <!-- =================================================
-                 PRODUCTO 3
-            ================================================== -->
+        <!-- PRODUCTO 3 -->
 
-            <article class="producto">
+        <article class="producto">
 
-                <div class="producto-imagen">
-                    <span>🔌</span>
-                </div>
+            <div class="producto-imagen">
 
+                <span>
+                    🔌
+                </span>
+
+            </div>
+
+
+            <div class="producto-info">
+
+                <span class="producto-categoria">
+                    Eléctrico
+                </span>
 
                 <h3>
                     Cable Cat6
                 </h3>
 
-
                 <p>
                     Cable de red para
                     instalaciones.
                 </p>
-
 
                 <strong>
                     C$ 3,500
@@ -360,34 +631,42 @@
                     data-nombre="Cable Cat6"
                     data-precio="3500"
                 >
-                    Agregar al carrito
+                    🛒 Agregar al carrito
                 </button>
 
-            </article>
+            </div>
+
+        </article>
 
 
 
-            <!-- =================================================
-                 PRODUCTO 4
-            ================================================== -->
+        <!-- PRODUCTO 4 -->
 
-            <article class="producto">
+        <article class="producto">
 
-                <div class="producto-imagen">
-                    <span>🔧</span>
-                </div>
+            <div class="producto-imagen">
 
+                <span>
+                    🔧
+                </span>
+
+            </div>
+
+
+            <div class="producto-info">
+
+                <span class="producto-categoria">
+                    Herramientas
+                </span>
 
                 <h3>
                     Kit de herramientas
                 </h3>
 
-
                 <p>
                     Herramientas para instalación
                     y mantenimiento.
                 </p>
-
 
                 <strong>
                     C$ 1,800
@@ -400,101 +679,358 @@
                     data-nombre="Kit de herramientas"
                     data-precio="1800"
                 >
-                    Agregar al carrito
+                    🛒 Agregar al carrito
                 </button>
 
-            </article>
+            </div>
+
+        </article>
 
 
-        </div>
-
-    </section>
+    </div>
 
 
+    <div class="boton-ver-catalogo">
 
-    <!-- =====================================================
-         VENTANA DEL CARRITO
-    ====================================================== -->
+        <button
+            type="button"
+            onclick="window.location.href='catalogo.html'"
+        >
+            Ver catálogo completo →
+        </button>
 
-    <div
-        id="ventana-carrito"
-        class="carrito-ventana"
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CONTACTO WHATSAPP
+====================================================== -->
+
+<section class="contacto">
+
+    <div>
+
+        <span>
+            ¿NECESITAS AYUDA?
+        </span>
+
+        <h2>
+            Estamos para ayudarte
+        </h2>
+
+        <p>
+            Consulta disponibilidad, precios o realiza
+            tu pedido directamente por WhatsApp.
+        </p>
+
+    </div>
+
+
+    <a
+        class="boton-whatsapp-contacto"
+        href="https://wa.me/50576823472"
+        target="_blank"
+        rel="noopener noreferrer"
     >
 
-        <div class="carrito-contenido">
+        💬 Escribir por WhatsApp
+
+    </a>
+
+</section>
 
 
-            <!-- CERRAR -->
 
-            <button
-                id="cerrar-carrito"
-                class="cerrar-carrito"
-                type="button"
-            >
-                ✕
-            </button>
+<!-- =====================================================
+     VENTANA DEL CARRITO
+====================================================== -->
 
+<div
+    id="ventana-carrito"
+    class="carrito-ventana"
+>
 
-            <h2>
-                🛒 Mi carrito
-            </h2>
+    <div class="carrito-contenido">
 
 
-            <!-- PRODUCTOS DEL CARRITO -->
-
-            <div id="lista-carrito">
-
-                <p class="carrito-vacio">
-                    Tu carrito está vacío.
-                </p>
-
-            </div>
-
-
-            <!-- TOTAL -->
-
-            <div class="total-carrito">
-
-                <strong>
-                    Total:
-                </strong>
+        <button
+            id="cerrar-carrito"
+            class="cerrar-carrito"
+            type="button"
+            aria-label="Cerrar carrito"
+        >
+            ✕
+        </button>
 
 
-                <span>
-
-                    C$
-
-                    <span id="total-carrito">
-                        0
-                    </span>
-
-                </span>
-
-            </div>
+        <h2>
+            🛒 Mi carrito
+        </h2>
 
 
-            <!-- FINALIZAR -->
+        <div id="lista-carrito">
 
-            <button
-                id="finalizar-compra"
-                class="finalizar-compra"
-                type="button"
-            >
-                Finalizar compra
-            </button>
-
+            <p class="carrito-vacio">
+                Tu carrito está vacío.
+            </p>
 
         </div>
+
+
+        <div class="total-carrito">
+
+            <strong>
+                Total:
+            </strong>
+
+            <span>
+                C$
+                <span id="total-carrito">
+                    0
+                </span>
+            </span>
+
+        </div>
+
+
+        <button
+            id="finalizar-compra"
+            class="finalizar-compra"
+            type="button"
+        >
+            💬 Finalizar compra por WhatsApp
+        </button>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     WHATSAPP FLOTANTE
+====================================================== -->
+
+<a
+    href="https://wa.me/50576823472"
+    class="whatsapp-flotante"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Contactar por WhatsApp"
+>
+
+    💬
+
+</a>
+
+
+
+<!-- =====================================================
+     FOOTER
+====================================================== -->
+
+<footer class="footer">
+
+
+    <!-- REDES -->
+
+    <div class="footer-redes">
+
+        <a
+            href="#"
+            aria-label="X"
+        >
+            𝕏
+        </a>
+
+
+        <a
+            href="#"
+            aria-label="Instagram"
+        >
+            ◎
+        </a>
+
+
+        <a
+            href="#"
+            aria-label="Facebook"
+        >
+            f
+        </a>
+
+
+        <a
+            href="https://wa.me/50576823472"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="WhatsApp"
+        >
+            💬
+        </a>
+
+
+        <a
+            href="#"
+            aria-label="YouTube"
+        >
+            ▶
+        </a>
 
     </div>
 
 
 
-    <!-- =====================================================
-         JAVASCRIPT
-    ====================================================== -->
+    <!-- COLUMNAS -->
 
-    <script src="script.js"></script>
+    <div class="footer-contenido">
+
+
+        <div class="footer-columna">
+
+            <h3>
+                Atención al cliente
+            </h3>
+
+            <a href="catalogo.html">
+                Cómo comprar
+            </a>
+
+            <a href="https://wa.me/50576823472"
+               target="_blank"
+               rel="noopener noreferrer">
+                Contactarnos
+            </a>
+
+            <a href="#">
+                Preguntas frecuentes
+            </a>
+
+            <a href="#">
+                Términos y condiciones
+            </a>
+
+        </div>
+
+
+
+        <div class="footer-columna">
+
+            <h3>
+                Mi tienda
+            </h3>
+
+            <a href="index.html">
+                Inicio
+            </a>
+
+            <a href="catalogo.html">
+                Catálogo
+            </a>
+
+            <a href="#promociones">
+                Promociones
+            </a>
+
+            <a href="#productos">
+                Productos
+            </a>
+
+        </div>
+
+
+
+        <div class="footer-columna">
+
+            <h3>
+                Información
+            </h3>
+
+            <a href="#">
+                Sobre nosotros
+            </a>
+
+            <a href="#">
+                Formas de pago
+            </a>
+
+            <a href="#">
+                Información de envío
+            </a>
+
+            <a href="#">
+                Política de privacidad
+            </a>
+
+        </div>
+
+
+
+        <div class="footer-columna">
+
+            <h3>
+                Contacto
+            </h3>
+
+            <a
+                href="https://wa.me/50576823472"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                WhatsApp
+            </a>
+
+            <a href="#">
+                Facebook
+            </a>
+
+            <a href="#">
+                Instagram
+            </a>
+
+            <a
+                href="https://wa.me/50576823472"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Escríbenos
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- PARTE FINAL -->
+
+    <div class="footer-final">
+
+        <p>
+            © 2026 Mi Tienda — Todos los derechos reservados
+        </p>
+
+        <p>
+            Compras fáciles, rápidas y seguras.
+        </p>
+
+    </div>
+
+
+</footer>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
+
+<script src="script.js"></script>
 
 
 </body>

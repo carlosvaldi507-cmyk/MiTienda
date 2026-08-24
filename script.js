@@ -1,131 +1,35 @@
-// =====================================================
-// MI TIENDA - SISTEMA DE CARRITO
-// =====================================================
+/* =====================================================
+   MI TIENDA - JAVASCRIPT COMPLETO
+   ===================================================== */
 
 
-// =====================================================
-// CARRITO
-// =====================================================
+/* =====================================================
+   CONFIGURACIÓN
+   ===================================================== */
 
-// Recuperar carrito guardado anteriormente
-let carrito = JSON.parse(
-    localStorage.getItem("carrito")
-) || [];
+// Número de WhatsApp de la tienda
+// Nicaragua: +505 7682 3472
+const NUMERO_WHATSAPP = "50576823472";
 
 
-// =====================================================
-// BUSCADOR
-// =====================================================
+/* =====================================================
+   CARRITO
+   ===================================================== */
 
-const buscador = document.getElementById("buscador");
-const productos = document.querySelectorAll(".producto");
+let carrito = [];
 
-if (buscador) {
-
-    buscador.addEventListener("input", function () {
-
-        const texto = buscador.value
-            .toLowerCase()
-            .trim();
-
-        productos.forEach(function (producto) {
-
-            const titulo = producto.querySelector("h3");
-
-            if (!titulo) {
-                return;
-            }
-
-            const nombre = titulo.textContent
-                .toLowerCase();
-
-            if (nombre.includes(texto)) {
-
-                producto.style.display = "block";
-
-            } else {
-
-                producto.style.display = "none";
-
-            }
-
-        });
-
-    });
-
+try {
+    carrito = JSON.parse(
+        localStorage.getItem("carrito")
+    ) || [];
+} catch (error) {
+    carrito = [];
 }
 
 
-// =====================================================
-// AGREGAR PRODUCTOS AL CARRITO
-// =====================================================
-
-const botonesAgregar =
-    document.querySelectorAll(".agregar-carrito");
-
-botonesAgregar.forEach(function (boton) {
-
-    boton.addEventListener("click", function () {
-
-        const nombre =
-            boton.dataset.nombre;
-
-        const precio =
-            Number(boton.dataset.precio);
-
-
-        // Buscar si el producto ya existe
-        const productoExistente =
-            carrito.find(function (producto) {
-
-                return producto.nombre === nombre;
-
-            });
-
-
-        if (productoExistente) {
-
-            // Si existe, aumentar cantidad
-            productoExistente.cantidad++;
-
-        } else {
-
-            // Si no existe, agregarlo
-            carrito.push({
-
-                nombre: nombre,
-
-                precio: precio,
-
-                cantidad: 1
-
-            });
-
-        }
-
-
-        // Guardar carrito
-        guardarCarrito();
-
-
-        // Actualizar contador
-        actualizarContador();
-
-
-        // Mostrar mensaje
-        alert(
-            nombre +
-            " fue agregado al carrito."
-        );
-
-    });
-
-});
-
-
-// =====================================================
-// GUARDAR CARRITO
-// =====================================================
+/* =====================================================
+   GUARDAR CARRITO
+   ===================================================== */
 
 function guardarCarrito() {
 
@@ -137,9 +41,9 @@ function guardarCarrito() {
 }
 
 
-// =====================================================
-// CONTADOR DEL CARRITO
-// =====================================================
+/* =====================================================
+   CONTADOR DEL CARRITO
+   ===================================================== */
 
 function actualizarContador() {
 
@@ -148,23 +52,20 @@ function actualizarContador() {
             "contador-carrito"
         );
 
-
     if (!contador) {
         return;
     }
-
 
     const cantidadTotal =
         carrito.reduce(
             function (total, producto) {
 
                 return total +
-                    producto.cantidad;
+                    Number(producto.cantidad || 0);
 
             },
             0
         );
-
 
     contador.textContent =
         cantidadTotal;
@@ -172,19 +73,308 @@ function actualizarContador() {
 }
 
 
-// Ejecutar al cargar
-actualizarContador();
+/* =====================================================
+   BUSCADOR
+   ===================================================== */
+
+const buscador =
+    document.getElementById("buscador");
+
+if (buscador) {
+
+    buscador.addEventListener(
+        "input",
+        function () {
+
+            const texto =
+                buscador.value
+                    .toLowerCase()
+                    .trim();
+
+            const productos =
+                document.querySelectorAll(
+                    ".producto"
+                );
+
+            productos.forEach(
+                function (producto) {
+
+                    const titulo =
+                        producto.querySelector("h3");
+
+                    if (!titulo) {
+                        return;
+                    }
+
+                    const nombre =
+                        titulo.textContent
+                            .toLowerCase();
+
+                    if (
+                        nombre.includes(texto)
+                    ) {
+
+                        producto.style.display =
+                            "";
+
+                    } else {
+
+                        producto.style.display =
+                            "none";
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+}
 
 
-// =====================================================
-// ABRIR CARRITO
-// =====================================================
+/* =====================================================
+   AGREGAR PRODUCTOS
+   ===================================================== */
+
+function activarBotonesProductos() {
+
+    const botones =
+        document.querySelectorAll(
+            ".agregar-carrito"
+        );
+
+    botones.forEach(
+        function (boton) {
+
+            // Evitar agregar el evento dos veces
+            if (
+                boton.dataset.eventoActivo ===
+                "true"
+            ) {
+                return;
+            }
+
+            boton.dataset.eventoActivo =
+                "true";
+
+
+            boton.addEventListener(
+                "click",
+                function () {
+
+                    const nombre =
+                        boton.dataset.nombre ||
+                        obtenerNombreProducto(boton);
+
+                    const precio =
+                        Number(
+                            boton.dataset.precio ||
+                            obtenerPrecioProducto(boton)
+                        );
+
+                    if (
+                        !nombre ||
+                        !precio
+                    ) {
+
+                        alert(
+                            "No se pudo identificar el producto."
+                        );
+
+                        return;
+                    }
+
+
+                    const productoExistente =
+                        carrito.find(
+                            function (producto) {
+
+                                return (
+                                    producto.nombre ===
+                                    nombre
+                                );
+
+                            }
+                        );
+
+
+                    if (productoExistente) {
+
+                        productoExistente.cantidad++;
+
+                    } else {
+
+                        carrito.push({
+
+                            nombre: nombre,
+
+                            precio: precio,
+
+                            cantidad: 1
+
+                        });
+
+                    }
+
+
+                    guardarCarrito();
+
+                    actualizarContador();
+
+
+                    // Mensaje visual
+                    mostrarMensaje(
+                        nombre +
+                        " fue agregado al carrito."
+                    );
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   OBTENER NOMBRE AUTOMÁTICAMENTE
+   ===================================================== */
+
+function obtenerNombreProducto(boton) {
+
+    const tarjeta =
+        boton.closest(".producto");
+
+    if (!tarjeta) {
+        return "";
+    }
+
+    const titulo =
+        tarjeta.querySelector("h3");
+
+    return titulo
+        ? titulo.textContent.trim()
+        : "";
+
+}
+
+
+/* =====================================================
+   OBTENER PRECIO AUTOMÁTICAMENTE
+   ===================================================== */
+
+function obtenerPrecioProducto(boton) {
+
+    const tarjeta =
+        boton.closest(".producto");
+
+    if (!tarjeta) {
+        return 0;
+    }
+
+    const precio =
+        tarjeta.querySelector("strong");
+
+    if (!precio) {
+        return 0;
+    }
+
+    const texto =
+        precio.textContent
+            .replace(/[^\d]/g, "");
+
+    return Number(texto);
+
+}
+
+
+/* =====================================================
+   MENSAJE DE PRODUCTO AGREGADO
+   ===================================================== */
+
+function mostrarMensaje(texto) {
+
+    const mensajeAnterior =
+        document.querySelector(
+            ".mensaje-tienda"
+        );
+
+    if (mensajeAnterior) {
+        mensajeAnterior.remove();
+    }
+
+
+    const mensaje =
+        document.createElement("div");
+
+    mensaje.className =
+        "mensaje-tienda";
+
+    mensaje.textContent =
+        "✓ " + texto;
+
+
+    mensaje.style.position =
+        "fixed";
+
+    mensaje.style.left =
+        "50%";
+
+    mensaje.style.bottom =
+        "30px";
+
+    mensaje.style.transform =
+        "translateX(-50%)";
+
+    mensaje.style.background =
+        "#0d5c72";
+
+    mensaje.style.color =
+        "#ffffff";
+
+    mensaje.style.padding =
+        "13px 22px";
+
+    mensaje.style.borderRadius =
+        "30px";
+
+    mensaje.style.fontWeight =
+        "700";
+
+    mensaje.style.zIndex =
+        "10000";
+
+    mensaje.style.boxShadow =
+        "0 8px 25px rgba(0,0,0,.25)";
+
+
+    document.body.appendChild(
+        mensaje
+    );
+
+
+    setTimeout(
+        function () {
+
+            mensaje.remove();
+
+        },
+        2200
+    );
+
+}
+
+
+/* =====================================================
+   ABRIR CARRITO
+   ===================================================== */
 
 const botonCarrito =
     document.getElementById(
         "boton-carrito"
     );
-
 
 const ventanaCarrito =
     document.getElementById(
@@ -206,15 +396,18 @@ if (
 
             mostrarCarrito();
 
+            document.body.style.overflow =
+                "hidden";
+
         }
     );
 
 }
 
 
-// =====================================================
-// CERRAR CARRITO
-// =====================================================
+/* =====================================================
+   CERRAR CARRITO
+   ===================================================== */
 
 const cerrarCarrito =
     document.getElementById(
@@ -229,20 +422,34 @@ if (
 
     cerrarCarrito.addEventListener(
         "click",
-        function () {
-
-            ventanaCarrito.style.display =
-                "none";
-
-        }
+        cerrarVentanaCarrito
     );
 
 }
 
 
-// =====================================================
-// CERRAR AL HACER CLIC FUERA
-// =====================================================
+/* =====================================================
+   CERRAR CARRITO
+   ===================================================== */
+
+function cerrarVentanaCarrito() {
+
+    if (!ventanaCarrito) {
+        return;
+    }
+
+    ventanaCarrito.style.display =
+        "none";
+
+    document.body.style.overflow =
+        "";
+
+}
+
+
+/* =====================================================
+   CERRAR AL HACER CLIC FUERA
+   ===================================================== */
 
 if (ventanaCarrito) {
 
@@ -255,8 +462,7 @@ if (ventanaCarrito) {
                 ventanaCarrito
             ) {
 
-                ventanaCarrito.style.display =
-                    "none";
+                cerrarVentanaCarrito();
 
             }
 
@@ -266,9 +472,30 @@ if (ventanaCarrito) {
 }
 
 
-// =====================================================
-// MOSTRAR CARRITO
-// =====================================================
+/* =====================================================
+   TECLA ESC PARA CERRAR
+   ===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function (evento) {
+
+        if (
+            evento.key === "Escape" &&
+            ventanaCarrito
+        ) {
+
+            cerrarVentanaCarrito();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   MOSTRAR CARRITO
+   ===================================================== */
 
 function mostrarCarrito() {
 
@@ -276,7 +503,6 @@ function mostrarCarrito() {
         document.getElementById(
             "lista-carrito"
         );
-
 
     const totalCarrito =
         document.getElementById(
@@ -288,20 +514,21 @@ function mostrarCarrito() {
         !listaCarrito ||
         !totalCarrito
     ) {
-
         return;
-
     }
 
 
-    listaCarrito.innerHTML = "";
+    listaCarrito.innerHTML =
+        "";
 
 
-    // =================================================
-    // CARRITO VACÍO
-    // =================================================
+    /* =================================================
+       CARRITO VACÍO
+       ================================================= */
 
-    if (carrito.length === 0) {
+    if (
+        carrito.length === 0
+    ) {
 
         listaCarrito.innerHTML = `
 
@@ -311,8 +538,8 @@ function mostrarCarrito() {
 
         `;
 
-
-        totalCarrito.textContent = "0";
+        totalCarrito.textContent =
+            "0";
 
         return;
 
@@ -322,16 +549,21 @@ function mostrarCarrito() {
     let total = 0;
 
 
-    // =================================================
-    // MOSTRAR PRODUCTOS
-    // =================================================
+    /* =================================================
+       PRODUCTOS
+       ================================================= */
 
     carrito.forEach(
         function (producto, indice) {
 
+            const precio =
+                Number(producto.precio);
+
+            const cantidad =
+                Number(producto.cantidad);
+
             const subtotal =
-                producto.precio *
-                producto.cantidad;
+                precio * cantidad;
 
 
             total += subtotal;
@@ -342,7 +574,6 @@ function mostrarCarrito() {
                     "div"
                 );
 
-
             item.className =
                 "item-carrito";
 
@@ -352,11 +583,15 @@ function mostrarCarrito() {
                 <div class="info-producto">
 
                     <strong>
-                        ${producto.nombre}
+                        ${escaparHTML(
+                            producto.nombre
+                        )}
                     </strong>
 
                     <span>
-                        C$ ${producto.precio.toLocaleString()}
+                        C$ ${precio.toLocaleString(
+                            "es-NI"
+                        )}
                     </span>
 
                 </div>
@@ -365,18 +600,18 @@ function mostrarCarrito() {
                 <div class="controles-cantidad">
 
                     <button
+                        type="button"
                         onclick="disminuirCantidad(${indice})"
                     >
                         −
                     </button>
 
-
                     <span>
-                        ${producto.cantidad}
+                        ${cantidad}
                     </span>
 
-
                     <button
+                        type="button"
                         onclick="aumentarCantidad(${indice})"
                     >
                         +
@@ -387,14 +622,18 @@ function mostrarCarrito() {
 
                 <div class="subtotal">
 
-                    C$ ${subtotal.toLocaleString()}
+                    C$ ${subtotal.toLocaleString(
+                        "es-NI"
+                    )}
 
                 </div>
 
 
                 <button
+                    type="button"
                     class="eliminar-producto"
                     onclick="eliminarProducto(${indice})"
+                    aria-label="Eliminar producto"
                 >
                     🗑️
                 </button>
@@ -410,18 +649,41 @@ function mostrarCarrito() {
     );
 
 
-    // Mostrar total
     totalCarrito.textContent =
-        total.toLocaleString();
+        total.toLocaleString(
+            "es-NI"
+        );
 
 }
 
 
-// =====================================================
-// AUMENTAR CANTIDAD
-// =====================================================
+/* =====================================================
+   SEGURIDAD HTML
+   ===================================================== */
+
+function escaparHTML(texto) {
+
+    return String(texto)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =====================================================
+   AUMENTAR CANTIDAD
+   ===================================================== */
 
 function aumentarCantidad(indice) {
+
+    if (
+        !carrito[indice]
+    ) {
+        return;
+    }
 
     carrito[indice].cantidad++;
 
@@ -435,11 +697,18 @@ function aumentarCantidad(indice) {
 }
 
 
-// =====================================================
-// DISMINUIR CANTIDAD
-// =====================================================
+/* =====================================================
+   DISMINUIR CANTIDAD
+   ===================================================== */
 
 function disminuirCantidad(indice) {
+
+    if (
+        !carrito[indice]
+    ) {
+        return;
+    }
+
 
     carrito[indice].cantidad--;
 
@@ -448,7 +717,10 @@ function disminuirCantidad(indice) {
         carrito[indice].cantidad <= 0
     ) {
 
-        carrito.splice(indice, 1);
+        carrito.splice(
+            indice,
+            1
+        );
 
     }
 
@@ -462,13 +734,23 @@ function disminuirCantidad(indice) {
 }
 
 
-// =====================================================
-// ELIMINAR PRODUCTO
-// =====================================================
+/* =====================================================
+   ELIMINAR PRODUCTO
+   ===================================================== */
 
 function eliminarProducto(indice) {
 
-    carrito.splice(indice, 1);
+    if (
+        !carrito[indice]
+    ) {
+        return;
+    }
+
+
+    carrito.splice(
+        indice,
+        1
+    );
 
 
     guardarCarrito();
@@ -480,9 +762,9 @@ function eliminarProducto(indice) {
 }
 
 
-// =====================================================
-// FINALIZAR COMPRA POR WHATSAPP
-// =====================================================
+/* =====================================================
+   FINALIZAR COMPRA
+   ===================================================== */
 
 const finalizarCompra =
     document.getElementById(
@@ -496,12 +778,9 @@ if (finalizarCompra) {
         "click",
         function () {
 
-
-            // =========================================
-            // COMPROBAR CARRITO
-            // =========================================
-
-            if (carrito.length === 0) {
+            if (
+                carrito.length === 0
+            ) {
 
                 alert(
                     "Tu carrito está vacío."
@@ -512,95 +791,587 @@ if (finalizarCompra) {
             }
 
 
-            // =========================================
-            // NÚMERO DE WHATSAPP
-            // =========================================
-            //
-            // CAMBIA ESTE NÚMERO POR EL TUYO.
-            //
-            // Nicaragua utiliza el código 505.
-            //
-            // Ejemplo:
-            // 50588888888
-            //
-            // Sin +, espacios ni guiones.
-            // =========================================
+            enviarPedidoWhatsApp();
 
-            const numeroWhatsApp =
-                "50576823472";
+        }
+    );
+
+}
 
 
-            // =========================================
-            // CREAR MENSAJE
-            // =========================================
+/* =====================================================
+   ENVIAR PEDIDO A WHATSAPP
+   ===================================================== */
 
-            let mensaje =
-                "Hola, quiero realizar un pedido:%0A%0A";
+function enviarPedidoWhatsApp() {
 
-
-            let total = 0;
-
-
-            // =========================================
-            // AGREGAR PRODUCTOS AL MENSAJE
-            // =========================================
-
-            carrito.forEach(
-                function (producto) {
-
-                    const subtotal =
-                        producto.precio *
-                        producto.cantidad;
+    let mensaje =
+        "Hola, quiero realizar un pedido:%0A%0A";
 
 
-                    total += subtotal;
+    let total = 0;
 
 
-                    mensaje +=
-                        "• " +
-                        producto.nombre +
-                        " x" +
-                        producto.cantidad +
-                        " — C$ " +
-                        subtotal.toLocaleString() +
-                        "%0A";
+    carrito.forEach(
+        function (producto) {
+
+            const precio =
+                Number(producto.precio);
+
+            const cantidad =
+                Number(producto.cantidad);
+
+            const subtotal =
+                precio * cantidad;
+
+
+            total += subtotal;
+
+
+            mensaje +=
+                "• " +
+                encodeURIComponent(
+                    producto.nombre
+                ) +
+                " x" +
+                cantidad +
+                " — C$ " +
+                subtotal.toLocaleString(
+                    "es-NI"
+                ) +
+                "%0A";
+
+        }
+    );
+
+
+    mensaje +=
+        "%0A" +
+        "*Total: C$ " +
+        total.toLocaleString(
+            "es-NI"
+        ) +
+        "*";
+
+
+    mensaje +=
+        "%0A%0A" +
+        "Quedo atento para coordinar la entrega.";
+
+
+    const enlaceWhatsApp =
+        "https://wa.me/" +
+        NUMERO_WHATSAPP +
+        "?text=" +
+        mensaje;
+
+
+    window.open(
+        enlaceWhatsApp,
+        "_blank"
+    );
+
+}
+
+
+/* =====================================================
+   BOTONES DE WHATSAPP DE LA PÁGINA
+   ===================================================== */
+
+function activarWhatsApp() {
+
+    const botones =
+        document.querySelectorAll(
+            "[data-whatsapp]"
+        );
+
+
+    botones.forEach(
+        function (boton) {
+
+            boton.addEventListener(
+                "click",
+                function (evento) {
+
+                    evento.preventDefault();
+
+
+                    const texto =
+                        boton.dataset.whatsapp ||
+                        "Hola, quiero información sobre sus productos.";
+
+
+                    const enlace =
+                        "https://wa.me/" +
+                        NUMERO_WHATSAPP +
+                        "?text=" +
+                        encodeURIComponent(
+                            texto
+                        );
+
+
+                    window.open(
+                        enlace,
+                        "_blank"
+                    );
 
                 }
             );
 
-
-            // =========================================
-            // AGREGAR TOTAL
-            // =========================================
-
-            mensaje +=
-                "%0A" +
-                "*Total: C$ " +
-                total.toLocaleString() +
-                "*";
+        }
+    );
 
 
-            // =========================================
-            // CREAR ENLACE DE WHATSAPP
-            // =========================================
-
-            const enlaceWhatsApp =
-                "https://wa.me/" +
-                numeroWhatsApp +
-                "?text=" +
-                mensaje;
+    // Botón flotante
+    const whatsappFlotante =
+        document.querySelector(
+            ".whatsapp-flotante"
+        );
 
 
-            // =========================================
-            // ABRIR WHATSAPP
-            // =========================================
+    if (
+        whatsappFlotante
+    ) {
 
-            window.open(
-                enlaceWhatsApp,
-                "_blank"
+        whatsappFlotante.href =
+            "https://wa.me/" +
+            NUMERO_WHATSAPP +
+            "?text=" +
+            encodeURIComponent(
+                "Hola, quiero información sobre sus productos."
+            );
+
+        whatsappFlotante.target =
+            "_blank";
+
+    }
+
+}
+
+
+/* =====================================================
+   CARRUSEL
+   ===================================================== */
+
+let slideActual = 0;
+
+let intervaloCarrusel = null;
+
+
+function iniciarCarrusel() {
+
+    const slides =
+        document.querySelectorAll(
+            ".slide"
+        );
+
+    const indicadores =
+        document.querySelectorAll(
+            ".indicador"
+        );
+
+
+    if (
+        slides.length === 0
+    ) {
+        return;
+    }
+
+
+    function mostrarSlide(numero) {
+
+        slides.forEach(
+            function (slide) {
+
+                slide.classList.remove(
+                    "activo"
+                );
+
+            }
+        );
+
+
+        indicadores.forEach(
+            function (indicador) {
+
+                indicador.classList.remove(
+                    "activo"
+                );
+
+            }
+        );
+
+
+        slideActual =
+            numero;
+
+
+        if (
+            slideActual >=
+            slides.length
+        ) {
+
+            slideActual = 0;
+
+        }
+
+
+        if (
+            slideActual < 0
+        ) {
+
+            slideActual =
+                slides.length - 1;
+
+        }
+
+
+        slides[
+            slideActual
+        ].classList.add(
+            "activo"
+        );
+
+
+        if (
+            indicadores[
+                slideActual
+            ]
+        ) {
+
+            indicadores[
+                slideActual
+            ].classList.add(
+                "activo"
+            );
+
+        }
+
+    }
+
+
+    window.cambiarSlide =
+        function (direccion) {
+
+            mostrarSlide(
+                slideActual +
+                direccion
+            );
+
+            reiniciarCarrusel();
+
+        };
+
+
+    window.irASlide =
+        function (numero) {
+
+            mostrarSlide(
+                numero
+            );
+
+            reiniciarCarrusel();
+
+        };
+
+
+    function reiniciarCarrusel() {
+
+        clearInterval(
+            intervaloCarrusel
+        );
+
+        intervaloCarrusel =
+            setInterval(
+                function () {
+
+                    mostrarSlide(
+                        slideActual + 1
+                    );
+
+                },
+                5000
+            );
+
+    }
+
+
+    // Activar flechas
+    const anterior =
+        document.querySelector(
+            ".flecha-carrusel.anterior"
+        );
+
+    const siguiente =
+        document.querySelector(
+            ".flecha-carrusel.siguiente"
+        );
+
+
+    if (anterior) {
+
+        anterior.addEventListener(
+            "click",
+            function () {
+
+                window.cambiarSlide(
+                    -1
+                );
+
+            }
+        );
+
+    }
+
+
+    if (siguiente) {
+
+        siguiente.addEventListener(
+            "click",
+            function () {
+
+                window.cambiarSlide(
+                    1
+                );
+
+            }
+        );
+
+    }
+
+
+    // Activar indicadores
+    indicadores.forEach(
+        function (
+            indicador,
+            indice
+        ) {
+
+            indicador.addEventListener(
+                "click",
+                function () {
+
+                    window.irASlide(
+                        indice
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    mostrarSlide(0);
+
+    reiniciarCarrusel();
+
+
+    // Pausar al pasar el mouse
+    const carrusel =
+        document.querySelector(
+            ".carrusel"
+        );
+
+
+    if (carrusel) {
+
+        carrusel.addEventListener(
+            "mouseenter",
+            function () {
+
+                clearInterval(
+                    intervaloCarrusel
+                );
+
+            }
+        );
+
+
+        carrusel.addEventListener(
+            "mouseleave",
+            function () {
+
+                reiniciarCarrusel();
+
+            }
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   BOTONES "COMPRAR AHORA"
+   ===================================================== */
+
+function activarBotonesComprar() {
+
+    const botones =
+        document.querySelectorAll(
+            "[data-ir-catalogo]"
+        );
+
+
+    botones.forEach(
+        function (boton) {
+
+            boton.addEventListener(
+                "click",
+                function () {
+
+                    window.location.href =
+                        "catalogo.html";
+
+                }
             );
 
         }
     );
 
 }
+
+
+/* =====================================================
+   CATEGORÍAS
+   ===================================================== */
+
+function activarCategorias() {
+
+    const categorias =
+        document.querySelectorAll(
+            ".categoria"
+        );
+
+
+    categorias.forEach(
+        function (categoria) {
+
+            categoria.addEventListener(
+                "click",
+                function () {
+
+                    const nombre =
+                        categoria.querySelector(
+                            "strong"
+                        );
+
+
+                    if (!nombre) {
+                        return;
+                    }
+
+
+                    const texto =
+                        nombre.textContent
+                            .toLowerCase()
+                            .trim();
+
+
+                    const catalogo =
+                        "catalogo.html";
+
+
+                    // Llevar al catálogo
+                    window.location.href =
+                        catalogo +
+                        "?categoria=" +
+                        encodeURIComponent(
+                            texto
+                        );
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   NAVEGACIÓN SUAVE
+   ===================================================== */
+
+function activarNavegacion() {
+
+    const enlaces =
+        document.querySelectorAll(
+            'a[href^="#"]'
+        );
+
+
+    enlaces.forEach(
+        function (enlace) {
+
+            enlace.addEventListener(
+                "click",
+                function (evento) {
+
+                    const destino =
+                        enlace.getAttribute(
+                            "href"
+                        );
+
+
+                    if (
+                        !destino ||
+                        destino === "#"
+                    ) {
+                        return;
+                    }
+
+
+                    const elemento =
+                        document.querySelector(
+                            destino
+                        );
+
+
+                    if (!elemento) {
+                        return;
+                    }
+
+
+                    evento.preventDefault();
+
+
+                    elemento.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   INICIALIZACIÓN
+   ===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        actualizarContador();
+
+        activarBotonesProductos();
+
+        activarWhatsApp();
+
+        iniciarCarrusel();
+
+        activarBotonesComprar();
+
+        activarCategorias();
+
+        activarNavegacion();
+
+    }
+); 

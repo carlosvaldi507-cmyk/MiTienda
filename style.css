@@ -1,5 +1,5 @@
 /* =====================================================
-   MI TIENDA - DISEÑO PROFESIONAL
+   MI TIENDA - ESTILO COMPLETO
    ===================================================== */
 
 /* =====================================================
@@ -25,20 +25,15 @@ body {
     min-width: 0;
 
     font-family: "Segoe UI", Arial, sans-serif;
+
     color: #17202a;
 
     overflow-x: hidden;
 
-    /*
-    =====================================================
-    FONDO PRINCIPAL
-    =====================================================
-    */
-
     background-image:
         linear-gradient(
-            rgba(255, 255, 255, 0.12),
-            rgba(255, 255, 255, 0.12)
+            rgba(255, 255, 255, 0.08),
+            rgba(255, 255, 255, 0.08)
         ),
         url("mi-fondo.png");
 
@@ -52,6 +47,34 @@ body {
 
 
 /* =====================================================
+   BARRA SUPERIOR DE OFERTAS
+   ===================================================== */
+
+.barra-oferta {
+    width: 100%;
+
+    min-height: 34px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 7px 15px;
+
+    background: #f4a62a;
+
+    color: #17202a;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    text-align: center;
+}
+
+
+/* =====================================================
    ENCABEZADO
    ===================================================== */
 
@@ -59,11 +82,12 @@ header {
     width: 100%;
     max-width: 100%;
 
-    background: rgba(10, 35, 51, 0.96);
+    background: rgba(10, 35, 51, 0.97);
 
     padding: 18px 6%;
 
     display: flex;
+
     align-items: center;
 
     gap: 22px;
@@ -74,14 +98,55 @@ header {
         0 4px 20px rgba(0, 0, 0, 0.18);
 
     position: relative;
+
     z-index: 10;
 }
 
-header h1 {
+
+/* =====================================================
+   LOGO
+   ===================================================== */
+
+.logo {
+    flex-shrink: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+.logo h1 {
     color: #ffffff;
 
     font-size: 30px;
+
+    font-weight: 850;
+
+    letter-spacing: 1px;
+
+    white-space: nowrap;
+}
+
+.logo span {
+    color: rgba(255, 255, 255, 0.68);
+
+    font-size: 10px;
+
+    white-space: nowrap;
+}
+
+
+/* Compatibilidad con el header antiguo */
+
+header > h1 {
+    color: #ffffff;
+
+    font-size: 30px;
+
     font-weight: 800;
+
     letter-spacing: 1px;
 
     white-space: nowrap;
@@ -89,12 +154,30 @@ header h1 {
     flex-shrink: 0;
 }
 
-header input {
+
+/* =====================================================
+   BUSCADOR PRINCIPAL
+   ===================================================== */
+
+.buscador-principal {
     flex: 1;
 
     min-width: 0;
 
-    padding: 14px 20px;
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+}
+
+.buscador-principal input,
+header > input {
+    width: 100%;
+
+    min-width: 0;
+
+    padding: 14px 50px 14px 20px;
 
     border-radius: 30px;
 
@@ -105,6 +188,7 @@ header input {
     color: #17202a;
 
     font-family: inherit;
+
     font-size: 15px;
 
     outline: none;
@@ -114,15 +198,47 @@ header input {
         box-shadow 0.2s ease;
 }
 
-header input::placeholder {
+.buscador-principal input::placeholder,
+header > input::placeholder {
     color: #7b8790;
 }
 
-header input:focus {
+.buscador-principal input:focus,
+header > input:focus {
     border-color: #f4a62a;
 
     box-shadow:
         0 0 0 3px rgba(244, 166, 42, 0.18);
+}
+
+.buscador-principal button {
+    position: absolute;
+
+    right: 7px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 38px;
+
+    height: 38px;
+
+    padding: 0;
+
+    border-radius: 50%;
+
+    background: transparent;
+
+    color: #173546;
+
+    font-size: 17px;
+}
+
+.buscador-principal button:hover {
+    background: #edf1f3;
+
+    transform: translateY(-50%);
 }
 
 
@@ -201,7 +317,7 @@ button:hover {
 
 
 /* =====================================================
-   CONTADOR DEL CARRITO
+   CONTADOR
    ===================================================== */
 
 #contador-carrito {
@@ -211,6 +327,7 @@ button:hover {
     justify-content: center;
 
     min-width: 22px;
+
     height: 22px;
 
     padding: 2px 6px;
@@ -228,14 +345,15 @@ button:hover {
 
 
 /* =====================================================
-   MENÚ DE NAVEGACIÓN
+   NAVEGACIÓN
    ===================================================== */
 
-nav {
+nav,
+.nav {
     width: 100%;
     max-width: 100%;
 
-    background: rgba(16, 55, 75, 0.95);
+    background: rgba(16, 55, 75, 0.97);
 
     padding: 14px 6%;
 
@@ -251,14 +369,15 @@ nav {
         0 3px 12px rgba(0, 0, 0, 0.12);
 }
 
-nav a {
+nav a,
+.nav a {
     color: #ffffff;
 
     text-decoration: none;
 
     font-size: 14px;
 
-    font-weight: 600;
+    font-weight: 650;
 
     letter-spacing: 0.2px;
 
@@ -269,93 +388,353 @@ nav a {
         opacity 0.2s ease;
 }
 
-nav a:hover {
+nav a:hover,
+.nav a:hover {
     color: #f4a62a;
 }
 
 
 /* =====================================================
-   BANNER
+   CARRUSEL PRINCIPAL
    ===================================================== */
 
-.banner {
+.carrusel {
     width: 100%;
-    max-width: 100%;
 
-    min-height: 350px;
+    min-height: 430px;
 
-    /*
-    Fondo transparente para que se vea
-    claramente mi-fondo.png
-    */
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        rgba(8, 28, 40, 0.28);
+}
+
+
+/* =====================================================
+   SLIDES
+   ===================================================== */
+
+.slide {
+    width: 100%;
+
+    min-height: 430px;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    position: relative;
+
+    overflow: hidden;
 
     background:
         linear-gradient(
             90deg,
-            rgba(8, 28, 40, 0.78),
-            rgba(8, 28, 40, 0.30),
-            rgba(8, 28, 40, 0.05)
+            rgba(8, 28, 40, 0.88),
+            rgba(8, 28, 40, 0.48),
+            rgba(8, 28, 40, 0.15)
         );
+}
 
+.slide.activo {
     display: flex;
-
-    align-items: center;
-
-    padding: 55px 8%;
-
-    overflow: hidden;
 }
 
-.banner > div {
-    max-width: 650px;
+
+/* =====================================================
+   CONTENIDO DEL SLIDE
+   ===================================================== */
+
+.slide-contenido {
+    width: 52%;
+
+    max-width: 700px;
+
+    padding: 55px 0 65px 8%;
+
+    position: relative;
+
+    z-index: 2;
 }
 
-.banner h2 {
+.slide-contenido h2 {
     color: white;
 
-    font-size: clamp(36px, 5vw, 58px);
+    font-size: clamp(36px, 5vw, 62px);
 
-    line-height: 1.05;
+    line-height: 1.04;
 
-    margin-bottom: 18px;
+    margin: 12px 0 18px;
 
-    font-weight: 800;
+    font-weight: 850;
 
     letter-spacing: -1px;
 
     text-shadow:
-        0 3px 15px rgba(0, 0, 0, 0.35);
+        0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
-.banner p {
-    color: rgba(255, 255, 255, 0.95);
+.slide-contenido p {
+    color: rgba(255, 255, 255, 0.94);
 
-    font-size: 20px;
+    font-size: 19px;
 
     line-height: 1.5;
 
-    margin-bottom: 28px;
+    max-width: 570px;
 
-    max-width: 560px;
+    margin-bottom: 28px;
 }
 
-.banner button {
+.etiqueta-promocion {
+    display: inline-block;
+
+    padding: 7px 13px;
+
+    border-radius: 30px;
+
+    background: #f4a62a;
+
+    color: #17202a;
+
+    font-size: 12px;
+
+    font-weight: 850;
+
+    letter-spacing: 1px;
+}
+
+.slide-contenido button {
     background: #f4a62a;
 
     color: #17202a;
 
     font-size: 16px;
 
-    padding: 14px 25px;
+    padding: 14px 24px;
 
-    border-radius: 10px;
+    border-radius: 9px;
 
     box-shadow:
-        0 6px 18px rgba(0, 0, 0, 0.2);
+        0 7px 20px rgba(0, 0, 0, 0.22);
 }
 
-.banner button:hover {
+.slide-contenido button:hover {
     background: #ffb63d;
+}
+
+
+/* =====================================================
+   IMAGEN DEL SLIDE
+   ===================================================== */
+
+.slide-imagen {
+    width: 50%;
+
+    height: 100%;
+
+    min-height: 430px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+.slide-imagen img {
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    opacity: 0.92;
+}
+
+
+/* =====================================================
+   SLIDES VISUALES
+   ===================================================== */
+
+.slide-visual {
+    width: 48%;
+
+    min-height: 430px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 150px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(244, 166, 42, 0.30),
+            transparent 65%
+        );
+}
+
+.slide-visual span {
+    filter:
+        drop-shadow(
+            0 15px 20px rgba(0, 0, 0, 0.35)
+        );
+}
+
+.slide-seguridad {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(13, 92, 114, 0.80),
+            rgba(8, 28, 40, 0.30)
+        );
+}
+
+.slide-herramientas {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(244, 166, 42, 0.55),
+            rgba(8, 28, 40, 0.25)
+        );
+}
+
+
+/* =====================================================
+   FLECHAS
+   ===================================================== */
+
+.flecha-carrusel {
+    position: absolute;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 50px;
+
+    height: 50px;
+
+    padding: 0;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.90);
+
+    color: #173546;
+
+    font-size: 36px;
+
+    line-height: 1;
+
+    z-index: 5;
+
+    box-shadow:
+        0 5px 18px rgba(0, 0, 0, 0.20);
+}
+
+.flecha-carrusel:hover {
+    background: #f4a62a;
+
+    transform:
+        translateY(-50%)
+        scale(1.05);
+}
+
+.flecha-carrusel.anterior {
+    left: 20px;
+}
+
+.flecha-carrusel.siguiente {
+    right: 20px;
+}
+
+
+/* =====================================================
+   INDICADORES
+   ===================================================== */
+
+.indicadores {
+    position: absolute;
+
+    bottom: 20px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    display: flex;
+
+    gap: 9px;
+
+    z-index: 6;
+}
+
+.indicador {
+    width: 11px;
+
+    height: 11px;
+
+    padding: 0;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.60);
+
+    border: 2px solid rgba(255, 255, 255, 0.50);
+}
+
+.indicador.activo {
+    background: #f4a62a;
+
+    border-color: #f4a62a;
+}
+
+.indicador:hover {
+    transform: scale(1.15);
+}
+
+
+/* =====================================================
+   TÍTULOS DE SECCIÓN
+   ===================================================== */
+
+.seccion-titulo {
+    margin-bottom: 30px;
+}
+
+.seccion-titulo > span {
+    display: block;
+
+    color: #f4a62a;
+
+    font-size: 12px;
+
+    font-weight: 850;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 6px;
+}
+
+.seccion-titulo h2 {
+    margin-bottom: 8px;
+}
+
+.seccion-titulo p {
+    color: rgba(255, 255, 255, 0.88);
+
+    font-size: 16px;
 }
 
 
@@ -369,15 +748,11 @@ nav a:hover {
 
     padding: 55px 6%;
 
-    /*
-    Mucho más transparente que antes.
-    */
-
     background: rgba(255, 255, 255, 0.16);
 
     overflow: hidden;
 
-    backdrop-filter: blur(2px);
+    backdrop-filter: blur(3px);
 }
 
 .categorias h2,
@@ -387,8 +762,6 @@ nav a:hover {
     font-size: 32px;
 
     line-height: 1.2;
-
-    margin-bottom: 30px;
 
     font-weight: 800;
 
@@ -400,46 +773,52 @@ nav a:hover {
     width: 100%;
     max-width: 100%;
 
-    display: flex;
+    display: grid;
 
-    gap: 22px;
+    grid-template-columns:
+        repeat(5, minmax(0, 1fr));
 
-    flex-wrap: wrap;
+    gap: 20px;
 }
 
 .categoria {
-    text-align: center;
+    width: 100%;
 
     min-width: 0;
 
-    flex: 1 1 140px;
-
-    padding: 18px 10px;
+    padding: 20px 10px;
 
     border-radius: 16px;
 
-    background: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.20);
 
     border: 1px solid rgba(255, 255, 255, 0.30);
 
-    backdrop-filter: blur(7px);
+    backdrop-filter: blur(8px);
 
     box-shadow:
         0 8px 25px rgba(0, 0, 0, 0.10);
 
-    transition:
-        transform 0.2s ease,
-        background 0.2s ease;
+    text-align: center;
+
+    color: white;
+}
+
+button.categoria {
+    cursor: pointer;
+
+    font-family: inherit;
 }
 
 .categoria:hover {
     transform: translateY(-5px);
 
-    background: rgba(255, 255, 255, 0.28);
+    background: rgba(255, 255, 255, 0.30);
 }
 
 .icono {
     width: 90px;
+
     height: 90px;
 
     border-radius: 50%;
@@ -454,25 +833,34 @@ nav a:hover {
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     font-size: 38px;
 
-    margin: 0 auto 12px;
+    margin: 0 auto 13px;
 
     box-shadow:
         0 8px 18px rgba(0, 0, 0, 0.18);
 }
 
-.categoria p {
+.categoria strong {
+    display: block;
+
     color: white;
 
-    font-weight: 700;
+    font-size: 16px;
 
-    font-size: 15px;
+    margin-bottom: 4px;
 
     text-shadow:
         0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+.categoria > span {
+    color: rgba(255, 255, 255, 0.72);
+
+    font-size: 12px;
 }
 
 
@@ -486,10 +874,6 @@ nav a:hover {
 
     padding: 55px 6%;
 
-    /*
-    Transparente para que el fondo siga visible.
-    */
-
     background: rgba(9, 32, 45, 0.20);
 
     overflow: hidden;
@@ -502,14 +886,14 @@ nav a:hover {
     display: grid;
 
     grid-template-columns:
-        repeat(auto-fit, minmax(220px, 1fr));
+        repeat(4, minmax(0, 1fr));
 
     gap: 25px;
 }
 
 
 /* =====================================================
-   TARJETA DEL PRODUCTO
+   TARJETA PRODUCTO
    ===================================================== */
 
 .producto {
@@ -517,11 +901,7 @@ nav a:hover {
 
     min-width: 0;
 
-    /*
-    Tarjeta semitransparente tipo vidrio.
-    */
-
-    background: rgba(255, 255, 255, 0.86);
+    background: rgba(255, 255, 255, 0.90);
 
     padding: 18px;
 
@@ -550,7 +930,7 @@ nav a:hover {
 
 
 /* =====================================================
-   IMAGEN DEL PRODUCTO
+   IMAGEN PRODUCTO
    ===================================================== */
 
 .producto-imagen {
@@ -582,6 +962,7 @@ nav a:hover {
 
 .producto-imagen img {
     width: 100%;
+
     height: 100%;
 
     object-fit: contain;
@@ -589,8 +970,28 @@ nav a:hover {
 
 
 /* =====================================================
-   INFORMACIÓN DEL PRODUCTO
+   INFORMACIÓN
    ===================================================== */
+
+.producto-info {
+    min-width: 0;
+}
+
+.producto-categoria {
+    display: inline-block;
+
+    color: #0d5c72;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.8px;
+
+    margin-bottom: 6px;
+}
 
 .producto h3 {
     color: #102f41;
@@ -651,7 +1052,125 @@ nav a:hover {
 
 
 /* =====================================================
-   VENTANA DEL CARRITO
+   BOTÓN VER CATÁLOGO
+   ===================================================== */
+
+.boton-ver-catalogo {
+    width: 100%;
+
+    display: flex;
+
+    justify-content: center;
+
+    margin-top: 35px;
+}
+
+.boton-ver-catalogo button {
+    background: #f4a62a;
+
+    color: #17202a;
+
+    padding: 14px 28px;
+
+    font-size: 15px;
+}
+
+.boton-ver-catalogo button:hover {
+    background: #ffb63d;
+}
+
+
+/* =====================================================
+   SECCIÓN WHATSAPP
+   ===================================================== */
+
+.contacto {
+    width: 100%;
+
+    padding: 45px 7%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(13, 92, 114, 0.96),
+            rgba(10, 35, 51, 0.97)
+        );
+
+    color: white;
+}
+
+.contacto > div {
+    min-width: 0;
+}
+
+.contacto > div > span {
+    color: #f4a62a;
+
+    font-size: 12px;
+
+    font-weight: 850;
+
+    letter-spacing: 1.5px;
+}
+
+.contacto h2 {
+    font-size: 30px;
+
+    margin: 7px 0 8px;
+
+    font-weight: 800;
+}
+
+.contacto p {
+    color: rgba(255, 255, 255, 0.78);
+
+    font-size: 15px;
+
+    line-height: 1.5;
+
+    max-width: 650px;
+}
+
+.boton-whatsapp-contacto {
+    flex-shrink: 0;
+
+    padding: 14px 23px;
+
+    border-radius: 10px;
+
+    background: #25D366;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 7px 18px rgba(0, 0, 0, 0.20);
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+.boton-whatsapp-contacto:hover {
+    background: #1da851;
+
+    transform: translateY(-2px);
+}
+
+
+/* =====================================================
+   CARRITO
    ===================================================== */
 
 .carrito-ventana {
@@ -662,6 +1181,7 @@ nav a:hover {
     inset: 0;
 
     width: 100vw;
+
     height: 100vh;
 
     background: rgba(3, 15, 22, 0.72);
@@ -678,11 +1198,6 @@ nav a:hover {
 
     backdrop-filter: blur(4px);
 }
-
-
-/* =====================================================
-   CONTENIDO DEL CARRITO
-   ===================================================== */
 
 .carrito-contenido {
     position: relative;
@@ -707,19 +1222,12 @@ nav a:hover {
         0 20px 60px rgba(0, 0, 0, 0.35);
 }
 
-
-/* =====================================================
-   BOTÓN CERRAR
-   ===================================================== */
-
 .cerrar-carrito {
     position: absolute;
 
     right: 15px;
 
     top: 15px;
-
-    border: none;
 
     background: #eef2f4;
 
@@ -728,10 +1236,6 @@ nav a:hover {
     font-size: 20px;
 
     padding: 7px 10px;
-
-    cursor: pointer;
-
-    border-radius: 8px;
 }
 
 .cerrar-carrito:hover {
@@ -739,11 +1243,6 @@ nav a:hover {
 
     color: #c0392b;
 }
-
-
-/* =====================================================
-   TÍTULO CARRITO
-   ===================================================== */
 
 .carrito-contenido h2 {
     margin-top: 0;
@@ -756,11 +1255,6 @@ nav a:hover {
 
     font-weight: 800;
 }
-
-
-/* =====================================================
-   PRODUCTOS DEL CARRITO
-   ===================================================== */
 
 .item-carrito {
     display: grid;
@@ -802,11 +1296,6 @@ nav a:hover {
     color: #6c7880;
 }
 
-
-/* =====================================================
-   CONTROLES DE CANTIDAD
-   ===================================================== */
-
 .controles-cantidad {
     display: flex;
 
@@ -817,6 +1306,7 @@ nav a:hover {
 
 .controles-cantidad button {
     width: 30px;
+
     height: 30px;
 
     padding: 0;
@@ -842,11 +1332,6 @@ nav a:hover {
     font-weight: 700;
 }
 
-
-/* =====================================================
-   SUBTOTAL
-   ===================================================== */
-
 .subtotal {
     color: #0d5c72;
 
@@ -855,31 +1340,13 @@ nav a:hover {
     white-space: nowrap;
 }
 
-
-/* =====================================================
-   ELIMINAR PRODUCTO
-   ===================================================== */
-
 .eliminar-producto {
-    border: none;
-
     background: transparent;
-
-    cursor: pointer;
 
     font-size: 18px;
 
     padding: 5px;
 }
-
-.eliminar-producto:hover {
-    transform: scale(1.1);
-}
-
-
-/* =====================================================
-   CARRITO VACÍO
-   ===================================================== */
 
 .carrito-vacio {
     text-align: center;
@@ -888,11 +1355,6 @@ nav a:hover {
 
     color: #78858d;
 }
-
-
-/* =====================================================
-   TOTAL
-   ===================================================== */
 
 .total-carrito {
     display: flex;
@@ -912,19 +1374,12 @@ nav a:hover {
     border-top: 2px solid #dce3e7;
 }
 
-
-/* =====================================================
-   FINALIZAR COMPRA
-   ===================================================== */
-
 .finalizar-compra {
     width: 100%;
 
     margin-top: 20px;
 
     padding: 14px;
-
-    border: none;
 
     border-radius: 10px;
 
@@ -936,22 +1391,268 @@ nav a:hover {
 
     font-weight: 700;
 
-    cursor: pointer;
-
     box-shadow:
         0 5px 15px rgba(37, 211, 102, 0.20);
 }
 
 .finalizar-compra:hover {
     background: #1da851;
+}
+
+
+/* =====================================================
+   WHATSAPP FLOTANTE
+   ===================================================== */
+
+.whatsapp-flotante {
+    position: fixed;
+
+    right: 22px;
+
+    bottom: 22px;
+
+    width: 62px;
+
+    height: 62px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #25D366;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 31px;
 
     box-shadow:
-        0 7px 18px rgba(37, 211, 102, 0.30);
+        0 8px 25px rgba(0, 0, 0, 0.28);
+
+    z-index: 9000;
+
+    border: 4px solid rgba(255, 255, 255, 0.85);
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+.whatsapp-flotante:hover {
+    background: #1da851;
+
+    transform: scale(1.08);
+}
+
+
+/* =====================================================
+   FOOTER
+   ===================================================== */
+
+.footer {
+    width: 100%;
+
+    max-width: 100%;
+
+    background: rgba(10, 35, 51, 0.98);
+
+    color: white;
+
+    overflow: hidden;
+
+    border-top:
+        1px solid rgba(255, 255, 255, 0.12);
+}
+
+
+/* =====================================================
+   REDES
+   ===================================================== */
+
+.footer-redes {
+    width: 100%;
+
+    min-height: 80px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 55px;
+
+    background: rgba(13, 92, 114, 0.96);
+
+    padding: 18px 20px;
+}
+
+.footer-redes a {
+    width: 42px;
+
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 25px;
+
+    font-weight: 700;
+
+    border-radius: 50%;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.footer-redes a:hover {
+    transform: translateY(-4px);
+
+    background: rgba(244, 166, 42, 0.95);
+
+    color: #17202a;
+}
+
+
+/* =====================================================
+   CONTENIDO FOOTER
+   ===================================================== */
+
+.footer-contenido {
+    width: 100%;
+
+    max-width: 1200px;
+
+    margin: auto;
+
+    padding: 45px 6%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 40px;
+}
+
+.footer-columna {
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+.footer-columna h3 {
+    color: white;
+
+    font-size: 18px;
+
+    font-weight: 800;
+
+    margin-bottom: 8px;
+}
+
+.footer-columna a {
+    color: rgba(255, 255, 255, 0.78);
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.footer-columna a:hover {
+    color: #f4a62a;
+
+    transform: translateX(4px);
+}
+
+
+/* =====================================================
+   PARTE FINAL
+   ===================================================== */
+
+.footer-final {
+    width: 100%;
+
+    border-top:
+        1px solid rgba(255, 255, 255, 0.12);
+
+    padding: 20px 6%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    background: rgba(5, 22, 32, 0.96);
+}
+
+.footer-final p {
+    color: rgba(255, 255, 255, 0.65);
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+    margin: 0;
 }
 
 
 /* =====================================================
    TABLETS
+   ===================================================== */
+
+@media (max-width: 1100px) {
+
+    .productos-container {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .categorias-container {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
+
+    .slide-contenido {
+        width: 58%;
+    }
+
+    .slide-imagen,
+    .slide-visual {
+        width: 42%;
+    }
+}
+
+
+/* =====================================================
+   TABLET
    ===================================================== */
 
 @media (max-width: 900px) {
@@ -962,18 +1663,16 @@ nav a:hover {
         gap: 15px;
     }
 
-    header h1 {
+    .logo h1,
+    header > h1 {
         font-size: 26px;
     }
 
-    nav {
+    nav,
+    .nav {
         padding: 14px 4%;
 
         gap: 25px;
-    }
-
-    .banner {
-        padding: 45px 5%;
     }
 
     .categorias,
@@ -981,6 +1680,17 @@ nav a:hover {
         padding-left: 4%;
 
         padding-right: 4%;
+    }
+
+    .footer-redes {
+        gap: 40px;
+    }
+
+    .footer-contenido {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 35px;
     }
 }
 
@@ -1012,8 +1722,6 @@ nav a:hover {
     header {
         width: 100%;
 
-        max-width: 100%;
-
         padding: 14px 12px;
 
         display: grid;
@@ -1028,32 +1736,35 @@ nav a:hover {
             "buscador entrar carrito";
 
         gap: 10px;
-
-        overflow: hidden;
     }
 
-    header h1 {
+    .logo {
         grid-area: titulo;
 
         width: 100%;
 
         text-align: center;
 
-        font-size: 25px;
-
-        white-space: nowrap;
+        align-items: center;
     }
 
-    header input {
+    .logo h1,
+    header > h1 {
+        font-size: 25px;
+    }
+
+    .logo span {
+        display: none;
+    }
+
+    .buscador-principal {
         grid-area: buscador;
 
         width: 100%;
+    }
 
-        min-width: 0;
-
-        padding: 12px 15px;
-
-        font-size: 14px;
+    header > input {
+        grid-area: buscador;
     }
 
     header button {
@@ -1064,7 +1775,7 @@ nav a:hover {
         font-size: 13px;
     }
 
-    header button:nth-of-type(1) {
+    .boton-entrar {
         grid-area: entrar;
     }
 
@@ -1075,12 +1786,11 @@ nav a:hover {
     }
 
 
-    /* MENÚ */
+    /* NAV */
 
-    nav {
+    nav,
+    .nav {
         width: 100%;
-
-        max-width: 100%;
 
         padding: 11px 8px;
 
@@ -1093,83 +1803,90 @@ nav a:hover {
         gap: 4px;
 
         flex-wrap: wrap;
-
-        overflow: hidden;
     }
 
-    nav a {
+    nav a,
+    .nav a {
         font-size: 13px;
 
         padding: 5px 7px;
-
-        white-space: nowrap;
     }
 
 
-    /* BANNER */
+    /* CARRUSEL */
 
-    .banner {
+    .carrusel {
+        min-height: 390px;
+    }
+
+    .slide {
+        min-height: 390px;
+
+        justify-content: center;
+
+        text-align: center;
+    }
+
+    .slide-contenido {
         width: 100%;
 
         max-width: 100%;
 
-        min-height: 270px;
+        padding: 45px 35px 55px;
 
-        padding: 40px 18px;
+        display: flex;
 
-        text-align: center;
+        flex-direction: column;
 
-        justify-content: center;
-
-        background:
-            linear-gradient(
-                180deg,
-                rgba(8, 28, 40, 0.70),
-                rgba(8, 28, 40, 0.20)
-            );
+        align-items: center;
     }
 
-    .banner h2 {
-        font-size: 32px;
+    .slide-contenido h2 {
+        font-size: 34px;
 
-        line-height: 1.12;
+        line-height: 1.1;
     }
 
-    .banner p {
+    .slide-contenido p {
         font-size: 16px;
 
-        line-height: 1.4;
+        max-width: 500px;
+    }
+
+    .slide-imagen,
+    .slide-visual {
+        display: none;
+    }
+
+    .flecha-carrusel {
+        width: 42px;
+
+        height: 42px;
+
+        font-size: 30px;
+    }
+
+    .flecha-carrusel.anterior {
+        left: 10px;
+    }
+
+    .flecha-carrusel.siguiente {
+        right: 10px;
     }
 
 
     /* CATEGORÍAS */
 
     .categorias {
-        width: 100%;
-
-        max-width: 100%;
-
         padding: 35px 15px;
-
-        background: rgba(255, 255, 255, 0.12);
     }
 
     .categorias h2,
     .productos h2 {
         font-size: 26px;
-
-        line-height: 1.2;
-
-        margin-bottom: 20px;
     }
 
     .categorias-container {
-        width: 100%;
-
-        max-width: 100%;
-
-        display: grid;
-
         grid-template-columns:
             repeat(2, minmax(0, 1fr));
 
@@ -1177,8 +1894,6 @@ nav a:hover {
     }
 
     .categoria {
-        min-width: 0;
-
         padding: 14px 8px;
     }
 
@@ -1187,8 +1902,6 @@ nav a:hover {
 
         height: 72px;
 
-        margin: auto auto 9px;
-
         font-size: 29px;
     }
 
@@ -1196,22 +1909,10 @@ nav a:hover {
     /* PRODUCTOS */
 
     .productos {
-        width: 100%;
-
-        max-width: 100%;
-
         padding: 35px 12px;
-
-        background: rgba(9, 32, 45, 0.18);
     }
 
     .productos-container {
-        width: 100%;
-
-        max-width: 100%;
-
-        display: grid;
-
         grid-template-columns:
             repeat(2, minmax(0, 1fr));
 
@@ -1219,20 +1920,12 @@ nav a:hover {
     }
 
     .producto {
-        width: 100%;
-
-        min-width: 0;
-
         padding: 11px;
 
         border-radius: 13px;
-
-        background: rgba(255, 255, 255, 0.90);
     }
 
     .producto-imagen {
-        width: 100%;
-
         height: 125px;
 
         font-size: 45px;
@@ -1240,14 +1933,10 @@ nav a:hover {
 
     .producto h3 {
         font-size: 15px;
-
-        line-height: 1.2;
     }
 
     .producto p {
         font-size: 12px;
-
-        line-height: 1.35;
     }
 
     .producto strong {
@@ -1255,11 +1944,36 @@ nav a:hover {
     }
 
     .producto button {
-        width: 100%;
-
         padding: 10px 5px;
 
         font-size: 12px;
+    }
+
+
+    /* CONTACTO */
+
+    .contacto {
+        flex-direction: column;
+
+        text-align: center;
+
+        padding: 35px 20px;
+    }
+
+    .contacto h2 {
+        font-size: 26px;
+    }
+
+    .contacto p {
+        font-size: 14px;
+    }
+
+    .boton-whatsapp-contacto {
+        width: 100%;
+
+        max-width: 330px;
+
+        text-align: center;
     }
 
 
@@ -1285,20 +1999,12 @@ nav a:hover {
         border-radius: 14px;
     }
 
-    .carrito-contenido h2 {
-        font-size: 23px;
-
-        padding-right: 35px;
-    }
-
     .item-carrito {
         grid-template-columns:
             minmax(0, 1fr)
             auto;
 
         gap: 10px;
-
-        padding: 15px 0;
     }
 
     .info-producto {
@@ -1319,14 +2025,69 @@ nav a:hover {
         justify-self: end;
     }
 
-    .total-carrito {
-        font-size: 18px;
+
+    /* WHATSAPP */
+
+    .whatsapp-flotante {
+        width: 56px;
+
+        height: 56px;
+
+        right: 15px;
+
+        bottom: 15px;
+
+        font-size: 27px;
     }
 
-    .finalizar-compra {
-        font-size: 15px;
 
-        padding: 13px;
+    /* FOOTER */
+
+    .footer-redes {
+        min-height: 70px;
+
+        gap: 25px;
+
+        padding: 15px 10px;
+    }
+
+    .footer-redes a {
+        width: 38px;
+
+        height: 38px;
+
+        font-size: 22px;
+    }
+
+    .footer-contenido {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 30px 20px;
+
+        padding: 35px 20px;
+    }
+
+    .footer-columna h3 {
+        font-size: 16px;
+    }
+
+    .footer-columna a {
+        font-size: 13px;
+    }
+
+    .footer-final {
+        flex-direction: column;
+
+        text-align: center;
+
+        padding: 18px 15px;
+
+        gap: 8px;
+    }
+
+    .footer-final p {
+        font-size: 12px;
     }
 }
 
@@ -1336,6 +2097,12 @@ nav a:hover {
    ===================================================== */
 
 @media (max-width: 480px) {
+
+    .barra-oferta {
+        font-size: 12px;
+
+        min-height: 30px;
+    }
 
     header {
         padding: 12px 8px;
@@ -1348,16 +2115,18 @@ nav a:hover {
         gap: 7px;
     }
 
-    header h1 {
+    .logo h1,
+    header > h1 {
         font-size: 22px;
 
         letter-spacing: 0.5px;
     }
 
-    header input {
+    .buscador-principal input,
+    header > input {
         font-size: 13px;
 
-        padding: 11px 12px;
+        padding: 11px 40px 11px 12px;
     }
 
     header button {
@@ -1370,39 +2139,79 @@ nav a:hover {
         max-width: 95px;
     }
 
-    #contador-carrito {
-        min-width: 20px;
-
-        height: 20px;
-
-        font-size: 11px;
-    }
-
-    nav {
+    nav,
+    .nav {
         padding: 10px 5px;
 
         gap: 2px;
     }
 
-    nav a {
+    nav a,
+    .nav a {
         font-size: 12px;
 
         padding: 5px;
     }
 
-    .banner {
-        min-height: 250px;
 
-        padding: 35px 15px;
+    /* CARRUSEL */
+
+    .carrusel,
+    .slide {
+        min-height: 340px;
     }
 
-    .banner h2 {
+    .slide-contenido {
+        padding: 38px 28px 50px;
+    }
+
+    .slide-contenido h2 {
         font-size: 28px;
     }
 
-    .banner p {
-        font-size: 15px;
+    .slide-contenido p {
+        font-size: 14px;
     }
+
+    .slide-contenido button {
+        font-size: 14px;
+
+        padding: 12px 19px;
+    }
+
+
+    /* CATEGORÍAS */
+
+    .categorias {
+        padding: 30px 10px;
+    }
+
+    .categorias-container {
+        gap: 10px;
+    }
+
+    .categoria {
+        padding: 12px 6px;
+    }
+
+    .icono {
+        width: 65px;
+
+        height: 65px;
+
+        font-size: 27px;
+    }
+
+    .categoria strong {
+        font-size: 14px;
+    }
+
+    .categoria > span {
+        font-size: 10px;
+    }
+
+
+    /* PRODUCTOS */
 
     .productos {
         padding: 30px 10px;
@@ -1445,6 +2254,63 @@ nav a:hover {
 
         padding: 9px 2px;
     }
+
+
+    /* CONTACTO */
+
+    .contacto {
+        padding: 30px 15px;
+    }
+
+    .contacto h2 {
+        font-size: 23px;
+    }
+
+    .contacto p {
+        font-size: 13px;
+    }
+
+
+    /* FOOTER */
+
+    .footer-redes {
+        gap: 12px;
+
+        justify-content: space-around;
+    }
+
+    .footer-redes a {
+        width: 34px;
+
+        height: 34px;
+
+        font-size: 20px;
+    }
+
+    .footer-contenido {
+        grid-template-columns: 1fr;
+
+        gap: 25px;
+
+        padding: 30px 20px;
+    }
+
+    .footer-columna {
+        border-bottom:
+            1px solid rgba(255, 255, 255, 0.10);
+
+        padding-bottom: 20px;
+    }
+
+    .footer-columna:last-child {
+        border-bottom: none;
+
+        padding-bottom: 0;
+    }
+
+    .footer-final {
+        padding: 16px 12px;
+    }
 }
 
 
@@ -1463,23 +2329,27 @@ nav a:hover {
             "entrar carrito";
     }
 
-    header h1 {
-        font-size: 21px;
+    .logo {
+        grid-area: titulo;
     }
 
-    header input {
-        width: 100%;
+    .buscador-principal,
+    header > input {
+        grid-area: buscador;
     }
 
-    header button {
-        width: 100%;
+    .boton-entrar {
+        grid-area: entrar;
     }
 
     #boton-carrito {
+        grid-area: carrito;
+
         max-width: none;
     }
 
-    nav a {
+    nav a,
+    .nav a {
         font-size: 11px;
 
         padding: 4px;
@@ -1491,5 +2361,9 @@ nav a:hover {
 
     .producto-imagen {
         height: 150px;
+    }
+
+    .categorias-container {
+        grid-template-columns: 1fr 1fr;
     }
 }
