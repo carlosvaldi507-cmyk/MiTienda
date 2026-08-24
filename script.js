@@ -1,35 +1,21 @@
-/* =====================================================
-   MI TIENDA - JAVASCRIPT COMPLETO
-   ===================================================== */
+// =====================================================
+// MI TIENDA
+// SISTEMA GENERAL
+// =====================================================
 
 
-/* =====================================================
-   CONFIGURACIÓN
-   ===================================================== */
+// =====================================================
+// CARRITO
+// =====================================================
 
-// Número de WhatsApp de la tienda
-// Nicaragua: +505 7682 3472
-const NUMERO_WHATSAPP = "50576823472";
-
-
-/* =====================================================
-   CARRITO
-   ===================================================== */
-
-let carrito = [];
-
-try {
-    carrito = JSON.parse(
-        localStorage.getItem("carrito")
-    ) || [];
-} catch (error) {
-    carrito = [];
-}
+let carrito = JSON.parse(
+    localStorage.getItem("carrito")
+) || [];
 
 
-/* =====================================================
-   GUARDAR CARRITO
-   ===================================================== */
+// =====================================================
+// GUARDAR CARRITO
+// =====================================================
 
 function guardarCarrito() {
 
@@ -41,9 +27,9 @@ function guardarCarrito() {
 }
 
 
-/* =====================================================
-   CONTADOR DEL CARRITO
-   ===================================================== */
+// =====================================================
+// CONTADOR DEL CARRITO
+// =====================================================
 
 function actualizarContador() {
 
@@ -60,25 +46,478 @@ function actualizarContador() {
         carrito.reduce(
             function (total, producto) {
 
-                return total +
-                    Number(producto.cantidad || 0);
+                return total + producto.cantidad;
 
             },
             0
         );
 
-    contador.textContent =
-        cantidadTotal;
+    contador.textContent = cantidadTotal;
 
 }
 
 
-/* =====================================================
-   BUSCADOR
-   ===================================================== */
+// =====================================================
+// AGREGAR PRODUCTOS
+// =====================================================
+
+const botonesAgregar =
+    document.querySelectorAll(
+        ".agregar-carrito"
+    );
+
+
+botonesAgregar.forEach(
+    function (boton) {
+
+        boton.addEventListener(
+            "click",
+            function () {
+
+                const nombre =
+                    boton.dataset.nombre;
+
+                const precio =
+                    Number(
+                        boton.dataset.precio
+                    );
+
+
+                const productoExistente =
+                    carrito.find(
+                        function (producto) {
+
+                            return producto.nombre === nombre;
+
+                        }
+                    );
+
+
+                if (productoExistente) {
+
+                    productoExistente.cantidad++;
+
+                } else {
+
+                    carrito.push({
+
+                        nombre: nombre,
+
+                        precio: precio,
+
+                        cantidad: 1
+
+                    });
+
+                }
+
+
+                guardarCarrito();
+
+                actualizarContador();
+
+                mostrarCarrito();
+
+            }
+        );
+
+    }
+);
+
+
+// =====================================================
+// BOTÓN DEL CARRITO
+// =====================================================
+
+const botonCarrito =
+    document.getElementById(
+        "boton-carrito"
+    );
+
+
+const ventanaCarrito =
+    document.getElementById(
+        "ventana-carrito"
+    );
+
+
+if (
+    botonCarrito &&
+    ventanaCarrito
+) {
+
+    botonCarrito.addEventListener(
+        "click",
+        function () {
+
+            ventanaCarrito.style.display =
+                "flex";
+
+            mostrarCarrito();
+
+        }
+    );
+
+}
+
+
+// =====================================================
+// CERRAR CARRITO
+// =====================================================
+
+const cerrarCarrito =
+    document.getElementById(
+        "cerrar-carrito"
+    );
+
+
+if (
+    cerrarCarrito &&
+    ventanaCarrito
+) {
+
+    cerrarCarrito.addEventListener(
+        "click",
+        function () {
+
+            ventanaCarrito.style.display =
+                "none";
+
+        }
+    );
+
+}
+
+
+// =====================================================
+// CERRAR AL HACER CLIC AFUERA
+// =====================================================
+
+if (ventanaCarrito) {
+
+    ventanaCarrito.addEventListener(
+        "click",
+        function (evento) {
+
+            if (
+                evento.target ===
+                ventanaCarrito
+            ) {
+
+                ventanaCarrito.style.display =
+                    "none";
+
+            }
+
+        }
+    );
+
+}
+
+
+// =====================================================
+// MOSTRAR CARRITO
+// =====================================================
+
+function mostrarCarrito() {
+
+    const listaCarrito =
+        document.getElementById(
+            "lista-carrito"
+        );
+
+
+    const totalCarrito =
+        document.getElementById(
+            "total-carrito"
+        );
+
+
+    if (
+        !listaCarrito ||
+        !totalCarrito
+    ) {
+
+        return;
+
+    }
+
+
+    listaCarrito.innerHTML = "";
+
+
+    if (carrito.length === 0) {
+
+        listaCarrito.innerHTML = `
+
+            <p class="carrito-vacio">
+
+                Tu carrito está vacío.
+
+            </p>
+
+        `;
+
+        totalCarrito.textContent = "0";
+
+        return;
+
+    }
+
+
+    let total = 0;
+
+
+    carrito.forEach(
+        function (producto, indice) {
+
+            const subtotal =
+                producto.precio *
+                producto.cantidad;
+
+
+            total += subtotal;
+
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "item-carrito";
+
+
+            item.innerHTML = `
+
+                <div class="info-producto">
+
+                    <strong>
+                        ${producto.nombre}
+                    </strong>
+
+                    <span>
+                        C$ ${producto.precio.toLocaleString()}
+                    </span>
+
+                </div>
+
+
+                <div class="controles-cantidad">
+
+                    <button
+                        onclick="disminuirCantidad(${indice})"
+                        type="button"
+                    >
+                        −
+                    </button>
+
+                    <span>
+                        ${producto.cantidad}
+                    </span>
+
+                    <button
+                        onclick="aumentarCantidad(${indice})"
+                        type="button"
+                    >
+                        +
+                    </button>
+
+                </div>
+
+
+                <div class="subtotal">
+
+                    C$ ${subtotal.toLocaleString()}
+
+                </div>
+
+
+                <button
+                    class="eliminar-producto"
+                    onclick="eliminarProducto(${indice})"
+                    type="button"
+                >
+                    🗑️
+                </button>
+
+            `;
+
+
+            listaCarrito.appendChild(item);
+
+        }
+    );
+
+
+    totalCarrito.textContent =
+        total.toLocaleString();
+
+}
+
+
+// =====================================================
+// AUMENTAR CANTIDAD
+// =====================================================
+
+function aumentarCantidad(indice) {
+
+    carrito[indice].cantidad++;
+
+    guardarCarrito();
+
+    actualizarContador();
+
+    mostrarCarrito();
+
+}
+
+
+// =====================================================
+// DISMINUIR CANTIDAD
+// =====================================================
+
+function disminuirCantidad(indice) {
+
+    carrito[indice].cantidad--;
+
+
+    if (
+        carrito[indice].cantidad <= 0
+    ) {
+
+        carrito.splice(indice, 1);
+
+    }
+
+
+    guardarCarrito();
+
+    actualizarContador();
+
+    mostrarCarrito();
+
+}
+
+
+// =====================================================
+// ELIMINAR PRODUCTO
+// =====================================================
+
+function eliminarProducto(indice) {
+
+    carrito.splice(indice, 1);
+
+    guardarCarrito();
+
+    actualizarContador();
+
+    mostrarCarrito();
+
+}
+
+
+// =====================================================
+// FINALIZAR COMPRA POR WHATSAPP
+// =====================================================
+
+const finalizarCompra =
+    document.getElementById(
+        "finalizar-compra"
+    );
+
+
+if (finalizarCompra) {
+
+    finalizarCompra.addEventListener(
+        "click",
+        function () {
+
+            if (carrito.length === 0) {
+
+                alert(
+                    "Tu carrito está vacío."
+                );
+
+                return;
+
+            }
+
+
+            let mensaje =
+                "Hola, quiero realizar el siguiente pedido:%0A%0A";
+
+
+            let total = 0;
+
+
+            carrito.forEach(
+                function (producto) {
+
+                    const subtotal =
+                        producto.precio *
+                        producto.cantidad;
+
+
+                    total += subtotal;
+
+
+                    mensaje +=
+                        "• " +
+                        producto.nombre +
+                        " x" +
+                        producto.cantidad +
+                        " - C$ " +
+                        subtotal.toLocaleString() +
+                        "%0A";
+
+                }
+            );
+
+
+            mensaje +=
+                "%0ATotal: C$ " +
+                total.toLocaleString();
+
+
+            const numero =
+                "50576823472";
+
+
+            const url =
+                "https://wa.me/" +
+                numero +
+                "?text=" +
+                mensaje;
+
+
+            window.open(
+                url,
+                "_blank"
+            );
+
+        }
+    );
+
+}
+
+
+// =====================================================
+// BUSCADOR
+// =====================================================
 
 const buscador =
-    document.getElementById("buscador");
+    document.getElementById(
+        "buscador"
+    );
+
+
+const productos =
+    document.querySelectorAll(
+        ".producto"
+    );
+
 
 if (buscador) {
 
@@ -91,10 +530,6 @@ if (buscador) {
                     .toLowerCase()
                     .trim();
 
-            const productos =
-                document.querySelectorAll(
-                    ".producto"
-                );
 
             productos.forEach(
                 function (producto) {
@@ -102,13 +537,16 @@ if (buscador) {
                     const titulo =
                         producto.querySelector("h3");
 
+
                     if (!titulo) {
                         return;
                     }
 
+
                     const nombre =
                         titulo.textContent
                             .toLowerCase();
+
 
                     if (
                         nombre.includes(texto)
@@ -133,103 +571,84 @@ if (buscador) {
 }
 
 
-/* =====================================================
-   AGREGAR PRODUCTOS
-   ===================================================== */
+// =====================================================
+// CARRUSEL
+// =====================================================
 
-function activarBotonesProductos() {
-
-    const botones =
-        document.querySelectorAll(
-            ".agregar-carrito"
-        );
-
-    botones.forEach(
-        function (boton) {
-
-            // Evitar agregar el evento dos veces
-            if (
-                boton.dataset.eventoActivo ===
-                "true"
-            ) {
-                return;
-            }
-
-            boton.dataset.eventoActivo =
-                "true";
+const slides =
+    document.querySelectorAll(
+        ".slide"
+    );
 
 
-            boton.addEventListener(
-                "click",
-                function () {
-
-                    const nombre =
-                        boton.dataset.nombre ||
-                        obtenerNombreProducto(boton);
-
-                    const precio =
-                        Number(
-                            boton.dataset.precio ||
-                            obtenerPrecioProducto(boton)
-                        );
-
-                    if (
-                        !nombre ||
-                        !precio
-                    ) {
-
-                        alert(
-                            "No se pudo identificar el producto."
-                        );
-
-                        return;
-                    }
+const indicadores =
+    document.querySelectorAll(
+        ".indicador"
+    );
 
 
-                    const productoExistente =
-                        carrito.find(
-                            function (producto) {
-
-                                return (
-                                    producto.nombre ===
-                                    nombre
-                                );
-
-                            }
-                        );
+const botonAnterior =
+    document.getElementById(
+        "slide-anterior"
+    );
 
 
-                    if (productoExistente) {
-
-                        productoExistente.cantidad++;
-
-                    } else {
-
-                        carrito.push({
-
-                            nombre: nombre,
-
-                            precio: precio,
-
-                            cantidad: 1
-
-                        });
-
-                    }
+const botonSiguiente =
+    document.getElementById(
+        "slide-siguiente"
+    );
 
 
-                    guardarCarrito();
-
-                    actualizarContador();
+let slideActual = 0;
 
 
-                    // Mensaje visual
-                    mostrarMensaje(
-                        nombre +
-                        " fue agregado al carrito."
-                    );
+function mostrarSlide(indice) {
 
-                }
+    if (!slides.length) {
+        return;
+    }
+
+
+    if (
+        indice < 0
+    ) {
+
+        indice =
+            slides.length - 1;
+
+    }
+
+
+    if (
+        indice >= slides.length
+    ) {
+
+        indice = 0;
+
+    }
+
+
+    slideActual = indice;
+
+
+    slides.forEach(
+        function (slide, i) {
+
+            slide.classList.toggle(
+                "activo",
+                i === slideActual
+            );
+
+        }
+    );
+
+
+    indicadores.forEach(
+        function (indicador, i) {
+
+            indicador.classList.toggle(
+                "activo",
+                i === slideActual
             );
 
         }
@@ -238,166 +657,15 @@ function activarBotonesProductos() {
 }
 
 
-/* =====================================================
-   OBTENER NOMBRE AUTOMÁTICAMENTE
-   ===================================================== */
+if (botonAnterior) {
 
-function obtenerNombreProducto(boton) {
-
-    const tarjeta =
-        boton.closest(".producto");
-
-    if (!tarjeta) {
-        return "";
-    }
-
-    const titulo =
-        tarjeta.querySelector("h3");
-
-    return titulo
-        ? titulo.textContent.trim()
-        : "";
-
-}
-
-
-/* =====================================================
-   OBTENER PRECIO AUTOMÁTICAMENTE
-   ===================================================== */
-
-function obtenerPrecioProducto(boton) {
-
-    const tarjeta =
-        boton.closest(".producto");
-
-    if (!tarjeta) {
-        return 0;
-    }
-
-    const precio =
-        tarjeta.querySelector("strong");
-
-    if (!precio) {
-        return 0;
-    }
-
-    const texto =
-        precio.textContent
-            .replace(/[^\d]/g, "");
-
-    return Number(texto);
-
-}
-
-
-/* =====================================================
-   MENSAJE DE PRODUCTO AGREGADO
-   ===================================================== */
-
-function mostrarMensaje(texto) {
-
-    const mensajeAnterior =
-        document.querySelector(
-            ".mensaje-tienda"
-        );
-
-    if (mensajeAnterior) {
-        mensajeAnterior.remove();
-    }
-
-
-    const mensaje =
-        document.createElement("div");
-
-    mensaje.className =
-        "mensaje-tienda";
-
-    mensaje.textContent =
-        "✓ " + texto;
-
-
-    mensaje.style.position =
-        "fixed";
-
-    mensaje.style.left =
-        "50%";
-
-    mensaje.style.bottom =
-        "30px";
-
-    mensaje.style.transform =
-        "translateX(-50%)";
-
-    mensaje.style.background =
-        "#0d5c72";
-
-    mensaje.style.color =
-        "#ffffff";
-
-    mensaje.style.padding =
-        "13px 22px";
-
-    mensaje.style.borderRadius =
-        "30px";
-
-    mensaje.style.fontWeight =
-        "700";
-
-    mensaje.style.zIndex =
-        "10000";
-
-    mensaje.style.boxShadow =
-        "0 8px 25px rgba(0,0,0,.25)";
-
-
-    document.body.appendChild(
-        mensaje
-    );
-
-
-    setTimeout(
-        function () {
-
-            mensaje.remove();
-
-        },
-        2200
-    );
-
-}
-
-
-/* =====================================================
-   ABRIR CARRITO
-   ===================================================== */
-
-const botonCarrito =
-    document.getElementById(
-        "boton-carrito"
-    );
-
-const ventanaCarrito =
-    document.getElementById(
-        "ventana-carrito"
-    );
-
-
-if (
-    botonCarrito &&
-    ventanaCarrito
-) {
-
-    botonCarrito.addEventListener(
+    botonAnterior.addEventListener(
         "click",
         function () {
 
-            ventanaCarrito.style.display =
-                "flex";
-
-            mostrarCarrito();
-
-            document.body.style.overflow =
-                "hidden";
+            mostrarSlide(
+                slideActual - 1
+            );
 
         }
     );
@@ -405,881 +673,993 @@ if (
 }
 
 
-/* =====================================================
-   CERRAR CARRITO
-   ===================================================== */
+if (botonSiguiente) {
 
-const cerrarCarrito =
-    document.getElementById(
-        "cerrar-carrito"
-    );
-
-
-if (
-    cerrarCarrito &&
-    ventanaCarrito
-) {
-
-    cerrarCarrito.addEventListener(
+    botonSiguiente.addEventListener(
         "click",
-        cerrarVentanaCarrito
+        function () {
+
+            mostrarSlide(
+                slideActual + 1
+            );
+
+        }
     );
 
 }
 
 
-/* =====================================================
-   CERRAR CARRITO
-   ===================================================== */
+indicadores.forEach(
+    function (indicador) {
 
-function cerrarVentanaCarrito() {
+        indicador.addEventListener(
+            "click",
+            function () {
 
-    if (!ventanaCarrito) {
-        return;
-    }
+                const indice =
+                    Number(
+                        indicador.dataset.slide
+                    );
 
-    ventanaCarrito.style.display =
-        "none";
-
-    document.body.style.overflow =
-        "";
-
-}
-
-
-/* =====================================================
-   CERRAR AL HACER CLIC FUERA
-   ===================================================== */
-
-if (ventanaCarrito) {
-
-    ventanaCarrito.addEventListener(
-        "click",
-        function (evento) {
-
-            if (
-                evento.target ===
-                ventanaCarrito
-            ) {
-
-                cerrarVentanaCarrito();
+                mostrarSlide(indice);
 
             }
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-   TECLA ESC PARA CERRAR
-   ===================================================== */
-
-document.addEventListener(
-    "keydown",
-    function (evento) {
-
-        if (
-            evento.key === "Escape" &&
-            ventanaCarrito
-        ) {
-
-            cerrarVentanaCarrito();
-
-        }
+        );
 
     }
 );
 
 
-/* =====================================================
-   MOSTRAR CARRITO
-   ===================================================== */
+// Cambio automático
 
-function mostrarCarrito() {
+if (slides.length > 1) {
 
-    const listaCarrito =
-        document.getElementById(
-            "lista-carrito"
-        );
-
-    const totalCarrito =
-        document.getElementById(
-            "total-carrito"
-        );
-
-
-    if (
-        !listaCarrito ||
-        !totalCarrito
-    ) {
-        return;
-    }
-
-
-    listaCarrito.innerHTML =
-        "";
-
-
-    /* =================================================
-       CARRITO VACÍO
-       ================================================= */
-
-    if (
-        carrito.length === 0
-    ) {
-
-        listaCarrito.innerHTML = `
-
-            <p class="carrito-vacio">
-                Tu carrito está vacío.
-            </p>
-
-        `;
-
-        totalCarrito.textContent =
-            "0";
-
-        return;
-
-    }
-
-
-    let total = 0;
-
-
-    /* =================================================
-       PRODUCTOS
-       ================================================= */
-
-    carrito.forEach(
-        function (producto, indice) {
-
-            const precio =
-                Number(producto.precio);
-
-            const cantidad =
-                Number(producto.cantidad);
-
-            const subtotal =
-                precio * cantidad;
-
-
-            total += subtotal;
-
-
-            const item =
-                document.createElement(
-                    "div"
-                );
-
-            item.className =
-                "item-carrito";
-
-
-            item.innerHTML = `
-
-                <div class="info-producto">
-
-                    <strong>
-                        ${escaparHTML(
-                            producto.nombre
-                        )}
-                    </strong>
-
-                    <span>
-                        C$ ${precio.toLocaleString(
-                            "es-NI"
-                        )}
-                    </span>
-
-                </div>
-
-
-                <div class="controles-cantidad">
-
-                    <button
-                        type="button"
-                        onclick="disminuirCantidad(${indice})"
-                    >
-                        −
-                    </button>
-
-                    <span>
-                        ${cantidad}
-                    </span>
-
-                    <button
-                        type="button"
-                        onclick="aumentarCantidad(${indice})"
-                    >
-                        +
-                    </button>
-
-                </div>
-
-
-                <div class="subtotal">
-
-                    C$ ${subtotal.toLocaleString(
-                        "es-NI"
-                    )}
-
-                </div>
-
-
-                <button
-                    type="button"
-                    class="eliminar-producto"
-                    onclick="eliminarProducto(${indice})"
-                    aria-label="Eliminar producto"
-                >
-                    🗑️
-                </button>
-
-            `;
-
-
-            listaCarrito.appendChild(
-                item
-            );
-
-        }
-    );
-
-
-    totalCarrito.textContent =
-        total.toLocaleString(
-            "es-NI"
-        );
-
-}
-
-
-/* =====================================================
-   SEGURIDAD HTML
-   ===================================================== */
-
-function escaparHTML(texto) {
-
-    return String(texto)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-}
-
-
-/* =====================================================
-   AUMENTAR CANTIDAD
-   ===================================================== */
-
-function aumentarCantidad(indice) {
-
-    if (
-        !carrito[indice]
-    ) {
-        return;
-    }
-
-    carrito[indice].cantidad++;
-
-
-    guardarCarrito();
-
-    actualizarContador();
-
-    mostrarCarrito();
-
-}
-
-
-/* =====================================================
-   DISMINUIR CANTIDAD
-   ===================================================== */
-
-function disminuirCantidad(indice) {
-
-    if (
-        !carrito[indice]
-    ) {
-        return;
-    }
-
-
-    carrito[indice].cantidad--;
-
-
-    if (
-        carrito[indice].cantidad <= 0
-    ) {
-
-        carrito.splice(
-            indice,
-            1
-        );
-
-    }
-
-
-    guardarCarrito();
-
-    actualizarContador();
-
-    mostrarCarrito();
-
-}
-
-
-/* =====================================================
-   ELIMINAR PRODUCTO
-   ===================================================== */
-
-function eliminarProducto(indice) {
-
-    if (
-        !carrito[indice]
-    ) {
-        return;
-    }
-
-
-    carrito.splice(
-        indice,
-        1
-    );
-
-
-    guardarCarrito();
-
-    actualizarContador();
-
-    mostrarCarrito();
-
-}
-
-
-/* =====================================================
-   FINALIZAR COMPRA
-   ===================================================== */
-
-const finalizarCompra =
-    document.getElementById(
-        "finalizar-compra"
-    );
-
-
-if (finalizarCompra) {
-
-    finalizarCompra.addEventListener(
-        "click",
+    setInterval(
         function () {
 
-            if (
-                carrito.length === 0
-            ) {
+            mostrarSlide(
+                slideActual + 1
+            );
 
-                alert(
-                    "Tu carrito está vacío."
-                );
-
-                return;
-
-            }
-
-
-            enviarPedidoWhatsApp();
-
-        }
+        },
+        6000
     );
 
 }
 
 
-/* =====================================================
-   ENVIAR PEDIDO A WHATSAPP
-   ===================================================== */
+// =====================================================
+// SISTEMA DE IDIOMAS
+// =====================================================
 
-function enviarPedidoWhatsApp() {
+const traducciones = {
 
-    let mensaje =
-        "Hola, quiero realizar un pedido:%0A%0A";
+    es: {
+
+        nombre: "Español",
+
+        ofertaSuperior:
+            "Ofertas especiales de Mi Tienda",
+
+        eslogan:
+            "Soluciones para tu hogar y negocio",
+
+        entrar:
+            "Entrar",
+
+        carrito:
+            "Carrito",
+
+        inicio:
+            "Inicio",
+
+        categorias:
+            "Categorías",
+
+        promociones:
+            "Promociones",
+
+        catalogo:
+            "Catálogo",
+
+        comprar:
+            "Comprar",
+
+        oferta:
+            "OFERTA",
+
+        tituloOferta:
+            "Grandes promociones",
+
+        textoOferta:
+            "Encuentra productos de calidad para tu hogar y negocio.",
+
+        comprarAhora:
+            "Comprar ahora →",
+
+        seguridad:
+            "SEGURIDAD",
+
+        tituloSeguridad:
+            "Protege lo que más importa",
+
+        textoSeguridad:
+            "Soluciones de seguridad para tu hogar y negocio.",
+
+        verProductos:
+            "Ver productos",
+
+        herramientas:
+            "HERRAMIENTAS",
+
+        tituloHerramientas:
+            "Todo para tus proyectos",
+
+        textoHerramientas:
+            "Encuentra herramientas para instalación y mantenimiento.",
+
+        verCatalogo:
+            "Ver catálogo →",
+
+        explora:
+            "EXPLORA",
+
+        tituloCategorias:
+            "Compra por categorías",
+
+        ferreteria:
+            "Ferretería",
+
+        herramientasCategoria:
+            "Herramientas",
+
+        electrico:
+            "Eléctrico",
+
+        hogar:
+            "Hogar",
+
+        bano:
+            "Baño",
+
+        destacados:
+            "DESTACADOS",
+
+        productosDestacados:
+            "Productos destacados",
+
+        descripcionDestacados:
+            "Algunos de nuestros productos disponibles.",
+
+        agregarCarrito:
+            "Agregar al carrito",
+
+        verCatalogoCompleto:
+            "Ver catálogo completo →",
+
+        necesitasAyuda:
+            "¿NECESITAS AYUDA?",
+
+        estamosAyudarte:
+            "Estamos para ayudarte",
+
+        textoWhatsApp:
+            "Consulta disponibilidad, precios o realiza tu pedido directamente por WhatsApp.",
+
+        escribirWhatsApp:
+            "Escribir por WhatsApp",
+
+        miCarrito:
+            "🛒 Mi carrito",
+
+        carritoVacio:
+            "Tu carrito está vacío.",
+
+        total:
+            "Total:",
+
+        finalizarWhatsApp:
+            "Finalizar compra por WhatsApp",
+
+        atencionCliente:
+            "Atención al cliente",
+
+        comoComprar:
+            "Cómo comprar",
+
+        contactarnos:
+            "Contactarnos",
+
+        preguntas:
+            "Preguntas frecuentes",
+
+        terminos:
+            "Términos y condiciones",
+
+        miTienda:
+            "Mi tienda",
+
+        productos:
+            "Productos",
+
+        informacion:
+            "Información",
+
+        sobreNosotros:
+            "Sobre nosotros",
+
+        formasPago:
+            "Formas de pago",
+
+        informacionEnvio:
+            "Información de envío",
+
+        privacidad:
+            "Política de privacidad",
+
+        contacto:
+            "Contacto",
+
+        whatsapp:
+            "WhatsApp",
+
+        facebook:
+            "Facebook",
+
+        instagram:
+            "Instagram",
+
+        escribenos:
+            "Escríbenos",
+
+        derechos:
+            "© 2026 Mi Tienda — Todos los derechos reservados",
+
+        comprasSeguras:
+            "Compras fáciles, rápidas y seguras."
+
+    },
 
 
-    let total = 0;
+    en: {
+
+        nombre: "English",
+
+        ofertaSuperior:
+            "Special offers from My Store",
+
+        eslogan:
+            "Solutions for your home and business",
+
+        entrar:
+            "Login",
+
+        carrito:
+            "Cart",
+
+        inicio:
+            "Home",
+
+        categorias:
+            "Categories",
+
+        promociones:
+            "Promotions",
+
+        catalogo:
+            "Catalog",
+
+        comprar:
+            "Shop",
+
+        oferta:
+            "OFFER",
+
+        tituloOferta:
+            "Great promotions",
+
+        textoOferta:
+            "Find quality products for your home and business.",
+
+        comprarAhora:
+            "Shop now →",
+
+        seguridad:
+            "SECURITY",
+
+        tituloSeguridad:
+            "Protect what matters most",
+
+        textoSeguridad:
+            "Security solutions for your home and business.",
+
+        verProductos:
+            "View products",
+
+        herramientas:
+            "TOOLS",
+
+        tituloHerramientas:
+            "Everything for your projects",
+
+        textoHerramientas:
+            "Find tools for installation and maintenance.",
+
+        verCatalogo:
+            "View catalog →",
+
+        explora:
+            "EXPLORE",
+
+        tituloCategorias:
+            "Shop by category",
+
+        ferreteria:
+            "Hardware",
+
+        herramientasCategoria:
+            "Tools",
+
+        electrico:
+            "Electrical",
+
+        hogar:
+            "Home",
+
+        bano:
+            "Bathroom",
+
+        destacados:
+            "FEATURED",
+
+        productosDestacados:
+            "Featured products",
+
+        descripcionDestacados:
+            "Some of our available products.",
+
+        agregarCarrito:
+            "Add to cart",
+
+        verCatalogoCompleto:
+            "View full catalog →",
+
+        necesitasAyuda:
+            "NEED HELP?",
+
+        estamosAyudarte:
+            "We're here to help",
+
+        textoWhatsApp:
+            "Check availability, prices or place your order directly through WhatsApp.",
+
+        escribirWhatsApp:
+            "Chat on WhatsApp",
+
+        miCarrito:
+            "🛒 My cart",
+
+        carritoVacio:
+            "Your cart is empty.",
+
+        total:
+            "Total:",
+
+        finalizarWhatsApp:
+            "Checkout via WhatsApp",
+
+        atencionCliente:
+            "Customer service",
+
+        comoComprar:
+            "How to buy",
+
+        contactarnos:
+            "Contact us",
+
+        preguntas:
+            "Frequently asked questions",
+
+        terminos:
+            "Terms and conditions",
+
+        miTienda:
+            "My store",
+
+        productos:
+            "Products",
+
+        informacion:
+            "Information",
+
+        sobreNosotros:
+            "About us",
+
+        formasPago:
+            "Payment methods",
+
+        informacionEnvio:
+            "Shipping information",
+
+        privacidad:
+            "Privacy policy",
+
+        contacto:
+            "Contact",
+
+        whatsapp:
+            "WhatsApp",
+
+        facebook:
+            "Facebook",
+
+        instagram:
+            "Instagram",
+
+        escribenos:
+            "Contact us",
+
+        derechos:
+            "© 2026 My Store — All rights reserved",
+
+        comprasSeguras:
+            "Easy, fast and secure shopping."
+
+    },
 
 
-    carrito.forEach(
-        function (producto) {
+    fr: {
 
-            const precio =
-                Number(producto.precio);
+        nombre: "Français",
 
-            const cantidad =
-                Number(producto.cantidad);
+        ofertaSuperior:
+            "Offres spéciales de Ma Boutique",
 
-            const subtotal =
-                precio * cantidad;
+        eslogan:
+            "Solutions pour votre maison et votre entreprise",
+
+        entrar:
+            "Connexion",
+
+        carrito:
+            "Panier",
+
+        inicio:
+            "Accueil",
+
+        categorias:
+            "Catégories",
+
+        promociones:
+            "Promotions",
+
+        catalogo:
+            "Catalogue",
+
+        comprar:
+            "Acheter",
+
+        oferta:
+            "OFFRE",
+
+        tituloOferta:
+            "Grandes promotions",
+
+        textoOferta:
+            "Trouvez des produits de qualité pour votre maison et votre entreprise.",
+
+        comprarAhora:
+            "Acheter maintenant →",
+
+        seguridad:
+            "SÉCURITÉ",
+
+        tituloSeguridad:
+            "Protégez ce qui compte le plus",
+
+        textoSeguridad:
+            "Solutions de sécurité pour votre maison et votre entreprise.",
+
+        verProductos:
+            "Voir les produits",
+
+        herramientas:
+            "OUTILS",
+
+        tituloHerramientas:
+            "Tout pour vos projets",
+
+        textoHerramientas:
+            "Trouvez des outils pour l'installation et la maintenance.",
+
+        verCatalogo:
+            "Voir le catalogue →",
+
+        explora:
+            "EXPLORER",
+
+        tituloCategorias:
+            "Acheter par catégorie",
+
+        ferreteria:
+            "Quincaillerie",
+
+        herramientasCategoria:
+            "Outils",
+
+        electrico:
+            "Électrique",
+
+        hogar:
+            "Maison",
+
+        bano:
+            "Salle de bain",
+
+        destacados:
+            "EN VEDETTE",
+
+        productosDestacados:
+            "Produits en vedette",
+
+        descripcionDestacados:
+            "Quelques-uns de nos produits disponibles.",
+
+        agregarCarrito:
+            "Ajouter au panier",
+
+        verCatalogoCompleto:
+            "Voir le catalogue complet →",
+
+        necesitasAyuda:
+            "BESOIN D'AIDE ?",
+
+        estamosAyudarte:
+            "Nous sommes là pour vous aider",
+
+        textoWhatsApp:
+            "Consultez la disponibilité, les prix ou passez votre commande directement sur WhatsApp.",
+
+        escribirWhatsApp:
+            "Écrire sur WhatsApp",
+
+        miCarrito:
+            "🛒 Mon panier",
+
+        carritoVacio:
+            "Votre panier est vide.",
+
+        total:
+            "Total:",
+
+        finalizarWhatsApp:
+            "Commander via WhatsApp",
+
+        atencionCliente:
+            "Service client",
+
+        comoComprar:
+            "Comment acheter",
+
+        contactarnos:
+            "Nous contacter",
+
+        preguntas:
+            "Questions fréquentes",
+
+        terminos:
+            "Conditions générales",
+
+        miTienda:
+            "Ma boutique",
+
+        productos:
+            "Produits",
+
+        informacion:
+            "Informations",
+
+        sobreNosotros:
+            "À propos de nous",
+
+        formasPago:
+            "Modes de paiement",
+
+        informacionEnvio:
+            "Informations de livraison",
+
+        privacidad:
+            "Politique de confidentialité",
+
+        contacto:
+            "Contact",
+
+        whatsapp:
+            "WhatsApp",
+
+        facebook:
+            "Facebook",
+
+        instagram:
+            "Instagram",
+
+        escribenos:
+            "Écrivez-nous",
+
+        derechos:
+            "© 2026 Ma Boutique — Tous droits réservés",
+
+        comprasSeguras:
+            "Achats simples, rapides et sécurisés."
+
+    },
 
 
-            total += subtotal;
+    pt: {
 
+        nombre: "Português",
 
-            mensaje +=
-                "• " +
-                encodeURIComponent(
-                    producto.nombre
-                ) +
-                " x" +
-                cantidad +
-                " — C$ " +
-                subtotal.toLocaleString(
-                    "es-NI"
-                ) +
-                "%0A";
+        ofertaSuperior:
+            "Ofertas especiais da Minha Loja",
 
-        }
-    );
+        eslogan:
+            "Soluções para sua casa e seu negócio",
 
+        entrar:
+            "Entrar",
 
-    mensaje +=
-        "%0A" +
-        "*Total: C$ " +
-        total.toLocaleString(
-            "es-NI"
-        ) +
-        "*";
+        carrito:
+            "Carrinho",
 
+        inicio:
+            "Início",
 
-    mensaje +=
-        "%0A%0A" +
-        "Quedo atento para coordinar la entrega.";
+        categorias:
+            "Categorias",
 
+        promociones:
+            "Promoções",
 
-    const enlaceWhatsApp =
-        "https://wa.me/" +
-        NUMERO_WHATSAPP +
-        "?text=" +
-        mensaje;
+        catalogo:
+            "Catálogo",
 
+        comprar:
+            "Comprar",
 
-    window.open(
-        enlaceWhatsApp,
-        "_blank"
-    );
+        oferta:
+            "OFERTA",
 
-}
+        tituloOferta:
+            "Grandes promoções",
 
+        textoOferta:
+            "Encontre produtos de qualidade para sua casa e seu negócio.",
 
-/* =====================================================
-   BOTONES DE WHATSAPP DE LA PÁGINA
-   ===================================================== */
+        comprarAhora:
+            "Comprar agora →",
 
-function activarWhatsApp() {
+        seguridad:
+            "SEGURANÇA",
 
-    const botones =
-        document.querySelectorAll(
-            "[data-whatsapp]"
-        );
+        tituloSeguridad:
+            "Proteja o que mais importa",
 
+        textoSeguridad:
+            "Soluções de segurança para sua casa e seu negócio.",
 
-    botones.forEach(
-        function (boton) {
+        verProductos:
+            "Ver produtos",
 
-            boton.addEventListener(
-                "click",
-                function (evento) {
+        herramientas:
+            "FERRAMENTAS",
 
-                    evento.preventDefault();
+        tituloHerramientas:
+            "Tudo para seus projetos",
 
+        textoHerramientas:
+            "Encontre ferramentas para instalação e manutenção.",
 
-                    const texto =
-                        boton.dataset.whatsapp ||
-                        "Hola, quiero información sobre sus productos.";
+        verCatalogo:
+            "Ver catálogo →",
 
+        explora:
+            "EXPLORE",
 
-                    const enlace =
-                        "https://wa.me/" +
-                        NUMERO_WHATSAPP +
-                        "?text=" +
-                        encodeURIComponent(
-                            texto
-                        );
+        tituloCategorias:
+            "Compre por categoria",
 
+        ferreteria:
+            "Ferragens",
 
-                    window.open(
-                        enlace,
-                        "_blank"
-                    );
+        herramientasCategoria:
+            "Ferramentas",
 
-                }
-            );
+        electrico:
+            "Elétrico",
 
-        }
-    );
+        hogar:
+            "Casa",
 
+        bano:
+            "Banheiro",
 
-    // Botón flotante
-    const whatsappFlotante =
-        document.querySelector(
-            ".whatsapp-flotante"
-        );
+        destacados:
+            "DESTAQUES",
 
+        productosDestacados:
+            "Produtos em destaque",
 
-    if (
-        whatsappFlotante
-    ) {
+        descripcionDestacados:
+            "Alguns dos nossos produtos disponíveis.",
 
-        whatsappFlotante.href =
-            "https://wa.me/" +
-            NUMERO_WHATSAPP +
-            "?text=" +
-            encodeURIComponent(
-                "Hola, quiero información sobre sus productos."
-            );
+        agregarCarrito:
+            "Adicionar ao carrinho",
 
-        whatsappFlotante.target =
-            "_blank";
+        verCatalogoCompleto:
+            "Ver catálogo completo →",
+
+        necesitasAyuda:
+            "PRECISA DE AJUDA?",
+
+        estamosAyudarte:
+            "Estamos aqui para ajudar",
+
+        textoWhatsApp:
+            "Consulte disponibilidade, preços ou faça seu pedido diretamente pelo WhatsApp.",
+
+        escribirWhatsApp:
+            "Escrever no WhatsApp",
+
+        miCarrito:
+            "🛒 Meu carrinho",
+
+        carritoVacio:
+            "Seu carrinho está vazio.",
+
+        total:
+            "Total:",
+
+        finalizarWhatsApp:
+            "Finalizar compra pelo WhatsApp",
+
+        atencionCliente:
+            "Atendimento ao cliente",
+
+        comoComprar:
+            "Como comprar",
+
+        contactarnos:
+            "Entre em contato",
+
+        preguntas:
+            "Perguntas frequentes",
+
+        terminos:
+            "Termos e condições",
+
+        miTienda:
+            "Minha loja",
+
+        productos:
+            "Produtos",
+
+        informacion:
+            "Informações",
+
+        sobreNosotros:
+            "Sobre nós",
+
+        formasPago:
+            "Formas de pagamento",
+
+        informacionEnvio:
+            "Informações de envio",
+
+        privacidad:
+            "Política de privacidade",
+
+        contacto:
+            "Contato",
+
+        whatsapp:
+            "WhatsApp",
+
+        facebook:
+            "Facebook",
+
+        instagram:
+            "Instagram",
+
+        escribenos:
+            "Fale conosco",
+
+        derechos:
+            "© 2026 Minha Loja — Todos os direitos reservados",
+
+        comprasSeguras:
+            "Compras fáceis, rápidas e seguras."
 
     }
 
-}
+};
 
 
-/* =====================================================
-   CARRUSEL
-   ===================================================== */
+// =====================================================
+// APLICAR IDIOMA
+// =====================================================
 
-let slideActual = 0;
+function cambiarIdioma(idioma) {
 
-let intervaloCarrusel = null;
-
-
-function iniciarCarrusel() {
-
-    const slides =
-        document.querySelectorAll(
-            ".slide"
-        );
-
-    const indicadores =
-        document.querySelectorAll(
-            ".indicador"
-        );
+    const idiomaSeleccionado =
+        traducciones[idioma];
 
 
-    if (
-        slides.length === 0
-    ) {
+    if (!idiomaSeleccionado) {
         return;
     }
 
 
-    function mostrarSlide(numero) {
+    // Cambiar textos
 
-        slides.forEach(
-            function (slide) {
+    const elementos =
+        document.querySelectorAll(
+            "[data-text]"
+        );
 
-                slide.classList.remove(
-                    "activo"
-                );
+
+    elementos.forEach(
+        function (elemento) {
+
+            const clave =
+                elemento.dataset.text;
+
+
+            if (
+                idiomaSeleccionado[clave]
+            ) {
+
+                elemento.textContent =
+                    idiomaSeleccionado[clave];
 
             }
-        );
-
-
-        indicadores.forEach(
-            function (indicador) {
-
-                indicador.classList.remove(
-                    "activo"
-                );
-
-            }
-        );
-
-
-        slideActual =
-            numero;
-
-
-        if (
-            slideActual >=
-            slides.length
-        ) {
-
-            slideActual = 0;
-
-        }
-
-
-        if (
-            slideActual < 0
-        ) {
-
-            slideActual =
-                slides.length - 1;
-
-        }
-
-
-        slides[
-            slideActual
-        ].classList.add(
-            "activo"
-        );
-
-
-        if (
-            indicadores[
-                slideActual
-            ]
-        ) {
-
-            indicadores[
-                slideActual
-            ].classList.add(
-                "activo"
-            );
-
-        }
-
-    }
-
-
-    window.cambiarSlide =
-        function (direccion) {
-
-            mostrarSlide(
-                slideActual +
-                direccion
-            );
-
-            reiniciarCarrusel();
-
-        };
-
-
-    window.irASlide =
-        function (numero) {
-
-            mostrarSlide(
-                numero
-            );
-
-            reiniciarCarrusel();
-
-        };
-
-
-    function reiniciarCarrusel() {
-
-        clearInterval(
-            intervaloCarrusel
-        );
-
-        intervaloCarrusel =
-            setInterval(
-                function () {
-
-                    mostrarSlide(
-                        slideActual + 1
-                    );
-
-                },
-                5000
-            );
-
-    }
-
-
-    // Activar flechas
-    const anterior =
-        document.querySelector(
-            ".flecha-carrusel.anterior"
-        );
-
-    const siguiente =
-        document.querySelector(
-            ".flecha-carrusel.siguiente"
-        );
-
-
-    if (anterior) {
-
-        anterior.addEventListener(
-            "click",
-            function () {
-
-                window.cambiarSlide(
-                    -1
-                );
-
-            }
-        );
-
-    }
-
-
-    if (siguiente) {
-
-        siguiente.addEventListener(
-            "click",
-            function () {
-
-                window.cambiarSlide(
-                    1
-                );
-
-            }
-        );
-
-    }
-
-
-    // Activar indicadores
-    indicadores.forEach(
-        function (
-            indicador,
-            indice
-        ) {
-
-            indicador.addEventListener(
-                "click",
-                function () {
-
-                    window.irASlide(
-                        indice
-                    );
-
-                }
-            );
 
         }
     );
 
 
-    mostrarSlide(0);
+    // Cambiar placeholder
 
-    reiniciarCarrusel();
+    if (buscador) {
 
+        const placeholders = {
 
-    // Pausar al pasar el mouse
-    const carrusel =
-        document.querySelector(
-            ".carrusel"
-        );
+            es: "¿Qué estás buscando?",
 
+            en: "What are you looking for?",
 
-    if (carrusel) {
+            fr: "Que recherchez-vous ?",
 
-        carrusel.addEventListener(
-            "mouseenter",
-            function () {
+            pt: "O que você está procurando?"
 
-                clearInterval(
-                    intervaloCarrusel
-                );
-
-            }
-        );
+        };
 
 
-        carrusel.addEventListener(
-            "mouseleave",
-            function () {
-
-                reiniciarCarrusel();
-
-            }
-        );
+        buscador.placeholder =
+            placeholders[idioma];
 
     }
 
-}
 
+    // Cambiar botón de idioma
 
-/* =====================================================
-   BOTONES "COMPRAR AHORA"
-   ===================================================== */
-
-function activarBotonesComprar() {
-
-    const botones =
-        document.querySelectorAll(
-            "[data-ir-catalogo]"
+    const botonIdioma =
+        document.getElementById(
+            "boton-idioma"
         );
 
 
-    botones.forEach(
+    if (botonIdioma) {
+
+        botonIdioma.textContent =
+            "🌐 " +
+            idiomaSeleccionado.nombre +
+            " ▾";
+
+    }
+
+
+    // Marcar idioma activo
+
+    const botonesIdioma =
+        document.querySelectorAll(
+            "[data-idioma]"
+        );
+
+
+    botonesIdioma.forEach(
         function (boton) {
 
-            boton.addEventListener(
-                "click",
-                function () {
-
-                    window.location.href =
-                        "catalogo.html";
-
-                }
+            boton.classList.toggle(
+                "idioma-activo",
+                boton.dataset.idioma === idioma
             );
 
         }
     );
 
+
+    // Guardar idioma
+
+    localStorage.setItem(
+        "idioma",
+        idioma
+    );
+
+
+    // Cambiar idioma del documento
+
+    document.documentElement.lang =
+        idioma;
+
 }
 
 
-/* =====================================================
-   CATEGORÍAS
-   ===================================================== */
+// =====================================================
+// MENÚ DE IDIOMAS
+// =====================================================
 
-function activarCategorias() {
+const botonIdioma =
+    document.getElementById(
+        "boton-idioma"
+    );
 
-    const categorias =
-        document.querySelectorAll(
-            ".categoria"
+
+const menuIdiomas =
+    document.getElementById(
+        "menu-idiomas"
+    );
+
+
+if (
+    botonIdioma &&
+    menuIdiomas
+) {
+
+    botonIdioma.addEventListener(
+        "click",
+        function (evento) {
+
+            evento.stopPropagation();
+
+            menuIdiomas.classList.toggle(
+                "abierto"
+            );
+
+        }
+    );
+
+
+    const opcionesIdioma =
+        menuIdiomas.querySelectorAll(
+            "[data-idioma]"
         );
 
 
-    categorias.forEach(
-        function (categoria) {
+    opcionesIdioma.forEach(
+        function (opcion) {
 
-            categoria.addEventListener(
+            opcion.addEventListener(
                 "click",
                 function () {
 
-                    const nombre =
-                        categoria.querySelector(
-                            "strong"
-                        );
+                    cambiarIdioma(
+                        opcion.dataset.idioma
+                    );
 
 
-                    if (!nombre) {
-                        return;
-                    }
-
-
-                    const texto =
-                        nombre.textContent
-                            .toLowerCase()
-                            .trim();
-
-
-                    const catalogo =
-                        "catalogo.html";
-
-
-                    // Llevar al catálogo
-                    window.location.href =
-                        catalogo +
-                        "?categoria=" +
-                        encodeURIComponent(
-                            texto
-                        );
+                    menuIdiomas.classList.remove(
+                        "abierto"
+                    );
 
                 }
             );
@@ -1287,63 +1667,24 @@ function activarCategorias() {
         }
     );
 
-}
 
+    // Cerrar si se toca fuera
 
-/* =====================================================
-   NAVEGACIÓN SUAVE
-   ===================================================== */
+    document.addEventListener(
+        "click",
+        function (evento) {
 
-function activarNavegacion() {
+            if (
+                !evento.target.closest(
+                    ".selector-idioma"
+                )
+            ) {
 
-    const enlaces =
-        document.querySelectorAll(
-            'a[href^="#"]'
-        );
+                menuIdiomas.classList.remove(
+                    "abierto"
+                );
 
-
-    enlaces.forEach(
-        function (enlace) {
-
-            enlace.addEventListener(
-                "click",
-                function (evento) {
-
-                    const destino =
-                        enlace.getAttribute(
-                            "href"
-                        );
-
-
-                    if (
-                        !destino ||
-                        destino === "#"
-                    ) {
-                        return;
-                    }
-
-
-                    const elemento =
-                        document.querySelector(
-                            destino
-                        );
-
-
-                    if (!elemento) {
-                        return;
-                    }
-
-
-                    evento.preventDefault();
-
-
-                    elemento.scrollIntoView({
-                        behavior: "smooth",
-                        block: "start"
-                    });
-
-                }
-            );
+            }
 
         }
     );
@@ -1351,27 +1692,28 @@ function activarNavegacion() {
 }
 
 
-/* =====================================================
-   INICIALIZACIÓN
-   ===================================================== */
+// =====================================================
+// IDIOMA GUARDADO
+// =====================================================
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
+const idiomaGuardado =
+    localStorage.getItem(
+        "idioma"
+    ) || "es";
 
-        actualizarContador();
 
-        activarBotonesProductos();
+cambiarIdioma(
+    idiomaGuardado
+);
 
-        activarWhatsApp();
 
-        iniciarCarrusel();
+// =====================================================
+// INICIAR CONTADOR
+// =====================================================
 
-        activarBotonesComprar();
+actualizarContador();
 
-        activarCategorias();
 
-        activarNavegacion();
-
-    }
-); 
+// =====================================================
+// FIN
+// =====================================================

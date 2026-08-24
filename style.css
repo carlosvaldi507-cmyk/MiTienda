@@ -2091,3 +2091,146 @@ nav a:hover,
         height: 150px;
     }
 }
+
+/* =====================================================
+   SELECTOR DE IDIOMA
+===================================================== */
+
+.selector-idioma {
+    position: relative;
+    display: inline-block;
+    z-index: 1000;
+}
+
+
+/* BOTÓN PRINCIPAL */
+
+#boton-idioma {
+    background: rgba(255, 255, 255, 0.96);
+    color: #102c3d;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    padding: 12px 18px;
+    min-width: 145px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+#boton-idioma:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+
+/* MENÚ DESPLEGABLE */
+
+.menu-idiomas {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+
+    min-width: 170px;
+
+    background: white;
+
+    border-radius: 12px;
+
+    padding: 7px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.18);
+
+    border: 1px solid #e5e7eb;
+
+    display: none;
+
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+
+/* CUANDO SE ABRE */
+
+.menu-idiomas.abierto {
+    display: flex;
+}
+
+
+/* OPCIONES */
+
+.menu-idiomas button {
+    width: 100%;
+
+    border: none;
+
+    background: transparent;
+
+    color: #183b4d;
+
+    padding: 11px 13px;
+
+    border-radius: 8px;
+
+    text-align: left;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+
+/* HOVER */
+
+.menu-idiomas button:hover {
+    background: #eef5f7;
+    color: #12677a;
+}
+
+
+/* IDIOMA ACTIVO */
+
+.menu-idiomas button.idioma-activo {
+    background: #12677a;
+    color: white;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .selector-idioma {
+        width: auto;
+    }
+
+    #boton-idioma {
+        min-width: 120px;
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    .menu-idiomas {
+        right: 0;
+        min-width: 155px;
+    }
+
+    .menu-idiomas button {
+        padding: 10px;
+        font-size: 13px;
+    }
+}
