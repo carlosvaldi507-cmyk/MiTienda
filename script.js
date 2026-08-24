@@ -18,9 +18,7 @@ let carrito = JSON.parse(
 // =====================================================
 
 const buscador = document.getElementById("buscador");
-
 const productos = document.querySelectorAll(".producto");
-
 
 if (buscador) {
 
@@ -30,14 +28,16 @@ if (buscador) {
             .toLowerCase()
             .trim();
 
-
         productos.forEach(function (producto) {
 
-            const nombre = producto
-                .querySelector("h3")
-                .textContent
-                .toLowerCase();
+            const titulo = producto.querySelector("h3");
 
+            if (!titulo) {
+                return;
+            }
+
+            const nombre = titulo.textContent
+                .toLowerCase();
 
             if (nombre.includes(texto)) {
 
@@ -63,14 +63,12 @@ if (buscador) {
 const botonesAgregar =
     document.querySelectorAll(".agregar-carrito");
 
-
 botonesAgregar.forEach(function (boton) {
 
     boton.addEventListener("click", function () {
 
         const nombre =
             boton.dataset.nombre;
-
 
         const precio =
             Number(boton.dataset.precio);
@@ -88,13 +86,11 @@ botonesAgregar.forEach(function (boton) {
         if (productoExistente) {
 
             // Si existe, aumentar cantidad
-
             productoExistente.cantidad++;
 
         } else {
 
             // Si no existe, agregarlo
-
             carrito.push({
 
                 nombre: nombre,
@@ -108,7 +104,7 @@ botonesAgregar.forEach(function (boton) {
         }
 
 
-        // Guardar
+        // Guardar carrito
         guardarCarrito();
 
 
@@ -134,11 +130,8 @@ botonesAgregar.forEach(function (boton) {
 function guardarCarrito() {
 
     localStorage.setItem(
-
         "carrito",
-
         JSON.stringify(carrito)
-
     );
 
 }
@@ -157,24 +150,19 @@ function actualizarContador() {
 
 
     if (!contador) {
-
         return;
-
     }
 
 
     const cantidadTotal =
         carrito.reduce(
-
             function (total, producto) {
 
                 return total +
                     producto.cantidad;
 
             },
-
             0
-
         );
 
 
@@ -309,15 +297,16 @@ function mostrarCarrito() {
     listaCarrito.innerHTML = "";
 
 
-    // Carrito vacío
+    // =================================================
+    // CARRITO VACÍO
+    // =================================================
+
     if (carrito.length === 0) {
 
         listaCarrito.innerHTML = `
 
             <p class="carrito-vacio">
-
                 Tu carrito está vacío.
-
             </p>
 
         `;
@@ -333,9 +322,12 @@ function mostrarCarrito() {
     let total = 0;
 
 
+    // =================================================
+    // MOSTRAR PRODUCTOS
+    // =================================================
+
     carrito.forEach(
         function (producto, indice) {
-
 
             const subtotal =
                 producto.precio *
@@ -418,6 +410,7 @@ function mostrarCarrito() {
     );
 
 
+    // Mostrar total
     totalCarrito.textContent =
         total.toLocaleString();
 
@@ -488,7 +481,7 @@ function eliminarProducto(indice) {
 
 
 // =====================================================
-// FINALIZAR COMPRA
+// FINALIZAR COMPRA POR WHATSAPP
 // =====================================================
 
 const finalizarCompra =
@@ -503,6 +496,11 @@ if (finalizarCompra) {
         "click",
         function () {
 
+
+            // =========================================
+            // COMPROBAR CARRITO
+            // =========================================
+
             if (carrito.length === 0) {
 
                 alert(
@@ -514,10 +512,92 @@ if (finalizarCompra) {
             }
 
 
-            alert(
-                "El carrito está listo. " +
-                "Próximamente conectaremos " +
-                "el pedido con WhatsApp."
+            // =========================================
+            // NÚMERO DE WHATSAPP
+            // =========================================
+            //
+            // CAMBIA ESTE NÚMERO POR EL TUYO.
+            //
+            // Nicaragua utiliza el código 505.
+            //
+            // Ejemplo:
+            // 50588888888
+            //
+            // Sin +, espacios ni guiones.
+            // =========================================
+
+            const numeroWhatsApp =
+                "50576823472";
+
+
+            // =========================================
+            // CREAR MENSAJE
+            // =========================================
+
+            let mensaje =
+                "Hola, quiero realizar un pedido:%0A%0A";
+
+
+            let total = 0;
+
+
+            // =========================================
+            // AGREGAR PRODUCTOS AL MENSAJE
+            // =========================================
+
+            carrito.forEach(
+                function (producto) {
+
+                    const subtotal =
+                        producto.precio *
+                        producto.cantidad;
+
+
+                    total += subtotal;
+
+
+                    mensaje +=
+                        "• " +
+                        producto.nombre +
+                        " x" +
+                        producto.cantidad +
+                        " — C$ " +
+                        subtotal.toLocaleString() +
+                        "%0A";
+
+                }
+            );
+
+
+            // =========================================
+            // AGREGAR TOTAL
+            // =========================================
+
+            mensaje +=
+                "%0A" +
+                "*Total: C$ " +
+                total.toLocaleString() +
+                "*";
+
+
+            // =========================================
+            // CREAR ENLACE DE WHATSAPP
+            // =========================================
+
+            const enlaceWhatsApp =
+                "https://wa.me/" +
+                numeroWhatsApp +
+                "?text=" +
+                mensaje;
+
+
+            // =========================================
+            // ABRIR WHATSAPP
+            // =========================================
+
+            window.open(
+                enlaceWhatsApp,
+                "_blank"
             );
 
         }
