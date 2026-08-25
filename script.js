@@ -6583,8 +6583,6 @@ function iniciarTienda() {
     configurarMenuIdiomas();
 
 
-    crearSelectorMoneda();
-
 
     cambiarIdioma(
         idiomaActual
