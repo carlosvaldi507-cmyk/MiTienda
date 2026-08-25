@@ -48,6 +48,360 @@
     <meta name="apple-mobile-web-app-title"
           content="Mi Tienda">
 
+
+    <!-- =====================================================
+         ESTILOS DEL CARRITO FLOTANTE
+    ====================================================== -->
+
+    <style>
+
+        /* =================================================
+           CARRITO FLOTANTE
+        ================================================== */
+
+        .carrito-flotante {
+
+            position: fixed;
+
+            right: 22px;
+
+            bottom: 22px;
+
+            width: 64px;
+
+            height: 64px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: #0d5c72;
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            cursor: pointer;
+
+            z-index: 9998;
+
+            box-shadow:
+                0 8px 25px rgba(0,0,0,0.25);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+
+        }
+
+
+        .carrito-flotante:hover {
+
+            transform: translateY(-4px);
+
+            box-shadow:
+                0 12px 30px rgba(0,0,0,0.30);
+
+        }
+
+
+        .icono-carrito-flotante {
+
+            font-size: 28px;
+
+            line-height: 1;
+
+        }
+
+
+        /* =================================================
+           CONTADOR
+        ================================================== */
+
+        .contador-carrito-flotante {
+
+            position: absolute;
+
+            top: -4px;
+
+            right: -4px;
+
+            min-width: 27px;
+
+            height: 27px;
+
+            padding: 0 6px;
+
+            border-radius: 50px;
+
+            background: #f5a623;
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            border: 2px solid white;
+
+        }
+
+
+        /* =================================================
+           ANIMACIÓN
+        ================================================== */
+
+        .carrito-flotante.animar {
+
+            animation:
+                rebote-carrito 0.45s ease;
+
+        }
+
+
+        @keyframes rebote-carrito {
+
+            0% {
+                transform: scale(1);
+            }
+
+            35% {
+                transform: scale(1.18);
+            }
+
+            65% {
+                transform: scale(0.94);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+
+        }
+
+
+        /* =================================================
+           NOTIFICACIÓN
+        ================================================== */
+
+        .notificacion-carrito {
+
+            position: fixed;
+
+            right: 22px;
+
+            bottom: 100px;
+
+            width: min(
+                380px,
+                calc(100% - 30px)
+            );
+
+            padding: 15px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            background: white;
+
+            border: 1px solid #e3eaed;
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 12px 35px rgba(0,0,0,0.18);
+
+            z-index: 9999;
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transform:
+                translateY(15px);
+
+            transition:
+                opacity 0.25s ease,
+                transform 0.25s ease,
+                visibility 0.25s ease;
+
+        }
+
+
+        .notificacion-carrito.mostrar {
+
+            opacity: 1;
+
+            visibility: visible;
+
+            transform:
+                translateY(0);
+
+        }
+
+
+        /* =================================================
+           ICONO DE CONFIRMACIÓN
+        ================================================== */
+
+        .notificacion-icono {
+
+            width: 40px;
+
+            height: 40px;
+
+            flex-shrink: 0;
+
+            border-radius: 50%;
+
+            background: #25d366;
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 21px;
+
+            font-weight: 800;
+
+        }
+
+
+        /* =================================================
+           TEXTO
+        ================================================== */
+
+        .notificacion-texto {
+
+            min-width: 0;
+
+            flex: 1;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 3px;
+
+        }
+
+
+        .notificacion-texto strong {
+
+            color: #0d3447;
+
+            font-size: 14px;
+
+        }
+
+
+        .notificacion-texto span {
+
+            color: #687982;
+
+            font-size: 13px;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+
+        }
+
+
+        /* =================================================
+           BOTÓN VER CARRITO
+        ================================================== */
+
+        #ver-carrito-notificacion {
+
+            flex-shrink: 0;
+
+            border: none;
+
+            border-radius: 9px;
+
+            padding: 9px 12px;
+
+            background: #0d5c72;
+
+            color: white;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+        }
+
+
+        #ver-carrito-notificacion:hover {
+
+            background: #0a4b5e;
+
+        }
+
+
+        /* =================================================
+           MÓVIL
+        ================================================== */
+
+        @media (max-width: 600px) {
+
+            .carrito-flotante {
+
+                width: 58px;
+
+                height: 58px;
+
+                right: 15px;
+
+                bottom: 15px;
+
+            }
+
+
+            .icono-carrito-flotante {
+
+                font-size: 25px;
+
+            }
+
+
+            .notificacion-carrito {
+
+                right: 15px;
+
+                bottom: 85px;
+
+                width:
+                    calc(100% - 30px);
+
+            }
+
+        }
+
+    </style>
+
 </head>
 
 
@@ -76,8 +430,6 @@
 
 <header class="header">
 
-
-    <!-- LOGO -->
 
     <div class="logo">
 
@@ -109,7 +461,9 @@
             id="boton-buscar"
             aria-label="Buscar"
         >
+
             🔍
+
         </button>
 
     </div>
@@ -134,7 +488,7 @@
 
 
 
-    <!-- CARRITO -->
+    <!-- CARRITO SUPERIOR -->
 
     <button
         id="boton-carrito"
@@ -157,11 +511,10 @@
 
 
     <!-- =================================================
-         SELECTOR DE IDIOMA
+         IDIOMA
     ================================================== -->
 
     <div class="selector-idioma">
-
 
         <button
             id="boton-idioma"
@@ -174,7 +527,6 @@
         </button>
 
 
-
         <div
             id="menu-idiomas"
             class="menu-idiomas"
@@ -184,7 +536,9 @@
                 type="button"
                 data-idioma="es"
             >
+
                 🇪🇸 Español
+
             </button>
 
 
@@ -192,7 +546,9 @@
                 type="button"
                 data-idioma="en"
             >
+
                 🇺🇸 English
+
             </button>
 
 
@@ -200,7 +556,9 @@
                 type="button"
                 data-idioma="fr"
             >
+
                 🇫🇷 Français
+
             </button>
 
 
@@ -208,7 +566,9 @@
                 type="button"
                 data-idioma="pt"
             >
+
                 🇧🇷 Português
+
             </button>
 
         </div>
@@ -225,40 +585,50 @@
 
 <nav class="nav">
 
-    <a href="index.html"
-       data-text="inicio">
+    <a
+        href="index.html"
+        data-text="inicio"
+    >
 
         Inicio
 
     </a>
 
 
-    <a href="#categorias"
-       data-text="categorias">
+    <a
+        href="#categorias"
+        data-text="categorias"
+    >
 
         Categorías
 
     </a>
 
 
-    <a href="#promociones"
-       data-text="promociones">
+    <a
+        href="#promociones"
+        data-text="promociones"
+    >
 
         Promociones
 
     </a>
 
 
-    <a href="catalogo.html"
-       data-text="catalogo">
+    <a
+        href="catalogo.html"
+        data-text="catalogo"
+    >
 
         Catálogo
 
     </a>
 
 
-    <a href="#productos"
-       data-text="comprar">
+    <a
+        href="#productos"
+        data-text="comprar"
+    >
 
         Comprar
 
@@ -282,9 +652,7 @@
 
     <article class="slide activo">
 
-
         <div class="slide-contenido">
-
 
             <span class="etiqueta-promocion">
 
@@ -321,7 +689,6 @@
         </div>
 
 
-
         <div class="slide-imagen">
 
             <img
@@ -339,9 +706,7 @@
 
     <article class="slide">
 
-
         <div class="slide-contenido">
-
 
             <span class="etiqueta-promocion">
 
@@ -378,7 +743,6 @@
         </div>
 
 
-
         <div class="slide-visual slide-seguridad">
 
             <span>
@@ -395,9 +759,7 @@
 
     <article class="slide">
 
-
         <div class="slide-contenido">
-
 
             <span class="etiqueta-promocion">
 
@@ -434,8 +796,9 @@
         </div>
 
 
-
-        <div class="slide-visual slide-herramientas">
+        <div
+            class="slide-visual slide-herramientas"
+        >
 
             <span>
                 🔧
@@ -447,7 +810,7 @@
 
 
 
-    <!-- FLECHA ANTERIOR -->
+    <!-- FLECHAS -->
 
     <button
         id="slide-anterior"
@@ -460,9 +823,6 @@
 
     </button>
 
-
-
-    <!-- FLECHA SIGUIENTE -->
 
     <button
         id="slide-siguiente"
@@ -480,7 +840,6 @@
     <!-- INDICADORES -->
 
     <div class="indicadores">
-
 
         <button
             class="indicador activo"
@@ -517,9 +876,7 @@
     id="categorias"
 >
 
-
     <div class="seccion-titulo">
-
 
         <span data-text="explora">
             EXPLORA
@@ -662,7 +1019,7 @@
 
 
 <!-- =====================================================
-     PRODUCTOS DESTACADOS
+     PRODUCTOS
 ====================================================== -->
 
 <section
@@ -670,9 +1027,7 @@
     id="productos"
 >
 
-
     <div class="seccion-titulo">
-
 
         <span data-text="destacados">
             DESTACADOS
@@ -701,7 +1056,6 @@
 
         <article class="producto">
 
-
             <div class="producto-imagen">
 
                 <span>
@@ -712,7 +1066,6 @@
 
 
             <div class="producto-info">
-
 
                 <span class="producto-categoria">
                     Seguridad
@@ -725,10 +1078,8 @@
 
 
                 <p>
-
                     Cámara de seguridad para
                     interiores y exteriores.
-
                 </p>
 
 
@@ -762,7 +1113,6 @@
 
         <article class="producto">
 
-
             <div class="producto-imagen">
 
                 <span>
@@ -773,7 +1123,6 @@
 
 
             <div class="producto-info">
-
 
                 <span class="producto-categoria">
                     Seguridad
@@ -786,10 +1135,8 @@
 
 
                 <p>
-
                     Grabador para sistemas
                     de videovigilancia.
-
                 </p>
 
 
@@ -823,7 +1170,6 @@
 
         <article class="producto">
 
-
             <div class="producto-imagen">
 
                 <span>
@@ -834,7 +1180,6 @@
 
 
             <div class="producto-info">
-
 
                 <span class="producto-categoria">
                     Eléctrico
@@ -847,10 +1192,8 @@
 
 
                 <p>
-
                     Cable de red para
                     instalaciones.
-
                 </p>
 
 
@@ -884,7 +1227,6 @@
 
         <article class="producto">
 
-
             <div class="producto-imagen">
 
                 <span>
@@ -895,7 +1237,6 @@
 
 
             <div class="producto-info">
-
 
                 <span class="producto-categoria">
                     Herramientas
@@ -908,10 +1249,8 @@
 
 
                 <p>
-
                     Herramientas para instalación
                     y mantenimiento.
-
                 </p>
 
 
@@ -939,13 +1278,11 @@
 
         </article>
 
-
     </div>
 
 
 
     <div class="boton-ver-catalogo">
-
 
         <button
             type="button"
@@ -969,9 +1306,7 @@
 
 <section class="contacto">
 
-
     <div>
-
 
         <span data-text="necesitasAyuda">
             ¿NECESITAS AYUDA?
@@ -991,7 +1326,6 @@
         </p>
 
     </div>
-
 
 
     <a
@@ -1022,9 +1356,7 @@
     class="carrito-ventana"
 >
 
-
     <div class="carrito-contenido">
-
 
         <button
             id="cerrar-carrito"
@@ -1045,7 +1377,6 @@
 
         <div id="lista-carrito">
 
-
             <p
                 class="carrito-vacio"
                 data-text="carritoVacio"
@@ -1058,9 +1389,7 @@
         </div>
 
 
-
         <div class="total-carrito">
-
 
             <strong data-text="total">
                 Total:
@@ -1080,7 +1409,6 @@
         </div>
 
 
-
         <button
             id="finalizar-compra"
             class="finalizar-compra"
@@ -1095,8 +1423,77 @@
 
         </button>
 
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     CARRITO FLOTANTE
+====================================================== -->
+
+<button
+    id="carrito-flotante"
+    class="carrito-flotante"
+    type="button"
+    aria-label="Abrir carrito"
+>
+
+    <span class="icono-carrito-flotante">
+        🛒
+    </span>
+
+
+    <span
+        id="contador-carrito-flotante"
+        class="contador-carrito-flotante"
+    >
+        0
+    </span>
+
+</button>
+
+
+
+<!-- =====================================================
+     NOTIFICACIÓN DE PRODUCTO AGREGADO
+====================================================== -->
+
+<div
+    id="notificacion-carrito"
+    class="notificacion-carrito"
+    role="status"
+    aria-live="polite"
+>
+
+    <div class="notificacion-icono">
+        ✓
+    </div>
+
+
+    <div class="notificacion-texto">
+
+        <strong>
+            Producto agregado
+        </strong>
+
+
+        <span id="nombre-producto-agregado">
+            Producto
+        </span>
 
     </div>
+
+
+    <button
+        id="ver-carrito-notificacion"
+        type="button"
+    >
+
+        Ver carrito
+
+    </button>
 
 </div>
 
@@ -1126,9 +1523,7 @@
 
 <footer class="footer">
 
-
     <div class="footer-redes">
-
 
         <a href="#" aria-label="X">
             𝕏
@@ -1170,7 +1565,6 @@
 
         <div class="footer-columna">
 
-
             <h3 data-text="atencionCliente">
                 Atención al cliente
             </h3>
@@ -1208,7 +1602,6 @@
 
 
         <div class="footer-columna">
-
 
             <h3 data-text="miTienda">
                 Mi tienda
@@ -1252,7 +1645,6 @@
 
         <div class="footer-columna">
 
-
             <h3 data-text="informacion">
                 Información
             </h3>
@@ -1282,7 +1674,6 @@
 
 
         <div class="footer-columna">
-
 
             <h3 data-text="contacto">
                 Contacto
@@ -1326,7 +1717,6 @@
 
     <div class="footer-final">
 
-
         <p data-text="derechos">
             © 2026 Mi Tienda — Todos los derechos reservados
         </p>
@@ -1343,10 +1733,364 @@
 
 
 <!-- =====================================================
-     JAVASCRIPT
+     JAVASCRIPT PRINCIPAL
 ====================================================== -->
 
 <script src="script.js"></script>
+
+
+
+<!-- =====================================================
+     CARRITO FLOTANTE - FUNCIONAMIENTO
+====================================================== -->
+
+<script>
+
+(function () {
+
+    "use strict";
+
+
+    /* =================================================
+       ELEMENTOS
+    ================================================== */
+
+    const botonFlotante =
+        document.getElementById(
+            "carrito-flotante"
+        );
+
+
+    const contadorFlotante =
+        document.getElementById(
+            "contador-carrito-flotante"
+        );
+
+
+    const notificacion =
+        document.getElementById(
+            "notificacion-carrito"
+        );
+
+
+    const nombreProducto =
+        document.getElementById(
+            "nombre-producto-agregado"
+        );
+
+
+    const botonVerCarrito =
+        document.getElementById(
+            "ver-carrito-notificacion"
+        );
+
+
+    let temporizador;
+
+
+    /* =================================================
+       OBTENER CARRITO
+    ================================================== */
+
+    function obtenerCarrito() {
+
+        try {
+
+            return JSON.parse(
+                localStorage.getItem("carrito")
+            ) || [];
+
+        } catch (error) {
+
+            return [];
+
+        }
+
+    }
+
+
+    /* =================================================
+       ACTUALIZAR CONTADOR
+    ================================================== */
+
+    function actualizarContadorFlotante() {
+
+        const carrito =
+            obtenerCarrito();
+
+
+        const cantidad =
+            carrito.reduce(
+                function (total, producto) {
+
+                    return total +
+                        Number(
+                            producto.cantidad || 0
+                        );
+
+                },
+                0
+            );
+
+
+        if (contadorFlotante) {
+
+            contadorFlotante.textContent =
+                cantidad;
+
+        }
+
+    }
+
+
+    /* =================================================
+       ANIMAR CARRITO
+    ================================================== */
+
+    function animarCarrito() {
+
+        if (!botonFlotante) {
+            return;
+        }
+
+
+        botonFlotante.classList.remove(
+            "animar"
+        );
+
+
+        void botonFlotante.offsetWidth;
+
+
+        botonFlotante.classList.add(
+            "animar"
+        );
+
+    }
+
+
+    /* =================================================
+       MOSTRAR NOTIFICACIÓN
+    ================================================== */
+
+    function mostrarNotificacion(
+        nombre
+    ) {
+
+        if (
+            !notificacion ||
+            !nombreProducto
+        ) {
+
+            return;
+
+        }
+
+
+        nombreProducto.textContent =
+            nombre;
+
+
+        notificacion.classList.add(
+            "mostrar"
+        );
+
+
+        animarCarrito();
+
+
+        clearTimeout(
+            temporizador
+        );
+
+
+        temporizador =
+            setTimeout(
+                function () {
+
+                    notificacion.classList.remove(
+                        "mostrar"
+                    );
+
+                },
+                3500
+            );
+
+    }
+
+
+    /* =================================================
+       ABRIR CARRITO
+    ================================================== */
+
+    function abrirCarrito() {
+
+        const ventana =
+            document.getElementById(
+                "ventana-carrito"
+            );
+
+
+        if (!ventana) {
+            return;
+        }
+
+
+        ventana.style.display =
+            "flex";
+
+
+        /*
+         * Si existe la función mostrarCarrito
+         * del script principal, la ejecutamos.
+         */
+
+        if (
+            typeof window.mostrarCarrito ===
+            "function"
+        ) {
+
+            window.mostrarCarrito();
+
+        }
+
+    }
+
+
+    /* =================================================
+       BOTÓN FLOTANTE
+    ================================================== */
+
+    if (botonFlotante) {
+
+        botonFlotante.addEventListener(
+            "click",
+            function () {
+
+                abrirCarrito();
+
+            }
+        );
+
+    }
+
+
+    /* =================================================
+       BOTÓN "VER CARRITO"
+    ================================================== */
+
+    if (botonVerCarrito) {
+
+        botonVerCarrito.addEventListener(
+            "click",
+            function () {
+
+                abrirCarrito();
+
+
+                if (notificacion) {
+
+                    notificacion.classList.remove(
+                        "mostrar"
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =================================================
+       DETECTAR PRODUCTOS AGREGADOS
+    ================================================== */
+
+    const botonesAgregar =
+        document.querySelectorAll(
+            ".agregar-carrito"
+        );
+
+
+    botonesAgregar.forEach(
+        function (boton) {
+
+            boton.addEventListener(
+                "click",
+                function () {
+
+                    const nombre =
+                        boton.dataset.nombre ||
+                        "Producto";
+
+
+                    /*
+                     * Esperamos un momento para
+                     * permitir que el script principal
+                     * actualice localStorage.
+                     */
+
+                    setTimeout(
+                        function () {
+
+                            actualizarContadorFlotante();
+
+                            mostrarNotificacion(
+                                nombre
+                            );
+
+                        },
+                        50
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =================================================
+       ACTUALIZAR AL CARGAR
+    ================================================== */
+
+    actualizarContadorFlotante();
+
+
+    /* =================================================
+       SINCRONIZACIÓN ENTRE PESTAÑAS
+    ================================================== */
+
+    window.addEventListener(
+        "storage",
+        function (evento) {
+
+            if (
+                evento.key === "carrito"
+            ) {
+
+                actualizarContadorFlotante();
+
+            }
+
+        }
+    );
+
+
+    /* =================================================
+       ACTUALIZACIÓN PERIÓDICA
+       PARA MANTENERLO SINCRONIZADO
+    ================================================== */
+
+    setInterval(
+        actualizarContadorFlotante,
+        1000
+    );
+
+
+})();
+
+</script>
 
 
 
@@ -1358,27 +2102,36 @@
 
 if ("serviceWorker" in navigator) {
 
-    window.addEventListener("load", function () {
+    window.addEventListener(
+        "load",
+        function () {
 
-        navigator.serviceWorker
-            .register("./service-worker.js")
-            .then(function () {
+            navigator.serviceWorker
+                .register(
+                    "./service-worker.js"
+                )
+                .then(
+                    function () {
 
-                console.log(
-                    "Mi Tienda: aplicación lista para instalar."
+                        console.log(
+                            "Mi Tienda: aplicación lista para instalar."
+                        );
+
+                    }
+                )
+                .catch(
+                    function (error) {
+
+                        console.error(
+                            "Error al registrar la aplicación:",
+                            error
+                        );
+
+                    }
                 );
 
-            })
-            .catch(function (error) {
-
-                console.error(
-                    "Error al registrar la aplicación:",
-                    error
-                );
-
-            });
-
-    });
+        }
+    );
 
 }
 

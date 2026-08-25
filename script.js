@@ -31,28 +31,738 @@ function guardarCarrito() {
 // CONTADOR DEL CARRITO
 // =====================================================
 
+function obtenerCantidadCarrito() {
+
+    return carrito.reduce(
+        function (total, producto) {
+
+            return total + Number(producto.cantidad || 0);
+
+        },
+        0
+    );
+
+}
+
+
 function actualizarContador() {
+
+    const cantidadTotal =
+        obtenerCantidadCarrito();
+
 
     const contador =
         document.getElementById(
             "contador-carrito"
         );
 
-    if (!contador) {
-        return;
+
+    if (contador) {
+
+        contador.textContent =
+            cantidadTotal;
+
     }
 
-    const cantidadTotal =
-        carrito.reduce(
-            function (total, producto) {
 
-                return total + producto.cantidad;
-
-            },
-            0
+    const contadorFlotante =
+        document.getElementById(
+            "contador-carrito-flotante"
         );
 
-    contador.textContent = cantidadTotal;
+
+    if (contadorFlotante) {
+
+        contadorFlotante.textContent =
+            cantidadTotal;
+
+    }
+
+}
+
+
+// =====================================================
+// CREAR CARRITO FLOTANTE
+// =====================================================
+
+function crearCarritoFlotante() {
+
+    // Evitar duplicarlo
+
+    if (
+        document.getElementById(
+            "carrito-flotante"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    // =================================================
+    // ESTILOS
+    // =================================================
+
+    const estilos =
+        document.createElement("style");
+
+
+    estilos.id =
+        "estilos-carrito-flotante";
+
+
+    estilos.textContent = `
+
+        /* =============================================
+           CARRITO FLOTANTE
+        ============================================= */
+
+        .carrito-flotante {
+
+            position: fixed;
+
+            right: 20px;
+
+            bottom: 20px;
+
+            width: 62px;
+
+            height: 62px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: #0d5c72;
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            cursor: pointer;
+
+            z-index: 9998;
+
+            box-shadow:
+                0 8px 25px rgba(0,0,0,0.25);
+
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease;
+
+        }
+
+
+        .carrito-flotante:hover {
+
+            transform:
+                translateY(-4px);
+
+            box-shadow:
+                0 12px 30px rgba(0,0,0,.30);
+
+        }
+
+
+        .icono-carrito-flotante {
+
+            font-size: 27px;
+
+            line-height: 1;
+
+        }
+
+
+        /* =============================================
+           CONTADOR
+        ============================================= */
+
+        .contador-carrito-flotante {
+
+            position: absolute;
+
+            top: -4px;
+
+            right: -4px;
+
+            min-width: 26px;
+
+            height: 26px;
+
+            padding: 0 6px;
+
+            border-radius: 50px;
+
+            background: #f5a623;
+
+            color: white;
+
+            border: 2px solid white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+        }
+
+
+        /* =============================================
+           ANIMACIÓN
+        ============================================= */
+
+        .carrito-flotante.animar {
+
+            animation:
+                rebote-carrito .45s ease;
+
+        }
+
+
+        @keyframes rebote-carrito {
+
+            0% {
+
+                transform:
+                    scale(1);
+
+            }
+
+            35% {
+
+                transform:
+                    scale(1.18);
+
+            }
+
+            65% {
+
+                transform:
+                    scale(.94);
+
+            }
+
+            100% {
+
+                transform:
+                    scale(1);
+
+            }
+
+        }
+
+
+        /* =============================================
+           NOTIFICACIÓN
+        ============================================= */
+
+        .notificacion-carrito {
+
+            position: fixed;
+
+            right: 20px;
+
+            bottom: 95px;
+
+            width: min(
+                380px,
+                calc(100% - 30px)
+            );
+
+            padding: 14px;
+
+            background: white;
+
+            border: 1px solid #e5e9eb;
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 12px 35px rgba(0,0,0,.18);
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            z-index: 9999;
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transform:
+                translateY(15px);
+
+            transition:
+                opacity .25s ease,
+                transform .25s ease,
+                visibility .25s ease;
+
+        }
+
+
+        .notificacion-carrito.mostrar {
+
+            opacity: 1;
+
+            visibility: visible;
+
+            transform:
+                translateY(0);
+
+        }
+
+
+        /* =============================================
+           ICONO
+        ============================================= */
+
+        .notificacion-icono {
+
+            width: 40px;
+
+            height: 40px;
+
+            min-width: 40px;
+
+            border-radius: 50%;
+
+            background: #25d366;
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 21px;
+
+            font-weight: 800;
+
+        }
+
+
+        /* =============================================
+           TEXTO
+        ============================================= */
+
+        .notificacion-texto {
+
+            flex: 1;
+
+            min-width: 0;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 3px;
+
+        }
+
+
+        .notificacion-texto strong {
+
+            color: #123b4a;
+
+            font-size: 14px;
+
+        }
+
+
+        .notificacion-texto span {
+
+            color: #697b83;
+
+            font-size: 13px;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+        }
+
+
+        /* =============================================
+           VER CARRITO
+        ============================================= */
+
+        .ver-carrito-notificacion {
+
+            border: none;
+
+            border-radius: 9px;
+
+            padding: 9px 12px;
+
+            background: #0d5c72;
+
+            color: white;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            white-space: nowrap;
+
+        }
+
+
+        .ver-carrito-notificacion:hover {
+
+            background: #09485a;
+
+        }
+
+
+        /* =============================================
+           MÓVIL
+        ============================================= */
+
+        @media (max-width: 600px) {
+
+            .carrito-flotante {
+
+                width: 58px;
+
+                height: 58px;
+
+                right: 14px;
+
+                bottom: 14px;
+
+            }
+
+
+            .icono-carrito-flotante {
+
+                font-size: 25px;
+
+            }
+
+
+            .notificacion-carrito {
+
+                right: 15px;
+
+                bottom: 82px;
+
+                width:
+                    calc(100% - 30px);
+
+            }
+
+        }
+
+    `;
+
+
+    document.head.appendChild(
+        estilos
+    );
+
+
+    // =================================================
+    // BOTÓN FLOTANTE
+    // =================================================
+
+    const boton =
+        document.createElement("button");
+
+
+    boton.id =
+        "carrito-flotante";
+
+
+    boton.className =
+        "carrito-flotante";
+
+
+    boton.type =
+        "button";
+
+
+    boton.setAttribute(
+        "aria-label",
+        "Abrir carrito"
+    );
+
+
+    boton.innerHTML = `
+
+        <span
+            class="icono-carrito-flotante"
+        >
+            🛒
+        </span>
+
+        <span
+            id="contador-carrito-flotante"
+            class="contador-carrito-flotante"
+        >
+            0
+        </span>
+
+    `;
+
+
+    document.body.appendChild(
+        boton
+    );
+
+
+    // =================================================
+    // NOTIFICACIÓN
+    // =================================================
+
+    const notificacion =
+        document.createElement("div");
+
+
+    notificacion.id =
+        "notificacion-carrito";
+
+
+    notificacion.className =
+        "notificacion-carrito";
+
+
+    notificacion.setAttribute(
+        "role",
+        "status"
+    );
+
+
+    notificacion.setAttribute(
+        "aria-live",
+        "polite"
+    );
+
+
+    notificacion.innerHTML = `
+
+        <div class="notificacion-icono">
+            ✓
+        </div>
+
+        <div class="notificacion-texto">
+
+            <strong>
+                Producto agregado
+            </strong>
+
+            <span
+                id="nombre-producto-agregado"
+            >
+                Producto
+            </span>
+
+        </div>
+
+        <button
+            type="button"
+            class="ver-carrito-notificacion"
+        >
+            Ver carrito
+        </button>
+
+    `;
+
+
+    document.body.appendChild(
+        notificacion
+    );
+
+
+    // =================================================
+    // ABRIR CARRITO
+    // =================================================
+
+    boton.addEventListener(
+        "click",
+        function () {
+
+            abrirCarrito();
+
+        }
+    );
+
+
+    // =================================================
+    // VER CARRITO
+    // =================================================
+
+    const verCarrito =
+        notificacion.querySelector(
+            ".ver-carrito-notificacion"
+        );
+
+
+    verCarrito.addEventListener(
+        "click",
+        function () {
+
+            abrirCarrito();
+
+            ocultarNotificacion();
+
+        }
+    );
+
+
+    actualizarContador();
+
+}
+
+
+// =====================================================
+// ABRIR CARRITO
+// =====================================================
+
+function abrirCarrito() {
+
+    const ventana =
+        document.getElementById(
+            "ventana-carrito"
+        );
+
+
+    if (!ventana) {
+
+        return;
+
+    }
+
+
+    ventana.style.display =
+        "flex";
+
+
+    mostrarCarrito();
+
+}
+
+
+// =====================================================
+// MOSTRAR NOTIFICACIÓN
+// =====================================================
+
+let temporizadorNotificacion;
+
+
+function mostrarNotificacionProducto(
+    nombre
+) {
+
+    const notificacion =
+        document.getElementById(
+            "notificacion-carrito"
+        );
+
+
+    const nombreElemento =
+        document.getElementById(
+            "nombre-producto-agregado"
+        );
+
+
+    if (
+        !notificacion ||
+        !nombreElemento
+    ) {
+
+        return;
+
+    }
+
+
+    nombreElemento.textContent =
+        nombre;
+
+
+    notificacion.classList.add(
+        "mostrar"
+    );
+
+
+    const boton =
+        document.getElementById(
+            "carrito-flotante"
+        );
+
+
+    if (boton) {
+
+        boton.classList.remove(
+            "animar"
+        );
+
+
+        void boton.offsetWidth;
+
+
+        boton.classList.add(
+            "animar"
+        );
+
+    }
+
+
+    clearTimeout(
+        temporizadorNotificacion
+    );
+
+
+    temporizadorNotificacion =
+        setTimeout(
+            function () {
+
+                ocultarNotificacion();
+
+            },
+            3500
+        );
+
+}
+
+
+// =====================================================
+// OCULTAR NOTIFICACIÓN
+// =====================================================
+
+function ocultarNotificacion() {
+
+    const notificacion =
+        document.getElementById(
+            "notificacion-carrito"
+        );
+
+
+    if (notificacion) {
+
+        notificacion.classList.remove(
+            "mostrar"
+        );
+
+    }
 
 }
 
@@ -61,68 +771,102 @@ function actualizarContador() {
 // AGREGAR PRODUCTOS
 // =====================================================
 
-const botonesAgregar =
-    document.querySelectorAll(
-        ".agregar-carrito"
-    );
+function configurarBotonesAgregar() {
 
-
-botonesAgregar.forEach(
-    function (boton) {
-
-        boton.addEventListener(
-            "click",
-            function () {
-
-                const nombre =
-                    boton.dataset.nombre;
-
-                const precio =
-                    Number(
-                        boton.dataset.precio
-                    );
-
-
-                const productoExistente =
-                    carrito.find(
-                        function (producto) {
-
-                            return producto.nombre === nombre;
-
-                        }
-                    );
-
-
-                if (productoExistente) {
-
-                    productoExistente.cantidad++;
-
-                } else {
-
-                    carrito.push({
-
-                        nombre: nombre,
-
-                        precio: precio,
-
-                        cantidad: 1
-
-                    });
-
-                }
-
-
-                guardarCarrito();
-
-                actualizarContador();
-
-                mostrarCarrito();
-
-            }
+    const botonesAgregar =
+        document.querySelectorAll(
+            ".agregar-carrito"
         );
 
-    }
-);
+
+    botonesAgregar.forEach(
+        function (boton) {
+
+            // Evitar duplicar eventos
+
+            if (
+                boton.dataset.carritoConfigurado ===
+                "true"
+            ) {
+
+                return;
+
+            }
+
+
+            boton.dataset.carritoConfigurado =
+                "true";
+
+
+            boton.addEventListener(
+                "click",
+                function () {
+
+                    const nombre =
+                        boton.dataset.nombre;
+
+
+                    const precio =
+                        Number(
+                            boton.dataset.precio
+                        );
+
+
+                    const productoExistente =
+                        carrito.find(
+                            function (producto) {
+
+                                return (
+                                    producto.nombre ===
+                                    nombre
+                                );
+
+                            }
+                        );
+
+
+                    if (productoExistente) {
+
+                        productoExistente.cantidad++;
+
+                    } else {
+
+                        carrito.push({
+
+                            nombre:
+                                nombre,
+
+                            precio:
+                                precio,
+
+                            cantidad:
+                                1
+
+                        });
+
+                    }
+
+
+                    guardarCarrito();
+
+                    actualizarContador();
+
+                    mostrarCarrito();
+
+
+                    // NUEVO AVISO
+
+                    mostrarNotificacionProducto(
+                        nombre
+                    );
+
+                }
+            );
+
+        }
+    );
+
+}
 
 
 // =====================================================
@@ -150,10 +894,7 @@ if (
         "click",
         function () {
 
-            ventanaCarrito.style.display =
-                "flex";
-
-            mostrarCarrito();
+            abrirCarrito();
 
         }
     );
@@ -243,7 +984,8 @@ function mostrarCarrito() {
     }
 
 
-    listaCarrito.innerHTML = "";
+    listaCarrito.innerHTML =
+        "";
 
 
     if (carrito.length === 0) {
@@ -258,7 +1000,10 @@ function mostrarCarrito() {
 
         `;
 
-        totalCarrito.textContent = "0";
+
+        totalCarrito.textContent =
+            "0";
+
 
         return;
 
@@ -345,7 +1090,9 @@ function mostrarCarrito() {
             `;
 
 
-            listaCarrito.appendChild(item);
+            listaCarrito.appendChild(
+                item
+            );
 
         }
     );
@@ -361,13 +1108,18 @@ function mostrarCarrito() {
 // AUMENTAR CANTIDAD
 // =====================================================
 
-function aumentarCantidad(indice) {
+function aumentarCantidad(
+    indice
+) {
 
     carrito[indice].cantidad++;
 
+
     guardarCarrito();
 
+
     actualizarContador();
+
 
     mostrarCarrito();
 
@@ -378,7 +1130,9 @@ function aumentarCantidad(indice) {
 // DISMINUIR CANTIDAD
 // =====================================================
 
-function disminuirCantidad(indice) {
+function disminuirCantidad(
+    indice
+) {
 
     carrito[indice].cantidad--;
 
@@ -387,14 +1141,19 @@ function disminuirCantidad(indice) {
         carrito[indice].cantidad <= 0
     ) {
 
-        carrito.splice(indice, 1);
+        carrito.splice(
+            indice,
+            1
+        );
 
     }
 
 
     guardarCarrito();
 
+
     actualizarContador();
+
 
     mostrarCarrito();
 
@@ -405,13 +1164,21 @@ function disminuirCantidad(indice) {
 // ELIMINAR PRODUCTO
 // =====================================================
 
-function eliminarProducto(indice) {
+function eliminarProducto(
+    indice
+) {
 
-    carrito.splice(indice, 1);
+    carrito.splice(
+        indice,
+        1
+    );
+
 
     guardarCarrito();
 
+
     actualizarContador();
+
 
     mostrarCarrito();
 
@@ -434,7 +1201,9 @@ if (finalizarCompra) {
         "click",
         function () {
 
-            if (carrito.length === 0) {
+            if (
+                carrito.length === 0
+            ) {
 
                 alert(
                     "Tu carrito está vacío."
@@ -535,11 +1304,15 @@ if (buscador) {
                 function (producto) {
 
                     const titulo =
-                        producto.querySelector("h3");
+                        producto.querySelector(
+                            "h3"
+                        );
 
 
                     if (!titulo) {
+
                         return;
+
                     }
 
 
@@ -549,7 +1322,9 @@ if (buscador) {
 
 
                     if (
-                        nombre.includes(texto)
+                        nombre.includes(
+                            texto
+                        )
                     ) {
 
                         producto.style.display =
@@ -605,7 +1380,9 @@ let slideActual = 0;
 function mostrarSlide(indice) {
 
     if (!slides.length) {
+
         return;
+
     }
 
 
@@ -628,7 +1405,8 @@ function mostrarSlide(indice) {
     }
 
 
-    slideActual = indice;
+    slideActual =
+        indice;
 
 
     slides.forEach(
@@ -701,7 +1479,10 @@ indicadores.forEach(
                         indicador.dataset.slide
                     );
 
-                mostrarSlide(indice);
+
+                mostrarSlide(
+                    indice
+                );
 
             }
         );
@@ -710,9 +1491,13 @@ indicadores.forEach(
 );
 
 
-// Cambio automático
+// =====================================================
+// CAMBIO AUTOMÁTICO
+// =====================================================
 
-if (slides.length > 1) {
+if (
+    slides.length > 1
+) {
 
     setInterval(
         function () {
@@ -1488,18 +2273,20 @@ const traducciones = {
 // APLICAR IDIOMA
 // =====================================================
 
-function cambiarIdioma(idioma) {
+function cambiarIdioma(
+    idioma
+) {
 
     const idiomaSeleccionado =
         traducciones[idioma];
 
 
     if (!idiomaSeleccionado) {
+
         return;
+
     }
 
-
-    // Cambiar textos
 
     const elementos =
         document.querySelectorAll(
@@ -1527,19 +2314,25 @@ function cambiarIdioma(idioma) {
     );
 
 
-    // Cambiar placeholder
+    // =================================================
+    // PLACEHOLDER
+    // =================================================
 
     if (buscador) {
 
         const placeholders = {
 
-            es: "¿Qué estás buscando?",
+            es:
+                "¿Qué estás buscando?",
 
-            en: "What are you looking for?",
+            en:
+                "What are you looking for?",
 
-            fr: "Que recherchez-vous ?",
+            fr:
+                "Que recherchez-vous ?",
 
-            pt: "O que você está procurando?"
+            pt:
+                "O que você está procurando?"
 
         };
 
@@ -1550,7 +2343,9 @@ function cambiarIdioma(idioma) {
     }
 
 
-    // Cambiar botón de idioma
+    // =================================================
+    // BOTÓN IDIOMA
+    // =================================================
 
     const botonIdioma =
         document.getElementById(
@@ -1568,7 +2363,9 @@ function cambiarIdioma(idioma) {
     }
 
 
-    // Marcar idioma activo
+    // =================================================
+    // IDIOMA ACTIVO
+    // =================================================
 
     const botonesIdioma =
         document.querySelectorAll(
@@ -1581,22 +2378,23 @@ function cambiarIdioma(idioma) {
 
             boton.classList.toggle(
                 "idioma-activo",
-                boton.dataset.idioma === idioma
+                boton.dataset.idioma ===
+                idioma
             );
 
         }
     );
 
 
-    // Guardar idioma
+    // =================================================
+    // GUARDAR
+    // =================================================
 
     localStorage.setItem(
         "idioma",
         idioma
     );
 
-
-    // Cambiar idioma del documento
 
     document.documentElement.lang =
         idioma;
@@ -1630,6 +2428,7 @@ if (
         function (evento) {
 
             evento.stopPropagation();
+
 
             menuIdiomas.classList.toggle(
                 "abierto"
@@ -1668,8 +2467,6 @@ if (
     );
 
 
-    // Cerrar si se toca fuera
-
     document.addEventListener(
         "click",
         function (evento) {
@@ -1693,6 +2490,29 @@ if (
 
 
 // =====================================================
+// INICIALIZACIÓN
+// =====================================================
+
+function iniciarTienda() {
+
+    // Crear carrito flotante
+
+    crearCarritoFlotante();
+
+
+    // Configurar botones
+
+    configurarBotonesAgregar();
+
+
+    // Actualizar contador
+
+    actualizarContador();
+
+}
+
+
+// =====================================================
 // IDIOMA GUARDADO
 // =====================================================
 
@@ -1708,42 +2528,92 @@ cambiarIdioma(
 
 
 // =====================================================
-// INICIAR CONTADOR
+// INICIAR
 // =====================================================
 
-actualizarContador();
+if (
+    document.readyState ===
+    "loading"
+) {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        iniciarTienda
+    );
+
+} else {
+
+    iniciarTienda();
+
+}
 
 
 // =====================================================
-// FIN
+// MANTENER CONTADOR SINCRONIZADO
 // =====================================================
+
+window.addEventListener(
+    "storage",
+    function (evento) {
+
+        if (
+            evento.key ===
+            "carrito"
+        ) {
+
+            carrito =
+                JSON.parse(
+                    localStorage.getItem(
+                        "carrito"
+                    )
+                ) || [];
+
+
+            actualizarContador();
+
+        }
+
+    }
+);
+
 
 // =====================================================
 // PWA - SERVICE WORKER
 // =====================================================
 
-if ("serviceWorker" in navigator) {
+if (
+    "serviceWorker" in navigator
+) {
 
-    window.addEventListener("load", function() {
+    window.addEventListener(
+        "load",
+        function () {
 
-        navigator.serviceWorker
-            .register("./service-worker.js")
-            .then(function() {
+            navigator.serviceWorker
+                .register(
+                    "./service-worker.js"
+                )
+                .then(
+                    function () {
 
-                console.log(
-                    "Mi Tienda: aplicación instalada correctamente."
+                        console.log(
+                            "Mi Tienda: aplicación instalada correctamente."
+                        );
+
+                    }
+                )
+                .catch(
+                    function (error) {
+
+                        console.error(
+                            "Error al registrar la aplicación:",
+                            error
+                        );
+
+                    }
                 );
 
-            })
-            .catch(function(error) {
-
-                console.error(
-                    "Error al registrar la aplicación:",
-                    error
-                );
-
-            });
-
-    });
+        }
+    );
 
 }
