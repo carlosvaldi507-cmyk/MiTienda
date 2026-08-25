@@ -693,141 +693,120 @@ function cambiarPais(
 
 function crearSelectorMoneda() {
 
+    // =================================================
+    // LIMPIAR SELECTORES DE MONEDA DUPLICADOS
+    // =================================================
+
+    const selectores =
+        Array.from(
+            document.querySelectorAll(
+                "#selector-moneda, [data-selector-moneda]"
+            )
+        );
+
     let selector =
-        document.getElementById(
-            "selector-moneda"
-        );
+        selectores[0] || null;
 
 
-    if (selector) {
+    // =================================================
+    // ELIMINAR LOS DUPLICADOS
+    // =================================================
 
-        configurarEventosSelectorMoneda(
-            selector
-        );
+    selectores.forEach(
+        function (elemento, indice) {
 
-        actualizarSelectorMoneda();
+            if (indice > 0) {
 
-        return;
+                elemento.remove();
 
-    }
-
-
-    selector =
-        document.querySelector(
-            "[data-selector-moneda]"
-        );
-
-
-    if (selector) {
-
-        selector.id =
-            "selector-moneda";
-
-
-        configurarEventosSelectorMoneda(
-            selector
-        );
-
-
-        actualizarSelectorMoneda();
-
-        return;
-
-    }
-
-
-    selector =
-        document.createElement(
-            "select"
-        );
-
-
-    selector.id =
-        "selector-moneda";
-
-
-    selector.setAttribute(
-        "aria-label",
-        "Seleccionar país y moneda"
-    );
-
-
-    selector.style.cssText = `
-
-        padding:8px 12px;
-
-        border:1px solid #d6e0e5;
-
-        border-radius:10px;
-
-        background:#ffffff;
-
-        color:#123b4a;
-
-        font-size:14px;
-
-        font-weight:700;
-
-        cursor:pointer;
-
-        margin:8px;
-
-    `;
-
-
-    Object.keys(
-        configuracionMonedas
-    )
-    .forEach(
-        function (codigo) {
-
-            const moneda =
-                configuracionMonedas[
-                    codigo
-                ];
-
-
-            const opcion =
-                document.createElement(
-                    "option"
-                );
-
-
-            opcion.value =
-                codigo;
-
-
-            opcion.textContent =
-                moneda.bandera +
-                " " +
-                moneda.pais +
-                " (" +
-                moneda.moneda +
-                ")";
-
-
-            selector.appendChild(
-                opcion
-            );
+            }
 
         }
     );
 
 
-    const lugar =
-        document.querySelector(
-            ".selector-idioma"
-        ) ||
-        document.querySelector(
-            "header"
-        ) ||
-        document.body;
+    // =================================================
+    // SI NO EXISTE, CREAR UNO
+    // =================================================
+
+    if (!selector) {
+
+        selector =
+            document.createElement(
+                "select"
+            );
+
+        selector.id =
+            "selector-moneda";
+
+        selector.setAttribute(
+            "aria-label",
+            "Seleccionar país y moneda"
+        );
 
 
-    lugar.appendChild(
-        selector
-    );
+        Object.keys(
+            configuracionMonedas
+        ).forEach(
+            function (codigo) {
 
+                const moneda =
+                    configuracionMonedas[
+                        codigo
+                    ];
+
+                const opcion =
+                    document.createElement(
+                        "option"
+                    );
+
+                opcion.value =
+                    codigo;
+
+                opcion.textContent =
+                    moneda.bandera +
+                    " " +
+                    moneda.pais +
+                    " (" +
+                    moneda.moneda +
+                    ")";
+
+                selector.appendChild(
+                    opcion
+                );
+
+            }
+        );
+
+
+        const lugar =
+            document.querySelector(
+                ".selector-idioma"
+            ) ||
+            document.querySelector(
+                "header"
+            ) ||
+            document.body;
+
+
+        lugar.appendChild(
+            selector
+        );
+
+    }
+
+
+    // =================================================
+    // ASEGURAR ID ÚNICO
+    // =================================================
+
+    selector.id =
+        "selector-moneda";
+
+
+    // =================================================
+    // CONECTAR EVENTOS
+    // =================================================
 
     configurarEventosSelectorMoneda(
         selector
@@ -837,79 +816,6 @@ function crearSelectorMoneda() {
     actualizarSelectorMoneda();
 
 }
-
-
-// =====================================================
-// EVENTOS DEL SELECTOR
-// =====================================================
-
-function configurarEventosSelectorMoneda(
-    selector
-) {
-
-    if (
-        selector.dataset.monedaConfigurada ===
-        "true"
-    ) {
-
-        return;
-
-    }
-
-
-    selector.dataset.monedaConfigurada =
-        "true";
-
-
-    selector.addEventListener(
-        "change",
-        function () {
-
-            cambiarPais(
-                selector.value
-            );
-
-        }
-    );
-
-
-    document
-        .querySelectorAll(
-            "[data-pais]"
-        )
-        .forEach(
-            function (boton) {
-
-                if (
-                    boton.dataset.paisConfigurado ===
-                    "true"
-                ) {
-
-                    return;
-
-                }
-
-
-                boton.dataset.paisConfigurado =
-                    "true";
-
-
-                boton.addEventListener(
-                    "click",
-                    function () {
-
-                        cambiarPais(
-                            boton.dataset.pais
-                        );
-
-                    }
-                );
-
-            }
-        );
-
-}
-
 
 // =====================================================
 // ACTUALIZAR SELECTOR
@@ -1329,42 +1235,42 @@ function crearCarritoFlotante() {
 
         .carrito-flotante {
 
-            position:fixed;
+    position: fixed !important;
 
-            right:20px;
+    right: 20px !important;
 
-            bottom:20px;
+    bottom: 105px !important;
 
-            width:62px;
+    width: 62px;
 
-            height:62px;
+    height: 62px;
 
-            border:none;
+    border: none;
 
-            border-radius:50%;
+    border-radius: 50%;
 
-            background:#0d5c72;
+    background: #0d5c72;
 
-            color:white;
+    color: white;
 
-            display:flex;
+    display: flex;
 
-            align-items:center;
+    align-items: center;
 
-            justify-content:center;
+    justify-content: center;
 
-            cursor:pointer;
+    cursor: pointer;
 
-            z-index:9998;
+    z-index: 99990;
 
-            box-shadow:
-                0 8px 25px rgba(0,0,0,.25);
+    box-shadow:
+        0 8px 25px rgba(0,0,0,0.25);
 
-            transition:
-                transform .2s ease;
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
 
-        }
-
+}
 
         .carrito-flotante:hover {
 
@@ -1595,15 +1501,19 @@ function crearCarritoFlotante() {
 
             .carrito-flotante {
 
-                width:58px;
+                .carrito-flotante {
 
-                height:58px;
+                 width: 58px;
 
-                right:14px;
+                 height: 58px;
 
-                bottom:14px;
+                 right: 14px;
 
-            }
+                 bottom: 88px !important;
+
+                 z-index: 99990;
+
+}
 
 
             .notificacion-carrito {
