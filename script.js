@@ -5,48 +5,57 @@
 
 
 // =====================================================
+// CONFIGURACIÓN GENERAL
+// =====================================================
+
+const NUMERO_WHATSAPP = "50576823472";
+
+const MONTO_ENVIO_GRATIS = 5000;
+
+
+// =====================================================
 // CARRITO
 // =====================================================
 
 function normalizarCarrito(valor) {
 
     if (!Array.isArray(valor)) {
-
         return [];
-
     }
 
-    return valor.reduce(
-        function (productosValidos, producto) {
+    return valor.reduce(function (productosValidos, producto) {
 
-            const precio = Number(producto?.precio);
-            const cantidad = Number(producto?.cantidad);
-            const cantidadNormalizada = Math.floor(cantidad);
+        const precio = Number(producto?.precio);
+        const cantidad = Number(producto?.cantidad);
 
-            if (
-                typeof producto?.nombre !== "string" ||
-                !Number.isFinite(precio) ||
-                !Number.isFinite(cantidad) ||
-                cantidadNormalizada <= 0
-            ) {
+        const cantidadNormalizada =
+            Math.floor(cantidad);
 
-                return productosValidos;
-
-            }
-
-            productosValidos.push({
-
-                nombre: producto.nombre,
-                precio: precio,
-                cantidad: cantidadNormalizada
-
-            });
-
+        if (
+            typeof producto?.nombre !== "string" ||
+            !Number.isFinite(precio) ||
+            !Number.isFinite(cantidad) ||
+            cantidadNormalizada <= 0
+        ) {
             return productosValidos;
+        }
 
-        },
-        []
-    );
+        productosValidos.push({
+
+            nombre:
+                producto.nombre,
+
+            precio:
+                precio,
+
+            cantidad:
+                cantidadNormalizada
+
+        });
+
+        return productosValidos;
+
+    }, []);
 
 }
 
@@ -57,7 +66,7 @@ function obtenerCarritoGuardado() {
 
         return normalizarCarrito(
             JSON.parse(
-                localStorage.getItem("carrito")
+                localStorage.getItem("carrito") || "[]"
             )
         );
 
@@ -75,246 +84,874 @@ function obtenerCarritoGuardado() {
 }
 
 
-let carrito = obtenerCarritoGuardado();
+let carrito =
+    obtenerCarritoGuardado();
 
-cargarCarritoCompartido();
 
-let cuponAplicado = localStorage.getItem("cuponMiTienda") || "";
-const MONTO_ENVIO_GRATIS = 5000;
+let cuponAplicado =
+    localStorage.getItem("cuponMiTienda") || "";
+
+
+// =====================================================
+// RESUMEN DE COMPRA
+// =====================================================
 
 function obtenerResumenCompra() {
 
-    const subtotal = carrito.reduce(function (total, producto) {
-        return total + (producto.precio * producto.cantidad);
-    }, 0);
-    const descuento = cuponAplicado === "BIENVENIDA10" ? Math.round(subtotal * 0.10) : 0;
+    const subtotal =
+        carrito.reduce(
+            function (total, producto) {
+
+                return total +
+                    (
+                        producto.precio *
+                        producto.cantidad
+                    );
+
+            },
+            0
+        );
+
+
+    const descuento =
+        cuponAplicado === "BIENVENIDA10"
+            ? Math.round(
+                subtotal * 0.10
+            )
+            : 0;
+
 
     return {
-        subtotal: subtotal,
-        descuento: descuento,
-        total: Math.max(0, subtotal - descuento)
+
+        subtotal:
+            subtotal,
+
+        descuento:
+            descuento,
+
+        total:
+            Math.max(
+                0,
+                subtotal - descuento
+            )
+
     };
 
 }
 
+
 // =====================================================
 // PAÍS Y MONEDA
+// =====================================================
+//
+// Los precios originales de los productos están
+// almacenados en CÓRDOBAS NICARAGÜENSES (NIO).
+//
+// tasa = cantidad aproximada de moneda extranjera
+// equivalente a 1 C$.
+//
+// Son tasas de referencia.
+// No representan una cotización bancaria en tiempo real.
 // =====================================================
 
 const configuracionMonedas = {
 
     NI: {
-        pais: "Nicaragua",
-        moneda: "NIO",
-        simbolo: "C$",
-        locale: "es-NI",
-        tasa: 1
+
+        pais:
+            "Nicaragua",
+
+        bandera:
+            "🇳🇮",
+
+        moneda:
+            "NIO",
+
+        simbolo:
+            "C$",
+
+        locale:
+            "es-NI",
+
+        tasa:
+            1
+
     },
+
 
     US: {
-        pais: "Estados Unidos",
-        moneda: "USD",
-        simbolo: "US$",
-        locale: "en-US",
-        tasa: 36.70
+
+        pais:
+            "Estados Unidos",
+
+        bandera:
+            "🇺🇸",
+
+        moneda:
+            "USD",
+
+        simbolo:
+            "US$",
+
+        locale:
+            "en-US",
+
+        // 1 NIO ≈ 0.02725 USD
+
+        tasa:
+            0.02725
+
     },
+
 
     CA: {
-        pais: "Canadá",
-        moneda: "CAD",
-        simbolo: "CA$",
-        locale: "en-CA",
-        tasa: 26.80
+
+        pais:
+            "Canadá",
+
+        bandera:
+            "🇨🇦",
+
+        moneda:
+            "CAD",
+
+        simbolo:
+            "CA$",
+
+        locale:
+            "en-CA",
+
+        // 1 NIO ≈ 0.0373 CAD
+
+        tasa:
+            0.0373
+
     },
+
 
     MX: {
-        pais: "México",
-        moneda: "MXN",
-        simbolo: "MX$",
-        locale: "es-MX",
-        tasa: 1.82
+
+        pais:
+            "México",
+
+        bandera:
+            "🇲🇽",
+
+        moneda:
+            "MXN",
+
+        simbolo:
+            "MX$",
+
+        locale:
+            "es-MX",
+
+        tasa:
+            0.543
+
     },
+
 
     CR: {
-        pais: "Costa Rica",
-        moneda: "CRC",
-        simbolo: "₡",
-        locale: "es-CR",
-        tasa: 0.072
+
+        pais:
+            "Costa Rica",
+
+        bandera:
+            "🇨🇷",
+
+        moneda:
+            "CRC",
+
+        simbolo:
+            "₡",
+
+        locale:
+            "es-CR",
+
+        tasa:
+            13.65
+
     },
+
 
     HN: {
-        pais: "Honduras",
-        moneda: "HNL",
-        simbolo: "L",
-        locale: "es-HN",
-        tasa: 0.685
+
+        pais:
+            "Honduras",
+
+        bandera:
+            "🇭🇳",
+
+        moneda:
+            "HNL",
+
+        simbolo:
+            "L",
+
+        locale:
+            "es-HN",
+
+        tasa:
+            0.684
+
     },
+
 
     GT: {
-        pais: "Guatemala",
-        moneda: "GTQ",
-        simbolo: "Q",
-        locale: "es-GT",
-        tasa: 0.404
+
+        pais:
+            "Guatemala",
+
+        bandera:
+            "🇬🇹",
+
+        moneda:
+            "GTQ",
+
+        simbolo:
+            "Q",
+
+        locale:
+            "es-GT",
+
+        tasa:
+            0.211
+
     },
+
 
     PA: {
-        pais: "Panamá",
-        moneda: "USD",
-        simbolo: "B/.",
-        locale: "es-PA",
-        tasa: 36.70
+
+        pais:
+            "Panamá",
+
+        bandera:
+            "🇵🇦",
+
+        moneda:
+            "USD",
+
+        simbolo:
+            "B/.",
+
+        locale:
+            "es-PA",
+
+        // Panamá utiliza USD.
+        // 1 NIO ≈ 0.02725 USD.
+
+        tasa:
+            0.02725
+
     },
+
 
     CO: {
-        pais: "Colombia",
-        moneda: "COP",
-        simbolo: "COP$",
-        locale: "es-CO",
-        tasa: 110
+
+        pais:
+            "Colombia",
+
+        bandera:
+            "🇨🇴",
+
+        moneda:
+            "COP",
+
+        simbolo:
+            "COP$",
+
+        locale:
+            "es-CO",
+
+        tasa:
+            110
+
     },
+
 
     BR: {
-        pais: "Brasil",
-        moneda: "BRL",
-        simbolo: "R$",
-        locale: "pt-BR",
-        tasa: 0.15
+
+        pais:
+            "Brasil",
+
+        bandera:
+            "🇧🇷",
+
+        moneda:
+            "BRL",
+
+        simbolo:
+            "R$",
+
+        locale:
+            "pt-BR",
+
+        tasa:
+            0.15
+
     },
+
 
     ES: {
-        pais: "España",
-        moneda: "EUR",
-        simbolo: "€",
-        locale: "es-ES",
-        tasa: 0.024
+
+        pais:
+            "España",
+
+        bandera:
+            "🇪🇸",
+
+        moneda:
+            "EUR",
+
+        simbolo:
+            "€",
+
+        locale:
+            "es-ES",
+
+        tasa:
+            0.0235
+
     },
+
 
     GB: {
-        pais: "Reino Unido",
-        moneda: "GBP",
-        simbolo: "£",
-        locale: "en-GB",
-        tasa: 0.021
+
+        pais:
+            "Reino Unido",
+
+        bandera:
+            "🇬🇧",
+
+        moneda:
+            "GBP",
+
+        simbolo:
+            "£",
+
+        locale:
+            "en-GB",
+
+        tasa:
+            0.0202
+
     },
+
 
     JP: {
-        pais: "Japón",
-        moneda: "JPY",
-        simbolo: "¥",
-        locale: "ja-JP",
-        tasa: 4.0
+
+        pais:
+            "Japón",
+
+        bandera:
+            "🇯🇵",
+
+        moneda:
+            "JPY",
+
+        simbolo:
+            "¥",
+
+        locale:
+            "ja-JP",
+
+        tasa:
+            4.05
+
     },
+
 
     CN: {
-        pais: "China",
-        moneda: "CNY",
-        simbolo: "¥",
-        locale: "zh-CN",
-        tasa: 0.196
+
+        pais:
+            "China",
+
+        bandera:
+            "🇨🇳",
+
+        moneda:
+            "CNY",
+
+        simbolo:
+            "¥",
+
+        locale:
+            "zh-CN",
+
+        tasa:
+            0.196
+
     },
+
 
     TW: {
-        pais: "Taiwán",
-        moneda: "TWD",
-        simbolo: "NT$",
-        locale: "zh-TW",
-        tasa: 0.64
+
+        pais:
+            "Taiwán",
+
+        bandera:
+            "🇹🇼",
+
+        moneda:
+            "TWD",
+
+        simbolo:
+            "NT$",
+
+        locale:
+            "zh-TW",
+
+        tasa:
+            0.86
+
     },
 
+
     HK: {
-        pais: "Hong Kong",
-        moneda: "HKD",
-        simbolo: "HK$",
-        locale: "zh-HK",
-        tasa: 0.211
+
+        pais:
+            "Hong Kong",
+
+        bandera:
+            "🇭🇰",
+
+        moneda:
+            "HKD",
+
+        simbolo:
+            "HK$",
+
+        locale:
+            "zh-HK",
+
+        tasa:
+            0.211
+
     }
 
 };
 
 
-// País seleccionado actualmente
+// =====================================================
+// PAÍS ACTUAL
+// =====================================================
 
 let paisSeleccionado =
-    localStorage.getItem("paisMiTienda") || "NI";
+    localStorage.getItem(
+        "paisMiTienda"
+    ) || "NI";
 
+
+if (
+    !configuracionMonedas[
+        paisSeleccionado
+    ]
+) {
+
+    paisSeleccionado =
+        "NI";
+
+}
+
+
+// =====================================================
+// OBTENER MONEDA ACTUAL
+// =====================================================
 
 function obtenerMonedaActual() {
 
     return (
-        configuracionMonedas[paisSeleccionado] ||
+        configuracionMonedas[
+            paisSeleccionado
+        ] ||
         configuracionMonedas.NI
     );
 
 }
 
 
-function convertirPrecio(precioCordobas) {
+// =====================================================
+// CONVERTIR PRECIO
+// =====================================================
+
+function convertirPrecio(
+    precioCordobas
+) {
 
     const moneda =
         obtenerMonedaActual();
 
-    return Number(precioCordobas || 0) *
-        moneda.tasa;
 
-}
+    const precio =
+        Number(
+            precioCordobas
+        ) || 0;
 
-
-function formatoMoneda(valor) {
-
-    const moneda =
-        obtenerMonedaActual();
-
-    const convertido =
-        convertirPrecio(valor);
 
     return (
-        moneda.simbolo +
-        " " +
-        convertido.toLocaleString(
-            moneda.locale,
-            {
-                minimumFractionDigits:
-                    moneda.moneda === "NIO"
-                        ? 0
-                        : 2,
-
-                maximumFractionDigits:
-                    moneda.moneda === "NIO"
-                        ? 0
-                        : 2
-            }
-        )
+        precio *
+        moneda.tasa
     );
 
 }
 
 
-function cambiarPais(codigoPais) {
+// =====================================================
+// FORMATEAR MONEDA
+// =====================================================
 
-    if (!configuracionMonedas[codigoPais]) {
+function formatoMoneda(
+    valor
+) {
+
+    const moneda =
+        obtenerMonedaActual();
+
+
+    const convertido =
+        convertirPrecio(
+            valor
+        );
+
+
+    const decimales =
+        moneda.moneda === "NIO"
+            ? 0
+            : moneda.moneda === "JPY"
+                ? 0
+                : 2;
+
+
+    const numero =
+        convertido.toLocaleString(
+            moneda.locale,
+            {
+
+                minimumFractionDigits:
+                    decimales,
+
+                maximumFractionDigits:
+                    decimales
+
+            }
+        );
+
+
+    return (
+        moneda.simbolo +
+        " " +
+        numero
+    );
+
+}
+
+
+// =====================================================
+// CAMBIAR PAÍS
+// =====================================================
+
+function cambiarPais(
+    codigoPais
+) {
+
+    if (
+        !configuracionMonedas[
+            codigoPais
+        ]
+    ) {
 
         return;
 
     }
 
+
     paisSeleccionado =
         codigoPais;
+
 
     localStorage.setItem(
         "paisMiTienda",
         codigoPais
     );
 
+
+    actualizarSelectorMoneda();
+
     actualizarPreciosPagina();
 
     mostrarCarrito();
 
+    actualizarContador();
+
 }
 
+
 // =====================================================
-// ACTUALIZAR PRECIOS DE LA PÁGINA
+// SELECTOR DE MONEDA
+// =====================================================
+
+function crearSelectorMoneda() {
+
+    let selector =
+        document.getElementById(
+            "selector-moneda"
+        );
+
+
+    if (selector) {
+
+        configurarEventosSelectorMoneda(
+            selector
+        );
+
+        actualizarSelectorMoneda();
+
+        return;
+
+    }
+
+
+    selector =
+        document.querySelector(
+            "[data-selector-moneda]"
+        );
+
+
+    if (selector) {
+
+        selector.id =
+            "selector-moneda";
+
+
+        configurarEventosSelectorMoneda(
+            selector
+        );
+
+
+        actualizarSelectorMoneda();
+
+        return;
+
+    }
+
+
+    selector =
+        document.createElement(
+            "select"
+        );
+
+
+    selector.id =
+        "selector-moneda";
+
+
+    selector.setAttribute(
+        "aria-label",
+        "Seleccionar país y moneda"
+    );
+
+
+    selector.style.cssText = `
+
+        padding:8px 12px;
+
+        border:1px solid #d6e0e5;
+
+        border-radius:10px;
+
+        background:#ffffff;
+
+        color:#123b4a;
+
+        font-size:14px;
+
+        font-weight:700;
+
+        cursor:pointer;
+
+        margin:8px;
+
+    `;
+
+
+    Object.keys(
+        configuracionMonedas
+    )
+    .forEach(
+        function (codigo) {
+
+            const moneda =
+                configuracionMonedas[
+                    codigo
+                ];
+
+
+            const opcion =
+                document.createElement(
+                    "option"
+                );
+
+
+            opcion.value =
+                codigo;
+
+
+            opcion.textContent =
+                moneda.bandera +
+                " " +
+                moneda.pais +
+                " (" +
+                moneda.moneda +
+                ")";
+
+
+            selector.appendChild(
+                opcion
+            );
+
+        }
+    );
+
+
+    const lugar =
+        document.querySelector(
+            ".selector-idioma"
+        ) ||
+        document.querySelector(
+            "header"
+        ) ||
+        document.body;
+
+
+    lugar.appendChild(
+        selector
+    );
+
+
+    configurarEventosSelectorMoneda(
+        selector
+    );
+
+
+    actualizarSelectorMoneda();
+
+}
+
+
+// =====================================================
+// EVENTOS DEL SELECTOR
+// =====================================================
+
+function configurarEventosSelectorMoneda(
+    selector
+) {
+
+    if (
+        selector.dataset.monedaConfigurada ===
+        "true"
+    ) {
+
+        return;
+
+    }
+
+
+    selector.dataset.monedaConfigurada =
+        "true";
+
+
+    selector.addEventListener(
+        "change",
+        function () {
+
+            cambiarPais(
+                selector.value
+            );
+
+        }
+    );
+
+
+    document
+        .querySelectorAll(
+            "[data-pais]"
+        )
+        .forEach(
+            function (boton) {
+
+                if (
+                    boton.dataset.paisConfigurado ===
+                    "true"
+                ) {
+
+                    return;
+
+                }
+
+
+                boton.dataset.paisConfigurado =
+                    "true";
+
+
+                boton.addEventListener(
+                    "click",
+                    function () {
+
+                        cambiarPais(
+                            boton.dataset.pais
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+}
+
+
+// =====================================================
+// ACTUALIZAR SELECTOR
+// =====================================================
+
+function actualizarSelectorMoneda() {
+
+    const selector =
+        document.getElementById(
+            "selector-moneda"
+        );
+
+
+    if (selector) {
+
+        selector.value =
+            paisSeleccionado;
+
+    }
+
+
+    document
+        .querySelectorAll(
+            "[data-pais]"
+        )
+        .forEach(
+            function (boton) {
+
+                boton.classList.toggle(
+                    "pais-activo",
+                    boton.dataset.pais ===
+                    paisSeleccionado
+                );
+
+            }
+        );
+
+}
+
+
+// =====================================================
+// ACTUALIZAR PRECIOS
 // =====================================================
 
 function actualizarPreciosPagina() {
@@ -324,61 +961,60 @@ function actualizarPreciosPagina() {
             ".agregar-carrito"
         );
 
-    botones.forEach(function (boton) {
 
-        const precio =
-            Number(
-                boton.dataset.precio
-            );
+    botones.forEach(
+        function (boton) {
 
-        if (!Number.isFinite(precio)) {
+            const precio =
+                Number(
+                    boton.dataset.precio
+                );
 
-            return;
+
+            if (
+                !Number.isFinite(
+                    precio
+                )
+            ) {
+
+                return;
+
+            }
+
+
+            const tarjeta =
+                boton.closest(
+                    ".producto"
+                );
+
+
+            if (!tarjeta) {
+
+                return;
+
+            }
+
+
+            const precioElemento =
+                tarjeta.querySelector(
+                    "strong"
+                );
+
+
+            if (
+                precioElemento
+            ) {
+
+                precioElemento.textContent =
+                    formatoMoneda(
+                        precio
+                    );
+
+            }
 
         }
+    );
 
-        const tarjeta =
-            boton.closest(".producto");
-
-        if (!tarjeta) {
-
-            return;
-
-        }
-
-        const precioElemento =
-            tarjeta.querySelector("strong");
-
-        if (precioElemento) {
-
-            precioElemento.textContent =
-                formatoMoneda(precio);
-
-        }
-
-    });
-
-}
-
-function obtenerEnlaceCarrito() {
-    const datos = encodeURIComponent(btoa(unescape(encodeURIComponent(JSON.stringify(carrito)))));
-    const url = new URL(window.location.href);
-    url.searchParams.set("carrito", datos);
-    return url.toString();
-}
-
-function cargarCarritoCompartido() {
-    const codigo = new URLSearchParams(window.location.search).get("carrito");
-    if (!codigo) return;
-    try {
-        const recibido = normalizarCarrito(JSON.parse(decodeURIComponent(escape(atob(decodeURIComponent(codigo))))));
-        if (!recibido.length) return;
-        carrito = recibido;
-        guardarCarrito();
-        window.history.replaceState({}, document.title, window.location.pathname + window.location.hash);
-    } catch (_) {
-        console.warn("No se pudo cargar el carrito compartido.");
-    }
 }
 
 
@@ -392,7 +1028,9 @@ function guardarCarrito() {
 
         localStorage.setItem(
             "carrito",
-            JSON.stringify(carrito)
+            JSON.stringify(
+                carrito
+            )
         );
 
     } catch (error) {
@@ -408,15 +1046,22 @@ function guardarCarrito() {
 
 
 // =====================================================
-// CONTADOR DEL CARRITO
+// CANTIDAD DEL CARRITO
 // =====================================================
 
 function obtenerCantidadCarrito() {
 
     return carrito.reduce(
-        function (total, producto) {
+        function (
+            total,
+            producto
+        ) {
 
-            return total + Number(producto.cantidad || 0);
+            return total +
+                Number(
+                    producto.cantidad ||
+                    0
+                );
 
         },
         0
@@ -425,9 +1070,13 @@ function obtenerCantidadCarrito() {
 }
 
 
+// =====================================================
+// CONTADOR
+// =====================================================
+
 function actualizarContador() {
 
-    const cantidadTotal =
+    const cantidad =
         obtenerCantidadCarrito();
 
 
@@ -440,7 +1089,7 @@ function actualizarContador() {
     if (contador) {
 
         contador.textContent =
-            cantidadTotal;
+            cantidad;
 
     }
 
@@ -451,10 +1100,194 @@ function actualizarContador() {
         );
 
 
-    if (contadorFlotante) {
+    if (
+        contadorFlotante
+    ) {
 
         contadorFlotante.textContent =
-            cantidadTotal;
+            cantidad;
+
+    }
+
+}
+
+
+// =====================================================
+// CARRITO COMPARTIDO
+// =====================================================
+
+function obtenerEnlaceCarrito() {
+
+    try {
+
+        const datos =
+            encodeURIComponent(
+                btoa(
+                    unescape(
+                        encodeURIComponent(
+                            JSON.stringify(
+                                carrito
+                            )
+                        )
+                    )
+                )
+            );
+
+
+        const url =
+            new URL(
+                window.location.href
+            );
+
+
+        url.searchParams.set(
+            "carrito",
+            datos
+        );
+
+
+        return url.toString();
+
+    } catch (error) {
+
+        return window.location.href;
+
+    }
+
+}
+
+
+// =====================================================
+// CARGAR CARRITO COMPARTIDO
+// =====================================================
+
+function cargarCarritoCompartido() {
+
+    const codigo =
+        new URLSearchParams(
+            window.location.search
+        ).get(
+            "carrito"
+        );
+
+
+    if (!codigo) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const recibido =
+            normalizarCarrito(
+                JSON.parse(
+                    decodeURIComponent(
+                        escape(
+                            atob(
+                                decodeURIComponent(
+                                    codigo
+                                )
+                            )
+                        )
+                    )
+                )
+            );
+
+
+        if (
+            !recibido.length
+        ) {
+
+            return;
+
+        }
+
+
+        carrito =
+            recibido;
+
+
+        guardarCarrito();
+
+
+        window.history.replaceState(
+            {},
+            document.title,
+            window.location.pathname +
+            window.location.hash
+        );
+
+
+    } catch (error) {
+
+        console.warn(
+            "No se pudo cargar el carrito compartido.",
+            error
+        );
+
+    }
+
+}
+
+
+// =====================================================
+// CARRITO FLOTANTE
+// =====================================================
+
+function configurarControlesCarritoFlotante() {
+
+    const botonFlotante =
+        document.getElementById(
+            "carrito-flotante"
+        );
+
+
+    const botonVerCarrito =
+        document.getElementById(
+            "ver-carrito-notificacion"
+        );
+
+
+    if (
+        botonFlotante &&
+        botonFlotante.dataset.carritoConfigurado !==
+        "true"
+    ) {
+
+        botonFlotante.dataset.carritoConfigurado =
+            "true";
+
+
+        botonFlotante.addEventListener(
+            "click",
+            abrirCarrito
+        );
+
+    }
+
+
+    if (
+        botonVerCarrito &&
+        botonVerCarrito.dataset.carritoConfigurado !==
+        "true"
+    ) {
+
+        botonVerCarrito.dataset.carritoConfigurado =
+            "true";
+
+
+        botonVerCarrito.addEventListener(
+            "click",
+            function () {
+
+                abrirCarrito();
+
+                ocultarNotificacion();
+
+            }
+        );
 
     }
 
@@ -465,35 +1298,7 @@ function actualizarContador() {
 // CREAR CARRITO FLOTANTE
 // =====================================================
 
-function configurarControlesCarritoFlotante() {
-
-    const botonFlotante = document.getElementById("carrito-flotante");
-    const botonVerCarrito = document.getElementById("ver-carrito-notificacion");
-
-    if (botonFlotante && botonFlotante.dataset.carritoConfigurado !== "true") {
-
-        botonFlotante.dataset.carritoConfigurado = "true";
-        botonFlotante.addEventListener("click", abrirCarrito);
-
-    }
-
-    if (botonVerCarrito && botonVerCarrito.dataset.carritoConfigurado !== "true") {
-
-        botonVerCarrito.dataset.carritoConfigurado = "true";
-        botonVerCarrito.addEventListener("click", function () {
-
-            abrirCarrito();
-            ocultarNotificacion();
-
-        });
-
-    }
-
-}
-
 function crearCarritoFlotante() {
-
-    // Evitar duplicarlo
 
     if (
         document.getElementById(
@@ -502,6 +1307,7 @@ function crearCarritoFlotante() {
     ) {
 
         configurarControlesCarritoFlotante();
+
         actualizarContador();
 
         return;
@@ -509,12 +1315,10 @@ function crearCarritoFlotante() {
     }
 
 
-    // =================================================
-    // ESTILOS
-    // =================================================
-
     const estilos =
-        document.createElement("style");
+        document.createElement(
+            "style"
+        );
 
 
     estilos.id =
@@ -523,46 +1327,41 @@ function crearCarritoFlotante() {
 
     estilos.textContent = `
 
-        /* =============================================
-           CARRITO FLOTANTE
-        ============================================= */
-
         .carrito-flotante {
 
-            position: fixed;
+            position:fixed;
 
-            right: 20px;
+            right:20px;
 
-            bottom: 20px;
+            bottom:20px;
 
-            width: 62px;
+            width:62px;
 
-            height: 62px;
+            height:62px;
 
-            border: none;
+            border:none;
 
-            border-radius: 50%;
+            border-radius:50%;
 
-            background: #0d5c72;
+            background:#0d5c72;
 
-            color: white;
+            color:white;
 
-            display: flex;
+            display:flex;
 
-            align-items: center;
+            align-items:center;
 
-            justify-content: center;
+            justify-content:center;
 
-            cursor: pointer;
+            cursor:pointer;
 
-            z-index: 9998;
+            z-index:9998;
 
             box-shadow:
-                0 8px 25px rgba(0,0,0,0.25);
+                0 8px 25px rgba(0,0,0,.25);
 
             transition:
-                transform .2s ease,
-                box-shadow .2s ease;
+                transform .2s ease;
 
         }
 
@@ -572,63 +1371,50 @@ function crearCarritoFlotante() {
             transform:
                 translateY(-4px);
 
-            box-shadow:
-                0 12px 30px rgba(0,0,0,.30);
-
         }
 
 
         .icono-carrito-flotante {
 
-            font-size: 27px;
-
-            line-height: 1;
+            font-size:27px;
 
         }
 
-
-        /* =============================================
-           CONTADOR
-        ============================================= */
 
         .contador-carrito-flotante {
 
-            position: absolute;
+            position:absolute;
 
-            top: -4px;
+            top:-4px;
 
-            right: -4px;
+            right:-4px;
 
-            min-width: 26px;
+            min-width:26px;
 
-            height: 26px;
+            height:26px;
 
-            padding: 0 6px;
+            padding:0 6px;
 
-            border-radius: 50px;
+            border-radius:50px;
 
-            background: #f5a623;
+            background:#f5a623;
 
-            color: white;
+            color:white;
 
-            border: 2px solid white;
+            border:2px solid white;
 
-            display: flex;
+            display:flex;
 
-            align-items: center;
+            align-items:center;
 
-            justify-content: center;
+            justify-content:center;
 
-            font-size: 12px;
+            font-size:12px;
 
-            font-weight: 800;
+            font-weight:800;
 
         }
 
-
-        /* =============================================
-           ANIMACIÓN
-        ============================================= */
 
         .carrito-flotante.animar {
 
@@ -641,92 +1427,74 @@ function crearCarritoFlotante() {
         @keyframes rebote-carrito {
 
             0% {
-
-                transform:
-                    scale(1);
-
+                transform:scale(1);
             }
 
             35% {
-
-                transform:
-                    scale(1.18);
-
+                transform:scale(1.18);
             }
 
             65% {
-
-                transform:
-                    scale(.94);
-
+                transform:scale(.94);
             }
 
             100% {
-
-                transform:
-                    scale(1);
-
+                transform:scale(1);
             }
 
         }
 
 
-        /* =============================================
-           NOTIFICACIÓN
-        ============================================= */
-
         .notificacion-carrito {
 
-            position: fixed;
+            position:fixed;
 
-            right: 20px;
+            right:20px;
 
-            bottom: 95px;
+            bottom:95px;
 
-            width: min(
+            width:min(
                 380px,
                 calc(100% - 30px)
             );
 
-            padding: 14px;
+            padding:14px;
 
-            background: white;
+            background:white;
 
-            border: 1px solid #e5e9eb;
+            border:
+                1px solid #e5e9eb;
 
-            border-radius: 16px;
+            border-radius:16px;
 
             box-shadow:
                 0 12px 35px rgba(0,0,0,.18);
 
-            display: flex;
+            display:flex;
 
-            align-items: center;
+            align-items:center;
 
-            gap: 12px;
+            gap:12px;
 
-            z-index: 9999;
+            z-index:9999;
 
-            opacity: 0;
+            opacity:0;
 
-            visibility: hidden;
+            visibility:hidden;
 
             transform:
                 translateY(15px);
 
-            transition:
-                opacity .25s ease,
-                transform .25s ease,
-                visibility .25s ease;
+            transition:.25s ease;
 
         }
 
 
         .notificacion-carrito.mostrar {
 
-            opacity: 1;
+            opacity:1;
 
-            visibility: visible;
+            visibility:visible;
 
             transform:
                 translateY(0);
@@ -734,145 +1502,115 @@ function crearCarritoFlotante() {
         }
 
 
-        /* =============================================
-           ICONO
-        ============================================= */
-
         .notificacion-icono {
 
-            width: 40px;
+            width:40px;
 
-            height: 40px;
+            height:40px;
 
-            min-width: 40px;
+            min-width:40px;
 
-            border-radius: 50%;
+            border-radius:50%;
 
-            background: #25d366;
+            background:#25d366;
 
-            color: white;
+            color:white;
 
-            display: flex;
+            display:flex;
 
-            align-items: center;
+            align-items:center;
 
-            justify-content: center;
+            justify-content:center;
 
-            font-size: 21px;
+            font-size:21px;
 
-            font-weight: 800;
+            font-weight:800;
 
         }
 
 
-        /* =============================================
-           TEXTO
-        ============================================= */
-
         .notificacion-texto {
 
-            flex: 1;
+            flex:1;
 
-            min-width: 0;
+            min-width:0;
 
-            display: flex;
+            display:flex;
 
-            flex-direction: column;
+            flex-direction:column;
 
-            gap: 3px;
+            gap:3px;
 
         }
 
 
         .notificacion-texto strong {
 
-            color: #123b4a;
+            color:#123b4a;
 
-            font-size: 14px;
+            font-size:14px;
 
         }
 
 
         .notificacion-texto span {
 
-            color: #697b83;
+            color:#697b83;
 
-            font-size: 13px;
+            font-size:13px;
 
-            white-space: nowrap;
+            white-space:nowrap;
 
-            overflow: hidden;
+            overflow:hidden;
 
-            text-overflow: ellipsis;
+            text-overflow:ellipsis;
 
         }
 
-
-        /* =============================================
-           VER CARRITO
-        ============================================= */
 
         .ver-carrito-notificacion {
 
-            border: none;
+            border:none;
 
-            border-radius: 9px;
+            border-radius:9px;
 
-            padding: 9px 12px;
+            padding:9px 12px;
 
-            background: #0d5c72;
+            background:#0d5c72;
 
-            color: white;
+            color:white;
 
-            font-size: 12px;
+            font-size:12px;
 
-            font-weight: 700;
+            font-weight:700;
 
-            cursor: pointer;
+            cursor:pointer;
 
-            white-space: nowrap;
-
-        }
-
-
-        .ver-carrito-notificacion:hover {
-
-            background: #09485a;
+            white-space:nowrap;
 
         }
 
 
-        /* =============================================
-           MÓVIL
-        ============================================= */
-
-        @media (max-width: 600px) {
+        @media(max-width:600px) {
 
             .carrito-flotante {
 
-                width: 58px;
+                width:58px;
 
-                height: 58px;
+                height:58px;
 
-                right: 14px;
+                right:14px;
 
-                bottom: 14px;
-
-            }
-
-
-            .icono-carrito-flotante {
-
-                font-size: 25px;
+                bottom:14px;
 
             }
 
 
             .notificacion-carrito {
 
-                right: 15px;
+                right:15px;
 
-                bottom: 82px;
+                bottom:82px;
 
                 width:
                     calc(100% - 30px);
@@ -889,12 +1627,10 @@ function crearCarritoFlotante() {
     );
 
 
-    // =================================================
-    // BOTÓN FLOTANTE
-    // =================================================
-
     const boton =
-        document.createElement("button");
+        document.createElement(
+            "button"
+        );
 
 
     boton.id =
@@ -923,6 +1659,7 @@ function crearCarritoFlotante() {
             🛒
         </span>
 
+
         <span
             id="contador-carrito-flotante"
             class="contador-carrito-flotante"
@@ -938,12 +1675,10 @@ function crearCarritoFlotante() {
     );
 
 
-    // =================================================
-    // NOTIFICACIÓN
-    // =================================================
-
     const notificacion =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
 
     notificacion.id =
@@ -972,11 +1707,13 @@ function crearCarritoFlotante() {
             ✓
         </div>
 
+
         <div class="notificacion-texto">
 
             <strong>
                 Producto agregado
             </strong>
+
 
             <span
                 id="nombre-producto-agregado"
@@ -985,6 +1722,7 @@ function crearCarritoFlotante() {
             </span>
 
         </div>
+
 
         <button
             id="ver-carrito-notificacion"
@@ -1003,7 +1741,6 @@ function crearCarritoFlotante() {
 
 
     configurarControlesCarritoFlotante();
-
 
     actualizarContador();
 
@@ -1039,7 +1776,7 @@ function abrirCarrito() {
 
 
 // =====================================================
-// MOSTRAR NOTIFICACIÓN
+// NOTIFICACIÓN DE PRODUCTO
 // =====================================================
 
 let temporizadorNotificacion;
@@ -1110,20 +1847,12 @@ function mostrarNotificacionProducto(
 
     temporizadorNotificacion =
         setTimeout(
-            function () {
-
-                ocultarNotificacion();
-
-            },
+            ocultarNotificacion,
             3500
         );
 
 }
 
-
-// =====================================================
-// OCULTAR NOTIFICACIÓN
-// =====================================================
 
 function ocultarNotificacion() {
 
@@ -1145,21 +1874,19 @@ function ocultarNotificacion() {
 
 
 // =====================================================
-// AGREGAR PRODUCTOS
+// BOTONES AGREGAR AL CARRITO
 // =====================================================
 
 function configurarBotonesAgregar() {
 
-    const botonesAgregar =
+    const botones =
         document.querySelectorAll(
             ".agregar-carrito"
         );
 
 
-    botonesAgregar.forEach(
+    botones.forEach(
         function (boton) {
-
-            // Evitar duplicar eventos
 
             if (
                 boton.dataset.carritoConfigurado ===
@@ -1180,7 +1907,16 @@ function configurarBotonesAgregar() {
                 function () {
 
                     const nombre =
-                        boton.dataset.nombre;
+                        boton.dataset.nombre ||
+                        boton.closest(
+                            ".producto"
+                        )
+                        ?.querySelector(
+                            "h3"
+                        )
+                        ?.textContent
+                        ?.trim() ||
+                        "Producto";
 
 
                     const precio =
@@ -1189,9 +1925,26 @@ function configurarBotonesAgregar() {
                         );
 
 
-                    const productoExistente =
+                    if (
+                        !Number.isFinite(
+                            precio
+                        )
+                    ) {
+
+                        console.error(
+                            "El producto no tiene un precio válido."
+                        );
+
+                        return;
+
+                    }
+
+
+                    const existente =
                         carrito.find(
-                            function (producto) {
+                            function (
+                                producto
+                            ) {
 
                                 return (
                                     producto.nombre ===
@@ -1202,9 +1955,9 @@ function configurarBotonesAgregar() {
                         );
 
 
-                    if (productoExistente) {
+                    if (existente) {
 
-                        productoExistente.cantidad++;
+                        existente.cantidad++;
 
                     } else {
 
@@ -1230,9 +1983,6 @@ function configurarBotonesAgregar() {
 
                     mostrarCarrito();
 
-
-                    // NUEVO AVISO
-
                     mostrarNotificacionProducto(
                         nombre
                     );
@@ -1247,7 +1997,7 @@ function configurarBotonesAgregar() {
 
 
 // =====================================================
-// BOTÓN DEL CARRITO
+// BOTÓN PRINCIPAL DEL CARRITO
 // =====================================================
 
 const botonCarrito =
@@ -1269,11 +2019,7 @@ if (
 
     botonCarrito.addEventListener(
         "click",
-        function () {
-
-            abrirCarrito();
-
-        }
+        abrirCarrito
     );
 
 }
@@ -1307,10 +2053,6 @@ if (
 }
 
 
-// =====================================================
-// CERRAR AL HACER CLIC AFUERA
-// =====================================================
-
 if (ventanaCarrito) {
 
     ventanaCarrito.addEventListener(
@@ -1334,693 +2076,15 @@ if (ventanaCarrito) {
 
 
 // =====================================================
-// MOSTRAR CARRITO
-// =====================================================
-
-function actualizarResumenCarrito() {
-    const contenido = document.querySelector(".carrito-contenido");
-    const totalCarrito = document.getElementById("total-carrito");
-    if (!contenido || !totalCarrito) return;
-
-    let resumen = document.getElementById("resumen-compra");
-    if (!resumen) {
-        resumen = document.createElement("section");
-        resumen.id = "resumen-compra";
-        resumen.className = "resumen-compra";
-        totalCarrito.closest(".total-carrito").before(resumen);
-    }
-
-    const datos = obtenerResumenCompra();
-    const faltante = Math.max(0, MONTO_ENVIO_GRATIS - datos.subtotal);
-    resumen.innerHTML = `
-        <div class="beneficio-envio ${faltante === 0 && datos.subtotal ? "completo" : ""}">
-            <span>${faltante === 0 && datos.subtotal ? "✓ Envío gratis desbloqueado" : "Te faltan " + formatoMoneda(faltante) + " para envío gratis"}</span>
-            <div><i style="width:${datos.subtotal ? Math.min(100, (datos.subtotal / MONTO_ENVIO_GRATIS) * 100) : 0}%"></i></div>
-        </div>
-        <div class="cupon-compra">
-            <label for="codigo-cupon">¿Tienes un cupón?</label>
-            <div><input id="codigo-cupon" type="text" value="${cuponAplicado}" placeholder="Ej. BIENVENIDA10" maxlength="20" autocomplete="off"><button id="aplicar-cupon" type="button">Aplicar</button></div>
-            <small id="mensaje-cupon">${cuponAplicado ? "Cupón BIENVENIDA10 aplicado: 10% de descuento." : "Usa BIENVENIDA10 y recibe 10% de descuento."}</small>
-        </div>
-        <div class="desglose-compra">
-            <span>Subtotal <b>${formatoMoneda(datos.subtotal)}</b></span>
-            ${datos.descuento ? `<span class="descuento">Descuento <b>− ${formatoMoneda(datos.descuento)}</b></span>` : ""}
-        </div>
-        <button id="vaciar-carrito" class="vaciar-carrito" type="button" ${carrito.length ? "" : "disabled"}>Vaciar carrito</button>
-        <button id="compartir-carrito" class="compartir-carrito" type="button" ${carrito.length ? "" : "disabled"}>↗ Compartir este carrito</button>
-    `;
-    totalCarrito.textContent = formatoMoneda(datos.total);
-
-    document.getElementById("aplicar-cupon").addEventListener("click", function () {
-        const codigo = document.getElementById("codigo-cupon").value.trim().toUpperCase();
-        const mensaje = document.getElementById("mensaje-cupon");
-        if (codigo === "BIENVENIDA10") {
-            cuponAplicado = codigo;
-            localStorage.setItem("cuponMiTienda", codigo);
-            actualizarResumenCarrito();
-        } else {
-            cuponAplicado = "";
-            localStorage.removeItem("cuponMiTienda");
-            mensaje.textContent = codigo ? "Ese cupón no es válido. Prueba BIENVENIDA10." : "Ingresa un cupón para aplicarlo.";
-        }
-    });
-    document.getElementById("vaciar-carrito").addEventListener("click", function () {
-        if (!carrito.length || !window.confirm("¿Quieres quitar todos los productos del carrito?")) return;
-        carrito = [];
-        guardarCarrito();
-        actualizarContador();
-        mostrarCarrito();
-    });
-    document.getElementById("compartir-carrito").addEventListener("click", async function () {
-        if (!carrito.length) return;
-        const enlace = obtenerEnlaceCarrito();
-        try {
-            if (navigator.share) {
-                await navigator.share({ title: "Mi carrito de Mi Tienda", text: "Te comparto estos productos.", url: enlace });
-            } else if (navigator.clipboard) {
-                await navigator.clipboard.writeText(enlace);
-                this.textContent = "✓ Enlace copiado";
-                setTimeout(() => { this.textContent = "↗ Compartir este carrito"; }, 2200);
-            } else {
-                window.prompt("Copia este enlace para compartir tu carrito:", enlace);
-            }
-        } catch (error) {
-            if (error.name !== "AbortError") window.prompt("Copia este enlace para compartir tu carrito:", enlace);
-        }
-    });
-}
-
-function mostrarCarrito() {
-
-    const listaCarrito =
-        document.getElementById(
-            "lista-carrito"
-        );
-
-
-    const totalCarrito =
-        document.getElementById(
-            "total-carrito"
-        );
-
-
-    if (
-        !listaCarrito ||
-        !totalCarrito
-    ) {
-
-        return;
-
-    }
-
-
-    listaCarrito.innerHTML =
-        "";
-
-
-    if (carrito.length === 0) {
-
-        listaCarrito.innerHTML = `
-
-            <p class="carrito-vacio">
-
-                Tu carrito está vacío.
-
-            </p>
-
-        `;
-
-
-        totalCarrito.textContent =
-            "0";
-
-        actualizarResumenCarrito();
-
-
-        return;
-
-    }
-
-
-    let total = 0;
-
-
-    carrito.forEach(
-        function (producto, indice) {
-
-            const subtotal =
-                producto.precio *
-                producto.cantidad;
-
-
-            total += subtotal;
-
-
-            const item =
-                document.createElement(
-                    "div"
-                );
-
-
-            item.className =
-                "item-carrito";
-
-
-            item.innerHTML = `
-
-                <div class="info-producto">
-
-                    <strong class="nombre-producto"></strong>
-
-                    <span>
-                        ${formatoMoneda(producto.precio)}
-                    </span>
-
-                </div>
-
-
-                <div class="controles-cantidad">
-
-                    <button
-                        onclick="disminuirCantidad(${indice})"
-                        type="button"
-                    >
-                        −
-                    </button>
-
-                    <span>
-                        ${producto.cantidad}
-                    </span>
-
-                    <button
-                        onclick="aumentarCantidad(${indice})"
-                        type="button"
-                    >
-                        +
-                    </button>
-
-                </div>
-
-
-                <div class="subtotal">
-
-                    ${formatoMoneda(subtotal)}
-
-                </div>
-
-
-                <button
-                    class="eliminar-producto"
-                    onclick="eliminarProducto(${indice})"
-                    type="button"
-                >
-                    🗑️
-                </button>
-
-            `;
-
-
-            item.querySelector(
-                ".nombre-producto"
-            ).textContent = producto.nombre;
-
-
-            listaCarrito.appendChild(
-                item
-            );
-
-        }
-    );
-
-
-    totalCarrito.textContent =
-        formatoMoneda(total);
-
-    actualizarResumenCarrito();
-
-}
-
-
-// =====================================================
-// AUMENTAR CANTIDAD
-// =====================================================
-
-function aumentarCantidad(
-    indice
-) {
-
-    carrito[indice].cantidad++;
-
-
-    guardarCarrito();
-
-
-    actualizarContador();
-
-
-    mostrarCarrito();
-
-}
-
-
-// =====================================================
-// DISMINUIR CANTIDAD
-// =====================================================
-
-function disminuirCantidad(
-    indice
-) {
-
-    carrito[indice].cantidad--;
-
-
-    if (
-        carrito[indice].cantidad <= 0
-    ) {
-
-        carrito.splice(
-            indice,
-            1
-        );
-
-    }
-
-
-    guardarCarrito();
-
-
-    actualizarContador();
-
-
-    mostrarCarrito();
-
-}
-
-
-// =====================================================
-// ELIMINAR PRODUCTO
-// =====================================================
-
-function eliminarProducto(
-    indice
-) {
-
-    carrito.splice(
-        indice,
-        1
-    );
-
-
-    guardarCarrito();
-
-
-    actualizarContador();
-
-
-    mostrarCarrito();
-
-}
-
-
-// =====================================================
-// FINALIZAR COMPRA POR WHATSAPP
-// =====================================================
-
-function abrirCheckout() {
-    if (!carrito.length) { alert("Tu carrito está vacío."); return; }
-    let checkout = document.getElementById("checkout-datos");
-    if (!checkout) {
-        checkout = document.createElement("div");
-        checkout.id = "checkout-datos";
-        checkout.className = "checkout-datos";
-        checkout.innerHTML = `<form class="checkout-form">
-            <button class="checkout-cerrar" type="button" aria-label="Cerrar">×</button>
-            <span class="checkout-paso">ÚLTIMO PASO</span><h2>¿Dónde entregamos tu pedido?</h2>
-            <p>Estos datos se incluirán en tu mensaje de WhatsApp para confirmar la compra.</p>
-            <label>Nombre completo<input name="nombre" required autocomplete="name" placeholder="Tu nombre"></label>
-            <label>Teléfono<input name="telefono" required inputmode="tel" autocomplete="tel" placeholder="Ej. 8888 8888"></label>
-            <label>Dirección de entrega<textarea name="direccion" required rows="3" placeholder="Barrio, ciudad y una referencia"></textarea></label>
-            <label>Método de entrega<select name="entrega"><option>Entrega a domicilio</option><option>Retiro en tienda</option></select></label>
-            <label>Nota para el pedido <input name="nota" maxlength="180" placeholder="Opcional"></label>
-            <button class="confirmar-pedido" type="submit">Continuar a WhatsApp</button>
-        </form>`;
-        document.body.appendChild(checkout);
-        checkout.querySelector(".checkout-cerrar").addEventListener("click", function () { checkout.classList.remove("visible"); });
-        checkout.addEventListener("click", function (evento) { if (evento.target === checkout) checkout.classList.remove("visible"); });
-        checkout.querySelector("form").addEventListener("submit", function (evento) {
-            evento.preventDefault();
-            if (!evento.currentTarget.reportValidity()) return;
-            const cliente = new FormData(evento.currentTarget), resumen = obtenerResumenCompra();
-            let mensaje = "Hola, quiero realizar el siguiente pedido:\n\n";
-            carrito.forEach(function (producto) { mensaje += "• " + producto.nombre + " x" + producto.cantidad + " - " + formatoMoneda(producto.precio * producto.cantidad) + "\n"; });
-            mensaje += "\nSubtotal: " + formatoMoneda(resumen.subtotal);
-            if (resumen.descuento) mensaje += "\nDescuento (" + cuponAplicado + "): -" + formatoMoneda(resumen.descuento);
-            mensaje += "\nTotal: " + formatoMoneda(resumen.total) + "\n\nDATOS DE ENTREGA\nNombre: " + cliente.get("nombre") + "\nTeléfono: " + cliente.get("telefono") + "\nEntrega: " + cliente.get("entrega") + "\nDirección: " + cliente.get("direccion");
-            if (cliente.get("nota")) mensaje += "\nNota: " + cliente.get("nota");
-            window.open("https://wa.me/50576823472?text=" + encodeURIComponent(mensaje), "_blank", "noopener");
-            checkout.classList.remove("visible");
-        });
-    }
-    checkout.classList.add("visible");
-    checkout.querySelector("input[name='nombre']").focus();
-}
-
-const finalizarCompra =
-    document.getElementById(
-        "finalizar-compra"
-    );
-
-
-if (finalizarCompra) {
-
-    finalizarCompra.addEventListener(
-        "click",
-        function () {
-
-            abrirCheckout();
-            return;
-
-            if (
-                carrito.length === 0
-            ) {
-
-                alert(
-                    "Tu carrito está vacío."
-                );
-
-                return;
-
-            }
-
-
-            let mensaje =
-                "Hola, quiero realizar el siguiente pedido:\n\n";
-
-
-            let total = 0;
-
-
-            carrito.forEach(
-                function (producto) {
-
-                    const subtotal =
-                        producto.precio *
-                        producto.cantidad;
-
-
-                    total += subtotal;
-
-
-                    mensaje +=
-                        "• " +
-                        producto.nombre +
-                        " x" +
-                        producto.cantidad +
-                        " - C$ " +
-                        subtotal.toLocaleString() +
-                        "\n";
-
-                }
-            );
-
-
-            mensaje +=
-                "\nTotal: C$ " +
-                total.toLocaleString();
-
-
-            const numero =
-                "50576823472";
-
-
-            const url =
-                "https://wa.me/" +
-                numero +
-                "?text=" +
-                encodeURIComponent(mensaje);
-
-
-            window.open(
-                url,
-                "_blank"
-            );
-
-        }
-    );
-
-}
-
-
-// =====================================================
-// BUSCADOR
-// =====================================================
-
-const buscador =
-    document.getElementById(
-        "buscador"
-    );
-
-
-const productos =
-    document.querySelectorAll(
-        ".producto"
-    );
-
-
-if (buscador) {
-
-    buscador.addEventListener(
-        "input",
-        function () {
-
-            const texto =
-                buscador.value
-                    .toLowerCase()
-                    .trim();
-
-
-            productos.forEach(
-                function (producto) {
-
-                    const titulo =
-                        producto.querySelector(
-                            "h3"
-                        );
-
-
-                    if (!titulo) {
-
-                        return;
-
-                    }
-
-
-                    const nombre =
-                        titulo.textContent
-                            .toLowerCase();
-
-
-                    if (
-                        nombre.includes(
-                            texto
-                        )
-                    ) {
-
-                        producto.style.display =
-                            "";
-
-                    } else {
-
-                        producto.style.display =
-                            "none";
-
-                    }
-
-                }
-            );
-
-        }
-    );
-
-}
-
-
-// =====================================================
-// CARRUSEL
-// =====================================================
-
-const slides =
-    document.querySelectorAll(
-        ".slide"
-    );
-
-
-const indicadores =
-    document.querySelectorAll(
-        ".indicador"
-    );
-
-
-const botonAnterior =
-    document.getElementById(
-        "slide-anterior"
-    );
-
-
-const botonSiguiente =
-    document.getElementById(
-        "slide-siguiente"
-    );
-
-
-let slideActual = 0;
-
-
-function mostrarSlide(indice) {
-
-    if (!slides.length) {
-
-        return;
-
-    }
-
-
-    if (
-        indice < 0
-    ) {
-
-        indice =
-            slides.length - 1;
-
-    }
-
-
-    if (
-        indice >= slides.length
-    ) {
-
-        indice = 0;
-
-    }
-
-
-    slideActual =
-        indice;
-
-
-    slides.forEach(
-        function (slide, i) {
-
-            slide.classList.toggle(
-                "activo",
-                i === slideActual
-            );
-
-        }
-    );
-
-
-    indicadores.forEach(
-        function (indicador, i) {
-
-            indicador.classList.toggle(
-                "activo",
-                i === slideActual
-            );
-
-        }
-    );
-
-}
-
-
-if (botonAnterior) {
-
-    botonAnterior.addEventListener(
-        "click",
-        function () {
-
-            mostrarSlide(
-                slideActual - 1
-            );
-
-        }
-    );
-
-}
-
-
-if (botonSiguiente) {
-
-    botonSiguiente.addEventListener(
-        "click",
-        function () {
-
-            mostrarSlide(
-                slideActual + 1
-            );
-
-        }
-    );
-
-}
-
-
-indicadores.forEach(
-    function (indicador) {
-
-        indicador.addEventListener(
-            "click",
-            function () {
-
-                const indice =
-                    Number(
-                        indicador.dataset.slide
-                    );
-
-
-                mostrarSlide(
-                    indice
-                );
-
-            }
-        );
-
-    }
-);
-
-
-// =====================================================
-// CAMBIO AUTOMÁTICO
-// =====================================================
-
-if (
-    slides.length > 1
-) {
-
-    setInterval(
-        function () {
-
-            mostrarSlide(
-                slideActual + 1
-            );
-
-        },
-        6000
-    );
-
-}
-
-
-// =====================================================
-// SISTEMA DE IDIOMAS
+// IDIOMAS
 // =====================================================
 
 const traducciones = {
 
     es: {
 
-        nombre: "Español",
+        nombre:
+            "Español",
 
         ofertaSuperior:
             "Ofertas especiales de Mi Tienda",
@@ -2207,7 +2271,8 @@ const traducciones = {
 
     en: {
 
-        nombre: "English",
+        nombre:
+            "English",
 
         ofertaSuperior:
             "Special offers from My Store",
@@ -2394,7 +2459,8 @@ const traducciones = {
 
     fr: {
 
-        nombre: "Français",
+        nombre:
+            "Français",
 
         ofertaSuperior:
             "Offres spéciales de Ma Boutique",
@@ -2442,7 +2508,7 @@ const traducciones = {
             "Protégez ce qui compte le plus",
 
         textoSeguridad:
-            "Solutions de sécurité pour votre maison et votre entreprise.",
+            "Solutions pour votre maison et votre entreprise.",
 
         verProductos:
             "Voir les produits",
@@ -2581,7 +2647,8 @@ const traducciones = {
 
     pt: {
 
-        nombre: "Português",
+        nombre:
+            "Português",
 
         ofertaSuperior:
             "Ofertas especiais da Minha Loja",
@@ -2629,7 +2696,7 @@ const traducciones = {
             "Proteja o que mais importa",
 
         textoSeguridad:
-            "Soluções de segurança para sua casa e seu negócio.",
+            "Soluções para sua casa e seu negócio.",
 
         verProductos:
             "Ver produtos",
@@ -2763,59 +2830,307 @@ const traducciones = {
         comprasSeguras:
             "Compras fáceis, rápidas e seguras."
 
+    },
+
+
+    zh: {
+
+        nombre:
+            "中文",
+
+        ofertaSuperior:
+            "Mi Tienda 特别优惠",
+
+        eslogan:
+            "为您的家庭和企业提供解决方案",
+
+        entrar:
+            "登录",
+
+        carrito:
+            "购物车",
+
+        inicio:
+            "首页",
+
+        categorias:
+            "分类",
+
+        promociones:
+            "促销",
+
+        catalogo:
+            "目录",
+
+        comprar:
+            "购买",
+
+        oferta:
+            "优惠",
+
+        tituloOferta:
+            "超值促销",
+
+        textoOferta:
+            "为您的家庭和企业寻找优质产品。",
+
+        comprarAhora:
+            "立即购买 →",
+
+        seguridad:
+            "安全",
+
+        tituloSeguridad:
+            "保护最重要的事物",
+
+        textoSeguridad:
+            "为您的家庭和企业提供安全解决方案。",
+
+        verProductos:
+            "查看产品",
+
+        herramientas:
+            "工具",
+
+        tituloHerramientas:
+            "满足您的项目需求",
+
+        textoHerramientas:
+            "寻找安装和维护所需的工具。",
+
+        verCatalogo:
+            "查看目录 →",
+
+        explora:
+            "探索",
+
+        tituloCategorias:
+            "按分类购买",
+
+        ferreteria:
+            "五金",
+
+        herramientasCategoria:
+            "工具",
+
+        electrico:
+            "电气",
+
+        hogar:
+            "家居",
+
+        bano:
+            "浴室",
+
+        destacados:
+            "精选",
+
+        productosDestacados:
+            "精选产品",
+
+        descripcionDestacados:
+            "部分可购买的产品。",
+
+        agregarCarrito:
+            "加入购物车",
+
+        verCatalogoCompleto:
+            "查看完整目录 →",
+
+        necesitasAyuda:
+            "需要帮助吗？",
+
+        estamosAyudarte:
+            "我们随时为您提供帮助",
+
+        textoWhatsApp:
+            "查询库存、价格或直接通过 WhatsApp 下单。",
+
+        escribirWhatsApp:
+            "通过 WhatsApp 联系",
+
+        miCarrito:
+            "🛒 我的购物车",
+
+        carritoVacio:
+            "您的购物车为空。",
+
+        total:
+            "总计：",
+
+        finalizarWhatsApp:
+            "通过 WhatsApp 完成购买",
+
+        atencionCliente:
+            "客户服务",
+
+        comoComprar:
+            "如何购买",
+
+        contactarnos:
+            "联系我们",
+
+        preguntas:
+            "常见问题",
+
+        terminos:
+            "条款和条件",
+
+        miTienda:
+            "我的商店",
+
+        productos:
+            "产品",
+
+        informacion:
+            "信息",
+
+        sobreNosotros:
+            "关于我们",
+
+        formasPago:
+            "付款方式",
+
+        informacionEnvio:
+            "配送信息",
+
+        privacidad:
+            "隐私政策",
+
+        contacto:
+            "联系",
+
+        whatsapp:
+            "WhatsApp",
+
+        facebook:
+            "Facebook",
+
+        instagram:
+            "Instagram",
+
+        escribenos:
+            "联系我们",
+
+        derechos:
+            "© 2026 Mi Tienda — 保留所有权利",
+
+        comprasSeguras:
+            "简单、快速、安全的购物。"
+
     }
 
 };
 
 
 // =====================================================
-// APLICAR IDIOMA
+// IDIOMA ACTUAL
+// =====================================================
+
+let idiomaActual =
+    localStorage.getItem(
+        "idioma"
+    ) || "es";
+
+
+if (
+    !traducciones[
+        idiomaActual
+    ]
+) {
+
+    idiomaActual =
+        "es";
+
+}
+
+
+// =====================================================
+// TRADUCCIÓN
+// =====================================================
+
+function t(
+    clave
+) {
+
+    return (
+        traducciones[
+            idiomaActual
+        ]?.[clave] ||
+
+        traducciones.es[
+            clave
+        ] ||
+
+        clave
+    );
+
+}
+
+
+// =====================================================
+// CAMBIAR IDIOMA
 // =====================================================
 
 function cambiarIdioma(
     idioma
 ) {
 
-    const idiomaSeleccionado =
-        traducciones[idioma];
+    if (
+        !traducciones[
+            idioma
+        ]
+    ) {
 
-
-    if (!idiomaSeleccionado) {
-
-        return;
+        idioma =
+            "es";
 
     }
 
 
-    const elementos =
-        document.querySelectorAll(
-            "[data-text]"
-        );
+    idiomaActual =
+        idioma;
 
 
-    elementos.forEach(
-        function (elemento) {
-
-            const clave =
-                elemento.dataset.text;
-
-
-            if (
-                idiomaSeleccionado[clave]
-            ) {
-
-                elemento.textContent =
-                    idiomaSeleccionado[clave];
-
-            }
-
-        }
+    localStorage.setItem(
+        "idioma",
+        idioma
     );
 
 
-    // =================================================
-    // PLACEHOLDER
-    // =================================================
+    const idiomaSeleccionado =
+        traducciones[
+            idioma
+        ];
+
+
+    document
+        .querySelectorAll(
+            "[data-text]"
+        )
+        .forEach(
+            function (elemento) {
+
+                const clave =
+                    elemento.dataset.text;
+
+
+                if (
+                    idiomaSeleccionado[
+                        clave
+                    ]
+                ) {
+
+                    elemento.textContent =
+                        idiomaSeleccionado[
+                            clave
+                        ];
+
+                }
+
+            }
+        );
+
 
     if (buscador) {
 
@@ -2831,30 +3146,32 @@ function cambiarIdioma(
                 "Que recherchez-vous ?",
 
             pt:
-                "O que você está procurando?"
+                "O que você está procurando?",
+
+            zh:
+                "您在寻找什么？"
 
         };
 
 
         buscador.placeholder =
-            placeholders[idioma];
+            placeholders[
+                idioma
+            ] ||
+            placeholders.es;
 
     }
 
 
-    // =================================================
-    // BOTÓN IDIOMA
-    // =================================================
-
-    const botonIdioma =
+    const boton =
         document.getElementById(
             "boton-idioma"
         );
 
 
-    if (botonIdioma) {
+    if (boton) {
 
-        botonIdioma.textContent =
+        boton.textContent =
             "🌐 " +
             idiomaSeleccionado.nombre +
             " ▾";
@@ -2862,41 +3179,115 @@ function cambiarIdioma(
     }
 
 
-    // =================================================
-    // IDIOMA ACTIVO
-    // =================================================
-
-    const botonesIdioma =
-        document.querySelectorAll(
+    document
+        .querySelectorAll(
             "[data-idioma]"
+        )
+        .forEach(
+            function (elemento) {
+
+                elemento.classList.toggle(
+                    "idioma-activo",
+                    elemento.dataset.idioma ===
+                    idioma
+                );
+
+            }
         );
 
 
-    botonesIdioma.forEach(
-        function (boton) {
+    document.documentElement.lang =
+        idioma;
 
-            boton.classList.toggle(
-                "idioma-activo",
-                boton.dataset.idioma ===
-                idioma
+
+    document.documentElement.dir =
+        "ltr";
+
+
+    if (
+        document.getElementById(
+            "lista-carrito"
+        )
+    ) {
+
+        mostrarCarrito();
+
+    }
+
+
+    actualizarAsistenteIdioma();
+
+}
+
+
+// =====================================================
+// AGREGAR CHINO
+// =====================================================
+
+function agregarIdiomaChino() {
+
+    const menu =
+        document.getElementById(
+            "menu-idiomas"
+        );
+
+
+    if (!menu) {
+
+        return;
+
+    }
+
+
+    if (
+        menu.querySelector(
+            '[data-idioma="zh"]'
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    const boton =
+        document.createElement(
+            "button"
+        );
+
+
+    boton.type =
+        "button";
+
+
+    boton.dataset.idioma =
+        "zh";
+
+
+    boton.textContent =
+        "中文";
+
+
+    boton.addEventListener(
+        "click",
+        function () {
+
+            cambiarIdioma(
+                "zh"
+            );
+
+
+            menu.classList.remove(
+                "abierto"
             );
 
         }
     );
 
 
-    // =================================================
-    // GUARDAR
-    // =================================================
-
-    localStorage.setItem(
-        "idioma",
-        idioma
+    menu.appendChild(
+        boton
     );
-
-
-    document.documentElement.lang =
-        idioma;
 
 }
 
@@ -2905,79 +3296,3174 @@ function cambiarIdioma(
 // MENÚ DE IDIOMAS
 // =====================================================
 
-const botonIdioma =
-    document.getElementById(
-        "boton-idioma"
+function configurarMenuIdiomas() {
+
+    const boton =
+        document.getElementById(
+            "boton-idioma"
+        );
+
+
+    const menu =
+        document.getElementById(
+            "menu-idiomas"
+        );
+
+
+    if (
+        !boton ||
+        !menu
+    ) {
+
+        agregarIdiomaChino();
+
+        return;
+
+    }
+
+
+    agregarIdiomaChino();
+
+
+    if (
+        boton.dataset.idiomaConfigurado !==
+        "true"
+    ) {
+
+        boton.dataset.idiomaConfigurado =
+            "true";
+
+
+        boton.addEventListener(
+            "click",
+            function (evento) {
+
+                evento.stopPropagation();
+
+
+                menu.classList.toggle(
+                    "abierto"
+                );
+
+            }
+        );
+
+    }
+
+
+    menu
+        .querySelectorAll(
+            "[data-idioma]"
+        )
+        .forEach(
+            function (opcion) {
+
+                if (
+                    opcion.dataset.idiomaConfigurado ===
+                    "true"
+                ) {
+
+                    return;
+
+                }
+
+
+                opcion.dataset.idiomaConfigurado =
+                    "true";
+
+
+                opcion.addEventListener(
+                    "click",
+                    function () {
+
+                        cambiarIdioma(
+                            opcion.dataset.idioma
+                        );
+
+
+                        menu.classList.remove(
+                            "abierto"
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+    if (
+        !document.body.dataset.menuIdiomaConfigurado
+    ) {
+
+        document.body.dataset.menuIdiomaConfigurado =
+            "true";
+
+
+        document.addEventListener(
+            "click",
+            function (evento) {
+
+                if (
+                    !evento.target.closest(
+                        ".selector-idioma"
+                    )
+                ) {
+
+                    menu.classList.remove(
+                        "abierto"
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+}
+
+
+// =====================================================
+// CARRITO Y RESUMEN
+// =====================================================
+
+function corregirSimboloDuplicado() {
+
+    const total =
+        document.getElementById(
+            "total-carrito"
+        );
+
+
+    if (!total) {
+
+        return;
+
+    }
+
+
+    const contenedor =
+        total.parentElement;
+
+
+    if (!contenedor) {
+
+        return;
+
+    }
+
+
+    Array.from(
+        contenedor.childNodes
+    )
+    .forEach(
+        function (nodo) {
+
+            if (
+                nodo.nodeType ===
+                Node.TEXT_NODE
+            ) {
+
+                const texto =
+                    nodo.textContent.trim();
+
+
+                if (
+                    /^(C\$|US\$|CA\$|MX\$|COP\$|R\$|B\/\.|₡|Q|L|€|£|¥|NT\$|HK\$)\s*$/
+                        .test(
+                            texto
+                        )
+                ) {
+
+                    nodo.remove();
+
+                }
+
+            }
+
+        }
     );
 
-
-const menuIdiomas =
-    document.getElementById(
-        "menu-idiomas"
-    );
+}
 
 
-if (
-    botonIdioma &&
-    menuIdiomas
-) {
+// =====================================================
+// RESUMEN
+// =====================================================
 
-    botonIdioma.addEventListener(
-        "click",
-        function (evento) {
+function actualizarResumenCarrito() {
 
-            evento.stopPropagation();
+    const contenido =
+        document.querySelector(
+            ".carrito-contenido"
+        );
 
 
-            menuIdiomas.classList.toggle(
-                "abierto"
+    const totalCarrito =
+        document.getElementById(
+            "total-carrito"
+        );
+
+
+    if (
+        !contenido ||
+        !totalCarrito
+    ) {
+
+        return;
+
+    }
+
+
+    let resumen =
+        document.getElementById(
+            "resumen-compra"
+        );
+
+
+    if (!resumen) {
+
+        resumen =
+            document.createElement(
+                "section"
+            );
+
+
+        resumen.id =
+            "resumen-compra";
+
+
+        resumen.className =
+            "resumen-compra";
+
+
+        const contenedorTotal =
+            totalCarrito.closest(
+                ".total-carrito"
+            );
+
+
+        if (contenedorTotal) {
+
+            contenedorTotal.before(
+                resumen
+            );
+
+        } else {
+
+            contenido.appendChild(
+                resumen
+            );
+
+        }
+
+    }
+
+
+    const datos =
+        obtenerResumenCompra();
+
+
+    const faltante =
+        Math.max(
+            0,
+            MONTO_ENVIO_GRATIS -
+            datos.subtotal
+        );
+
+
+    const porcentaje =
+        datos.subtotal
+            ? Math.min(
+                100,
+                (
+                    datos.subtotal /
+                    MONTO_ENVIO_GRATIS
+                ) *
+                100
+            )
+            : 0;
+
+
+    const textos = {
+
+        cupon:
+
+            idiomaActual === "zh"
+                ? "您有优惠券吗？"
+                : idiomaActual === "en"
+                    ? "Do you have a coupon?"
+                    : idiomaActual === "fr"
+                        ? "Vous avez un coupon ?"
+                        : idiomaActual === "pt"
+                            ? "Você tem um cupom?"
+                            : "¿Tienes un cupón?",
+
+
+        aplicar:
+
+            idiomaActual === "zh"
+                ? "应用"
+                : idiomaActual === "en"
+                    ? "Apply"
+                    : idiomaActual === "fr"
+                        ? "Appliquer"
+                        : idiomaActual === "pt"
+                            ? "Aplicar"
+                            : "Aplicar",
+
+
+        subtotal:
+
+            idiomaActual === "zh"
+                ? "小计"
+                : idiomaActual === "en"
+                    ? "Subtotal"
+                    : "Subtotal",
+
+
+        descuento:
+
+            idiomaActual === "zh"
+                ? "折扣"
+                : idiomaActual === "en"
+                    ? "Discount"
+                    : idiomaActual === "fr"
+                        ? "Réduction"
+                        : idiomaActual === "pt"
+                            ? "Desconto"
+                            : "Descuento"
+
+    };
+
+
+    resumen.innerHTML = `
+
+        <div
+            class="beneficio-envio ${
+                faltante === 0 &&
+                datos.subtotal
+                    ? "completo"
+                    : ""
+            }"
+        >
+
+            <span>
+
+                ${
+                    faltante === 0 &&
+                    datos.subtotal
+
+                        ? "✓ " +
+
+                          (
+                            idiomaActual === "zh"
+                                ? "已解锁免费配送"
+                                : idiomaActual === "en"
+                                    ? "Free shipping unlocked"
+                                    : idiomaActual === "fr"
+                                        ? "Livraison gratuite débloquée"
+                                        : idiomaActual === "pt"
+                                            ? "Frete grátis desbloqueado"
+                                            : "Envío gratis desbloqueado"
+                          )
+
+                        : (
+
+                            idiomaActual === "zh"
+
+                                ? "还差 " +
+                                  formatoMoneda(
+                                      faltante
+                                  ) +
+                                  " 即可免费配送"
+
+                                : idiomaActual === "en"
+
+                                    ? "Only " +
+                                      formatoMoneda(
+                                          faltante
+                                      ) +
+                                      " left for free shipping"
+
+                                    : idiomaActual === "fr"
+
+                                        ? "Il vous manque " +
+                                          formatoMoneda(
+                                              faltante
+                                          ) +
+                                          " pour la livraison gratuite"
+
+                                        : idiomaActual === "pt"
+
+                                            ? "Faltam " +
+                                              formatoMoneda(
+                                                  faltante
+                                              ) +
+                                              " para frete grátis"
+
+                                            : "Te faltan " +
+                                              formatoMoneda(
+                                                  faltante
+                                              ) +
+                                              " para envío gratis"
+
+                          )
+
+                }
+
+            </span>
+
+
+            <div>
+
+                <i
+                    style="width:${porcentaje}%"
+                ></i>
+
+            </div>
+
+        </div>
+
+
+        <div class="cupon-compra">
+
+            <label
+                for="codigo-cupon"
+            >
+                ${textos.cupon}
+            </label>
+
+
+            <div>
+
+                <input
+                    id="codigo-cupon"
+                    type="text"
+                    value="${cuponAplicado}"
+                    placeholder="Ej. BIENVENIDA10"
+                    maxlength="20"
+                    autocomplete="off"
+                >
+
+
+                <button
+                    id="aplicar-cupon"
+                    type="button"
+                >
+                    ${textos.aplicar}
+                </button>
+
+            </div>
+
+
+            <small id="mensaje-cupon">
+
+                ${
+                    cuponAplicado
+
+                        ? (
+
+                            idiomaActual === "zh"
+                                ? "优惠券 BIENVENIDA10 已应用：10% 折扣。"
+                                : idiomaActual === "en"
+                                    ? "Coupon BIENVENIDA10 applied: 10% discount."
+                                    : idiomaActual === "fr"
+                                        ? "Coupon BIENVENIDA10 appliqué : 10 % de réduction."
+                                        : idiomaActual === "pt"
+                                            ? "Cupom BIENVENIDA10 aplicado: 10% de desconto."
+                                            : "Cupón BIENVENIDA10 aplicado: 10% de descuento."
+
+                          )
+
+                        : (
+
+                            idiomaActual === "zh"
+                                ? "使用 BIENVENIDA10 可享受 10% 折扣。"
+                                : idiomaActual === "en"
+                                    ? "Use BIENVENIDA10 and receive 10% off."
+                                    : idiomaActual === "fr"
+                                        ? "Utilisez BIENVENIDA10 et obtenez 10 % de réduction."
+                                        : idiomaActual === "pt"
+                                            ? "Use BIENVENIDA10 e receba 10% de desconto."
+                                            : "Usa BIENVENIDA10 y recibe 10% de descuento."
+
+                          )
+
+                }
+
+            </small>
+
+        </div>
+
+
+        <div class="desglose-compra">
+
+            <span>
+
+                ${textos.subtotal}
+
+                <b>
+                    ${formatoMoneda(
+                        datos.subtotal
+                    )}
+                </b>
+
+            </span>
+
+
+            ${
+                datos.descuento
+
+                    ? `
+
+                        <span
+                            class="descuento"
+                        >
+
+                            ${textos.descuento}
+
+                            <b>
+                                − ${formatoMoneda(
+                                    datos.descuento
+                                )}
+                            </b>
+
+                        </span>
+
+                    `
+
+                    : ""
+            }
+
+        </div>
+
+
+        <button
+            id="vaciar-carrito"
+            class="vaciar-carrito"
+            type="button"
+            ${carrito.length ? "" : "disabled"}
+        >
+
+            ${
+                idiomaActual === "zh"
+                    ? "清空购物车"
+                    : idiomaActual === "en"
+                        ? "Empty cart"
+                        : idiomaActual === "fr"
+                            ? "Vider le panier"
+                            : idiomaActual === "pt"
+                                ? "Esvaziar carrinho"
+                                : "Vaciar carrito"
+            }
+
+        </button>
+
+
+        <button
+            id="compartir-carrito"
+            class="compartir-carrito"
+            type="button"
+            ${carrito.length ? "" : "disabled"}
+        >
+
+            ↗
+
+            ${
+                idiomaActual === "zh"
+                    ? "分享购物车"
+                    : idiomaActual === "en"
+                        ? "Share this cart"
+                        : idiomaActual === "fr"
+                            ? "Partager ce panier"
+                            : idiomaActual === "pt"
+                                ? "Compartilhar carrinho"
+                                : "Compartir este carrito"
+            }
+
+        </button>
+
+    `;
+
+
+    totalCarrito.textContent =
+        formatoMoneda(
+            datos.total
+        );
+
+
+    corregirSimboloDuplicado();
+
+
+    const botonCupon =
+        document.getElementById(
+            "aplicar-cupon"
+        );
+
+
+    if (botonCupon) {
+
+        botonCupon.addEventListener(
+            "click",
+            function () {
+
+                const campo =
+                    document.getElementById(
+                        "codigo-cupon"
+                    );
+
+
+                const mensaje =
+                    document.getElementById(
+                        "mensaje-cupon"
+                    );
+
+
+                const codigo =
+                    campo.value
+                        .trim()
+                        .toUpperCase();
+
+
+                if (
+                    codigo ===
+                    "BIENVENIDA10"
+                ) {
+
+                    cuponAplicado =
+                        codigo;
+
+
+                    localStorage.setItem(
+                        "cuponMiTienda",
+                        codigo
+                    );
+
+
+                    actualizarResumenCarrito();
+
+                } else {
+
+                    cuponAplicado =
+                        "";
+
+
+                    localStorage.removeItem(
+                        "cuponMiTienda"
+                    );
+
+
+                    mensaje.textContent =
+                        codigo
+                            ? "Ese cupón no es válido. Prueba BIENVENIDA10."
+                            : "Ingresa un cupón para aplicarlo.";
+
+                }
+
+            }
+        );
+
+    }
+
+
+    const vaciar =
+        document.getElementById(
+            "vaciar-carrito"
+        );
+
+
+    if (vaciar) {
+
+        vaciar.addEventListener(
+            "click",
+            function () {
+
+                if (
+                    !carrito.length
+                ) {
+
+                    return;
+
+                }
+
+
+                const confirmar =
+                    window.confirm(
+                        idiomaActual === "zh"
+                            ? "确定要清空购物车吗？"
+                            : idiomaActual === "en"
+                                ? "Do you want to empty your cart?"
+                                : "¿Quieres quitar todos los productos del carrito?"
+                    );
+
+
+                if (!confirmar) {
+
+                    return;
+
+                }
+
+
+                carrito = [];
+
+
+                guardarCarrito();
+
+                actualizarContador();
+
+                mostrarCarrito();
+
+            }
+        );
+
+    }
+
+
+    const compartir =
+        document.getElementById(
+            "compartir-carrito"
+        );
+
+
+    if (compartir) {
+
+        compartir.addEventListener(
+            "click",
+            async function () {
+
+                if (
+                    !carrito.length
+                ) {
+
+                    return;
+
+                }
+
+
+                const enlace =
+                    obtenerEnlaceCarrito();
+
+
+                try {
+
+                    if (
+                        navigator.share
+                    ) {
+
+                        await navigator.share({
+
+                            title:
+                                "Mi carrito de Mi Tienda",
+
+                            text:
+                                "Te comparto estos productos.",
+
+                            url:
+                                enlace
+
+                        });
+
+                    } else if (
+                        navigator.clipboard
+                    ) {
+
+                        await navigator.clipboard.writeText(
+                            enlace
+                        );
+
+
+                        this.textContent =
+                            "✓ Enlace copiado";
+
+
+                        setTimeout(
+                            function () {
+
+                                actualizarResumenCarrito();
+
+                            },
+                            2200
+                        );
+
+                    } else {
+
+                        window.prompt(
+                            "Copia este enlace:",
+                            enlace
+                        );
+
+                    }
+
+                } catch (error) {
+
+                    if (
+                        error.name !==
+                        "AbortError"
+                    ) {
+
+                        window.prompt(
+                            "Copia este enlace:",
+                            enlace
+                        );
+
+                    }
+
+                }
+
+            }
+        );
+
+    }
+
+}
+
+
+// =====================================================
+// MOSTRAR CARRITO
+// =====================================================
+
+function mostrarCarrito() {
+
+    const lista =
+        document.getElementById(
+            "lista-carrito"
+        );
+
+
+    const totalElemento =
+        document.getElementById(
+            "total-carrito"
+        );
+
+
+    if (
+        !lista ||
+        !totalElemento
+    ) {
+
+        return;
+
+    }
+
+
+    lista.innerHTML =
+        "";
+
+
+    if (
+        !carrito.length
+    ) {
+
+        lista.innerHTML = `
+
+            <p class="carrito-vacio">
+
+                ${t(
+                    "carritoVacio"
+                )}
+
+            </p>
+
+        `;
+
+
+        totalElemento.textContent =
+            formatoMoneda(
+                0
+            );
+
+
+        actualizarResumenCarrito();
+
+        corregirSimboloDuplicado();
+
+        return;
+
+    }
+
+
+    let total =
+        0;
+
+
+    carrito.forEach(
+        function (
+            producto,
+            indice
+        ) {
+
+            const subtotal =
+                producto.precio *
+                producto.cantidad;
+
+
+            total +=
+                subtotal;
+
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "item-carrito";
+
+
+            item.innerHTML = `
+
+                <div class="info-producto">
+
+                    <strong
+                        class="nombre-producto"
+                    ></strong>
+
+
+                    <span>
+
+                        ${formatoMoneda(
+                            producto.precio
+                        )}
+
+                    </span>
+
+                </div>
+
+
+                <div class="controles-cantidad">
+
+                    <button
+                        onclick="disminuirCantidad(${indice})"
+                        type="button"
+                    >
+                        −
+                    </button>
+
+
+                    <span>
+                        ${producto.cantidad}
+                    </span>
+
+
+                    <button
+                        onclick="aumentarCantidad(${indice})"
+                        type="button"
+                    >
+                        +
+                    </button>
+
+                </div>
+
+
+                <div class="subtotal">
+
+                    ${formatoMoneda(
+                        subtotal
+                    )}
+
+                </div>
+
+
+                <button
+                    class="eliminar-producto"
+                    onclick="eliminarProducto(${indice})"
+                    type="button"
+                    aria-label="Eliminar producto"
+                >
+                    🗑️
+                </button>
+
+            `;
+
+
+            item.querySelector(
+                ".nombre-producto"
+            ).textContent =
+                producto.nombre;
+
+
+            lista.appendChild(
+                item
             );
 
         }
     );
 
 
-    const opcionesIdioma =
-        menuIdiomas.querySelectorAll(
-            "[data-idioma]"
+    totalElemento.textContent =
+        formatoMoneda(
+            total
         );
 
 
-    opcionesIdioma.forEach(
-        function (opcion) {
+    actualizarResumenCarrito();
 
-            opcion.addEventListener(
+    corregirSimboloDuplicado();
+
+}
+
+
+// =====================================================
+// CANTIDADES
+// =====================================================
+
+function aumentarCantidad(
+    indice
+) {
+
+    if (
+        !carrito[indice]
+    ) {
+
+        return;
+
+    }
+
+
+    carrito[indice].cantidad++;
+
+
+    guardarCarrito();
+
+    actualizarContador();
+
+    mostrarCarrito();
+
+}
+
+
+function disminuirCantidad(
+    indice
+) {
+
+    if (
+        !carrito[indice]
+    ) {
+
+        return;
+
+    }
+
+
+    carrito[indice].cantidad--;
+
+
+    if (
+        carrito[indice].cantidad <=
+        0
+    ) {
+
+        carrito.splice(
+            indice,
+            1
+        );
+
+    }
+
+
+    guardarCarrito();
+
+    actualizarContador();
+
+    mostrarCarrito();
+
+}
+
+
+function eliminarProducto(
+    indice
+) {
+
+    if (
+        !carrito[indice]
+    ) {
+
+        return;
+
+    }
+
+
+    carrito.splice(
+        indice,
+        1
+    );
+
+
+    guardarCarrito();
+
+    actualizarContador();
+
+    mostrarCarrito();
+
+}
+
+
+// =====================================================
+// CHECKOUT
+// =====================================================
+
+function abrirCheckout() {
+
+    if (
+        !carrito.length
+    ) {
+
+        alert(
+            idiomaActual === "zh"
+                ? "您的购物车为空。"
+                : idiomaActual === "en"
+                    ? "Your cart is empty."
+                    : "Tu carrito está vacío."
+        );
+
+
+        return;
+
+    }
+
+
+    let checkout =
+        document.getElementById(
+            "checkout-datos"
+        );
+
+
+    if (!checkout) {
+
+        checkout =
+            document.createElement(
+                "div"
+            );
+
+
+        checkout.id =
+            "checkout-datos";
+
+
+        checkout.className =
+            "checkout-datos";
+
+
+        checkout.innerHTML = `
+
+            <form
+                class="checkout-form"
+            >
+
+                <button
+                    class="checkout-cerrar"
+                    type="button"
+                    aria-label="Cerrar"
+                >
+                    ×
+                </button>
+
+
+                <span class="checkout-paso">
+                    ÚLTIMO PASO
+                </span>
+
+
+                <h2>
+                    ¿Dónde entregamos tu pedido?
+                </h2>
+
+
+                <p>
+                    Estos datos se incluirán en tu mensaje de WhatsApp para confirmar la compra.
+                </p>
+
+
+                <label>
+
+                    Nombre completo
+
+                    <input
+                        name="nombre"
+                        required
+                        autocomplete="name"
+                        placeholder="Tu nombre"
+                    >
+
+                </label>
+
+
+                <label>
+
+                    Teléfono
+
+                    <input
+                        name="telefono"
+                        required
+                        inputmode="tel"
+                        autocomplete="tel"
+                        placeholder="Ej. 8888 8888"
+                    >
+
+                </label>
+
+
+                <label>
+
+                    Dirección de entrega
+
+                    <textarea
+                        name="direccion"
+                        required
+                        rows="3"
+                        placeholder="Barrio, ciudad y una referencia"
+                    ></textarea>
+
+                </label>
+
+
+                <label>
+
+                    Método de entrega
+
+                    <select
+                        name="entrega"
+                    >
+
+                        <option>
+                            Entrega a domicilio
+                        </option>
+
+                        <option>
+                            Retiro en tienda
+                        </option>
+
+                    </select>
+
+                </label>
+
+
+                <label>
+
+                    Nota para el pedido
+
+                    <input
+                        name="nota"
+                        maxlength="180"
+                        placeholder="Opcional"
+                    >
+
+                </label>
+
+
+                <button
+                    class="confirmar-pedido"
+                    type="submit"
+                >
+                    Continuar a WhatsApp
+                </button>
+
+            </form>
+
+        `;
+
+
+        document.body.appendChild(
+            checkout
+        );
+
+
+        checkout
+            .querySelector(
+                ".checkout-cerrar"
+            )
+            .addEventListener(
                 "click",
                 function () {
 
-                    cambiarIdioma(
-                        opcion.dataset.idioma
-                    );
-
-
-                    menuIdiomas.classList.remove(
-                        "abierto"
+                    checkout.classList.remove(
+                        "visible"
                     );
 
                 }
             );
 
+
+        checkout.addEventListener(
+            "click",
+            function (evento) {
+
+                if (
+                    evento.target ===
+                    checkout
+                ) {
+
+                    checkout.classList.remove(
+                        "visible"
+                    );
+
+                }
+
+            }
+        );
+
+
+        checkout
+            .querySelector(
+                "form"
+            )
+            .addEventListener(
+                "submit",
+                function (evento) {
+
+                    evento.preventDefault();
+
+
+                    if (
+                        !evento.currentTarget.reportValidity()
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    const cliente =
+                        new FormData(
+                            evento.currentTarget
+                        );
+
+
+                    const resumen =
+                        obtenerResumenCompra();
+
+
+                    let mensaje =
+                        "Hola, quiero realizar el siguiente pedido:\n\n";
+
+
+                    carrito.forEach(
+                        function (
+                            producto
+                        ) {
+
+                            mensaje +=
+                                "• " +
+                                producto.nombre +
+                                " x" +
+                                producto.cantidad +
+                                " - " +
+                                formatoMoneda(
+                                    producto.precio *
+                                    producto.cantidad
+                                ) +
+                                "\n";
+
+                        }
+                    );
+
+
+                    mensaje +=
+                        "\nSubtotal: " +
+                        formatoMoneda(
+                            resumen.subtotal
+                        );
+
+
+                    if (
+                        resumen.descuento
+                    ) {
+
+                        mensaje +=
+                            "\nDescuento (" +
+                            cuponAplicado +
+                            "): -" +
+                            formatoMoneda(
+                                resumen.descuento
+                            );
+
+                    }
+
+
+                    mensaje +=
+                        "\nTotal: " +
+                        formatoMoneda(
+                            resumen.total
+                        );
+
+
+                    mensaje +=
+                        "\n\nDATOS DE ENTREGA";
+
+
+                    mensaje +=
+                        "\nNombre: " +
+                        cliente.get(
+                            "nombre"
+                        );
+
+
+                    mensaje +=
+                        "\nTeléfono: " +
+                        cliente.get(
+                            "telefono"
+                        );
+
+
+                    mensaje +=
+                        "\nEntrega: " +
+                        cliente.get(
+                            "entrega"
+                        );
+
+
+                    mensaje +=
+                        "\nDirección: " +
+                        cliente.get(
+                            "direccion"
+                        );
+
+
+                    if (
+                        cliente.get(
+                            "nota"
+                        )
+                    ) {
+
+                        mensaje +=
+                            "\nNota: " +
+                            cliente.get(
+                                "nota"
+                            );
+
+                    }
+
+
+                    const url =
+                        "https://wa.me/" +
+                        NUMERO_WHATSAPP +
+                        "?text=" +
+                        encodeURIComponent(
+                            mensaje
+                        );
+
+
+                    window.open(
+                        url,
+                        "_blank",
+                        "noopener"
+                    );
+
+
+                    checkout.classList.remove(
+                        "visible"
+                    );
+
+                }
+            );
+
+    }
+
+
+    checkout.classList.add(
+        "visible"
+    );
+
+
+    const nombre =
+        checkout.querySelector(
+            "input[name='nombre']"
+        );
+
+
+    if (nombre) {
+
+        nombre.focus();
+
+    }
+
+}
+
+
+// =====================================================
+// FINALIZAR COMPRA
+// =====================================================
+
+const finalizarCompra =
+    document.getElementById(
+        "finalizar-compra"
+    );
+
+
+if (
+    finalizarCompra
+) {
+
+    finalizarCompra.addEventListener(
+        "click",
+        abrirCheckout
+    );
+
+}
+
+
+// =====================================================
+// BUSCADOR
+// =====================================================
+
+const buscador =
+    document.getElementById(
+        "buscador"
+    );
+
+
+if (buscador) {
+
+    buscador.addEventListener(
+        "input",
+        function () {
+
+            const texto =
+                buscador.value
+                    .toLowerCase()
+                    .trim();
+
+
+            document
+                .querySelectorAll(
+                    ".producto"
+                )
+                .forEach(
+                    function (
+                        producto
+                    ) {
+
+                        const titulo =
+                            producto.querySelector(
+                                "h3"
+                            );
+
+
+                        if (!titulo) {
+
+                            return;
+
+                        }
+
+
+                        const nombre =
+                            titulo.textContent
+                                .toLowerCase();
+
+
+                        producto.style.display =
+                            nombre.includes(
+                                texto
+                            )
+                                ? ""
+                                : "none";
+
+                    }
+                );
+
+        }
+    );
+
+}
+
+
+// =====================================================
+// CARRUSEL
+// =====================================================
+
+const slides =
+    document.querySelectorAll(
+        ".slide"
+    );
+
+
+const indicadores =
+    document.querySelectorAll(
+        ".indicador"
+    );
+
+
+const botonAnterior =
+    document.getElementById(
+        "slide-anterior"
+    );
+
+
+const botonSiguiente =
+    document.getElementById(
+        "slide-siguiente"
+    );
+
+
+let slideActual =
+    0;
+
+
+function mostrarSlide(
+    indice
+) {
+
+    if (
+        !slides.length
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        indice < 0
+    ) {
+
+        indice =
+            slides.length -
+            1;
+
+    }
+
+
+    if (
+        indice >=
+        slides.length
+    ) {
+
+        indice =
+            0;
+
+    }
+
+
+    slideActual =
+        indice;
+
+
+    slides.forEach(
+        function (
+            slide,
+            i
+        ) {
+
+            slide.classList.toggle(
+                "activo",
+                i === slideActual
+            );
+
         }
     );
 
 
-    document.addEventListener(
-        "click",
-        function (evento) {
+    indicadores.forEach(
+        function (
+            indicador,
+            i
+        ) {
 
-            if (
-                !evento.target.closest(
-                    ".selector-idioma"
+            indicador.classList.toggle(
+                "activo",
+                i === slideActual
+            );
+
+        }
+    );
+
+}
+
+
+if (
+    botonAnterior
+) {
+
+    botonAnterior.addEventListener(
+        "click",
+        function () {
+
+            mostrarSlide(
+                slideActual -
+                1
+            );
+
+        }
+    );
+
+}
+
+
+if (
+    botonSiguiente
+) {
+
+    botonSiguiente.addEventListener(
+        "click",
+        function () {
+
+            mostrarSlide(
+                slideActual +
+                1
+            );
+
+        }
+    );
+
+}
+
+
+indicadores.forEach(
+    function (
+        indicador
+    ) {
+
+        indicador.addEventListener(
+            "click",
+            function () {
+
+                mostrarSlide(
+                    Number(
+                        indicador.dataset.slide
+                    )
+                );
+
+            }
+        );
+
+    }
+);
+
+
+if (
+    slides.length >
+    1
+) {
+
+    setInterval(
+        function () {
+
+            mostrarSlide(
+                slideActual +
+                1
+            );
+
+        },
+        6000
+    );
+
+}
+
+
+// =====================================================
+// EXPLORADOR DE PRODUCTOS
+// =====================================================
+
+function configurarExploradorProductos() {
+
+    const contenedor =
+        document.querySelector(
+            ".productos-container"
+        );
+
+
+    if (
+        !contenedor ||
+        document.getElementById(
+            "herramientas-catalogo"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    let favoritos;
+
+
+    try {
+
+        favoritos =
+            JSON.parse(
+                localStorage.getItem(
+                    "favoritosMiTienda"
+                ) || "[]"
+            );
+
+    } catch (error) {
+
+        favoritos =
+            [];
+
+    }
+
+
+    const tarjetas =
+        Array.from(
+            contenedor.querySelectorAll(
+                ".producto"
+            )
+        );
+
+
+    const categorias =
+        [
+            ...new Set(
+                tarjetas
+                    .map(
+                        function (
+                            tarjeta
+                        ) {
+
+                            return tarjeta
+                                .querySelector(
+                                    ".producto-categoria"
+                                )
+                                ?.textContent
+                                .trim();
+
+                        }
+                    )
+                    .filter(
+                        Boolean
+                    )
+            )
+        ];
+
+
+    const herramientas =
+        document.createElement(
+            "div"
+        );
+
+
+    herramientas.id =
+        "herramientas-catalogo";
+
+
+    herramientas.className =
+        "herramientas-catalogo";
+
+
+    herramientas.innerHTML = `
+
+        <div class="chips-categorias">
+
+            <button
+                type="button"
+                class="activo"
+                data-filtro="todos"
+            >
+                Todos
+            </button>
+
+
+            ${
+                categorias
+                    .map(
+                        function (
+                            categoria
+                        ) {
+
+                            return `
+
+                                <button
+                                    type="button"
+                                    data-filtro="${categoria}"
+                                >
+                                    ${categoria}
+                                </button>
+
+                            `;
+
+                        }
+                    )
+                    .join("")
+            }
+
+
+            <button
+                type="button"
+                data-filtro="favoritos"
+            >
+                ♡ Favoritos
+            </button>
+
+        </div>
+
+
+        <label
+            class="ordenar-productos"
+        >
+
+            Ordenar
+
+
+            <select>
+
+                <option
+                    value="relevancia"
+                >
+                    Relevancia
+                </option>
+
+
+                <option
+                    value="menor"
+                >
+                    Menor precio
+                </option>
+
+
+                <option
+                    value="mayor"
+                >
+                    Mayor precio
+                </option>
+
+            </select>
+
+        </label>
+
+    `;
+
+
+    contenedor.before(
+        herramientas
+    );
+
+
+    tarjetas.forEach(
+        function (
+            tarjeta
+        ) {
+
+            const nombre =
+                tarjeta
+                    .querySelector(
+                        "h3"
+                    )
+                    ?.textContent
+                    .trim() ||
+                "";
+
+
+            const boton =
+                document.createElement(
+                    "button"
+                );
+
+
+            boton.type =
+                "button";
+
+
+            boton.className =
+                "favorito-producto";
+
+
+            boton.setAttribute(
+                "aria-label",
+                "Añadir a favoritos"
+            );
+
+
+            function pintarFavorito() {
+
+                const activo =
+                    favoritos.includes(
+                        nombre
+                    );
+
+
+                boton.classList.toggle(
+                    "activo",
+                    activo
+                );
+
+
+                boton.textContent =
+                    activo
+                        ? "♥"
+                        : "♡";
+
+
+                boton.setAttribute(
+                    "aria-pressed",
+                    String(
+                        activo
+                    )
+                );
+
+            }
+
+
+            boton.addEventListener(
+                "click",
+                function () {
+
+                    favoritos =
+                        favoritos.includes(
+                            nombre
+                        )
+
+                            ? favoritos.filter(
+                                function (
+                                    item
+                                ) {
+
+                                    return (
+                                        item !==
+                                        nombre
+                                    );
+
+                                }
+                            )
+
+                            : favoritos.concat(
+                                nombre
+                            );
+
+
+                    localStorage.setItem(
+                        "favoritosMiTienda",
+                        JSON.stringify(
+                            favoritos
+                        )
+                    );
+
+
+                    pintarFavorito();
+
+                    aplicarFiltro();
+
+                }
+            );
+
+
+            tarjeta
+                .querySelector(
+                    ".producto-imagen"
                 )
+                ?.appendChild(
+                    boton
+                );
+
+
+            pintarFavorito();
+
+        }
+    );
+
+
+    let filtro =
+        "todos";
+
+
+    function aplicarFiltro() {
+
+        tarjetas.forEach(
+            function (
+                tarjeta
             ) {
 
-                menuIdiomas.classList.remove(
+                const nombre =
+                    tarjeta
+                        .querySelector(
+                            "h3"
+                        )
+                        ?.textContent
+                        .trim() ||
+                    "";
+
+
+                const categoria =
+                    tarjeta
+                        .querySelector(
+                            ".producto-categoria"
+                        )
+                        ?.textContent
+                        .trim();
+
+
+                tarjeta.hidden =
+                    !(
+                        filtro ===
+                        "todos" ||
+
+                        (
+                            filtro ===
+                            "favoritos" &&
+
+                            favoritos.includes(
+                                nombre
+                            )
+                        ) ||
+
+                        (
+                            filtro !==
+                            "favoritos" &&
+
+                            filtro !==
+                            "todos" &&
+
+                            categoria ===
+                            filtro
+                        )
+                    );
+
+            }
+        );
+
+    }
+
+
+    herramientas
+        .querySelectorAll(
+            "[data-filtro]"
+        )
+        .forEach(
+            function (
+                boton
+            ) {
+
+                boton.addEventListener(
+                    "click",
+                    function () {
+
+                        filtro =
+                            boton.dataset.filtro;
+
+
+                        herramientas
+                            .querySelectorAll(
+                                "[data-filtro]"
+                            )
+                            .forEach(
+                                function (
+                                    item
+                                ) {
+
+                                    item.classList.toggle(
+                                        "activo",
+                                        item ===
+                                        boton
+                                    );
+
+                                }
+                            );
+
+
+                        aplicarFiltro();
+
+                    }
+                );
+
+            }
+        );
+
+
+    const orden =
+        herramientas.querySelector(
+            "select"
+        );
+
+
+    if (orden) {
+
+        orden.addEventListener(
+            "change",
+            function (
+                evento
+            ) {
+
+                const modo =
+                    evento.target.value;
+
+
+                tarjetas
+                    .sort(
+                        function (
+                            a,
+                            b
+                        ) {
+
+                            const precioA =
+                                Number(
+                                    a.querySelector(
+                                        ".agregar-carrito"
+                                    )
+                                    ?.dataset
+                                    .precio ||
+                                    0
+                                );
+
+
+                            const precioB =
+                                Number(
+                                    b.querySelector(
+                                        ".agregar-carrito"
+                                    )
+                                    ?.dataset
+                                    .precio ||
+                                    0
+                                );
+
+
+                            if (
+                                modo ===
+                                "menor"
+                            ) {
+
+                                return (
+                                    precioA -
+                                    precioB
+                                );
+
+                            }
+
+
+                            if (
+                                modo ===
+                                "mayor"
+                            ) {
+
+                                return (
+                                    precioB -
+                                    precioA
+                                );
+
+                            }
+
+
+                            return 0;
+
+                        }
+                    )
+                    .forEach(
+                        function (
+                            tarjeta
+                        ) {
+
+                            contenedor.appendChild(
+                                tarjeta
+                            );
+
+                        }
+                    );
+
+            }
+        );
+
+    }
+
+}
+
+
+// =====================================================
+// ASISTENTE VIRTUAL
+// =====================================================
+
+let asistenteReferencia =
+    null;
+
+
+function crearAsistenteVirtual() {
+
+    if (
+        document.getElementById(
+            "asistente-virtual"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    const asistente =
+        document.createElement(
+            "section"
+        );
+
+
+    asistente.id =
+        "asistente-virtual";
+
+
+    asistente.className =
+        "asistente-virtual";
+
+
+    asistente.innerHTML = `
+
+        <button
+            class="asistente-boton"
+            type="button"
+            aria-label="Abrir asistente virtual"
+            aria-expanded="false"
+        >
+
+            <span
+                aria-hidden="true"
+            >
+                ✦
+            </span>
+
+
+            <span
+                class="asistente-boton-texto"
+            >
+                Ayuda
+            </span>
+
+        </button>
+
+
+        <div
+            class="asistente-panel"
+            aria-hidden="true"
+        >
+
+            <div
+                class="asistente-encabezado"
+            >
+
+                <div>
+
+                    <strong>
+                        Asistente de Mi Tienda
+                    </strong>
+
+
+                    <span>
+
+                        <i></i>
+
+                        En línea para ayudarte
+
+                    </span>
+
+                </div>
+
+
+                <button
+                    class="asistente-cerrar"
+                    type="button"
+                    aria-label="Cerrar asistente"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <div
+                class="asistente-mensajes"
+                aria-live="polite"
+            >
+
+                <p
+                    class="mensaje-asistente"
+                >
+                    ¡Hola! Puedo ayudarte a encontrar productos, explicarte cómo comprar o abrir tu carrito.
+                </p>
+
+            </div>
+
+
+            <div
+                class="asistente-sugerencias"
+            >
+
+                <button
+                    type="button"
+                    data-consulta="¿Cómo compro?"
+                >
+                    Cómo comprar
+                </button>
+
+
+                <button
+                    type="button"
+                    data-consulta="Ver carrito"
+                >
+                    Ver carrito
+                </button>
+
+
+                <button
+                    type="button"
+                    data-consulta="¿Qué productos tienen?"
+                >
+                    Productos
+                </button>
+
+            </div>
+
+
+            <form
+                class="asistente-formulario"
+            >
+
+                <label
+                    class="sr-only"
+                    for="asistente-consulta"
+                >
+                    Escribe tu consulta
+                </label>
+
+
+                <input
+                    id="asistente-consulta"
+                    type="text"
+                    maxlength="180"
+                    placeholder="Escribe tu consulta…"
+                    autocomplete="off"
+                >
+
+
+                <button
+                    type="submit"
+                    aria-label="Enviar consulta"
+                >
+                    ➜
+                </button>
+
+            </form>
+
+        </div>
+
+    `;
+
+
+    document.body.appendChild(
+        asistente
+    );
+
+
+    const boton =
+        asistente.querySelector(
+            ".asistente-boton"
+        );
+
+
+    const panel =
+        asistente.querySelector(
+            ".asistente-panel"
+        );
+
+
+    const cerrar =
+        asistente.querySelector(
+            ".asistente-cerrar"
+        );
+
+
+    const formulario =
+        asistente.querySelector(
+            ".asistente-formulario"
+        );
+
+
+    const entrada =
+        asistente.querySelector(
+            "#asistente-consulta"
+        );
+
+
+    const mensajes =
+        asistente.querySelector(
+            ".asistente-mensajes"
+        );
+
+
+    const productosDisponibles =
+        Array.from(
+            document.querySelectorAll(
+                ".producto"
+            )
+        )
+        .map(
+            function (
+                producto
+            ) {
+
+                const nombre =
+                    producto
+                        .querySelector(
+                            "h3"
+                        )
+                        ?.textContent
+                        .trim() ||
+                    "";
+
+
+                const descripcion =
+                    producto
+                        .querySelector(
+                            "p"
+                        )
+                        ?.textContent
+                        .trim() ||
+                    "";
+
+
+                return {
+
+                    nombre:
+                        nombre,
+
+                    descripcion:
+                        descripcion,
+
+                    busqueda:
+                        nombre
+                            .toLowerCase()
+                            .normalize(
+                                "NFD"
+                            )
+                            .replace(
+                                /[\u0300-\u036f]/g,
+                                ""
+                            )
+
+                };
+
+            }
+        );
+
+
+    function cambiarEstado(
+        abierto
+    ) {
+
+        asistente.classList.toggle(
+            "abierto",
+            abierto
+        );
+
+
+        boton.setAttribute(
+            "aria-expanded",
+            String(
+                abierto
+            )
+        );
+
+
+        panel.setAttribute(
+            "aria-hidden",
+            String(
+                !abierto
+            )
+        );
+
+
+        if (abierto) {
+
+            entrada.focus();
+
+        }
+
+    }
+
+
+    function agregarMensaje(
+        texto,
+        clase
+    ) {
+
+        const mensaje =
+            document.createElement(
+                "p"
+            );
+
+
+        mensaje.className =
+            clase;
+
+
+        mensaje.textContent =
+            texto;
+
+
+        mensajes.appendChild(
+            mensaje
+        );
+
+
+        mensajes.scrollTop =
+            mensajes.scrollHeight;
+
+    }
+
+
+    function responderConsulta(
+        consulta
+    ) {
+
+        const texto =
+            consulta
+                .toLowerCase()
+                .normalize(
+                    "NFD"
+                )
+                .replace(
+                    /[\u0300-\u036f]/g,
+                    ""
+                );
+
+
+        const producto =
+            productosDisponibles.find(
+                function (
+                    item
+                ) {
+
+                    return (
+                        item.busqueda &&
+                        texto.includes(
+                            item.busqueda
+                        )
+                    );
+
+                }
+            );
+
+
+        if (
+            texto.includes(
+                "carrito"
+            )
+        ) {
+
+            agregarMensaje(
+
+                idiomaActual === "zh"
+                    ? "我打开您的购物车，您可以查看商品。"
+                    : "Abro tu carrito para que revises tus productos.",
+
+                "mensaje-asistente"
+
+            );
+
+
+            abrirCarrito();
+
+            return;
+
+        }
+
+
+        if (
+            texto.includes(
+                "compr"
+            ) ||
+            texto.includes(
+                "pedido"
+            )
+        ) {
+
+            agregarMensaje(
+
+                idiomaActual === "zh"
+                    ? "选择产品，加入购物车，然后通过 WhatsApp 完成订单。"
+                    : "Elige un producto, agrégalo al carrito y después finaliza tu compra por WhatsApp.",
+
+                "mensaje-asistente"
+
+            );
+
+
+            return;
+
+        }
+
+
+        if (producto) {
+
+            agregarMensaje(
+
+                producto.nombre +
+                ": " +
+                producto.descripcion +
+                ". " +
+
+                (
+                    idiomaActual === "zh"
+                        ? "您可以从产品卡片加入购物车。"
+                        : "Puedes agregarlo al carrito desde su tarjeta."
+                ),
+
+                "mensaje-asistente"
+
+            );
+
+
+            return;
+
+        }
+
+
+        if (
+            texto.includes(
+                "precio"
+            ) ||
+            texto.includes(
+                "cuanto"
+            ) ||
+            texto.includes(
+                "costo"
+            )
+        ) {
+
+            agregarMensaje(
+
+                idiomaActual === "zh"
+                    ? "每个产品都会显示价格。您也可以更改国家/货币来查看换算后的价格。"
+                    : "Cada producto muestra su precio. También puedes cambiar el país y la moneda para ver la conversión.",
+
+                "mensaje-asistente"
+
+            );
+
+
+            return;
+
+        }
+
+
+        if (
+            texto.includes(
+                "envio"
+            ) ||
+            texto.includes(
+                "entrega"
+            )
+        ) {
+
+            agregarMensaje(
+
+                idiomaActual === "zh"
+                    ? "结账时填写您的配送信息，我们会通过 WhatsApp 确认订单。"
+                    : "Al finalizar la compra podrás indicar tus datos de entrega y confirmar el pedido por WhatsApp.",
+
+                "mensaje-asistente"
+
+            );
+
+
+            return;
+
+        }
+
+
+        if (
+            texto.includes(
+                "pago"
+            )
+        ) {
+
+            agregarMensaje(
+
+                idiomaActual === "zh"
+                    ? "完成订单后，我们会通过 WhatsApp 告知您可用的付款方式。"
+                    : "Al finalizar el pedido te confirmaremos por WhatsApp los métodos de pago disponibles.",
+
+                "mensaje-asistente"
+
+            );
+
+
+            return;
+
+        }
+
+
+        if (
+            texto.includes(
+                "hola"
+            ) ||
+            texto.includes(
+                "buenas"
+            )
+        ) {
+
+            agregarMensaje(
+
+                idiomaActual === "zh"
+                    ? "您好。我可以帮助您了解产品、价格、购物车和订单。"
+                    : "Hola. Puedo ayudarte con productos, precios, compras y tu carrito.",
+
+                "mensaje-asistente"
+
+            );
+
+
+            return;
+
+        }
+
+
+        agregarMensaje(
+
+            idiomaActual === "zh"
+                ? "我可以帮助您了解产品、价格、付款、配送和购物车。"
+                : "Puedo orientarte sobre productos, precios, pagos, envíos y el carrito.",
+
+            "mensaje-asistente"
+
+        );
+
+    }
+
+
+    boton.addEventListener(
+        "click",
+        function () {
+
+            cambiarEstado(
+                !asistente.classList.contains(
                     "abierto"
+                )
+            );
+
+        }
+    );
+
+
+    cerrar.addEventListener(
+        "click",
+        function () {
+
+            cambiarEstado(
+                false
+            );
+
+        }
+    );
+
+
+    formulario.addEventListener(
+        "submit",
+        function (
+            evento
+        ) {
+
+            evento.preventDefault();
+
+
+            const consulta =
+                entrada.value.trim();
+
+
+            if (!consulta) {
+
+                return;
+
+            }
+
+
+            agregarMensaje(
+                consulta,
+                "mensaje-cliente"
+            );
+
+
+            entrada.value =
+                "";
+
+
+            responderConsulta(
+                consulta
+            );
+
+        }
+    );
+
+
+    asistente
+        .querySelectorAll(
+            "[data-consulta]"
+        )
+        .forEach(
+            function (
+                sugerencia
+            ) {
+
+                sugerencia.addEventListener(
+                    "click",
+                    function () {
+
+                        const consulta =
+                            sugerencia.dataset.consulta;
+
+
+                        agregarMensaje(
+                            consulta,
+                            "mensaje-cliente"
+                        );
+
+
+                        responderConsulta(
+                            consulta
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+    asistenteReferencia =
+        asistente;
+
+}
+
+
+// =====================================================
+// IDIOMA DEL ASISTENTE
+// =====================================================
+
+function actualizarAsistenteIdioma() {
+
+    if (
+        !asistenteReferencia
+    ) {
+
+        return;
+
+    }
+
+
+    const boton =
+        asistenteReferencia.querySelector(
+            ".asistente-boton-texto"
+        );
+
+
+    const input =
+        asistenteReferencia.querySelector(
+            "#asistente-consulta"
+        );
+
+
+    const encabezado =
+        asistenteReferencia.querySelector(
+            ".asistente-encabezado strong"
+        );
+
+
+    if (
+        idiomaActual ===
+        "zh"
+    ) {
+
+        if (boton) {
+
+            boton.textContent =
+                "帮助";
+
+        }
+
+
+        if (input) {
+
+            input.placeholder =
+                "输入您的问题…";
+
+        }
+
+
+        if (encabezado) {
+
+            encabezado.textContent =
+                "Mi Tienda 助手";
+
+        }
+
+    } else {
+
+        if (boton) {
+
+            boton.textContent =
+                "Ayuda";
+
+        }
+
+
+        if (input) {
+
+            input.placeholder =
+                "Escribe tu consulta…";
+
+        }
+
+
+        if (encabezado) {
+
+            encabezado.textContent =
+                "Asistente de Mi Tienda";
+
+        }
+
+    }
+
+}
+
+
+// =====================================================
+// SERVICE WORKER / PWA
+// =====================================================
+//
+// Esta parte trabaja junto con el nuevo
+// service-worker.js.
+//
+// IMPORTANTE:
+// service-worker.js debe estar en la misma carpeta
+// que este script.js.
+// =====================================================
+
+if (
+    "serviceWorker" in navigator
+) {
+
+    let recargaPorActualizacion =
+        false;
+
+
+    navigator.serviceWorker.addEventListener(
+        "controllerchange",
+        function () {
+
+            if (
+                recargaPorActualizacion
+            ) {
+
+                return;
+
+            }
+
+
+            recargaPorActualizacion =
+                true;
+
+
+            console.log(
+                "[Mi Tienda] Nueva versión aplicada."
+            );
+
+
+            window.location.reload();
+
+        }
+    );
+
+
+    navigator.serviceWorker.addEventListener(
+        "message",
+        function (
+            evento
+        ) {
+
+            if (
+                evento.data &&
+                evento.data.type ===
+                "NUEVA_VERSION_DISPONIBLE"
+            ) {
+
+                console.log(
+                    "[Mi Tienda] Nueva versión disponible:",
+                    evento.data.version
+                );
+
+            }
+
+        }
+    );
+
+
+    window.addEventListener(
+        "load",
+        async function () {
+
+            try {
+
+                const registro =
+                    await navigator.serviceWorker.register(
+                        "./service-worker.js",
+                        {
+                            updateViaCache:
+                                "none"
+                        }
+                    );
+
+
+                console.log(
+                    "[Mi Tienda] Service Worker registrado."
+                );
+
+
+                await registro.update();
+
+
+                registro.addEventListener(
+                    "updatefound",
+                    function () {
+
+                        const nuevoWorker =
+                            registro.installing;
+
+
+                        if (
+                            !nuevoWorker
+                        ) {
+
+                            return;
+
+                        }
+
+
+                        nuevoWorker.addEventListener(
+                            "statechange",
+                            function () {
+
+                                if (
+                                    nuevoWorker.state ===
+                                    "installed" &&
+
+                                    navigator.serviceWorker.controller
+                                ) {
+
+                                    console.log(
+                                        "[Mi Tienda] Nueva versión encontrada."
+                                    );
+
+
+                                    nuevoWorker.postMessage({
+
+                                        type:
+                                            "SKIP_WAITING"
+
+                                    });
+
+                                }
+
+                            }
+                        );
+
+                    }
+                );
+
+
+            } catch (
+                error
+            ) {
+
+                console.error(
+                    "[Mi Tienda] Error con Service Worker:",
+                    error
                 );
 
             }
@@ -2989,43 +6475,126 @@ if (
 
 
 // =====================================================
+// SINCRONIZAR ENTRE PESTAÑAS
+// =====================================================
+
+window.addEventListener(
+    "storage",
+    function (
+        evento
+    ) {
+
+        if (
+            evento.key ===
+            "carrito"
+        ) {
+
+            carrito =
+                obtenerCarritoGuardado();
+
+
+            actualizarContador();
+
+            mostrarCarrito();
+
+        }
+
+
+        if (
+            evento.key ===
+            "paisMiTienda"
+        ) {
+
+            paisSeleccionado =
+                evento.newValue ||
+                "NI";
+
+
+            if (
+                !configuracionMonedas[
+                    paisSeleccionado
+                ]
+            ) {
+
+                paisSeleccionado =
+                    "NI";
+
+            }
+
+
+            actualizarSelectorMoneda();
+
+            actualizarPreciosPagina();
+
+            mostrarCarrito();
+
+        }
+
+
+        if (
+            evento.key ===
+            "idioma"
+        ) {
+
+            cambiarIdioma(
+                evento.newValue ||
+                "es"
+            );
+
+        }
+
+    }
+);
+
+
+// =====================================================
 // INICIALIZACIÓN
 // =====================================================
 
 function iniciarTienda() {
 
+    cargarCarritoCompartido();
+
+
     crearCarritoFlotante();
+
 
     crearAsistenteVirtual();
 
+
     configurarBotonesAgregar();
+
 
     configurarExploradorProductos();
 
+
+    configurarMenuIdiomas();
+
+
+    crearSelectorMoneda();
+
+
+    cambiarIdioma(
+        idiomaActual
+    );
+
+
     actualizarPreciosPagina();
 
+
     actualizarContador();
+
+
+    mostrarCarrito();
+
+
+    actualizarSelectorMoneda();
 
 }
 
 
 // =====================================================
-// IDIOMA GUARDADO
-// =====================================================
-
-const idiomaGuardado =
-    localStorage.getItem(
-        "idioma"
-    ) || "es";
-
-
-cambiarIdioma(
-    idiomaGuardado
-);
-
-
-// =====================================================
-// INICIAR
+// ARRANCAR
 // =====================================================
 
 if (
@@ -3041,383 +6610,5 @@ if (
 } else {
 
     iniciarTienda();
-
-}
-
-
-// =====================================================
-// MANTENER CONTADOR SINCRONIZADO
-// =====================================================
-
-window.addEventListener(
-    "storage",
-    function (evento) {
-
-        if (
-            evento.key ===
-            "carrito"
-        ) {
-
-            carrito = obtenerCarritoGuardado();
-
-
-            actualizarContador();
-
-        }
-
-    }
-);
-
-
-// =====================================================
-// PWA - SERVICE WORKER
-// =====================================================
-
-if (
-    "serviceWorker" in navigator
-) {
-
-    let recargaPorActualizacion = false;
-
-    navigator.serviceWorker.addEventListener(
-        "controllerchange",
-        function () {
-
-            if (recargaPorActualizacion) {
-
-                return;
-
-            }
-
-            recargaPorActualizacion = true;
-            window.location.reload();
-
-        }
-    );
-
-    window.addEventListener(
-        "load",
-        function () {
-
-            navigator.serviceWorker
-                .register(
-                    "./service-worker.js",
-                    {
-                        updateViaCache: "none"
-                    }
-                )
-                .then(
-                    function (registro) {
-
-                        return registro.update();
-
-                    }
-                )
-                .then(
-                    function () {
-
-                        console.log(
-                            "Mi Tienda: aplicación instalada correctamente."
-                        );
-
-                    }
-                )
-                .catch(
-                    function (error) {
-
-                        console.error(
-                            "Error al registrar la aplicación:",
-                            error
-                        );
-
-                    }
-                );
-
-        }
-    );
-
-}
-
-function configurarExploradorProductos() {
-    const contenedor = document.querySelector(".productos-container");
-    if (!contenedor || document.getElementById("herramientas-catalogo")) return;
-    let favoritos;
-    try { favoritos = JSON.parse(localStorage.getItem("favoritosMiTienda")) || []; } catch (_) { favoritos = []; }
-    const tarjetas = Array.from(contenedor.querySelectorAll(".producto"));
-    const categorias = [...new Set(tarjetas.map(function (tarjeta) { return tarjeta.querySelector(".producto-categoria")?.textContent.trim(); }).filter(Boolean))];
-    const herramientas = document.createElement("div");
-    herramientas.id = "herramientas-catalogo";
-    herramientas.className = "herramientas-catalogo";
-    herramientas.innerHTML = `<div class="chips-categorias"><button type="button" class="activo" data-filtro="todos">Todos</button>${categorias.map(function (categoria) { return `<button type="button" data-filtro="${categoria}">${categoria}</button>`; }).join("")}<button type="button" data-filtro="favoritos">♡ Favoritos</button></div><label class="ordenar-productos">Ordenar <select><option value="relevancia">Relevancia</option><option value="menor">Menor precio</option><option value="mayor">Mayor precio</option></select></label>`;
-    contenedor.before(herramientas);
-
-    tarjetas.forEach(function (tarjeta) {
-        const nombre = tarjeta.querySelector("h3")?.textContent.trim() || "";
-        const boton = document.createElement("button");
-        boton.type = "button"; boton.className = "favorito-producto"; boton.setAttribute("aria-label", "Añadir a favoritos");
-        const pintar = function () { const activo = favoritos.includes(nombre); boton.classList.toggle("activo", activo); boton.textContent = activo ? "♥" : "♡"; boton.setAttribute("aria-pressed", String(activo)); };
-        boton.addEventListener("click", function () { favoritos = favoritos.includes(nombre) ? favoritos.filter(function (item) { return item !== nombre; }) : favoritos.concat(nombre); localStorage.setItem("favoritosMiTienda", JSON.stringify(favoritos)); pintar(); aplicarFiltro(); });
-        tarjeta.querySelector(".producto-imagen")?.appendChild(boton); pintar();
-    });
-    let filtro = "todos";
-    function aplicarFiltro() {
-        tarjetas.forEach(function (tarjeta) {
-            const nombre = tarjeta.querySelector("h3")?.textContent.trim() || "";
-            const categoria = tarjeta.querySelector(".producto-categoria")?.textContent.trim();
-            tarjeta.hidden = !(filtro === "todos" || (filtro === "favoritos" ? favoritos.includes(nombre) : categoria === filtro));
-        });
-    }
-    herramientas.querySelectorAll("[data-filtro]").forEach(function (boton) { boton.addEventListener("click", function () { filtro = boton.dataset.filtro; herramientas.querySelectorAll("[data-filtro]").forEach(function (item) { item.classList.toggle("activo", item === boton); }); aplicarFiltro(); }); });
-    herramientas.querySelector("select").addEventListener("change", function (evento) { const modo = evento.target.value; tarjetas.sort(function (a, b) { const precioA = Number(a.querySelector(".agregar-carrito")?.dataset.precio || 0), precioB = Number(b.querySelector(".agregar-carrito")?.dataset.precio || 0); return modo === "menor" ? precioA - precioB : modo === "mayor" ? precioB - precioA : 0; }).forEach(function (tarjeta) { contenedor.appendChild(tarjeta); }); });
-}
-
-
-// =====================================================
-// ASISTENTE VIRTUAL GRATUITO
-// =====================================================
-
-function crearAsistenteVirtual() {
-
-    if (document.getElementById("asistente-virtual")) {
-
-        return;
-
-    }
-
-    const asistente = document.createElement("section");
-
-    asistente.id = "asistente-virtual";
-    asistente.className = "asistente-virtual";
-    asistente.innerHTML = `
-        <button class="asistente-boton" type="button" aria-label="Abrir asistente virtual" aria-expanded="false">
-            <span aria-hidden="true">✦</span>
-            <span class="asistente-boton-texto">Ayuda</span>
-        </button>
-        <div class="asistente-panel" aria-hidden="true">
-            <div class="asistente-encabezado">
-                <div>
-                    <strong>Asistente de Mi Tienda</strong>
-                    <span><i></i> En línea para ayudarte</span>
-                </div>
-                <button class="asistente-cerrar" type="button" aria-label="Cerrar asistente">×</button>
-            </div>
-            <div class="asistente-mensajes" aria-live="polite">
-                <p class="mensaje-asistente">¡Hola! 👋 Puedo ayudarte a encontrar productos, explicarte cómo comprar o abrir tu carrito.</p>
-            </div>
-            <div class="asistente-sugerencias">
-                <button type="button" data-consulta="¿Cómo compro?">Cómo comprar</button>
-                <button type="button" data-consulta="Ver carrito">Ver carrito</button>
-                <button type="button" data-consulta="¿Qué productos tienen?">Productos</button>
-            </div>
-            <form class="asistente-formulario">
-                <label class="sr-only" for="asistente-consulta">Escribe tu consulta</label>
-                <input id="asistente-consulta" type="text" maxlength="180" placeholder="Escribe tu consulta…" autocomplete="off">
-                <button type="submit" aria-label="Enviar consulta">➜</button>
-            </form>
-        </div>
-    `;
-
-    document.body.appendChild(asistente);
-
-    const boton = asistente.querySelector(".asistente-boton");
-    const panel = asistente.querySelector(".asistente-panel");
-    const cerrar = asistente.querySelector(".asistente-cerrar");
-    const formulario = asistente.querySelector(".asistente-formulario");
-    const entrada = asistente.querySelector("#asistente-consulta");
-    const mensajes = asistente.querySelector(".asistente-mensajes");
-
-    function cambiarEstado(abierto) {
-
-        asistente.classList.toggle("abierto", abierto);
-        boton.setAttribute("aria-expanded", String(abierto));
-        panel.setAttribute("aria-hidden", String(!abierto));
-
-        if (abierto) {
-
-            entrada.focus();
-
-        }
-
-    }
-
-    function agregarMensaje(texto, clase) {
-
-        const mensaje = document.createElement("p");
-
-        mensaje.className = clase;
-        mensaje.textContent = texto;
-        mensajes.appendChild(mensaje);
-        mensajes.scrollTop = mensajes.scrollHeight;
-
-    }
-
-    const productosDisponibles = Array.from(
-        document.querySelectorAll(".producto")
-    ).map(function (producto) {
-
-        const nombre = producto.querySelector("h3")?.textContent.trim() || "";
-        const descripcion = producto.querySelector("p")?.textContent.trim() || "";
-        const precio = producto.querySelector("strong")?.textContent.trim() || "";
-
-        return {
-            nombre: nombre,
-            descripcion: descripcion,
-            precio: precio,
-            busqueda: nombre.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-        };
-
-    });
-
-    function responderConsulta(consulta) {
-
-        const texto = consulta.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-
-        const productoConsultado = productosDisponibles.find(function (producto) {
-
-            return producto.busqueda && texto.includes(producto.busqueda);
-
-        });
-
-        if (/^(hola|buenas|buen dia|buenos dias|buenas tardes|buenas noches)/.test(texto)) {
-
-            agregarMensaje("Hola. Estoy listo para ayudarte con productos, precios, compras y tu carrito.", "mensaje-asistente");
-            return;
-
-        }
-
-        if (texto.includes("gracias")) {
-
-            agregarMensaje("Con gusto. Si necesitas algo mas, aqui estoy.", "mensaje-asistente");
-            return;
-
-        }
-
-        if (texto.includes("quien eres") || texto.includes("que eres") || texto.includes("asistente")) {
-
-            agregarMensaje("Soy el asistente virtual de Mi Tienda. Puedo darte informacion del catalogo y guiarte durante tu compra.", "mensaje-asistente");
-            return;
-
-        }
-
-        if (productoConsultado) {
-
-            agregarMensaje(
-                productoConsultado.nombre + ": " + productoConsultado.descripcion + " Precio: " + productoConsultado.precio + ". Puedes agregarlo al carrito desde su tarjeta.",
-                "mensaje-asistente"
-            );
-            return;
-
-        }
-
-        if (texto.includes("carrito")) {
-
-            agregarMensaje("Abro tu carrito para que revises tus productos.", "mensaje-asistente");
-            abrirCarrito();
-            return;
-
-        }
-
-        if (texto.includes("quitar") || texto.includes("eliminar") || texto.includes("borrar")) {
-
-            agregarMensaje("Abre el carrito para disminuir cantidades o eliminar un producto de tu pedido.", "mensaje-asistente");
-            abrirCarrito();
-            return;
-
-        }
-
-        if (texto.includes("compr") || texto.includes("pedido")) {
-
-            agregarMensaje("Elige un producto, pulsa “Agregar al carrito” y después finaliza tu compra por WhatsApp desde el carrito.", "mensaje-asistente");
-            return;
-
-        }
-
-        if (texto.includes("precio") || texto.includes("cuanto") || texto.includes("costo")) {
-
-            agregarMensaje("Cada producto muestra su precio en la tarjeta. Agrégalo al carrito para ver el total de tu pedido.", "mensaje-asistente");
-            return;
-
-        }
-
-        if (texto.includes("envio") || texto.includes("entrega") || texto.includes("direccion")) {
-
-            agregarMensaje("Para confirmar opciones de entrega, finaliza el pedido por WhatsApp y comparte tu dirección con nosotros.", "mensaje-asistente");
-            return;
-
-        }
-
-        if (texto.includes("pago") || texto.includes("transferencia")) {
-
-            agregarMensaje("Escríbenos por WhatsApp al finalizar el pedido; allí te confirmaremos los métodos de pago disponibles.", "mensaje-asistente");
-            return;
-
-        }
-
-        if (texto.includes("whatsapp") || texto.includes("contacto") || texto.includes("telefono") || texto.includes("hablar")) {
-
-            agregarMensaje("Puedes escribirnos desde el boton flotante de WhatsApp o finalizar tu compra desde el carrito para enviarnos el pedido.", "mensaje-asistente");
-            return;
-
-        }
-
-        if (texto.includes("horario") || texto.includes("abierto") || texto.includes("garantia") || texto.includes("devolucion")) {
-
-            agregarMensaje("Para confirmar esa informacion de forma exacta, escribenos por WhatsApp. Asi podremos darte una respuesta actualizada para tu caso.", "mensaje-asistente");
-            return;
-
-        }
-
-        if (texto.includes("producto") || texto.includes("catalogo") || texto.includes("tienen")) {
-
-            agregarMensaje("Puedes explorar los productos disponibles en esta página o abrir el catálogo completo desde el menú.", "mensaje-asistente");
-            return;
-
-        }
-
-        agregarMensaje("Puedo orientarte sobre productos, compras, precios, pagos, envíos y el carrito. ¿Qué necesitas saber?", "mensaje-asistente");
-
-    }
-
-    boton.addEventListener("click", function () {
-
-        cambiarEstado(!asistente.classList.contains("abierto"));
-
-    });
-
-    cerrar.addEventListener("click", function () {
-
-        cambiarEstado(false);
-
-    });
-
-    formulario.addEventListener("submit", function (evento) {
-
-        evento.preventDefault();
-
-        const consulta = entrada.value.trim();
-
-        if (!consulta) {
-
-            return;
-
-        }
-
-        agregarMensaje(consulta, "mensaje-cliente");
-        entrada.value = "";
-        responderConsulta(consulta);
-
-    });
-
-    asistente.querySelectorAll("[data-consulta]").forEach(function (sugerencia) {
-
-        sugerencia.addEventListener("click", function () {
-
-            const consulta = sugerencia.dataset.consulta;
-            agregarMensaje(consulta, "mensaje-cliente");
-            responderConsulta(consulta);
-
-        });
-
-    });
 
 }
