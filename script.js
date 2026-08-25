@@ -97,8 +97,267 @@ function obtenerResumenCompra() {
 
 }
 
+// =====================================================
+// PAÍS Y MONEDA
+// =====================================================
+
+const configuracionMonedas = {
+
+    NI: {
+        pais: "Nicaragua",
+        moneda: "NIO",
+        simbolo: "C$",
+        locale: "es-NI",
+        tasa: 1
+    },
+
+    US: {
+        pais: "Estados Unidos",
+        moneda: "USD",
+        simbolo: "US$",
+        locale: "en-US",
+        tasa: 36.70
+    },
+
+    CA: {
+        pais: "Canadá",
+        moneda: "CAD",
+        simbolo: "CA$",
+        locale: "en-CA",
+        tasa: 26.80
+    },
+
+    MX: {
+        pais: "México",
+        moneda: "MXN",
+        simbolo: "MX$",
+        locale: "es-MX",
+        tasa: 1.82
+    },
+
+    CR: {
+        pais: "Costa Rica",
+        moneda: "CRC",
+        simbolo: "₡",
+        locale: "es-CR",
+        tasa: 0.072
+    },
+
+    HN: {
+        pais: "Honduras",
+        moneda: "HNL",
+        simbolo: "L",
+        locale: "es-HN",
+        tasa: 0.685
+    },
+
+    GT: {
+        pais: "Guatemala",
+        moneda: "GTQ",
+        simbolo: "Q",
+        locale: "es-GT",
+        tasa: 0.404
+    },
+
+    PA: {
+        pais: "Panamá",
+        moneda: "USD",
+        simbolo: "B/.",
+        locale: "es-PA",
+        tasa: 36.70
+    },
+
+    CO: {
+        pais: "Colombia",
+        moneda: "COP",
+        simbolo: "COP$",
+        locale: "es-CO",
+        tasa: 110
+    },
+
+    BR: {
+        pais: "Brasil",
+        moneda: "BRL",
+        simbolo: "R$",
+        locale: "pt-BR",
+        tasa: 0.15
+    },
+
+    ES: {
+        pais: "España",
+        moneda: "EUR",
+        simbolo: "€",
+        locale: "es-ES",
+        tasa: 0.024
+    },
+
+    GB: {
+        pais: "Reino Unido",
+        moneda: "GBP",
+        simbolo: "£",
+        locale: "en-GB",
+        tasa: 0.021
+    },
+
+    JP: {
+        pais: "Japón",
+        moneda: "JPY",
+        simbolo: "¥",
+        locale: "ja-JP",
+        tasa: 4.0
+    },
+
+    CN: {
+        pais: "China",
+        moneda: "CNY",
+        simbolo: "¥",
+        locale: "zh-CN",
+        tasa: 0.196
+    },
+
+    TW: {
+        pais: "Taiwán",
+        moneda: "TWD",
+        simbolo: "NT$",
+        locale: "zh-TW",
+        tasa: 0.64
+    },
+
+    HK: {
+        pais: "Hong Kong",
+        moneda: "HKD",
+        simbolo: "HK$",
+        locale: "zh-HK",
+        tasa: 0.211
+    }
+
+};
+
+
+// País seleccionado actualmente
+
+let paisSeleccionado =
+    localStorage.getItem("paisMiTienda") || "NI";
+
+
+function obtenerMonedaActual() {
+
+    return (
+        configuracionMonedas[paisSeleccionado] ||
+        configuracionMonedas.NI
+    );
+
+}
+
+
+function convertirPrecio(precioCordobas) {
+
+    const moneda =
+        obtenerMonedaActual();
+
+    return Number(precioCordobas || 0) *
+        moneda.tasa;
+
+}
+
+
 function formatoMoneda(valor) {
-    return "C$ " + Number(valor || 0).toLocaleString("es-NI");
+
+    const moneda =
+        obtenerMonedaActual();
+
+    const convertido =
+        convertirPrecio(valor);
+
+    return (
+        moneda.simbolo +
+        " " +
+        convertido.toLocaleString(
+            moneda.locale,
+            {
+                minimumFractionDigits:
+                    moneda.moneda === "NIO"
+                        ? 0
+                        : 2,
+
+                maximumFractionDigits:
+                    moneda.moneda === "NIO"
+                        ? 0
+                        : 2
+            }
+        )
+    );
+
+}
+
+
+function cambiarPais(codigoPais) {
+
+    if (!configuracionMonedas[codigoPais]) {
+
+        return;
+
+    }
+
+    paisSeleccionado =
+        codigoPais;
+
+    localStorage.setItem(
+        "paisMiTienda",
+        codigoPais
+    );
+
+    actualizarPreciosPagina();
+
+    mostrarCarrito();
+
+}
+
+// =====================================================
+// ACTUALIZAR PRECIOS DE LA PÁGINA
+// =====================================================
+
+function actualizarPreciosPagina() {
+
+    const botones =
+        document.querySelectorAll(
+            ".agregar-carrito"
+        );
+
+    botones.forEach(function (boton) {
+
+        const precio =
+            Number(
+                boton.dataset.precio
+            );
+
+        if (!Number.isFinite(precio)) {
+
+            return;
+
+        }
+
+        const tarjeta =
+            boton.closest(".producto");
+
+        if (!tarjeta) {
+
+            return;
+
+        }
+
+        const precioElemento =
+            tarjeta.querySelector("strong");
+
+        if (precioElemento) {
+
+            precioElemento.textContent =
+                formatoMoneda(precio);
+
+        }
+
+    });
+
 }
 
 function obtenerEnlaceCarrito() {
@@ -1234,7 +1493,7 @@ function mostrarCarrito() {
                     <strong class="nombre-producto"></strong>
 
                     <span>
-                        C$ ${producto.precio.toLocaleString()}
+                        ${formatoMoneda(producto.precio)}
                     </span>
 
                 </div>
@@ -1265,7 +1524,7 @@ function mostrarCarrito() {
 
                 <div class="subtotal">
 
-                    C$ ${subtotal.toLocaleString()}
+                    ${formatoMoneda(subtotal)}
 
                 </div>
 
@@ -1295,7 +1554,7 @@ function mostrarCarrito() {
 
 
     totalCarrito.textContent =
-        total.toLocaleString();
+        formatoMoneda(total);
 
     actualizarResumenCarrito();
 
