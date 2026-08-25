@@ -2912,7 +2912,7 @@ header,
     position: fixed;
     right: 20px;
     bottom: 166px;
-    z-index: 9996;
+    z-index: 1000000001;
 }
 
 .asistente-boton {

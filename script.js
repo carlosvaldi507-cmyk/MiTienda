@@ -2802,13 +2802,75 @@ function crearAsistenteVirtual() {
 
     }
 
+    const productosDisponibles = Array.from(
+        document.querySelectorAll(".producto")
+    ).map(function (producto) {
+
+        const nombre = producto.querySelector("h3")?.textContent.trim() || "";
+        const descripcion = producto.querySelector("p")?.textContent.trim() || "";
+        const precio = producto.querySelector("strong")?.textContent.trim() || "";
+
+        return {
+            nombre: nombre,
+            descripcion: descripcion,
+            precio: precio,
+            busqueda: nombre.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+        };
+
+    });
+
     function responderConsulta(consulta) {
 
         const texto = consulta.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
+        const productoConsultado = productosDisponibles.find(function (producto) {
+
+            return producto.busqueda && texto.includes(producto.busqueda);
+
+        });
+
+        if (/^(hola|buenas|buen dia|buenos dias|buenas tardes|buenas noches)/.test(texto)) {
+
+            agregarMensaje("Hola. Estoy listo para ayudarte con productos, precios, compras y tu carrito.", "mensaje-asistente");
+            return;
+
+        }
+
+        if (texto.includes("gracias")) {
+
+            agregarMensaje("Con gusto. Si necesitas algo mas, aqui estoy.", "mensaje-asistente");
+            return;
+
+        }
+
+        if (texto.includes("quien eres") || texto.includes("que eres") || texto.includes("asistente")) {
+
+            agregarMensaje("Soy el asistente virtual de Mi Tienda. Puedo darte informacion del catalogo y guiarte durante tu compra.", "mensaje-asistente");
+            return;
+
+        }
+
+        if (productoConsultado) {
+
+            agregarMensaje(
+                productoConsultado.nombre + ": " + productoConsultado.descripcion + " Precio: " + productoConsultado.precio + ". Puedes agregarlo al carrito desde su tarjeta.",
+                "mensaje-asistente"
+            );
+            return;
+
+        }
+
         if (texto.includes("carrito")) {
 
             agregarMensaje("Abro tu carrito para que revises tus productos.", "mensaje-asistente");
+            abrirCarrito();
+            return;
+
+        }
+
+        if (texto.includes("quitar") || texto.includes("eliminar") || texto.includes("borrar")) {
+
+            agregarMensaje("Abre el carrito para disminuir cantidades o eliminar un producto de tu pedido.", "mensaje-asistente");
             abrirCarrito();
             return;
 
@@ -2838,6 +2900,20 @@ function crearAsistenteVirtual() {
         if (texto.includes("pago") || texto.includes("transferencia")) {
 
             agregarMensaje("Escríbenos por WhatsApp al finalizar el pedido; allí te confirmaremos los métodos de pago disponibles.", "mensaje-asistente");
+            return;
+
+        }
+
+        if (texto.includes("whatsapp") || texto.includes("contacto") || texto.includes("telefono") || texto.includes("hablar")) {
+
+            agregarMensaje("Puedes escribirnos desde el boton flotante de WhatsApp o finalizar tu compra desde el carrito para enviarnos el pedido.", "mensaje-asistente");
+            return;
+
+        }
+
+        if (texto.includes("horario") || texto.includes("abierto") || texto.includes("garantia") || texto.includes("devolucion")) {
+
+            agregarMensaje("Para confirmar esa informacion de forma exacta, escribenos por WhatsApp. Asi podremos darte una respuesta actualizada para tu caso.", "mensaje-asistente");
             return;
 
         }

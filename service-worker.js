@@ -1,4 +1,4 @@
-const CACHE_VERSION = "mi-tienda-v8";
+const CACHE_VERSION = "mi-tienda-v9";
 
 const ARCHIVOS = [
     "./",
