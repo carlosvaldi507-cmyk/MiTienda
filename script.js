@@ -651,20 +651,23 @@ function formatoMoneda(
 // CAMBIAR PAÍS
 // =====================================================
 
-function cambiarPais(
-    codigoPais
-) {
+// =====================================================
+// CAMBIAR PAÍS / MONEDA
+// =====================================================
 
+function cambiarPais(codigoPais) {
+
+    // Verificar que la moneda exista
     if (
-        !configuracionMonedas[
-            codigoPais
-        ]
+        !configuracionMonedas[codigoPais]
     ) {
-
         return;
-
     }
 
+
+    // =================================================
+    // ACTUALIZAR SISTEMA PRINCIPAL
+    // =================================================
 
     paisSeleccionado =
         codigoPais;
@@ -676,11 +679,54 @@ function cambiarPais(
     );
 
 
+    // =================================================
+    // SINCRONIZAR SISTEMA INTERNACIONAL
+    // =================================================
+
+    if (
+        window.MiTiendaInternacional &&
+        typeof window.MiTiendaInternacional.cambiarPais ===
+        "function"
+    ) {
+
+        window.MiTiendaInternacional.cambiarPais(
+            codigoPais
+        );
+
+    }
+
+
+    // =================================================
+    // ACTUALIZAR SELECTOR
+    // =================================================
+
     actualizarSelectorMoneda();
+
+
+    // =================================================
+    // ACTUALIZAR PRECIOS DE PRODUCTOS
+    // =================================================
 
     actualizarPreciosPagina();
 
-    mostrarCarrito();
+
+    // =================================================
+    // ACTUALIZAR CARRITO
+    // =================================================
+
+    if (
+        typeof mostrarCarrito ===
+        "function"
+    ) {
+
+        mostrarCarrito();
+
+    }
+
+
+    // =================================================
+    // ACTUALIZAR CONTADOR
+    // =================================================
 
     actualizarContador();
 
@@ -980,11 +1026,19 @@ function obtenerCantidadCarrito() {
 // CONTADOR
 // =====================================================
 
+// =====================================================
+// CONTADOR Y VISIBILIDAD DEL CARRITO FLOTANTE
+// =====================================================
+
 function actualizarContador() {
 
     const cantidad =
         obtenerCantidadCarrito();
 
+
+    // =================================================
+    // CONTADOR DEL CARRITO PRINCIPAL
+    // =================================================
 
     const contador =
         document.getElementById(
@@ -1000,23 +1054,73 @@ function actualizarContador() {
     }
 
 
+    // =================================================
+    // CONTADOR DEL CARRITO FLOTANTE
+    // =================================================
+
     const contadorFlotante =
         document.getElementById(
             "contador-carrito-flotante"
         );
 
 
-    if (
-        contadorFlotante
-    ) {
+    if (contadorFlotante) {
 
         contadorFlotante.textContent =
             cantidad;
 
     }
 
-}
 
+    // =================================================
+    // MOSTRAR / OCULTAR CARRITO FLOTANTE
+    // =================================================
+
+    const carritoFlotante =
+        document.getElementById(
+            "carrito-flotante"
+        );
+
+
+    if (carritoFlotante) {
+
+        if (cantidad > 0) {
+
+            // Hay productos:
+            // mostrar carrito flotante
+
+            carritoFlotante.style.setProperty(
+                "display",
+                "flex",
+                "important"
+            );
+
+            carritoFlotante.setAttribute(
+                "aria-hidden",
+                "false"
+            );
+
+        } else {
+
+            // No hay productos:
+            // ocultar carrito flotante
+
+            carritoFlotante.style.setProperty(
+                "display",
+                "none",
+                "important"
+            );
+
+            carritoFlotante.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+        }
+
+    }
+
+}
 
 // =====================================================
 // CARRITO COMPARTIDO
@@ -7168,13 +7272,7 @@ if (
         }
 
 
-        carrito.style.setProperty(
-            "display",
-            "flex",
-            "important"
-        );
-
-
+       
         carrito.style.setProperty(
             "align-items",
             "center",

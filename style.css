@@ -5493,3 +5493,44 @@ nav a:hover::after,
     }
 
 }
+
+/* =====================================================
+   CORRECCIÓN DEFINITIVA - BOTONES AGREGAR AL CARRITO
+===================================================== */
+
+.agregar-carrito::before,
+.agregar-carrito::after {
+
+    content: none !important;
+
+}
+
+
+.agregar-carrito {
+
+    position: relative;
+
+}
+
+
+.agregar-carrito > span {
+
+    display: inline;
+
+}
+
+/* =====================================================
+   ELIMINAR SEGUNDO ICONO DEL BOTÓN AGREGAR AL CARRITO
+===================================================== */
+
+.agregar-carrito .icono-carrito-unico {
+    display: none !important;
+}
+
+
+/* Evitar iconos adicionales creados por CSS */
+
+.agregar-carrito::before,
+.agregar-carrito::after {
+    content: none !important;
+}
