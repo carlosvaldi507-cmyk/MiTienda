@@ -675,7 +675,66 @@
 
 </a>
 
+<!-- =====================================================
+     CARRITO FLOTANTE
+====================================================== -->
 
+<button
+    id="carrito-flotante"
+    class="carrito-flotante"
+    type="button"
+    aria-label="Abrir carrito"
+>
+
+    <span class="icono-carrito-flotante">
+        🛒
+    </span>
+
+    <span
+        id="contador-carrito-flotante"
+        class="contador-carrito-flotante"
+    >
+        0
+    </span>
+
+</button>
+
+
+<!-- =====================================================
+     NOTIFICACIÓN DE PRODUCTO AGREGADO
+====================================================== -->
+
+<div
+    id="notificacion-carrito"
+    class="notificacion-carrito"
+    role="status"
+    aria-live="polite"
+>
+
+    <div class="notificacion-icono">
+        ✓
+    </div>
+
+    <div class="notificacion-texto">
+
+        <strong>
+            Producto agregado
+        </strong>
+
+        <span id="nombre-producto-agregado">
+            Producto
+        </span>
+
+    </div>
+
+    <button
+        id="ver-carrito-notificacion"
+        type="button"
+    >
+        Ver carrito
+    </button>
+
+</div>
 
 <!-- =====================================================
      FOOTER
@@ -907,7 +966,7 @@
      REGISTRO DE LA PWA
 ====================================================== -->
 
-<script>
+<script type="text/plain" data-deprecated="El Service Worker se registra desde script.js">
 
 if ("serviceWorker" in navigator) {
 

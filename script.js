@@ -8,9 +8,74 @@
 // CARRITO
 // =====================================================
 
-let carrito = JSON.parse(
-    localStorage.getItem("carrito")
-) || [];
+function normalizarCarrito(valor) {
+
+    if (!Array.isArray(valor)) {
+
+        return [];
+
+    }
+
+    return valor.reduce(
+        function (productosValidos, producto) {
+
+            const precio = Number(producto?.precio);
+            const cantidad = Number(producto?.cantidad);
+            const cantidadNormalizada = Math.floor(cantidad);
+
+            if (
+                typeof producto?.nombre !== "string" ||
+                !Number.isFinite(precio) ||
+                !Number.isFinite(cantidad) ||
+                cantidadNormalizada <= 0
+            ) {
+
+                return productosValidos;
+
+            }
+
+            productosValidos.push({
+
+                nombre: producto.nombre,
+                precio: precio,
+                cantidad: cantidadNormalizada
+
+            });
+
+            return productosValidos;
+
+        },
+        []
+    );
+
+}
+
+
+function obtenerCarritoGuardado() {
+
+    try {
+
+        return normalizarCarrito(
+            JSON.parse(
+                localStorage.getItem("carrito")
+            )
+        );
+
+    } catch (error) {
+
+        console.warn(
+            "No se pudo leer el carrito guardado.",
+            error
+        );
+
+        return [];
+
+    }
+
+}
+
+
+let carrito = obtenerCarritoGuardado();
 
 
 // =====================================================
@@ -19,10 +84,21 @@ let carrito = JSON.parse(
 
 function guardarCarrito() {
 
-    localStorage.setItem(
-        "carrito",
-        JSON.stringify(carrito)
-    );
+    try {
+
+        localStorage.setItem(
+            "carrito",
+            JSON.stringify(carrito)
+        );
+
+    } catch (error) {
+
+        console.error(
+            "No se pudo guardar el carrito.",
+            error
+        );
+
+    }
 
 }
 
@@ -1038,9 +1114,7 @@ function mostrarCarrito() {
 
                 <div class="info-producto">
 
-                    <strong>
-                        ${producto.nombre}
-                    </strong>
+                    <strong class="nombre-producto"></strong>
 
                     <span>
                         C$ ${producto.precio.toLocaleString()}
@@ -1088,6 +1162,11 @@ function mostrarCarrito() {
                 </button>
 
             `;
+
+
+            item.querySelector(
+                ".nombre-producto"
+            ).textContent = producto.nombre;
 
 
             listaCarrito.appendChild(
@@ -1215,7 +1294,7 @@ if (finalizarCompra) {
 
 
             let mensaje =
-                "Hola, quiero realizar el siguiente pedido:%0A%0A";
+                "Hola, quiero realizar el siguiente pedido:\n\n";
 
 
             let total = 0;
@@ -1239,14 +1318,14 @@ if (finalizarCompra) {
                         producto.cantidad +
                         " - C$ " +
                         subtotal.toLocaleString() +
-                        "%0A";
+                        "\n";
 
                 }
             );
 
 
             mensaje +=
-                "%0ATotal: C$ " +
+                "\nTotal: C$ " +
                 total.toLocaleString();
 
 
@@ -1258,7 +1337,7 @@ if (finalizarCompra) {
                 "https://wa.me/" +
                 numero +
                 "?text=" +
-                mensaje;
+                encodeURIComponent(mensaje);
 
 
             window.open(
@@ -2561,12 +2640,7 @@ window.addEventListener(
             "carrito"
         ) {
 
-            carrito =
-                JSON.parse(
-                    localStorage.getItem(
-                        "carrito"
-                    )
-                ) || [];
+            carrito = obtenerCarritoGuardado();
 
 
             actualizarContador();

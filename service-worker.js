@@ -1,4 +1,4 @@
-const CACHE_NAME = "mi-tienda-v1";
+const CACHE_VERSION = "mi-tienda-v4";
 
 const ARCHIVOS = [
     "./",
@@ -12,12 +12,19 @@ const ARCHIVOS = [
     "./icon-512.png"
 ];
 
-self.addEventListener("install", function(evento) {
 
-    evento.waitUntil(
+// =====================================================
+// INSTALACIÓN
+// =====================================================
 
-        caches.open(CACHE_NAME)
-            .then(function(cache) {
+self.addEventListener("install", event => {
+
+    self.skipWaiting();
+
+    event.waitUntil(
+
+        caches.open(CACHE_VERSION)
+            .then(cache => {
 
                 return cache.addAll(ARCHIVOS);
 
@@ -28,49 +35,82 @@ self.addEventListener("install", function(evento) {
 });
 
 
-self.addEventListener("activate", function(evento) {
+// =====================================================
+// ACTIVAR NUEVA VERSIÓN
+// =====================================================
 
-    evento.waitUntil(
+self.addEventListener("activate", event => {
 
-        caches.keys().then(function(claves) {
+    event.waitUntil(
 
-            return Promise.all(
+        caches.keys()
+            .then(keys => {
 
-                claves
-                    .filter(function(clave) {
+                return Promise.all(
 
-                        return clave !== CACHE_NAME;
+                    keys
+                        .filter(key => key !== CACHE_VERSION)
+                        .map(key => caches.delete(key))
 
-                    })
-                    .map(function(clave) {
+                );
 
-                        return caches.delete(clave);
+            })
+            .then(() => {
 
-                    })
+                return self.clients.claim();
 
-            );
-
-        })
+            })
 
     );
 
 });
 
 
-self.addEventListener("fetch", function(evento) {
+// =====================================================
+// RESPUESTAS
+// =====================================================
 
-    evento.respondWith(
+self.addEventListener("fetch", event => {
 
-        caches.match(evento.request)
-            .then(function(respuesta) {
+    if (event.request.method !== "GET") {
 
-                if (respuesta) {
+        return;
 
-                    return respuesta;
+    }
+
+    event.respondWith(
+
+        fetch(event.request)
+            .then(response => {
+
+                const copia = response.clone();
+
+                if (!response.ok) {
+
+                    return response;
 
                 }
 
-                return fetch(evento.request);
+                event.waitUntil(
+                    caches.open(CACHE_VERSION)
+                        .then(cache => {
+
+                            return cache.put(
+                                event.request,
+                                copia
+                            );
+
+                        })
+                );
+
+                return response;
+
+            })
+            .catch(() => {
+
+                return caches.match(
+                    event.request
+                );
 
             })
 

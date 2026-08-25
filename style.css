@@ -2714,3 +2714,62 @@ header,
     }
 
 }
+
+/* =====================================================
+   BOTONES FLOTANTES
+===================================================== */
+
+/* CARRITO */
+
+.carrito-flotante {
+
+    position: fixed !important;
+
+    right: 20px !important;
+
+    bottom: 92px !important;
+
+    z-index: 9998 !important;
+
+}
+
+
+/* WHATSAPP */
+
+.whatsapp-flotante {
+
+    position: fixed !important;
+
+    right: 20px !important;
+
+    bottom: 20px !important;
+
+    z-index: 9997 !important;
+
+}
+
+
+/* =====================================================
+   MÓVIL
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .carrito-flotante {
+
+        right: 15px !important;
+
+        bottom: 82px !important;
+
+    }
+
+
+    .whatsapp-flotante {
+
+        right: 15px !important;
+
+        bottom: 15px !important;
+
+    }
+
+}
