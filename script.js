@@ -1369,7 +1369,7 @@ function actualizarResumenCarrito() {
         <button id="vaciar-carrito" class="vaciar-carrito" type="button" ${carrito.length ? "" : "disabled"}>Vaciar carrito</button>
         <button id="compartir-carrito" class="compartir-carrito" type="button" ${carrito.length ? "" : "disabled"}>↗ Compartir este carrito</button>
     `;
-    totalCarrito.textContent = datos.total.toLocaleString("es-NI");
+    totalCarrito.textContent = formatoMoneda(datos.total);
 
     document.getElementById("aplicar-cupon").addEventListener("click", function () {
         const codigo = document.getElementById("codigo-cupon").value.trim().toUpperCase();
@@ -2994,24 +2994,15 @@ if (
 
 function iniciarTienda() {
 
-    // Crear carrito flotante
-
     crearCarritoFlotante();
 
-
-    // Crear asistente virtual gratuito
-
     crearAsistenteVirtual();
-
-
-    // Configurar botones
 
     configurarBotonesAgregar();
 
     configurarExploradorProductos();
 
-
-    // Actualizar contador
+    actualizarPreciosPagina();
 
     actualizarContador();
 
