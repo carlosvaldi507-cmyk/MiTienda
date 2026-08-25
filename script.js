@@ -2576,6 +2576,11 @@ function iniciarTienda() {
     crearCarritoFlotante();
 
 
+    // Crear asistente virtual gratuito
+
+    crearAsistenteVirtual();
+
+
     // Configurar botones
 
     configurarBotonesAgregar();
@@ -2714,5 +2719,180 @@ if (
 
         }
     );
+
+}
+
+
+// =====================================================
+// ASISTENTE VIRTUAL GRATUITO
+// =====================================================
+
+function crearAsistenteVirtual() {
+
+    if (document.getElementById("asistente-virtual")) {
+
+        return;
+
+    }
+
+    const asistente = document.createElement("section");
+
+    asistente.id = "asistente-virtual";
+    asistente.className = "asistente-virtual";
+    asistente.innerHTML = `
+        <button class="asistente-boton" type="button" aria-label="Abrir asistente virtual" aria-expanded="false">
+            <span aria-hidden="true">✦</span>
+            <span class="asistente-boton-texto">Ayuda</span>
+        </button>
+        <div class="asistente-panel" aria-hidden="true">
+            <div class="asistente-encabezado">
+                <div>
+                    <strong>Asistente de Mi Tienda</strong>
+                    <span><i></i> En línea para ayudarte</span>
+                </div>
+                <button class="asistente-cerrar" type="button" aria-label="Cerrar asistente">×</button>
+            </div>
+            <div class="asistente-mensajes" aria-live="polite">
+                <p class="mensaje-asistente">¡Hola! 👋 Puedo ayudarte a encontrar productos, explicarte cómo comprar o abrir tu carrito.</p>
+            </div>
+            <div class="asistente-sugerencias">
+                <button type="button" data-consulta="¿Cómo compro?">Cómo comprar</button>
+                <button type="button" data-consulta="Ver carrito">Ver carrito</button>
+                <button type="button" data-consulta="¿Qué productos tienen?">Productos</button>
+            </div>
+            <form class="asistente-formulario">
+                <label class="sr-only" for="asistente-consulta">Escribe tu consulta</label>
+                <input id="asistente-consulta" type="text" maxlength="180" placeholder="Escribe tu consulta…" autocomplete="off">
+                <button type="submit" aria-label="Enviar consulta">➜</button>
+            </form>
+        </div>
+    `;
+
+    document.body.appendChild(asistente);
+
+    const boton = asistente.querySelector(".asistente-boton");
+    const panel = asistente.querySelector(".asistente-panel");
+    const cerrar = asistente.querySelector(".asistente-cerrar");
+    const formulario = asistente.querySelector(".asistente-formulario");
+    const entrada = asistente.querySelector("#asistente-consulta");
+    const mensajes = asistente.querySelector(".asistente-mensajes");
+
+    function cambiarEstado(abierto) {
+
+        asistente.classList.toggle("abierto", abierto);
+        boton.setAttribute("aria-expanded", String(abierto));
+        panel.setAttribute("aria-hidden", String(!abierto));
+
+        if (abierto) {
+
+            entrada.focus();
+
+        }
+
+    }
+
+    function agregarMensaje(texto, clase) {
+
+        const mensaje = document.createElement("p");
+
+        mensaje.className = clase;
+        mensaje.textContent = texto;
+        mensajes.appendChild(mensaje);
+        mensajes.scrollTop = mensajes.scrollHeight;
+
+    }
+
+    function responderConsulta(consulta) {
+
+        const texto = consulta.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+        if (texto.includes("carrito")) {
+
+            agregarMensaje("Abro tu carrito para que revises tus productos.", "mensaje-asistente");
+            abrirCarrito();
+            return;
+
+        }
+
+        if (texto.includes("compr") || texto.includes("pedido")) {
+
+            agregarMensaje("Elige un producto, pulsa “Agregar al carrito” y después finaliza tu compra por WhatsApp desde el carrito.", "mensaje-asistente");
+            return;
+
+        }
+
+        if (texto.includes("precio") || texto.includes("cuanto") || texto.includes("costo")) {
+
+            agregarMensaje("Cada producto muestra su precio en la tarjeta. Agrégalo al carrito para ver el total de tu pedido.", "mensaje-asistente");
+            return;
+
+        }
+
+        if (texto.includes("envio") || texto.includes("entrega") || texto.includes("direccion")) {
+
+            agregarMensaje("Para confirmar opciones de entrega, finaliza el pedido por WhatsApp y comparte tu dirección con nosotros.", "mensaje-asistente");
+            return;
+
+        }
+
+        if (texto.includes("pago") || texto.includes("transferencia")) {
+
+            agregarMensaje("Escríbenos por WhatsApp al finalizar el pedido; allí te confirmaremos los métodos de pago disponibles.", "mensaje-asistente");
+            return;
+
+        }
+
+        if (texto.includes("producto") || texto.includes("catalogo") || texto.includes("tienen")) {
+
+            agregarMensaje("Puedes explorar los productos disponibles en esta página o abrir el catálogo completo desde el menú.", "mensaje-asistente");
+            return;
+
+        }
+
+        agregarMensaje("Puedo orientarte sobre productos, compras, precios, pagos, envíos y el carrito. ¿Qué necesitas saber?", "mensaje-asistente");
+
+    }
+
+    boton.addEventListener("click", function () {
+
+        cambiarEstado(!asistente.classList.contains("abierto"));
+
+    });
+
+    cerrar.addEventListener("click", function () {
+
+        cambiarEstado(false);
+
+    });
+
+    formulario.addEventListener("submit", function (evento) {
+
+        evento.preventDefault();
+
+        const consulta = entrada.value.trim();
+
+        if (!consulta) {
+
+            return;
+
+        }
+
+        agregarMensaje(consulta, "mensaje-cliente");
+        entrada.value = "";
+        responderConsulta(consulta);
+
+    });
+
+    asistente.querySelectorAll("[data-consulta]").forEach(function (sugerencia) {
+
+        sugerencia.addEventListener("click", function () {
+
+            const consulta = sugerencia.dataset.consulta;
+            agregarMensaje(consulta, "mensaje-cliente");
+            responderConsulta(consulta);
+
+        });
+
+    });
 
 }
