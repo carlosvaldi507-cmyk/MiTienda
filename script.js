@@ -12,6 +12,27 @@ const NUMERO_WHATSAPP = "50576823472";
 
 const MONTO_ENVIO_GRATIS = 5000;
 
+// =====================================================
+// FORMATO DE PRECIOS EN CÓRDOBAS
+// =====================================================
+
+function formatoMoneda(precio) {
+
+    const numero = Number(precio);
+
+    if (!Number.isFinite(numero)) {
+        return "C$ 0.00";
+    }
+
+    return "C$ " + numero.toLocaleString(
+        "es-NI",
+        {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }
+    );
+
+}
 
 // =====================================================
 // CARRITO
@@ -2603,64 +2624,6 @@ function configurarMenuIdiomas() {
 // CARRITO Y RESUMEN
 // =====================================================
 
-function corregirSimboloDuplicado() {
-
-    const total =
-        document.getElementById(
-            "total-carrito"
-        );
-
-
-    if (!total) {
-
-        return;
-
-    }
-
-
-    const contenedor =
-        total.parentElement;
-
-
-    if (!contenedor) {
-
-        return;
-
-    }
-
-
-    Array.from(
-        contenedor.childNodes
-    )
-    .forEach(
-        function (nodo) {
-
-            if (
-                nodo.nodeType ===
-                Node.TEXT_NODE
-            ) {
-
-                const texto =
-                    nodo.textContent.trim();
-
-
-                if (
-                    /^(C\$|US\$|CA\$|MX\$|COP\$|R\$|B\/\.|₡|Q|L|€|£|¥|NT\$|HK\$)\s*$/
-                        .test(
-                            texto
-                        )
-                ) {
-
-                    nodo.remove();
-
-                }
-
-            }
-
-        }
-    );
-
-}
 
 
 // =====================================================
@@ -3069,8 +3032,6 @@ function actualizarResumenCarrito() {
         );
 
 
-    corregirSimboloDuplicado();
-
 
     const botonCupon =
         document.getElementById(
@@ -3352,8 +3313,7 @@ function mostrarCarrito() {
 
         actualizarResumenCarrito();
 
-        corregirSimboloDuplicado();
-
+    
         return;
 
     }
@@ -5195,8 +5155,8 @@ function crearAsistenteVirtual() {
             agregarMensaje(
 
                 idiomaActual === "zh"
-                    ? "每个产品都会显示价格。您也可以更改国家/货币来查看换算后的价格。"
-                    : "Cada producto muestra su precio. También puedes cambiar el país y la moneda para ver la conversión.",
+                    ? "每个产品都显示尼加拉瓜科多巴的价格。您可以将产品加入购物车，然后通过 WhatsApp 完成购买。"
+                    : "Cada producto muestra su precio en córdobas nicaragüenses. Puedes agregarlo al carrito y finalizar tu compra por WhatsApp.",
 
                 "mensaje-asistente"
 
@@ -5675,36 +5635,7 @@ window.addEventListener(
         }
 
 
-        if (
-            evento.key ===
-            "paisMiTienda"
-        ) {
-
-            paisSeleccionado =
-                evento.newValue ||
-                "NI";
-
-
-            if (
-                !configuracionMonedas[
-                    paisSeleccionado
-                ]
-            ) {
-
-                paisSeleccionado =
-                    "NI";
-
-            }
-
-
-            actualizarSelectorMoneda();
-
-            actualizarPreciosPagina();
-
-            mostrarCarrito();
-
-        }
-
+    
 
         if (
             evento.key ===
@@ -5752,8 +5683,7 @@ function iniciarTienda() {
     );
 
 
-    actualizarPreciosPagina();
-
+    
 
     actualizarContador();
 
@@ -5761,8 +5691,7 @@ function iniciarTienda() {
     mostrarCarrito();
 
 
-    actualizarSelectorMoneda();
-
+    
 }
 
 
