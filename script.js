@@ -161,6 +161,32 @@ function actualizarContador() {
 // CREAR CARRITO FLOTANTE
 // =====================================================
 
+function configurarControlesCarritoFlotante() {
+
+    const botonFlotante = document.getElementById("carrito-flotante");
+    const botonVerCarrito = document.getElementById("ver-carrito-notificacion");
+
+    if (botonFlotante && botonFlotante.dataset.carritoConfigurado !== "true") {
+
+        botonFlotante.dataset.carritoConfigurado = "true";
+        botonFlotante.addEventListener("click", abrirCarrito);
+
+    }
+
+    if (botonVerCarrito && botonVerCarrito.dataset.carritoConfigurado !== "true") {
+
+        botonVerCarrito.dataset.carritoConfigurado = "true";
+        botonVerCarrito.addEventListener("click", function () {
+
+            abrirCarrito();
+            ocultarNotificacion();
+
+        });
+
+    }
+
+}
+
 function crearCarritoFlotante() {
 
     // Evitar duplicarlo
@@ -170,6 +196,9 @@ function crearCarritoFlotante() {
             "carrito-flotante"
         )
     ) {
+
+        configurarControlesCarritoFlotante();
+        actualizarContador();
 
         return;
 
@@ -654,6 +683,7 @@ function crearCarritoFlotante() {
         </div>
 
         <button
+            id="ver-carrito-notificacion"
             type="button"
             class="ver-carrito-notificacion"
         >
@@ -668,40 +698,7 @@ function crearCarritoFlotante() {
     );
 
 
-    // =================================================
-    // ABRIR CARRITO
-    // =================================================
-
-    boton.addEventListener(
-        "click",
-        function () {
-
-            abrirCarrito();
-
-        }
-    );
-
-
-    // =================================================
-    // VER CARRITO
-    // =================================================
-
-    const verCarrito =
-        notificacion.querySelector(
-            ".ver-carrito-notificacion"
-        );
-
-
-    verCarrito.addEventListener(
-        "click",
-        function () {
-
-            abrirCarrito();
-
-            ocultarNotificacion();
-
-        }
-    );
+    configurarControlesCarritoFlotante();
 
 
     actualizarContador();
