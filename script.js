@@ -2656,13 +2656,41 @@ if (
     "serviceWorker" in navigator
 ) {
 
+    let recargaPorActualizacion = false;
+
+    navigator.serviceWorker.addEventListener(
+        "controllerchange",
+        function () {
+
+            if (recargaPorActualizacion) {
+
+                return;
+
+            }
+
+            recargaPorActualizacion = true;
+            window.location.reload();
+
+        }
+    );
+
     window.addEventListener(
         "load",
         function () {
 
             navigator.serviceWorker
                 .register(
-                    "./service-worker.js"
+                    "./service-worker.js",
+                    {
+                        updateViaCache: "none"
+                    }
+                )
+                .then(
+                    function (registro) {
+
+                        return registro.update();
+
+                    }
                 )
                 .then(
                     function () {
