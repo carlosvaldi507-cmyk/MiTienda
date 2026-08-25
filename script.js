@@ -5652,6 +5652,104 @@ window.addEventListener(
     }
 );
 
+// =====================================================
+// MOSTRAR PRODUCTOS DESDE productos.js
+// =====================================================
+
+function mostrarProductos() {
+
+    const contenedor =
+        document.getElementById(
+            "lista-productos"
+        );
+
+
+    if (!contenedor) {
+        return;
+    }
+
+
+    contenedor.innerHTML = "";
+
+
+    productos.forEach(function(producto) {
+
+
+        const tarjeta =
+        document.createElement("article");
+
+
+        tarjeta.className =
+            "producto";
+
+
+        tarjeta.innerHTML = `
+
+            <div class="producto-imagen">
+
+                <span>
+                    ${producto.imagen}
+                </span>
+
+            </div>
+
+
+            <div class="producto-info">
+
+
+                <span class="producto-categoria">
+                    ${producto.categoria}
+                </span>
+
+
+                <h3>
+                    ${producto.nombre}
+                </h3>
+
+
+                <p>
+                    ${producto.descripcion}
+                </p>
+
+
+                <strong>
+                    C$ ${producto.precio.toLocaleString()}
+                </strong>
+
+
+                <button
+                    type="button"
+                    class="agregar-carrito"
+                    data-nombre="${producto.nombre}"
+                    data-precio="${producto.precio}"
+                >
+
+                    🛒
+                    <span>
+                        Agregar al carrito
+                    </span>
+
+                </button>
+
+
+            </div>
+
+        `;
+
+
+        contenedor.appendChild(
+            tarjeta
+        );
+
+
+    });
+
+
+    configurarBotonesAgregar();
+
+}
+
+
 
 // =====================================================
 // INICIALIZACIÓN
@@ -5683,7 +5781,7 @@ function iniciarTienda() {
     );
 
 
-    
+    mostrarProductos();
 
     actualizarContador();
 
