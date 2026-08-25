@@ -3384,3 +3384,22 @@ nav a:hover,
 .footer-final {
     background: #040f16;
 }
+
+/* Mejoras de compra: filtros, favoritos, cupones y checkout */
+.herramientas-catalogo { max-width: 1180px; margin: 0 auto 25px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.chips-categorias { display:flex; gap:8px; flex-wrap:wrap; }
+.chips-categorias button, .ordenar-productos select { border:1px solid rgba(42,198,187,.35); border-radius:999px; padding:8px 13px; color:#dff7f5; background:#103d4c; font:inherit; cursor:pointer; }
+.chips-categorias button.activo { background:var(--turquesa); color:#052b33; border-color:var(--turquesa); font-weight:800; }
+.ordenar-productos { color:#bcd2d8; display:flex; align-items:center; gap:8px; font-size:.9rem; }
+.ordenar-productos select { border-radius:8px; color:#eaf8f8; }
+.producto-imagen { position:relative; }
+.favorito-producto { position:absolute; right:12px; top:12px; width:38px; height:38px; border:0; border-radius:50%; background:rgba(255,255,255,.94); color:#0b5669; font-size:24px; line-height:1; box-shadow:0 5px 14px rgba(0,0,0,.2); cursor:pointer; }
+.favorito-producto.activo { color:#e14c65; }
+.resumen-compra { margin-top:18px; color:#1b3d4a; }
+.beneficio-envio { background:#eef7f7; border:1px solid #c7e8e4; padding:11px 13px; border-radius:10px; font-size:.88rem; }
+.beneficio-envio.completo { background:#e9f9ef; border-color:#a7dfb6; color:#167540; font-weight:700; }
+.beneficio-envio > div { height:7px; margin-top:8px; border-radius:99px; overflow:hidden; background:#d5e5e6; }.beneficio-envio i { display:block; height:100%; border-radius:inherit; background:#20a99e; }
+.cupon-compra { margin-top:14px; }.cupon-compra label { display:block; font-weight:700; font-size:.9rem; margin-bottom:6px; }.cupon-compra > div { display:flex; gap:8px; }.cupon-compra input { min-width:0; flex:1; padding:10px; border:1px solid #cddade; border-radius:8px; text-transform:uppercase; }.cupon-compra button { padding:0 14px; border:0; border-radius:8px; background:#0d5c72; color:#fff; font-weight:700; cursor:pointer; }.cupon-compra small { display:block; margin-top:6px; color:#55717b; }
+.desglose-compra { display:grid; gap:6px; margin-top:13px; font-size:.92rem; }.desglose-compra span { display:flex; justify-content:space-between; }.desglose-compra .descuento { color:#16804a; }.vaciar-carrito { border:0; background:transparent; color:#a13b46; text-decoration:underline; padding:10px 0 0; cursor:pointer; }.vaciar-carrito:disabled { opacity:.45; cursor:not-allowed; }
+.checkout-datos { display:none; position:fixed; inset:0; z-index:100000000; overflow:auto; padding:20px; background:rgba(3,15,22,.78); align-items:center; justify-content:center; backdrop-filter:blur(4px); }.checkout-datos.visible { display:flex; }.checkout-form { position:relative; width:min(100%,520px); padding:32px; border-radius:18px; background:#fff; color:#173546; box-shadow:0 20px 60px rgba(0,0,0,.38); }.checkout-form h2 { margin:5px 0 8px; color:#10374b; }.checkout-form > p { margin-top:0; color:#607980; font-size:.92rem; }.checkout-paso { color:#168d86; font-weight:800; font-size:.76rem; letter-spacing:.1em; }.checkout-form label { display:block; margin:13px 0 0; font-weight:700; font-size:.9rem; }.checkout-form input,.checkout-form textarea,.checkout-form select { display:block; box-sizing:border-box; width:100%; margin-top:6px; padding:11px; border:1px solid #cbdadd; border-radius:8px; color:#173546; font:inherit; }.checkout-form textarea { resize:vertical; }.checkout-cerrar { position:absolute; top:13px; right:13px; border:0; background:#edf2f3; border-radius:50%; width:32px; height:32px; font-size:21px; cursor:pointer; }.confirmar-pedido { width:100%; margin-top:20px; padding:13px; border:0; border-radius:9px; background:#25d366; color:#07371e; font:800 1rem inherit; cursor:pointer; }
+@media (max-width:600px) { .herramientas-catalogo { margin-inline:16px; }.ordenar-productos { width:100%; justify-content:space-between; }.checkout-form { padding:28px 20px 22px; }.cupon-compra > div { flex-wrap:wrap; }.cupon-compra button { padding:10px 14px; } }

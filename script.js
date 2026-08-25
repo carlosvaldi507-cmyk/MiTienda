@@ -77,6 +77,28 @@ function obtenerCarritoGuardado() {
 
 let carrito = obtenerCarritoGuardado();
 
+let cuponAplicado = localStorage.getItem("cuponMiTienda") || "";
+const MONTO_ENVIO_GRATIS = 5000;
+
+function obtenerResumenCompra() {
+
+    const subtotal = carrito.reduce(function (total, producto) {
+        return total + (producto.precio * producto.cantidad);
+    }, 0);
+    const descuento = cuponAplicado === "BIENVENIDA10" ? Math.round(subtotal * 0.10) : 0;
+
+    return {
+        subtotal: subtotal,
+        descuento: descuento,
+        total: Math.max(0, subtotal - descuento)
+    };
+
+}
+
+function formatoMoneda(valor) {
+    return "C$ " + Number(valor || 0).toLocaleString("es-NI");
+}
+
 
 // =====================================================
 // GUARDAR CARRITO
@@ -1033,6 +1055,61 @@ if (ventanaCarrito) {
 // MOSTRAR CARRITO
 // =====================================================
 
+function actualizarResumenCarrito() {
+    const contenido = document.querySelector(".carrito-contenido");
+    const totalCarrito = document.getElementById("total-carrito");
+    if (!contenido || !totalCarrito) return;
+
+    let resumen = document.getElementById("resumen-compra");
+    if (!resumen) {
+        resumen = document.createElement("section");
+        resumen.id = "resumen-compra";
+        resumen.className = "resumen-compra";
+        totalCarrito.closest(".total-carrito").before(resumen);
+    }
+
+    const datos = obtenerResumenCompra();
+    const faltante = Math.max(0, MONTO_ENVIO_GRATIS - datos.subtotal);
+    resumen.innerHTML = `
+        <div class="beneficio-envio ${faltante === 0 && datos.subtotal ? "completo" : ""}">
+            <span>${faltante === 0 && datos.subtotal ? "✓ Envío gratis desbloqueado" : "Te faltan " + formatoMoneda(faltante) + " para envío gratis"}</span>
+            <div><i style="width:${datos.subtotal ? Math.min(100, (datos.subtotal / MONTO_ENVIO_GRATIS) * 100) : 0}%"></i></div>
+        </div>
+        <div class="cupon-compra">
+            <label for="codigo-cupon">¿Tienes un cupón?</label>
+            <div><input id="codigo-cupon" type="text" value="${cuponAplicado}" placeholder="Ej. BIENVENIDA10" maxlength="20" autocomplete="off"><button id="aplicar-cupon" type="button">Aplicar</button></div>
+            <small id="mensaje-cupon">${cuponAplicado ? "Cupón BIENVENIDA10 aplicado: 10% de descuento." : "Usa BIENVENIDA10 y recibe 10% de descuento."}</small>
+        </div>
+        <div class="desglose-compra">
+            <span>Subtotal <b>${formatoMoneda(datos.subtotal)}</b></span>
+            ${datos.descuento ? `<span class="descuento">Descuento <b>− ${formatoMoneda(datos.descuento)}</b></span>` : ""}
+        </div>
+        <button id="vaciar-carrito" class="vaciar-carrito" type="button" ${carrito.length ? "" : "disabled"}>Vaciar carrito</button>
+    `;
+    totalCarrito.textContent = datos.total.toLocaleString("es-NI");
+
+    document.getElementById("aplicar-cupon").addEventListener("click", function () {
+        const codigo = document.getElementById("codigo-cupon").value.trim().toUpperCase();
+        const mensaje = document.getElementById("mensaje-cupon");
+        if (codigo === "BIENVENIDA10") {
+            cuponAplicado = codigo;
+            localStorage.setItem("cuponMiTienda", codigo);
+            actualizarResumenCarrito();
+        } else {
+            cuponAplicado = "";
+            localStorage.removeItem("cuponMiTienda");
+            mensaje.textContent = codigo ? "Ese cupón no es válido. Prueba BIENVENIDA10." : "Ingresa un cupón para aplicarlo.";
+        }
+    });
+    document.getElementById("vaciar-carrito").addEventListener("click", function () {
+        if (!carrito.length || !window.confirm("¿Quieres quitar todos los productos del carrito?")) return;
+        carrito = [];
+        guardarCarrito();
+        actualizarContador();
+        mostrarCarrito();
+    });
+}
+
 function mostrarCarrito() {
 
     const listaCarrito =
@@ -1076,6 +1153,8 @@ function mostrarCarrito() {
 
         totalCarrito.textContent =
             "0";
+
+        actualizarResumenCarrito();
 
 
         return;
@@ -1177,6 +1256,8 @@ function mostrarCarrito() {
     totalCarrito.textContent =
         total.toLocaleString();
 
+    actualizarResumenCarrito();
+
 }
 
 
@@ -1265,6 +1346,45 @@ function eliminarProducto(
 // FINALIZAR COMPRA POR WHATSAPP
 // =====================================================
 
+function abrirCheckout() {
+    if (!carrito.length) { alert("Tu carrito está vacío."); return; }
+    let checkout = document.getElementById("checkout-datos");
+    if (!checkout) {
+        checkout = document.createElement("div");
+        checkout.id = "checkout-datos";
+        checkout.className = "checkout-datos";
+        checkout.innerHTML = `<form class="checkout-form">
+            <button class="checkout-cerrar" type="button" aria-label="Cerrar">×</button>
+            <span class="checkout-paso">ÚLTIMO PASO</span><h2>¿Dónde entregamos tu pedido?</h2>
+            <p>Estos datos se incluirán en tu mensaje de WhatsApp para confirmar la compra.</p>
+            <label>Nombre completo<input name="nombre" required autocomplete="name" placeholder="Tu nombre"></label>
+            <label>Teléfono<input name="telefono" required inputmode="tel" autocomplete="tel" placeholder="Ej. 8888 8888"></label>
+            <label>Dirección de entrega<textarea name="direccion" required rows="3" placeholder="Barrio, ciudad y una referencia"></textarea></label>
+            <label>Método de entrega<select name="entrega"><option>Entrega a domicilio</option><option>Retiro en tienda</option></select></label>
+            <label>Nota para el pedido <input name="nota" maxlength="180" placeholder="Opcional"></label>
+            <button class="confirmar-pedido" type="submit">Continuar a WhatsApp</button>
+        </form>`;
+        document.body.appendChild(checkout);
+        checkout.querySelector(".checkout-cerrar").addEventListener("click", function () { checkout.classList.remove("visible"); });
+        checkout.addEventListener("click", function (evento) { if (evento.target === checkout) checkout.classList.remove("visible"); });
+        checkout.querySelector("form").addEventListener("submit", function (evento) {
+            evento.preventDefault();
+            if (!evento.currentTarget.reportValidity()) return;
+            const cliente = new FormData(evento.currentTarget), resumen = obtenerResumenCompra();
+            let mensaje = "Hola, quiero realizar el siguiente pedido:\n\n";
+            carrito.forEach(function (producto) { mensaje += "• " + producto.nombre + " x" + producto.cantidad + " - " + formatoMoneda(producto.precio * producto.cantidad) + "\n"; });
+            mensaje += "\nSubtotal: " + formatoMoneda(resumen.subtotal);
+            if (resumen.descuento) mensaje += "\nDescuento (" + cuponAplicado + "): -" + formatoMoneda(resumen.descuento);
+            mensaje += "\nTotal: " + formatoMoneda(resumen.total) + "\n\nDATOS DE ENTREGA\nNombre: " + cliente.get("nombre") + "\nTeléfono: " + cliente.get("telefono") + "\nEntrega: " + cliente.get("entrega") + "\nDirección: " + cliente.get("direccion");
+            if (cliente.get("nota")) mensaje += "\nNota: " + cliente.get("nota");
+            window.open("https://wa.me/50576823472?text=" + encodeURIComponent(mensaje), "_blank", "noopener");
+            checkout.classList.remove("visible");
+        });
+    }
+    checkout.classList.add("visible");
+    checkout.querySelector("input[name='nombre']").focus();
+}
+
 const finalizarCompra =
     document.getElementById(
         "finalizar-compra"
@@ -1276,6 +1396,9 @@ if (finalizarCompra) {
     finalizarCompra.addEventListener(
         "click",
         function () {
+
+            abrirCheckout();
+            return;
 
             if (
                 carrito.length === 0
@@ -2585,6 +2708,8 @@ function iniciarTienda() {
 
     configurarBotonesAgregar();
 
+    configurarExploradorProductos();
+
 
     // Actualizar contador
 
@@ -2720,6 +2845,39 @@ if (
         }
     );
 
+}
+
+function configurarExploradorProductos() {
+    const contenedor = document.querySelector(".productos-container");
+    if (!contenedor || document.getElementById("herramientas-catalogo")) return;
+    let favoritos;
+    try { favoritos = JSON.parse(localStorage.getItem("favoritosMiTienda")) || []; } catch (_) { favoritos = []; }
+    const tarjetas = Array.from(contenedor.querySelectorAll(".producto"));
+    const categorias = [...new Set(tarjetas.map(function (tarjeta) { return tarjeta.querySelector(".producto-categoria")?.textContent.trim(); }).filter(Boolean))];
+    const herramientas = document.createElement("div");
+    herramientas.id = "herramientas-catalogo";
+    herramientas.className = "herramientas-catalogo";
+    herramientas.innerHTML = `<div class="chips-categorias"><button type="button" class="activo" data-filtro="todos">Todos</button>${categorias.map(function (categoria) { return `<button type="button" data-filtro="${categoria}">${categoria}</button>`; }).join("")}<button type="button" data-filtro="favoritos">♡ Favoritos</button></div><label class="ordenar-productos">Ordenar <select><option value="relevancia">Relevancia</option><option value="menor">Menor precio</option><option value="mayor">Mayor precio</option></select></label>`;
+    contenedor.before(herramientas);
+
+    tarjetas.forEach(function (tarjeta) {
+        const nombre = tarjeta.querySelector("h3")?.textContent.trim() || "";
+        const boton = document.createElement("button");
+        boton.type = "button"; boton.className = "favorito-producto"; boton.setAttribute("aria-label", "Añadir a favoritos");
+        const pintar = function () { const activo = favoritos.includes(nombre); boton.classList.toggle("activo", activo); boton.textContent = activo ? "♥" : "♡"; boton.setAttribute("aria-pressed", String(activo)); };
+        boton.addEventListener("click", function () { favoritos = favoritos.includes(nombre) ? favoritos.filter(function (item) { return item !== nombre; }) : favoritos.concat(nombre); localStorage.setItem("favoritosMiTienda", JSON.stringify(favoritos)); pintar(); aplicarFiltro(); });
+        tarjeta.querySelector(".producto-imagen")?.appendChild(boton); pintar();
+    });
+    let filtro = "todos";
+    function aplicarFiltro() {
+        tarjetas.forEach(function (tarjeta) {
+            const nombre = tarjeta.querySelector("h3")?.textContent.trim() || "";
+            const categoria = tarjeta.querySelector(".producto-categoria")?.textContent.trim();
+            tarjeta.hidden = !(filtro === "todos" || (filtro === "favoritos" ? favoritos.includes(nombre) : categoria === filtro));
+        });
+    }
+    herramientas.querySelectorAll("[data-filtro]").forEach(function (boton) { boton.addEventListener("click", function () { filtro = boton.dataset.filtro; herramientas.querySelectorAll("[data-filtro]").forEach(function (item) { item.classList.toggle("activo", item === boton); }); aplicarFiltro(); }); });
+    herramientas.querySelector("select").addEventListener("change", function (evento) { const modo = evento.target.value; tarjetas.sort(function (a, b) { const precioA = Number(a.querySelector(".agregar-carrito")?.dataset.precio || 0), precioB = Number(b.querySelector(".agregar-carrito")?.dataset.precio || 0); return modo === "menor" ? precioA - precioB : modo === "mayor" ? precioB - precioA : 0; }).forEach(function (tarjeta) { contenedor.appendChild(tarjeta); }); });
 }
 
 
