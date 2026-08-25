@@ -77,6 +77,8 @@ function obtenerCarritoGuardado() {
 
 let carrito = obtenerCarritoGuardado();
 
+cargarCarritoCompartido();
+
 let cuponAplicado = localStorage.getItem("cuponMiTienda") || "";
 const MONTO_ENVIO_GRATIS = 5000;
 
@@ -97,6 +99,27 @@ function obtenerResumenCompra() {
 
 function formatoMoneda(valor) {
     return "C$ " + Number(valor || 0).toLocaleString("es-NI");
+}
+
+function obtenerEnlaceCarrito() {
+    const datos = encodeURIComponent(btoa(unescape(encodeURIComponent(JSON.stringify(carrito)))));
+    const url = new URL(window.location.href);
+    url.searchParams.set("carrito", datos);
+    return url.toString();
+}
+
+function cargarCarritoCompartido() {
+    const codigo = new URLSearchParams(window.location.search).get("carrito");
+    if (!codigo) return;
+    try {
+        const recibido = normalizarCarrito(JSON.parse(decodeURIComponent(escape(atob(decodeURIComponent(codigo))))));
+        if (!recibido.length) return;
+        carrito = recibido;
+        guardarCarrito();
+        window.history.replaceState({}, document.title, window.location.pathname + window.location.hash);
+    } catch (_) {
+        console.warn("No se pudo cargar el carrito compartido.");
+    }
 }
 
 
@@ -1085,6 +1108,7 @@ function actualizarResumenCarrito() {
             ${datos.descuento ? `<span class="descuento">Descuento <b>− ${formatoMoneda(datos.descuento)}</b></span>` : ""}
         </div>
         <button id="vaciar-carrito" class="vaciar-carrito" type="button" ${carrito.length ? "" : "disabled"}>Vaciar carrito</button>
+        <button id="compartir-carrito" class="compartir-carrito" type="button" ${carrito.length ? "" : "disabled"}>↗ Compartir este carrito</button>
     `;
     totalCarrito.textContent = datos.total.toLocaleString("es-NI");
 
@@ -1107,6 +1131,23 @@ function actualizarResumenCarrito() {
         guardarCarrito();
         actualizarContador();
         mostrarCarrito();
+    });
+    document.getElementById("compartir-carrito").addEventListener("click", async function () {
+        if (!carrito.length) return;
+        const enlace = obtenerEnlaceCarrito();
+        try {
+            if (navigator.share) {
+                await navigator.share({ title: "Mi carrito de Mi Tienda", text: "Te comparto estos productos.", url: enlace });
+            } else if (navigator.clipboard) {
+                await navigator.clipboard.writeText(enlace);
+                this.textContent = "✓ Enlace copiado";
+                setTimeout(() => { this.textContent = "↗ Compartir este carrito"; }, 2200);
+            } else {
+                window.prompt("Copia este enlace para compartir tu carrito:", enlace);
+            }
+        } catch (error) {
+            if (error.name !== "AbortError") window.prompt("Copia este enlace para compartir tu carrito:", enlace);
+        }
     });
 }
 
