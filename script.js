@@ -6522,3 +6522,1124 @@ if (
     iniciarTienda();
 
 }
+
+// =====================================================
+// CORRECCIONES FINALES - MI TIENDA
+// =====================================================
+// Este bloque corrige:
+// 1. Selectores de moneda duplicados
+// 2. Carritos flotantes duplicados
+// 3. Carrito flotante encima de WhatsApp
+// 4. Iconos 🛒 duplicados
+// 5. Contadores invisibles
+// 6. Eventos duplicados
+// =====================================================
+
+(function () {
+
+    "use strict";
+
+
+    // =================================================
+    // 1. ELIMINAR SELECTORES DE MONEDA DUPLICADOS
+    // =================================================
+
+    function limpiarSelectoresMoneda() {
+
+        const selectores = Array.from(
+            document.querySelectorAll(
+                "#selector-moneda, " +
+                "[data-selector-moneda], " +
+                "#pais-mi-tienda, " +
+                ".selector-pais, " +
+                "[data-selector-pais]"
+            )
+        );
+
+
+        let principal = document.getElementById(
+            "selector-moneda"
+        );
+
+
+        // Si existe el selector principal,
+        // conservar solamente ese.
+
+        if (principal) {
+
+            selectores.forEach(function (elemento) {
+
+                if (
+                    elemento !== principal &&
+                    elemento.parentNode
+                ) {
+
+                    elemento.remove();
+
+                }
+
+            });
+
+            return;
+
+        }
+
+
+        // Si todavía no existe el selector principal,
+        // buscar el primer selector compatible.
+
+        const posible = selectores.find(
+            function (elemento) {
+
+                return (
+                    elemento.tagName === "SELECT" &&
+                    elemento !== null
+                );
+
+            }
+        );
+
+
+        if (posible) {
+
+            posible.id =
+                "selector-moneda";
+
+            principal =
+                posible;
+
+
+            selectores.forEach(
+                function (elemento) {
+
+                    if (
+                        elemento !== principal &&
+                        elemento.parentNode
+                    ) {
+
+                        elemento.remove();
+
+                    }
+
+                }
+            );
+
+        }
+
+    }
+
+
+    // =================================================
+    // 2. CORREGIR CARRITOS FLOTANTES DUPLICADOS
+    // =================================================
+
+    function limpiarCarritosFlotantes() {
+
+        const carritos =
+            document.querySelectorAll(
+                "#carrito-flotante"
+            );
+
+
+        if (
+            carritos.length <= 1
+        ) {
+
+            return;
+
+        }
+
+
+        carritos.forEach(
+            function (
+                carritoElemento,
+                indice
+            ) {
+
+                if (
+                    indice > 0
+                ) {
+
+                    carritoElemento.remove();
+
+                }
+
+            }
+        );
+
+    }
+
+
+    // =================================================
+    // 3. DETECTAR WHATSAPP
+    // =================================================
+
+    function obtenerBotonWhatsApp() {
+
+        const candidatos =
+            Array.from(
+                document.querySelectorAll(
+                    "a, button"
+                )
+            );
+
+
+        return candidatos.find(
+            function (elemento) {
+
+                const texto =
+                    (
+                        elemento.textContent ||
+                        ""
+                    )
+                    .toLowerCase();
+
+
+                const href =
+                    (
+                        elemento.getAttribute(
+                            "href"
+                        ) ||
+                        ""
+                    )
+                    .toLowerCase();
+
+
+                const aria =
+                    (
+                        elemento.getAttribute(
+                            "aria-label"
+                        ) ||
+                        ""
+                    )
+                    .toLowerCase();
+
+
+                const clase =
+                    (
+                        elemento.className ||
+                        ""
+                    )
+                    .toString()
+                    .toLowerCase();
+
+
+                return (
+
+                    href.includes(
+                        "wa.me"
+                    ) ||
+
+                    href.includes(
+                        "whatsapp"
+                    ) ||
+
+                    texto.includes(
+                        "whatsapp"
+                    ) ||
+
+                    aria.includes(
+                        "whatsapp"
+                    ) ||
+
+                    clase.includes(
+                        "whatsapp"
+                    )
+
+                );
+
+            }
+        ) || null;
+
+    }
+
+
+    // =================================================
+    // 4. POSICIONAR CARRITO SIN TAPAR WHATSAPP
+    // =================================================
+
+    function posicionarCarritoFlotante() {
+
+        const carritoFlotante =
+            document.getElementById(
+                "carrito-flotante"
+            );
+
+
+        if (
+            !carritoFlotante
+        ) {
+
+            return;
+
+        }
+
+
+        const whatsapp =
+            obtenerBotonWhatsApp();
+
+
+        carritoFlotante.style.setProperty(
+            "position",
+            "fixed",
+            "important"
+        );
+
+
+        carritoFlotante.style.setProperty(
+            "z-index",
+            "99990",
+            "important"
+        );
+
+
+        // En escritorio:
+
+        if (
+            window.innerWidth > 600
+        ) {
+
+            if (whatsapp) {
+
+                const rect =
+                    whatsapp.getBoundingClientRect();
+
+
+                // Colocamos el carrito
+                // a la izquierda del WhatsApp.
+
+                const distanciaDerecha =
+                    Math.max(
+                        20,
+                        window.innerWidth -
+                        rect.left +
+                        85
+                    );
+
+
+                carritoFlotante.style.setProperty(
+                    "right",
+                    distanciaDerecha + "px",
+                    "important"
+                );
+
+
+                carritoFlotante.style.setProperty(
+                    "bottom",
+                    Math.max(
+                        20,
+                        window.innerHeight -
+                        rect.bottom
+                    ) + "px",
+                    "important"
+                );
+
+            } else {
+
+                carritoFlotante.style.setProperty(
+                    "right",
+                    "25px",
+                    "important"
+                );
+
+
+                carritoFlotante.style.setProperty(
+                    "bottom",
+                    "25px",
+                    "important"
+                );
+
+            }
+
+        } else {
+
+            // En móviles lo colocamos
+            // encima y separado.
+
+            carritoFlotante.style.setProperty(
+                "right",
+                "15px",
+                "important"
+            );
+
+
+            carritoFlotante.style.setProperty(
+                "bottom",
+                "90px",
+                "important"
+            );
+
+        }
+
+    }
+
+
+    // =================================================
+    // 5. ELIMINAR ICONOS 🛒 DUPLICADOS
+    // =================================================
+
+    function corregirIconosBotonesCarrito() {
+
+        const botones =
+            document.querySelectorAll(
+                ".agregar-carrito"
+            );
+
+
+        botones.forEach(
+            function (
+                boton
+            ) {
+
+                // Obtener solamente el texto.
+
+                const texto =
+                    boton.textContent
+                        .replace(
+                            /🛒/g,
+                            ""
+                        )
+                        .replace(
+                            /🛍️/g,
+                            ""
+                        )
+                        .replace(
+                            /\s+/g,
+                            " "
+                        )
+                        .trim();
+
+
+                // Eliminar iconos existentes.
+
+                boton
+                    .querySelectorAll(
+                        "i, svg"
+                    )
+                    .forEach(
+                        function (
+                            icono
+                        ) {
+
+                            const contenido =
+                                (
+                                    icono.textContent ||
+                                    ""
+                                );
+
+
+                            if (
+                                contenido.includes(
+                                    "🛒"
+                                ) ||
+                                contenido.includes(
+                                    "cart"
+                                )
+                            ) {
+
+                                icono.remove();
+
+                            }
+
+                        }
+                    );
+
+
+                // Crear un único icono.
+
+                let icono =
+                    boton.querySelector(
+                        ".icono-carrito-unico"
+                    );
+
+
+                if (!icono) {
+
+                    icono =
+                        document.createElement(
+                            "span"
+                        );
+
+
+                    icono.className =
+                        "icono-carrito-unico";
+
+
+                    icono.setAttribute(
+                        "aria-hidden",
+                        "true"
+                    );
+
+
+                    icono.textContent =
+                        "🛒";
+
+
+                    boton.prepend(
+                        icono
+                    );
+
+                }
+
+
+                // Evitar que el botón
+                // tenga nuevamente el emoji
+                // como texto directo.
+
+                Array.from(
+                    boton.childNodes
+                )
+                .forEach(
+                    function (
+                        nodo
+                    ) {
+
+                        if (
+                            nodo.nodeType ===
+                            Node.TEXT_NODE
+                        ) {
+
+                            nodo.textContent =
+                                nodo.textContent
+                                    .replace(
+                                        /🛒/g,
+                                        ""
+                                    )
+                                    .replace(
+                                        /🛍️/g,
+                                        ""
+                                    );
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+    }
+
+
+    // =================================================
+    // 6. CONTADOR DEL CARRITO
+    // =================================================
+
+    function corregirContadorCarrito() {
+
+        const contadores =
+            document.querySelectorAll(
+                "#contador-carrito, " +
+                "#contador-carrito-flotante"
+            );
+
+
+        contadores.forEach(
+            function (
+                contador
+            ) {
+
+                contador.style.setProperty(
+                    "display",
+                    "flex",
+                    "important"
+                );
+
+
+                contador.style.setProperty(
+                    "align-items",
+                    "center",
+                    "important"
+                );
+
+
+                contador.style.setProperty(
+                    "justify-content",
+                    "center",
+                    "important"
+                );
+
+
+                contador.style.setProperty(
+                    "visibility",
+                    "visible",
+                    "important"
+                );
+
+
+                contador.style.setProperty(
+                    "opacity",
+                    "1",
+                    "important"
+                );
+
+
+                contador.style.setProperty(
+                    "z-index",
+                    "999999",
+                    "important"
+                );
+
+
+                contador.style.setProperty(
+                    "min-width",
+                    "25px",
+                    "important"
+                );
+
+
+                contador.style.setProperty(
+                    "height",
+                    "25px",
+                    "important"
+                );
+
+
+                contador.style.setProperty(
+                    "padding",
+                    "0 6px",
+                    "important"
+                );
+
+
+                contador.style.setProperty(
+                    "border-radius",
+                    "50%",
+                    "important"
+                );
+
+
+                contador.style.setProperty(
+                    "background",
+                    "#e53935",
+                    "important"
+                );
+
+
+                contador.style.setProperty(
+                    "color",
+                    "#ffffff",
+                    "important"
+                );
+
+
+                contador.style.setProperty(
+                    "font-size",
+                    "13px",
+                    "important"
+                );
+
+
+                contador.style.setProperty(
+                    "font-weight",
+                    "800",
+                    "important"
+                );
+
+
+                contador.style.setProperty(
+                    "line-height",
+                    "1",
+                    "important"
+                );
+
+            }
+        );
+
+    }
+
+
+    // =================================================
+    // 7. HACER PROFESIONAL EL CARRITO FLOTANTE
+    // =================================================
+
+    function mejorarCarritoFlotante() {
+
+        const carrito =
+            document.getElementById(
+                "carrito-flotante"
+            );
+
+
+        if (!carrito) {
+
+            return;
+
+        }
+
+
+        carrito.style.setProperty(
+            "display",
+            "flex",
+            "important"
+        );
+
+
+        carrito.style.setProperty(
+            "align-items",
+            "center",
+            "important"
+        );
+
+
+        carrito.style.setProperty(
+            "justify-content",
+            "center",
+            "important"
+        );
+
+
+        carrito.style.setProperty(
+            "width",
+            "62px",
+            "important"
+        );
+
+
+        carrito.style.setProperty(
+            "height",
+            "62px",
+            "important"
+        );
+
+
+        carrito.style.setProperty(
+            "border-radius",
+            "50%",
+            "important"
+        );
+
+
+        carrito.style.setProperty(
+            "background",
+            "#0d5c72",
+            "important"
+        );
+
+
+        carrito.style.setProperty(
+            "border",
+            "3px solid #ffffff",
+            "important"
+        );
+
+
+        carrito.style.setProperty(
+            "box-shadow",
+            "0 8px 25px rgba(0,0,0,.30)",
+            "important"
+        );
+
+
+        carrito.style.setProperty(
+            "cursor",
+            "pointer",
+            "important"
+        );
+
+
+        const icono =
+            carrito.querySelector(
+                ".icono-carrito-flotante"
+            );
+
+
+        if (icono) {
+
+            icono.style.setProperty(
+                "font-size",
+                "27px",
+                "important"
+            );
+
+        }
+
+    }
+
+
+    // =================================================
+    // 8. EVITAR DOBLE EVENTO EN CARRITO
+    // =================================================
+
+    function asegurarBotonCarrito() {
+
+        const boton =
+            document.getElementById(
+                "boton-carrito"
+            );
+
+
+        if (
+            !boton
+        ) {
+
+            return;
+
+        }
+
+
+        // Si el botón ya tiene varios
+        // listeners no podemos eliminarlos
+        // desde aquí, pero evitamos agregar
+        // otro.
+
+        if (
+            boton.dataset.correccionFinal ===
+            "true"
+        ) {
+
+            return;
+
+        }
+
+
+        boton.dataset.correccionFinal =
+            "true";
+
+
+        boton.addEventListener(
+            "click",
+            function () {
+
+                const ventana =
+                    document.getElementById(
+                        "ventana-carrito"
+                    );
+
+
+                if (!ventana) {
+
+                    return;
+
+                }
+
+
+                ventana.style.display =
+                    "flex";
+
+
+                if (
+                    typeof mostrarCarrito ===
+                    "function"
+                ) {
+
+                    mostrarCarrito();
+
+                }
+
+            }
+        );
+
+    }
+
+
+    // =================================================
+    // 9. EJECUTAR CORRECCIONES
+    // =================================================
+
+    function aplicarCorrecciones() {
+
+        limpiarSelectoresMoneda();
+
+        limpiarCarritosFlotantes();
+
+        corregirIconosBotonesCarrito();
+
+        corregirContadorCarrito();
+
+        mejorarCarritoFlotante();
+
+        posicionarCarritoFlotante();
+
+        asegurarBotonCarrito();
+
+    }
+
+
+    // =================================================
+    // EJECUTAR CUANDO EL DOM ESTÉ LISTO
+    // =================================================
+
+    function iniciarCorrecciones() {
+
+        aplicarCorrecciones();
+
+
+        setTimeout(
+            aplicarCorrecciones,
+            300
+        );
+
+
+        setTimeout(
+            aplicarCorrecciones,
+            1000
+        );
+
+
+        setTimeout(
+            aplicarCorrecciones,
+            2500
+        );
+
+
+        setTimeout(
+            aplicarCorrecciones,
+            5000
+        );
+
+    }
+
+
+    if (
+        document.readyState ===
+        "loading"
+    ) {
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            iniciarCorrecciones
+        );
+
+    } else {
+
+        iniciarCorrecciones();
+
+    }
+
+
+    // =================================================
+    // CORREGIR SI OTRO SCRIPT AGREGA ELEMENTOS
+    // =================================================
+
+    const observador =
+        new MutationObserver(
+            function () {
+
+                aplicarCorrecciones();
+
+            }
+        );
+
+
+    observador.observe(
+        document.body,
+        {
+            childList: true,
+            subtree: true
+        }
+    );
+
+
+    // =================================================
+    // CORREGIR AL CAMBIAR TAMAÑO
+    // =================================================
+
+    window.addEventListener(
+        "resize",
+        function () {
+
+            posicionarCarritoFlotante();
+
+        }
+    );
+
+
+    // =================================================
+    // CORREGIR AL CAMBIAR ORIENTACIÓN
+    // =================================================
+
+    window.addEventListener(
+        "orientationchange",
+        function () {
+
+            setTimeout(
+                function () {
+
+                    posicionarCarritoFlotante();
+
+                },
+                250
+            );
+
+        }
+    );
+
+
+    // =================================================
+    // ESTILOS FINALES
+    // =================================================
+
+    const estiloFinal =
+        document.createElement(
+            "style"
+        );
+
+
+    estiloFinal.id =
+        "correcciones-finales-mi-tienda";
+
+
+    estiloFinal.textContent = `
+
+        /* ==========================================
+           SELECTOR DE MONEDA
+           ========================================== */
+
+        #selector-moneda {
+
+            position: relative;
+
+            z-index: 1000;
+
+        }
+
+
+        /* ==========================================
+           CARRITO FLOTANTE
+           ========================================== */
+
+        #carrito-flotante {
+
+            position: fixed !important;
+
+            z-index: 99990 !important;
+
+            box-sizing: border-box;
+
+        }
+
+
+        #carrito-flotante
+        .contador-carrito-flotante {
+
+            position: absolute !important;
+
+            top: -6px !important;
+
+            right: -6px !important;
+
+            z-index: 999999 !important;
+
+        }
+
+
+        /* ==========================================
+           BOTONES AGREGAR AL CARRITO
+           ========================================== */
+
+        .agregar-carrito {
+
+            display: inline-flex !important;
+
+            align-items: center !important;
+
+            justify-content: center !important;
+
+            gap: 8px !important;
+
+        }
+
+
+        .icono-carrito-unico {
+
+            display: inline-flex !important;
+
+            align-items: center !important;
+
+            justify-content: center !important;
+
+            font-size: 16px !important;
+
+            line-height: 1 !important;
+
+        }
+
+
+        /* ==========================================
+           CONTADOR PRINCIPAL
+           ========================================== */
+
+        #contador-carrito {
+
+            position: absolute !important;
+
+            display: flex !important;
+
+            align-items: center !important;
+
+            justify-content: center !important;
+
+            visibility: visible !important;
+
+            opacity: 1 !important;
+
+            z-index: 999999 !important;
+
+            background: #e53935 !important;
+
+            color: #ffffff !important;
+
+            font-weight: 800 !important;
+
+            min-width: 25px !important;
+
+            height: 25px !important;
+
+            padding: 0 6px !important;
+
+            border-radius: 50% !important;
+
+            line-height: 1 !important;
+
+        }
+
+
+        /* ==========================================
+           CONTADOR FLOTANTE
+           ========================================== */
+
+        #contador-carrito-flotante {
+
+            display: flex !important;
+
+            align-items: center !important;
+
+            justify-content: center !important;
+
+            visibility: visible !important;
+
+            opacity: 1 !important;
+
+        }
+
+
+        /* ==========================================
+           MÓVILES
+           ========================================== */
+
+        @media (max-width: 600px) {
+
+            #carrito-flotante {
+
+                width: 58px !important;
+
+                height: 58px !important;
+
+                right: 15px !important;
+
+                bottom: 90px !important;
+
+            }
+
+        }
+
+    `;
+
+
+    document.head.appendChild(
+        estiloFinal
+    );
+
+
+})();
