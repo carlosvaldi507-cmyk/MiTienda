@@ -1003,11 +1003,44 @@ nav a:hover,
     overflow: hidden;
 }
 
-.producto-imagen img {
+.producto-imagen {
+
     width: 100%;
+    height: 220px;
+
+    background: #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px 12px 0 0;
+
+    overflow: hidden;
+
+    position: relative;
+
+}
+
+.producto-imagen img {
+
+    width: 100%;
+
     height: 100%;
 
     object-fit: contain;
+
+    padding: 15px;
+
+    transition: transform .3s ease;
+
+}
+
+
+.producto-imagen img:hover {
+
+    transform: scale(1.05);
+
 }
 
 
@@ -2785,15 +2818,28 @@ header,
 }
 
 .producto {
+
     display: flex;
     flex-direction: column;
-    min-height: 390px;
+
+    min-height: 430px;
+
     padding: 0;
-    background: #191919;
-    border: 1px solid #393939;
-    border-radius: 28px;
-    box-shadow: 0 12px 28px rgba(0, 0, 0, .22);
-    backdrop-filter: none;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.12);
+
+    overflow: hidden;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
 }
 
 .producto:hover {
@@ -2803,12 +2849,21 @@ header,
 }
 
 .producto-imagen {
-    height: 185px;
+
+    height: 230px;
+
     margin: 0;
-    border-radius: 28px 28px 0 0;
-    background: radial-gradient(circle at 50% 35%, #303030 0, #1b1b1b 63%);
-    font-size: 76px;
-    transition: transform .25s ease;
+
+    border-radius: 18px 18px 0 0;
+
+    background: #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
 }
 
 .producto:hover .producto-imagen {
