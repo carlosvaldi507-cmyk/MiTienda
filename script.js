@@ -5685,13 +5685,23 @@ function mostrarProductos() {
 
         tarjeta.innerHTML = `
 
-            <div class="producto-imagen">
+         <div class="producto-imagen">
 
-                <span>
-                    ${producto.imagen}
-                </span>
+        ${
+        producto.imagen.includes(".png") ||
+        producto.imagen.includes(".jpg")
+        ?
+        `<img
+            src="${producto.imagen}"
+            alt="${producto.nombre}"
+        >`
+        :
+        `<span>
+            ${producto.imagen}
+        </span>`
+    }
 
-            </div>
+</div>
 
 
             <div class="producto-info">
