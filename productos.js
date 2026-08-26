@@ -1,4 +1,4 @@
-const productos = [
+window.productos = [
 
     {
         id: 1,
