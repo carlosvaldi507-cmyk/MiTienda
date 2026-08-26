@@ -2,11 +2,11 @@ const productos = [
 
     {
         id: 1,
-        nombre: "Cámara IP",
-        descripcion: "Cámara de seguridad para interiores y exteriores.",
-        precio: 2500,
+        nombre: "Termo-Hello Kity",
+        descripcion: "termo de hello kity de 500ml.",
+        precio: 800,
         categoria: "Seguridad",
-        imagen: "📷"
+        imagen: "Termos-Hello kity.jpg"
     },
 
 
@@ -35,6 +35,16 @@ const productos = [
         nombre: "Kit de herramientas",
         descripcion: "Herramientas para instalación y mantenimiento.",
         precio: 1800,
+        categoria: "Herramientas",
+        imagen: "🔧"
+    },
+
+
+    {
+        id: 5,
+        nombre: "memoria",
+        descripcion: "Herramientas para instalación y mantenimiento.",
+        precio: 1850,
         categoria: "Herramientas",
         imagen: "🔧"
     }
