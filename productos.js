@@ -2,11 +2,11 @@ const productos = [
 
     {
         id: 1,
-        nombre: "Termo-Hello Kity",
-        descripcion: "termo de hello kity de 500ml.",
+        nombre: "Termo Hello Kitty",
+        descripcion: "Termo de Hello Kitty de 500ml.",
         precio: 800,
-        categoria: "Seguridad",
-        imagen: "Termos-Hello kity.jpg"
+        categoria: "Hogar",
+        imagen: "termo-hello-kitty.png"
     },
 
 
@@ -42,11 +42,31 @@ const productos = [
 
     {
         id: 5,
-        nombre: "memoria",
-        descripcion: "Herramientas para instalación y mantenimiento.",
+        nombre: "Memoria USB",
+        descripcion: "Memoria USB para almacenamiento de archivos.",
         precio: 1850,
-        categoria: "Herramientas",
-        imagen: "🔧"
+        categoria: "Tecnología",
+        imagen: "💾"
+    },
+
+
+    {
+        id: 6,
+        nombre: "Peluche Capibara",
+        descripcion: "Peluche suave y adorable de capibara.",
+        precio: 900,
+        categoria: "Juguetes",
+        imagen: "peluche-capibara.png"
+    },
+
+
+    {
+        id: 7,
+        nombre: "Peluche de felpa",
+        descripcion: "Peluche suave ideal para regalo.",
+        precio: 750,
+        categoria: "Juguetes",
+        imagen: "peluche-felpa.png"
     }
 
 ];
