@@ -3,7 +3,7 @@
 // ACTUALIZACIÓN AUTOMÁTICA Y CACHÉ INTELIGENTE
 // =====================================================
 
-const CACHE_VERSION = "mi-tienda-v11";
+const CACHE_VERSION = "mi-tienda-v12";
 
 
 // =====================================================
@@ -32,7 +32,8 @@ const ARCHIVOS_SIEMPRE_ACTUALIZADOS = [
     "/index.html",
     "/catalogo.html",
     "/style.css",
-    "/script.js"
+    "/script.js",
+    "/productos.js"
 ];
 
 
@@ -77,7 +78,6 @@ self.addEventListener("install", event => {
 
 });
 
-
 // =====================================================
 // ACTIVACIÓN
 // =====================================================
@@ -88,6 +88,7 @@ self.addEventListener("activate", event => {
         "[Mi Tienda] Activando:",
         CACHE_VERSION
     );
+
 
     event.waitUntil(
 
@@ -124,14 +125,21 @@ self.addEventListener("activate", event => {
 
             .then(() => {
 
+                // Tomar el control de las páginas inmediatamente
                 return self.clients.claim();
+
+            })
+
+            .then(() => {
+
+                // Avisar a las páginas que existe una nueva versión
+                return avisarActualizacion();
 
             })
 
     );
 
 });
-
 
 // =====================================================
 // MENSAJES
@@ -663,32 +671,24 @@ async function avisarActualizacion() {
     try {
 
         const clientes =
-            await self.clients.matchAll(
-                {
-                    type:
-                        "window",
-
-                    includeUncontrolled:
-                        true
-                }
-            );
+            await self.clients.matchAll({
+                type: "window",
+                includeUncontrolled: true
+            });
 
 
-        clientes.forEach(
-            cliente => {
+        clientes.forEach(cliente => {
 
-                cliente.postMessage({
+            cliente.postMessage({
 
-                    type:
-                        "NUEVA_VERSION_DISPONIBLE",
+                type: "NUEVA_VERSION_DISPONIBLE",
 
-                    version:
-                        CACHE_VERSION
+                version: CACHE_VERSION
 
-                });
+            });
 
-            }
-        );
+        });
+
 
     } catch (error) {
 

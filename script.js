@@ -5856,7 +5856,6 @@ function mostrarProductos() {
 
 }
 
-
 // =====================================================
 // INICIALIZACIÓN
 // =====================================================
@@ -5865,37 +5864,28 @@ function iniciarTienda() {
 
     cargarCarritoCompartido();
 
-
     crearCarritoFlotante();
-
 
     crearAsistenteVirtual();
 
+    // Primero generamos los productos
+    mostrarProductos();
 
+    // Después configuramos sus funciones
     configurarBotonesAgregar();
-
 
     configurarExploradorProductos();
 
-
     configurarMenuIdiomas();
-
-
 
     cambiarIdioma(
         idiomaActual
     );
 
-
-    mostrarProductos();
-
     actualizarContador();
-
 
     mostrarCarrito();
 
-
-    
 }
 
 

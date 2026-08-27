@@ -1,3 +1,7 @@
+// =====================================================
+// PRODUCTOS - TODO KLICK
+// =====================================================
+
 window.productos = [
 
     {
@@ -8,7 +12,9 @@ window.productos = [
         categoria: "Hogar",
         imagen: "termo-hello-kitty.png",
         etiqueta: "⭐ Recomendado",
-        stock: true
+        stock: true,
+        rating: 5,
+        resenas: 12
     },
 
 
@@ -20,7 +26,9 @@ window.productos = [
         categoria: "Seguridad",
         imagen: "📦",
         etiqueta: "🔥 Más vendido",
-        stock: true
+        stock: true,
+        rating: 5,
+        resenas: 8
     },
 
 
@@ -32,7 +40,9 @@ window.productos = [
         categoria: "Eléctrico",
         imagen: "🔌",
         etiqueta: "🏷 Oferta",
-        stock: true
+        stock: true,
+        rating: 4,
+        resenas: 6
     },
 
 
@@ -44,7 +54,9 @@ window.productos = [
         categoria: "Herramientas",
         imagen: "🔧",
         etiqueta: "⭐ Recomendado",
-        stock: true
+        stock: true,
+        rating: 5,
+        resenas: 10
     },
 
 
@@ -56,7 +68,9 @@ window.productos = [
         categoria: "Tecnología",
         imagen: "💾",
         etiqueta: "🔥 Más vendido",
-        stock: true
+        stock: true,
+        rating: 4,
+        resenas: 7
     },
 
 
@@ -68,7 +82,9 @@ window.productos = [
         categoria: "Juguetes",
         imagen: "peluche-capibara.png",
         etiqueta: "🆕 Nuevo",
-        stock: true
+        stock: true,
+        rating: 5,
+        resenas: 9
     },
 
 
@@ -80,7 +96,9 @@ window.productos = [
         categoria: "Juguetes",
         imagen: "peluche-felpa.png",
         etiqueta: "🎁 Ideal para regalo",
-        stock: true
+        stock: true,
+        rating: 5,
+        resenas: 5
     }
 
 ];
