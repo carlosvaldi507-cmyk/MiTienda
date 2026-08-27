@@ -6,7 +6,9 @@ window.productos = [
         descripcion: "Termo de Hello Kitty de 500ml.",
         precio: 800,
         categoria: "Hogar",
-        imagen: "termo-hello-kitty.png"
+        imagen: "termo-hello-kitty.png",
+        etiqueta: "⭐ Recomendado",
+        stock: true
     },
 
 
@@ -16,7 +18,9 @@ window.productos = [
         descripcion: "Grabador para sistemas de videovigilancia.",
         precio: 4200,
         categoria: "Seguridad",
-        imagen: "📦"
+        imagen: "📦",
+        etiqueta: "🔥 Más vendido",
+        stock: true
     },
 
 
@@ -26,7 +30,9 @@ window.productos = [
         descripcion: "Cable de red para instalaciones.",
         precio: 3500,
         categoria: "Eléctrico",
-        imagen: "🔌"
+        imagen: "🔌",
+        etiqueta: "🏷 Oferta",
+        stock: true
     },
 
 
@@ -36,7 +42,9 @@ window.productos = [
         descripcion: "Herramientas para instalación y mantenimiento.",
         precio: 1800,
         categoria: "Herramientas",
-        imagen: "🔧"
+        imagen: "🔧",
+        etiqueta: "⭐ Recomendado",
+        stock: true
     },
 
 
@@ -46,7 +54,9 @@ window.productos = [
         descripcion: "Memoria USB para almacenamiento de archivos.",
         precio: 1850,
         categoria: "Tecnología",
-        imagen: "💾"
+        imagen: "💾",
+        etiqueta: "🔥 Más vendido",
+        stock: true
     },
 
 
@@ -56,7 +66,9 @@ window.productos = [
         descripcion: "Peluche suave y adorable de capibara.",
         precio: 900,
         categoria: "Juguetes",
-        imagen: "peluche-capibara.png"
+        imagen: "peluche-capibara.png",
+        etiqueta: "🆕 Nuevo",
+        stock: true
     },
 
 
@@ -66,7 +78,9 @@ window.productos = [
         descripcion: "Peluche suave ideal para regalo.",
         precio: 750,
         categoria: "Juguetes",
-        imagen: "peluche-felpa.png"
+        imagen: "peluche-felpa.png",
+        etiqueta: "🎁 Ideal para regalo",
+        stock: true
     }
 
 ];

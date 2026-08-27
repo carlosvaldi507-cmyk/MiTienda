@@ -5651,7 +5651,6 @@ window.addEventListener(
 
     }
 );
-
 // =====================================================
 // MOSTRAR PRODUCTOS DESDE productos.js
 // =====================================================
@@ -5676,7 +5675,7 @@ function mostrarProductos() {
 
 
         const tarjeta =
-        document.createElement("article");
+            document.createElement("article");
 
 
         tarjeta.className =
@@ -5685,66 +5684,163 @@ function mostrarProductos() {
 
         tarjeta.innerHTML = `
 
-         <div class="producto-imagen">
 
-        ${
-        producto.imagen.includes(".png") ||
-        producto.imagen.includes(".jpg")
-        ?
-        `<img
-            src="${producto.imagen}"
-            alt="${producto.nombre}"
-        >`
-        :
-        `<span>
-            ${producto.imagen}
-        </span>`
-    }
+        <div class="producto-imagen">
 
-</div>
+            ${
+            producto.imagen.includes(".png") ||
+            producto.imagen.includes(".jpg")
 
+            ?
 
-            <div class="producto-info">
+            `<img
+                src="${producto.imagen}"
+                alt="${producto.nombre}"
+            >`
 
+            :
 
-                <span class="producto-categoria">
-                    ${producto.categoria}
-                </span>
+            `<span>
+                ${producto.imagen}
+            </span>`
+
+            }
+
+        </div>
 
 
-                <h3>
-                    ${producto.nombre}
-                </h3>
 
 
-                <p>
-                    ${producto.descripcion}
-                </p>
+
+        <div class="producto-info">
 
 
-                <strong>
-                    C$ ${producto.precio.toLocaleString()}
-                </strong>
 
 
-                <button
-                    type="button"
-                    class="agregar-carrito"
-                    data-nombre="${producto.nombre}"
-                    data-precio="${producto.precio}"
-                >
 
-                    🛒
-                    <span>
-                        Agregar al carrito
-                    </span>
+            <span class="producto-categoria">
 
-                </button>
+                ${producto.categoria}
 
+            </span>
+
+
+
+
+
+            ${
+            producto.etiqueta
+
+            ?
+
+            `
+            <div class="etiqueta-producto">
+
+                ${producto.etiqueta}
+
+            </div>
+            `
+
+            :
+
+            ""
+
+            }
+
+
+
+
+
+
+            <h3>
+
+                ${producto.nombre}
+
+            </h3>
+
+
+
+
+
+            <p>
+
+                ${producto.descripcion}
+
+            </p>
+
+
+
+
+
+            <div class="producto-rating">
+
+                ⭐⭐⭐⭐⭐
 
             </div>
 
+
+
+
+
+            <strong>
+
+                C$ ${producto.precio.toLocaleString()}
+
+            </strong>
+
+
+
+
+
+            <div class="producto-stock">
+
+                ${
+                producto.stock
+                ?
+                "✅ Disponible"
+                :
+                "❌ Agotado"
+                }
+
+            </div>
+
+
+
+
+
+            <button
+
+                type="button"
+
+                class="agregar-carrito"
+
+                data-nombre="${producto.nombre}"
+
+                data-precio="${producto.precio}"
+
+            >
+
+                🛒
+
+                <span>
+
+                    Agregar al carrito
+
+                </span>
+
+
+            </button>
+
+
+
+
+
+        </div>
+
+
+
         `;
+
 
 
         contenedor.appendChild(
@@ -5755,10 +5851,10 @@ function mostrarProductos() {
     });
 
 
+
     configurarBotonesAgregar();
 
 }
-
 
 
 // =====================================================

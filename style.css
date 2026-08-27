@@ -5589,3 +5589,328 @@ nav a:hover::after,
 .agregar-carrito::after {
     content: none !important;
 }
+
+/* =====================================================
+   BENEFICIOS TODO KLICK
+===================================================== */
+
+.beneficios {
+
+    width: 100%;
+
+    padding: 60px 6%;
+
+    background:
+    linear-gradient(
+        180deg,
+        #071923,
+        #102f3d
+    );
+
+    text-align: center;
+
+}
+
+
+.beneficios h2 {
+
+    color: white;
+
+    font-size: 35px;
+
+    font-weight: 800;
+
+    margin-bottom: 40px;
+
+}
+
+
+
+.beneficios-container {
+
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap: 25px;
+
+}
+
+
+
+.beneficio {
+
+    padding: 30px 20px;
+
+    border-radius: 18px;
+
+    background:
+    rgba(255,255,255,0.08);
+
+    border:
+    1px solid rgba(255,255,255,0.15);
+
+    color: white;
+
+    transition:
+    .3s ease;
+
+}
+
+
+
+.beneficio:hover {
+
+    transform:
+    translateY(-8px);
+
+    border-color:
+    #18b9ad;
+
+}
+
+
+
+.beneficio span {
+
+    font-size: 45px;
+
+    display: block;
+
+    margin-bottom: 15px;
+
+}
+
+
+
+.beneficio h3 {
+
+    color:
+    #f6c86e;
+
+    margin-bottom: 10px;
+
+    font-size: 20px;
+
+}
+
+
+
+.beneficio p {
+
+    color:
+    #c5d6dc;
+
+    font-size: 15px;
+
+    line-height: 1.5;
+
+}
+
+
+
+/* TABLET */
+
+@media(max-width:900px){
+
+    .beneficios-container {
+
+        grid-template-columns:
+        repeat(2,1fr);
+
+    }
+
+}
+
+
+
+/* CELULAR */
+
+@media(max-width:600px){
+
+    .beneficios {
+
+        padding:
+        40px 15px;
+
+    }
+
+
+    .beneficios h2 {
+
+        font-size:
+        28px;
+
+    }
+
+
+    .beneficios-container {
+
+        grid-template-columns:
+        1fr;
+
+    }
+
+}
+
+/* =====================================================
+   TESTIMONIOS CLIENTES
+===================================================== */
+
+.testimonios {
+
+    width: 100%;
+
+    padding: 60px 6%;
+
+    background:
+    linear-gradient(
+        180deg,
+        #102f3d,
+        #071923
+    );
+
+}
+
+
+.testimonios .seccion-titulo {
+
+    text-align: center;
+
+    margin-bottom: 40px;
+
+}
+
+
+.testimonios .seccion-titulo span {
+
+    color:
+    #18b9ad;
+
+    font-weight:
+    800;
+
+    letter-spacing:
+    2px;
+
+}
+
+
+
+.testimonios h2 {
+
+    color:
+    white;
+
+    font-size:
+    35px;
+
+    margin-top:
+    10px;
+
+}
+
+
+
+.testimonios-container {
+
+    display:
+    grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:
+    25px;
+
+}
+
+
+
+.testimonio {
+
+    background:
+    rgba(255,255,255,.08);
+
+    border:
+    1px solid rgba(255,255,255,.15);
+
+    border-radius:
+    18px;
+
+    padding:
+    30px;
+
+    color:
+    white;
+
+    transition:
+    .3s ease;
+
+}
+
+
+
+.testimonio:hover {
+
+    transform:
+    translateY(-8px);
+
+    border-color:
+    #18b9ad;
+
+}
+
+
+
+.estrellas {
+
+    font-size:
+    22px;
+
+    margin-bottom:
+    15px;
+
+}
+
+
+
+.testimonio p {
+
+    color:
+    #c5d6dc;
+
+    line-height:
+    1.6;
+
+    margin-bottom:
+    20px;
+
+}
+
+
+
+.testimonio strong {
+
+    color:
+    #f6c86e;
+
+}
+
+
+
+/* TABLET */
+
+@media(max-width:900px){
+
+    .testimonios-container {
+
+        grid-template-columns:
+        1fr;
+
+    }
+
+}
