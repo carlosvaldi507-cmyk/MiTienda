@@ -6,7 +6,7 @@ window.productos = [
 
     {
         id: 1,
-        nombre: "Termo Hello Kitty",
+        nombre: "Termo Hello Kitty-Actualzado",
         descripcion: "Termo de Hello Kitty de 500ml.",
         precio: 800,
         categoria: "Hogar",
