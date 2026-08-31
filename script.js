@@ -371,7 +371,20 @@ function actualizarContador() {
 
     if (carritoFlotante) {
 
-        if (cantidad > 0) {
+        if (window.matchMedia("(max-width: 700px)").matches) {
+
+            carritoFlotante.style.setProperty(
+                "display",
+                "none",
+                "important"
+            );
+
+            carritoFlotante.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+        } else if (cantidad > 0) {
 
             // Hay productos:
             // mostrar carrito flotante
@@ -6961,16 +6974,16 @@ function crearExperienciaComercialMovil() {
     inferior.id = "navegacion-comercial-movil";
     inferior.className = "navegacion-comercial-movil";
     inferior.setAttribute("aria-label", "Navegaci\u00f3n principal m\u00f3vil");
-    inferior.innerHTML = `<a href="index.html"><span>\u2302</span><b>Inicio</b></a><button type="button" data-accion-movil="buscar"><span>\u2315</span><b>Buscar</b></button><a href="catalogo.html"><span>\u25a6</span><b>Comprar</b></a><button type="button" data-accion-movil="favoritos"><span>\u2661</span><b>Favoritos</b></button><button type="button" data-accion-movil="carrito"><span>\ud83d\uded2</span><b>Carrito</b><em>${obtenerCantidadCarrito()}</em></button>`;
+    inferior.innerHTML = `<a href="index.html"><span>\u2302</span><b>Inicio</b></a><button type="button" data-accion-movil="categorias"><span>\u2630</span><b>Categor\u00edas</b></button><a href="catalogo.html"><span>\u25a6</span><b>Comprar</b></a><button type="button" data-accion-movil="carrito"><span>\ud83d\uded2</span><b>Carrito</b><em>${obtenerCantidadCarrito()}</em></button><button type="button" data-accion-movil="cuenta"><span>\u263a</span><b>Mi cuenta</b></button>`;
     document.body.appendChild(inferior);
     inferior.addEventListener("click", function (evento) {
         const accion = evento.target.closest("[data-accion-movil]")?.dataset.accionMovil;
-        if (accion === "buscar") {
-            const buscador = document.getElementById("buscador");
-            buscador?.scrollIntoView({ behavior:"smooth", block:"center" });
-            buscador?.focus();
+        if (accion === "categorias") {
+            document.getElementById("abrir-categorias-movil")?.click();
         } else if (accion === "carrito") {
             abrirCarrito();
+        } else if (accion === "cuenta") {
+            document.getElementById("boton-entrar")?.click();
         } else if (accion === "favoritos") {
             if (!/catalogo\.html$/i.test(window.location.pathname)) window.location.href = "catalogo.html?vista=favoritos";
             else {

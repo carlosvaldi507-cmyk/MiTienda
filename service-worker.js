@@ -3,7 +3,7 @@
 // ACTUALIZACIÓN AUTOMÁTICA Y CACHÉ INTELIGENTE
 // =====================================================
 
-const CACHE_VERSION = "todo-klick-v27";
+const CACHE_VERSION = "todo-klick-v30";
 
 
 // =====================================================
@@ -21,7 +21,12 @@ const ARCHIVOS = [
     "./manifest.json",
     "./mi-fondo.png",
     "./icon-192.png",
-    "./icon-512.png"
+    "./icon-512.png",
+    "./assets/productos/termos/termo-hello-kitty-500ml-01.png",
+    "./assets/productos/juguetes/peluche-capibara-01.png",
+    "./assets/productos/juguetes/peluche-felpa-01.png",
+    "./assets/productos/accesorios/bolso-mujer-01.png",
+    "./assets/productos/accesorios/bolso-mujer-02.png"
 ];
 
 
@@ -246,7 +251,8 @@ async function guardarEnCache(
 // =====================================================
 
 async function obtenerDesdeCache(
-    request
+    request,
+    ignorarVersion = false
 ) {
 
     try {
@@ -255,7 +261,7 @@ async function obtenerDesdeCache(
 
         return await cache.match(
             request,
-            { ignoreSearch: false }
+            { ignoreSearch: ignorarVersion }
         );
 
     } catch (error) {
@@ -542,7 +548,7 @@ self.addEventListener(
 
                     } catch (error) {
 
-                        const cache = await obtenerDesdeCache(request);
+                        const cache = await obtenerDesdeCache(request, true);
 
                         if (cache) {
                             return cache;
