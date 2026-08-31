@@ -29,7 +29,7 @@
 
     <link
         rel="stylesheet"
-        href="style.css"
+        href="style.css?v=1.2.0"
     >
 
 
@@ -125,6 +125,7 @@
         <input
             type="text"
             id="buscador"
+            data-i18n-placeholder="buscarPlaceholder"
             placeholder="¿Qué estás buscando?"
             autocomplete="off"
         >
@@ -132,6 +133,7 @@
         <button
             type="button"
             id="boton-buscar"
+            data-i18n-aria="buscar"
             aria-label="Buscar"
         >
             🔍
@@ -303,12 +305,12 @@
         </span>
 
 
-        <h2>
+        <h2 data-text="catalogoTitulo">
             Catálogo de productos
         </h2>
 
 
-        <p>
+        <p data-text="catalogoDescripcion">
             Encuentra productos para tu hogar y negocio.
         </p>
 
@@ -320,7 +322,7 @@
          PRODUCTOS
     ================================================== -->
 
-    <div class="productos-container">
+    <div class="productos-container" id="lista-productos">
 
 
         <!-- PRODUCTO 1 -->
@@ -958,7 +960,9 @@
      JAVASCRIPT PRINCIPAL
 ====================================================== -->
 
-<script src="script.js"></script>
+<script src="productos.js?v=1.2.0"></script>
+<script src="script.js?v=1.2.0"></script>
+<script src="funciones-inteligentes.js?v=1.2.0"></script>
 
 
 

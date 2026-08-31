@@ -3,7 +3,7 @@
 // ACTUALIZACIÓN AUTOMÁTICA Y CACHÉ INTELIGENTE
 // =====================================================
 
-const CACHE_VERSION = "mi-tienda-v12";
+const CACHE_VERSION = "mi-tienda-v16";
 
 
 // =====================================================
@@ -16,6 +16,8 @@ const ARCHIVOS = [
     "./catalogo.html",
     "./style.css",
     "./script.js",
+    "./productos.js",
+    "./funciones-inteligentes.js",
     "./manifest.json",
     "./mi-fondo.png",
     "./icon-192.png",
@@ -34,6 +36,7 @@ const ARCHIVOS_SIEMPRE_ACTUALIZADOS = [
     "/style.css",
     "/script.js",
     "/productos.js"
+    ,"/funciones-inteligentes.js"
 ];
 
 
@@ -71,6 +74,8 @@ self.addEventListener("install", event => {
                     "[Mi Tienda] Error instalando caché:",
                     error
                 );
+
+                throw error;
 
             })
 
@@ -173,11 +178,17 @@ function esArchivoActualizable(request) {
     const pathname =
         url.pathname;
 
+    const nombreArchivo =
+        pathname.split("/").pop();
+
 
     return (
-        ARCHIVOS_SIEMPRE_ACTUALIZADOS.includes(
-            pathname
-        )
+        request.mode === "navigate" ||
+        pathname.endsWith("/") ||
+        ARCHIVOS_SIEMPRE_ACTUALIZADOS.some(function (archivo) {
+            return archivo !== "/" &&
+                archivo.split("/").pop() === nombreArchivo;
+        })
     );
 
 }
@@ -238,7 +249,8 @@ async function obtenerDesdeCache(
     try {
 
         return await caches.match(
-            request
+            request,
+            { ignoreSearch: true }
         );
 
     } catch (error) {

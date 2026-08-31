@@ -46,15 +46,23 @@ function normalizarCarrito(valor) {
 
     return valor.reduce(function (productosValidos, producto) {
 
-        const precio = Number(producto?.precio);
         const cantidad = Number(producto?.cantidad);
+
+        const productoCatalogo =
+            Array.isArray(window.productos)
+                ? window.productos.find(function (item) {
+                    const mismoId = producto?.id != null &&
+                        String(item.id) === String(producto.id);
+
+                    return (mismoId || item.nombre === producto?.nombre) && item.stock;
+                })
+                : null;
 
         const cantidadNormalizada =
             Math.floor(cantidad);
 
         if (
-            typeof producto?.nombre !== "string" ||
-            !Number.isFinite(precio) ||
+            !productoCatalogo ||
             !Number.isFinite(cantidad) ||
             cantidadNormalizada <= 0
         ) {
@@ -63,14 +71,17 @@ function normalizarCarrito(valor) {
 
         productosValidos.push({
 
+            id:
+                productoCatalogo.id,
+
             nombre:
-                producto.nombre,
+                productoCatalogo.nombre,
 
             precio:
-                precio,
+                productoCatalogo.precio,
 
             cantidad:
-                cantidadNormalizada
+                Math.min(cantidadNormalizada, 99)
 
         });
 
@@ -1102,6 +1113,9 @@ function configurarBotonesAgregar() {
                 "click",
                 function () {
 
+                    const id =
+                        boton.dataset.id;
+
                     const nombre =
                         boton.dataset.nombre ||
                         boton.closest(
@@ -1115,10 +1129,18 @@ function configurarBotonesAgregar() {
                         "Producto";
 
 
+                    const productoCatalogo =
+                        Array.isArray(window.productos)
+                            ? window.productos.find(function (producto) {
+                                return (
+                                    (id && String(producto.id) === String(id)) ||
+                                    producto.nombre === nombre
+                                ) && producto.stock;
+                            })
+                            : null;
+
                     const precio =
-                        Number(
-                            boton.dataset.precio
-                        );
+                        Number(productoCatalogo?.precio);
 
 
                     if (
@@ -1128,7 +1150,7 @@ function configurarBotonesAgregar() {
                     ) {
 
                         console.error(
-                            "El producto no tiene un precio válido."
+                            "El producto no está disponible en el catálogo."
                         );
 
                         return;
@@ -1143,8 +1165,8 @@ function configurarBotonesAgregar() {
                             ) {
 
                                 return (
-                                    producto.nombre ===
-                                    nombre
+                                    String(producto.id) ===
+                                    String(productoCatalogo.id)
                                 );
 
                             }
@@ -1153,14 +1175,20 @@ function configurarBotonesAgregar() {
 
                     if (existente) {
 
-                        existente.cantidad++;
+                        existente.cantidad = Math.min(
+                            existente.cantidad + 1,
+                            99
+                        );
 
                     } else {
 
                         carrito.push({
 
+                            id:
+                                productoCatalogo.id,
+
                             nombre:
-                                nombre,
+                                productoCatalogo.nombre,
 
                             precio:
                                 precio,
@@ -2218,6 +2246,104 @@ const traducciones = {
 
 };
 
+// Textos de componentes dinámicos y formularios. Se mantienen junto al
+// diccionario principal para que ninguna parte interactiva quede en español.
+Object.assign(traducciones.es, {
+    buscarPlaceholder: "¿Qué estás buscando?", buscar: "Buscar", cerrar: "Cerrar", abrirCarrito: "Abrir carrito",
+    catalogoTitulo: "Catálogo de productos", catalogoDescripcion: "Encuentra productos para tu hogar y negocio.",
+    categoria: "Categoría", todasCategorias: "Todas las categorías", ordenar: "Ordenar", relevancia: "Relevancia",
+    masRecientes: "Más recientes", menorPrecio: "Menor precio", mayorPrecio: "Mayor precio", mostrar: "Mostrar",
+    mostrandoProductos: "Mostrando {desde}–{hasta} de {total} productos", sinResultados: "No encontramos productos con esos criterios.",
+    anterior: "Anterior", siguiente: "Siguiente", paginaAnterior: "Página anterior", paginaSiguiente: "Página siguiente",
+    disponible: "Disponible", agotado: "Agotado", estrellasDeCinco: "{valor} de 5 estrellas", general: "General",
+    ayuda: "Ayuda", asistenteTitulo: "Asistente de Mi Tienda", asistenteEnLinea: "En línea para ayudarte",
+    saludoAsistente: "¡Hola! Cuéntame qué necesitas y te ayudaré a encontrarlo, comprarlo o revisar tu carrito.",
+    comoComprar: "Cómo comprar", verCarrito: "Ver carrito", productos: "Productos", escribeConsulta: "Escribe tu consulta…",
+    enviarConsulta: "Enviar consulta", respuestaCarrito: "Abro tu carrito para que revises tus productos.",
+    respuestaCompra: "Elige un producto, agrégalo al carrito y después finaliza tu compra por WhatsApp.",
+    respuestaProducto: "Puedes agregarlo al carrito desde su tarjeta.",
+    respuestaDefault: "Puedo ayudarte con productos, precios, disponibilidad, compras o tu carrito. ¿Qué necesitas?",
+    eliminarProducto: "Eliminar producto", confirmarVaciar: "¿Quieres quitar todos los productos del carrito?"
+});
+
+Object.assign(traducciones.en, {
+    buscarPlaceholder: "What are you looking for?", buscar: "Search", cerrar: "Close", abrirCarrito: "Open cart",
+    catalogoTitulo: "Product catalog", catalogoDescripcion: "Find products for your home and business.",
+    categoria: "Category", todasCategorias: "All categories", ordenar: "Sort", relevancia: "Relevance",
+    masRecientes: "Newest", menorPrecio: "Lowest price", mayorPrecio: "Highest price", mostrar: "Show",
+    mostrandoProductos: "Showing {desde}–{hasta} of {total} products", sinResultados: "No products match those filters.",
+    anterior: "Previous", siguiente: "Next", paginaAnterior: "Previous page", paginaSiguiente: "Next page",
+    disponible: "Available", agotado: "Out of stock", estrellasDeCinco: "{valor} out of 5 stars", general: "General",
+    ayuda: "Help", asistenteTitulo: "Mi Tienda Assistant", asistenteEnLinea: "Online and ready to help",
+    saludoAsistente: "Hi! Tell me what you need and I’ll help you find it, buy it, or review your cart.",
+    comoComprar: "How to buy", verCarrito: "View cart", productos: "Products", escribeConsulta: "Type your question…",
+    enviarConsulta: "Send question", respuestaCarrito: "I’ll open your cart so you can review your products.",
+    respuestaCompra: "Choose a product, add it to your cart, then complete your order through WhatsApp.",
+    respuestaProducto: "You can add it to your cart from its product card.",
+    respuestaDefault: "I can help with products, prices, availability, orders, or your cart. What do you need?",
+    eliminarProducto: "Remove product", confirmarVaciar: "Do you want to remove every product from your cart?"
+});
+
+Object.assign(traducciones.fr, {
+    buscarPlaceholder: "Que recherchez-vous ?", buscar: "Rechercher", cerrar: "Fermer", abrirCarrito: "Ouvrir le panier",
+    catalogoTitulo: "Catalogue de produits", catalogoDescripcion: "Trouvez des produits pour votre maison et votre entreprise.",
+    categoria: "Catégorie", todasCategorias: "Toutes les catégories", ordenar: "Trier", relevancia: "Pertinence",
+    masRecientes: "Plus récents", menorPrecio: "Prix croissant", mayorPrecio: "Prix décroissant", mostrar: "Afficher",
+    mostrandoProductos: "Affichage de {desde} à {hasta} sur {total} produits", sinResultados: "Aucun produit ne correspond à ces critères.",
+    anterior: "Précédent", siguiente: "Suivant", paginaAnterior: "Page précédente", paginaSiguiente: "Page suivante",
+    disponible: "Disponible", agotado: "Épuisé", estrellasDeCinco: "{valor} étoiles sur 5", general: "Général",
+    ayuda: "Aide", asistenteTitulo: "Assistant Mi Tienda", asistenteEnLinea: "En ligne pour vous aider",
+    saludoAsistente: "Bonjour ! Dites-moi ce dont vous avez besoin et je vous aiderai à le trouver, l’acheter ou vérifier votre panier.",
+    comoComprar: "Comment acheter", verCarrito: "Voir le panier", productos: "Produits", escribeConsulta: "Écrivez votre question…",
+    enviarConsulta: "Envoyer la question", respuestaCarrito: "J’ouvre votre panier pour que vous puissiez vérifier vos produits.",
+    respuestaCompra: "Choisissez un produit, ajoutez-le au panier, puis terminez votre commande sur WhatsApp.",
+    respuestaProducto: "Vous pouvez l’ajouter au panier depuis sa fiche.",
+    respuestaDefault: "Je peux vous aider avec les produits, les prix, la disponibilité, les commandes ou le panier. Que recherchez-vous ?",
+    eliminarProducto: "Supprimer le produit", confirmarVaciar: "Voulez-vous retirer tous les produits du panier ?"
+});
+
+Object.assign(traducciones.pt, {
+    buscarPlaceholder: "O que você está procurando?", buscar: "Buscar", cerrar: "Fechar", abrirCarrito: "Abrir carrinho",
+    catalogoTitulo: "Catálogo de produtos", catalogoDescripcion: "Encontre produtos para sua casa e seu negócio.",
+    categoria: "Categoria", todasCategorias: "Todas as categorias", ordenar: "Ordenar", relevancia: "Relevância",
+    masRecientes: "Mais recentes", menorPrecio: "Menor preço", mayorPrecio: "Maior preço", mostrar: "Mostrar",
+    mostrandoProductos: "Mostrando {desde}–{hasta} de {total} produtos", sinResultados: "Nenhum produto corresponde a esses filtros.",
+    anterior: "Anterior", siguiente: "Próximo", paginaAnterior: "Página anterior", paginaSiguiente: "Próxima página",
+    disponible: "Disponível", agotado: "Esgotado", estrellasDeCinco: "{valor} de 5 estrelas", general: "Geral",
+    ayuda: "Ajuda", asistenteTitulo: "Assistente Mi Tienda", asistenteEnLinea: "Online para ajudar você",
+    saludoAsistente: "Olá! Conte o que você precisa e eu ajudarei a encontrar, comprar ou revisar seu carrinho.",
+    comoComprar: "Como comprar", verCarrito: "Ver carrinho", productos: "Produtos", escribeConsulta: "Digite sua pergunta…",
+    enviarConsulta: "Enviar pergunta", respuestaCarrito: "Vou abrir seu carrinho para você revisar os produtos.",
+    respuestaCompra: "Escolha um produto, adicione ao carrinho e finalize o pedido pelo WhatsApp.",
+    respuestaProducto: "Você pode adicioná-lo ao carrinho pelo cartão do produto.",
+    respuestaDefault: "Posso ajudar com produtos, preços, disponibilidade, pedidos ou seu carrinho. O que você precisa?",
+    eliminarProducto: "Remover produto", confirmarVaciar: "Deseja remover todos os produtos do carrinho?"
+});
+
+Object.assign(traducciones.zh, {
+    buscarPlaceholder: "您在寻找什么？", buscar: "搜索", cerrar: "关闭", abrirCarrito: "打开购物车",
+    catalogoTitulo: "商品目录", catalogoDescripcion: "查找适合家庭和企业的商品。",
+    categoria: "分类", todasCategorias: "所有分类", ordenar: "排序", relevancia: "相关性",
+    masRecientes: "最新商品", menorPrecio: "价格从低到高", mayorPrecio: "价格从高到低", mostrar: "显示数量",
+    mostrandoProductos: "正在显示第 {desde}–{hasta} 件，共 {total} 件商品", sinResultados: "没有符合这些条件的商品。",
+    anterior: "上一页", siguiente: "下一页", paginaAnterior: "上一页", paginaSiguiente: "下一页",
+    disponible: "有货", agotado: "缺货", estrellasDeCinco: "5 星中获得 {valor} 星", general: "综合",
+    ayuda: "帮助", asistenteTitulo: "Mi Tienda 助手", asistenteEnLinea: "在线为您服务",
+    saludoAsistente: "您好！请告诉我您的需求，我可以帮您查找商品、购买商品或查看购物车。",
+    comoComprar: "如何购买", verCarrito: "查看购物车", productos: "商品", escribeConsulta: "请输入您的问题…",
+    enviarConsulta: "发送问题", respuestaCarrito: "我将打开购物车，方便您查看商品。",
+    respuestaCompra: "选择商品并加入购物车，然后通过 WhatsApp 完成订单。",
+    respuestaProducto: "您可以在商品卡片上将其加入购物车。",
+    respuestaDefault: "我可以帮助您了解商品、价格、库存、订单或购物车。请问您需要什么？",
+    eliminarProducto: "移除商品", confirmarVaciar: "您要清空购物车中的所有商品吗？"
+});
+
+Object.assign(traducciones.es, { ultimoPaso:"ÚLTIMO PASO", entregaTitulo:"¿Dónde entregamos tu pedido?", entregaIntro:"Estos datos se incluirán en tu mensaje de WhatsApp para confirmar la compra.", nombreCompleto:"Nombre completo", tuNombre:"Tu nombre", telefono:"Teléfono", direccionEntrega:"Dirección de entrega", direccionEjemplo:"Barrio, ciudad y una referencia", metodoEntrega:"Método de entrega", domicilio:"Entrega a domicilio", retiro:"Retiro en tienda", notaPedido:"Nota para el pedido", opcional:"Opcional", continuarWhatsApp:"Continuar a WhatsApp" });
+Object.assign(traducciones.en, { ultimoPaso:"FINAL STEP", entregaTitulo:"Where should we deliver your order?", entregaIntro:"These details will be included in your WhatsApp message to confirm the purchase.", nombreCompleto:"Full name", tuNombre:"Your name", telefono:"Phone number", direccionEntrega:"Delivery address", direccionEjemplo:"Neighborhood, city, and a nearby landmark", metodoEntrega:"Delivery method", domicilio:"Home delivery", retiro:"Store pickup", notaPedido:"Order note", opcional:"Optional", continuarWhatsApp:"Continue to WhatsApp" });
+Object.assign(traducciones.fr, { ultimoPaso:"DERNIÈRE ÉTAPE", entregaTitulo:"Où devons-nous livrer votre commande ?", entregaIntro:"Ces informations seront ajoutées à votre message WhatsApp pour confirmer l’achat.", nombreCompleto:"Nom complet", tuNombre:"Votre nom", telefono:"Téléphone", direccionEntrega:"Adresse de livraison", direccionEjemplo:"Quartier, ville et point de repère", metodoEntrega:"Mode de livraison", domicilio:"Livraison à domicile", retiro:"Retrait en magasin", notaPedido:"Note de commande", opcional:"Facultatif", continuarWhatsApp:"Continuer sur WhatsApp" });
+Object.assign(traducciones.pt, { ultimoPaso:"ÚLTIMA ETAPA", entregaTitulo:"Onde devemos entregar seu pedido?", entregaIntro:"Esses dados serão incluídos na mensagem do WhatsApp para confirmar a compra.", nombreCompleto:"Nome completo", tuNombre:"Seu nome", telefono:"Telefone", direccionEntrega:"Endereço de entrega", direccionEjemplo:"Bairro, cidade e um ponto de referência", metodoEntrega:"Método de entrega", domicilio:"Entrega em domicílio", retiro:"Retirada na loja", notaPedido:"Observação do pedido", opcional:"Opcional", continuarWhatsApp:"Continuar no WhatsApp" });
+Object.assign(traducciones.zh, { ultimoPaso:"最后一步", entregaTitulo:"您的订单要送到哪里？", entregaIntro:"这些信息将包含在 WhatsApp 消息中，以便确认购买。", nombreCompleto:"姓名", tuNombre:"请输入姓名", telefono:"电话号码", direccionEntrega:"配送地址", direccionEjemplo:"社区、城市和附近地标", metodoEntrega:"配送方式", domicilio:"送货上门", retiro:"到店自取", notaPedido:"订单备注", opcional:"选填", continuarWhatsApp:"前往 WhatsApp" });
+
 
 // =====================================================
 // IDIOMA ACTUAL
@@ -2261,6 +2387,12 @@ function t(
         clave
     );
 
+}
+
+function tf(clave, valores) {
+    return Object.entries(valores || {}).reduce(function (texto, entrada) {
+        return texto.replaceAll("{" + entrada[0] + "}", String(entrada[1]));
+    }, t(clave));
 }
 
 
@@ -2412,6 +2544,41 @@ function cambiarIdioma(
 
 
     actualizarAsistenteIdioma();
+
+    if (buscador) {
+        buscador.placeholder = t("buscarPlaceholder");
+    }
+
+    document.querySelectorAll("[data-i18n-placeholder]").forEach(function (elemento) {
+        elemento.placeholder = t(elemento.dataset.i18nPlaceholder);
+    });
+
+    document.querySelectorAll("[data-i18n-aria]").forEach(function (elemento) {
+        elemento.setAttribute("aria-label", t(elemento.dataset.i18nAria));
+    });
+
+    document.getElementById("checkout-datos")?.remove();
+
+    if (document.getElementById("lista-productos")) {
+        if (document.getElementById("herramientas-catalogo")) {
+            estadoCatalogo.categoria = "todos";
+            estadoCatalogo.pagina = 1;
+            document.getElementById("herramientas-catalogo").remove();
+            document.getElementById("paginacion-catalogo")?.remove();
+            configurarExploradorProductos();
+        } else {
+            mostrarProductos();
+        }
+    }
+
+    if (asistenteReferencia) {
+        asistenteReferencia.remove();
+        asistenteReferencia = null;
+        crearAsistenteVirtual();
+        actualizarAsistenteIdioma();
+    }
+
+    window.dispatchEvent(new CustomEvent("idiomaCambiado", { detail: { idioma: idioma } }));
 
 }
 
@@ -3406,7 +3573,7 @@ function mostrarCarrito() {
                     class="eliminar-producto"
                     onclick="eliminarProducto(${indice})"
                     type="button"
-                    aria-label="Eliminar producto"
+                    aria-label="${t("eliminarProducto")}"
                 >
                     🗑️
                 </button>
@@ -3417,7 +3584,7 @@ function mostrarCarrito() {
             item.querySelector(
                 ".nombre-producto"
             ).textContent =
-                producto.nombre;
+                nombreProductoLocalizado(producto.id, producto.nombre);
 
 
             lista.appendChild(
@@ -3546,13 +3713,7 @@ function abrirCheckout() {
         !carrito.length
     ) {
 
-        alert(
-            idiomaActual === "zh"
-                ? "您的购物车为空。"
-                : idiomaActual === "en"
-                    ? "Your cart is empty."
-                    : "Tu carrito está vacío."
-        );
+        alert(t("carritoVacio"));
 
 
         return;
@@ -3591,36 +3752,36 @@ function abrirCheckout() {
                 <button
                     class="checkout-cerrar"
                     type="button"
-                    aria-label="Cerrar"
+                    aria-label="${t("cerrar")}"
                 >
                     ×
                 </button>
 
 
                 <span class="checkout-paso">
-                    ÚLTIMO PASO
+                    ${t("ultimoPaso")}
                 </span>
 
 
                 <h2>
-                    ¿Dónde entregamos tu pedido?
+                    ${t("entregaTitulo")}
                 </h2>
 
 
                 <p>
-                    Estos datos se incluirán en tu mensaje de WhatsApp para confirmar la compra.
+                    ${t("entregaIntro")}
                 </p>
 
 
                 <label>
 
-                    Nombre completo
+                    ${t("nombreCompleto")}
 
                     <input
                         name="nombre"
                         required
                         autocomplete="name"
-                        placeholder="Tu nombre"
+                        placeholder="${t("tuNombre")}"
                     >
 
                 </label>
@@ -3628,7 +3789,7 @@ function abrirCheckout() {
 
                 <label>
 
-                    Teléfono
+                    ${t("telefono")}
 
                     <input
                         name="telefono"
@@ -3643,13 +3804,13 @@ function abrirCheckout() {
 
                 <label>
 
-                    Dirección de entrega
+                    ${t("direccionEntrega")}
 
                     <textarea
                         name="direccion"
                         required
                         rows="3"
-                        placeholder="Barrio, ciudad y una referencia"
+                        placeholder="${t("direccionEjemplo")}"
                     ></textarea>
 
                 </label>
@@ -3657,18 +3818,18 @@ function abrirCheckout() {
 
                 <label>
 
-                    Método de entrega
+                    ${t("metodoEntrega")}
 
                     <select
                         name="entrega"
                     >
 
                         <option>
-                            Entrega a domicilio
+                            ${t("domicilio")}
                         </option>
 
                         <option>
-                            Retiro en tienda
+                            ${t("retiro")}
                         </option>
 
                     </select>
@@ -3678,12 +3839,12 @@ function abrirCheckout() {
 
                 <label>
 
-                    Nota para el pedido
+                    ${t("notaPedido")}
 
                     <input
                         name="nota"
                         maxlength="180"
-                        placeholder="Opcional"
+                        placeholder="${t("opcional")}"
                     >
 
                 </label>
@@ -3693,7 +3854,7 @@ function abrirCheckout() {
                     class="confirmar-pedido"
                     type="submit"
                 >
-                    Continuar a WhatsApp
+                    ${t("continuarWhatsApp")}
                 </button>
 
             </form>
@@ -5049,6 +5210,20 @@ function crearAsistenteVirtual() {
                 );
 
 
+        const palabrasCarrito = ["carrito", "cart", "panier", "carrinho", "购物车"];
+        const palabrasCompra = ["compr", "buy", "order", "achat", "achet", "commande", "pedido", "购买", "订单"];
+
+        if (palabrasCarrito.some(function (palabra) { return texto.includes(palabra); })) {
+            agregarMensaje(t("respuestaCarrito"), "mensaje-asistente");
+            abrirCarrito();
+            return;
+        }
+
+        if (palabrasCompra.some(function (palabra) { return texto.includes(palabra); })) {
+            agregarMensaje(t("respuestaCompra"), "mensaje-asistente");
+            return;
+        }
+
         const producto =
             productosDisponibles.find(
                 function (
@@ -5124,11 +5299,7 @@ function crearAsistenteVirtual() {
                 producto.descripcion +
                 ". " +
 
-                (
-                    idiomaActual === "zh"
-                        ? "您可以从产品卡片加入购物车。"
-                        : "Puedes agregarlo al carrito desde su tarjeta."
-                ),
+                t("respuestaProducto"),
 
                 "mensaje-asistente"
 
@@ -5240,15 +5411,7 @@ function crearAsistenteVirtual() {
         }
 
 
-        agregarMensaje(
-
-            idiomaActual === "zh"
-                ? "我可以帮助您了解产品、价格、付款、配送和购物车。"
-                : "Puedo orientarte sobre productos, precios, pagos, envíos y el carrito.",
-
-            "mensaje-asistente"
-
-        );
+        agregarMensaje(t("respuestaDefault"), "mensaje-asistente");
 
     }
 
@@ -5774,7 +5937,7 @@ function mostrarProductos() {
 
             <div class="producto-rating">
 
-                ⭐⭐⭐⭐⭐
+                ${"⭐".repeat(Math.max(0, Math.min(5, Number(producto.rating) || 0)))}
 
             </div>
 
@@ -5818,13 +5981,15 @@ function mostrarProductos() {
 
                 data-precio="${producto.precio}"
 
+                ${producto.stock ? "" : "disabled"}
+
             >
 
                 🛒
 
                 <span>
 
-                    Agregar al carrito
+                    ${producto.stock ? "Agregar al carrito" : "Agotado"}
 
                 </span>
 
@@ -5861,6 +6026,14 @@ function mostrarProductos() {
 // =====================================================
 
 function iniciarTienda() {
+
+    document.querySelectorAll('a[href="#"]').forEach(function (enlace) {
+        enlace.addEventListener("click", function (evento) {
+            evento.preventDefault();
+        });
+        enlace.setAttribute("aria-disabled", "true");
+        enlace.setAttribute("title", "Enlace próximamente disponible");
+    });
 
     cargarCarritoCompartido();
 
@@ -5905,6 +6078,393 @@ if (
 
 } else {
 
-    iniciarTienda();
+    // Permite que las extensiones del catálogo declaradas al final del
+    // archivo terminen de inicializarse antes de construir la interfaz.
+    setTimeout(iniciarTienda, 0);
 
+}
+
+// API mínima para las funciones inteligentes sin duplicar la lógica del carrito.
+window.todoKlick = {
+    t: t,
+    tf: tf,
+    idioma: function () { return idiomaActual; },
+    obtenerCarrito: function () {
+        return carrito.map(function (producto) {
+            return { ...producto };
+        });
+    },
+
+    agregarProducto: function (referencia, cantidad = 1) {
+        const producto = Array.isArray(window.productos)
+            ? window.productos.find(function (item) {
+                return (
+                    String(item.id) === String(referencia) ||
+                    item.nombre === referencia
+                ) && item.stock;
+            })
+            : null;
+
+        if (!producto) {
+            return false;
+        }
+
+        const existente = carrito.find(function (item) {
+            return String(item.id) === String(producto.id);
+        });
+
+        const cantidadValida = Math.max(1, Math.min(99, Math.floor(Number(cantidad) || 1)));
+
+        if (existente) {
+            existente.cantidad = Math.min(99, existente.cantidad + cantidadValida);
+        } else {
+            carrito.push({ id: producto.id, nombre: producto.nombre, precio: producto.precio, cantidad: cantidadValida });
+        }
+
+        guardarCarrito();
+        actualizarContador();
+        mostrarCarrito();
+        return true;
+    },
+
+    reemplazarCarrito: function (productos) {
+        carrito = normalizarCarrito(productos);
+        guardarCarrito();
+        actualizarContador();
+        mostrarCarrito();
+        return this.obtenerCarrito();
+    },
+
+    abrirCarrito: abrirCarrito
+};
+
+// =====================================================
+// CATÁLOGO ESCALABLE
+// Renderiza únicamente la página visible. Esta implementación sustituye
+// el explorador basado en tarjetas ya creadas y permite crecer el origen
+// de datos sin cargar cientos de nodos en el DOM.
+// =====================================================
+
+const estadoCatalogo = {
+    pagina: 1,
+    porPagina: 24,
+    busqueda: "",
+    categoria: "todos",
+    orden: "relevancia"
+};
+
+function normalizarTextoCatalogo(valor) {
+    return String(valor || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .trim();
+}
+
+function escaparHTMLCatalogo(valor) {
+    return String(valor ?? "").replace(/[&<>"']/g, function (caracter) {
+        return {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#039;"
+        }[caracter];
+    });
+}
+
+function localizarProducto(producto) {
+    const traduccion = window.traduccionesProductos?.[idiomaActual]?.[producto.id] || {};
+    return Object.assign({}, producto, traduccion, {
+        nombreOriginal: producto.nombre
+    });
+}
+
+function nombreProductoLocalizado(id, nombreBase) {
+    const producto = (window.productos || []).find(function (item) {
+        return String(item.id) === String(id) || item.nombre === nombreBase;
+    });
+    return producto ? localizarProducto(producto).nombre : nombreBase;
+}
+
+function obtenerProductosFiltrados() {
+    const termino = normalizarTextoCatalogo(estadoCatalogo.busqueda);
+    let resultado = Array.isArray(window.productos)
+        ? window.productos.filter(function (productoBase) {
+            const producto = localizarProducto(productoBase);
+            const coincideCategoria = estadoCatalogo.categoria === "todos" ||
+                normalizarTextoCatalogo(producto.categoria) === estadoCatalogo.categoria;
+            const contenido = normalizarTextoCatalogo([
+                producto.nombre,
+                producto.descripcion,
+                producto.categoria,
+                producto.sku,
+                ...(Array.isArray(producto.tags) ? producto.tags : [])
+            ].join(" "));
+
+            return producto.activo !== false && coincideCategoria && (!termino || contenido.includes(termino));
+        })
+        : [];
+
+    resultado = resultado.slice();
+
+    if (estadoCatalogo.orden === "menor") {
+        resultado.sort(function (a, b) { return Number(a.precio) - Number(b.precio); });
+    } else if (estadoCatalogo.orden === "mayor") {
+        resultado.sort(function (a, b) { return Number(b.precio) - Number(a.precio); });
+    } else if (estadoCatalogo.orden === "nuevos") {
+        resultado.sort(function (a, b) { return Number(b.id) - Number(a.id); });
+    }
+
+    return resultado;
+}
+
+function crearTarjetaProducto(producto) {
+    producto = localizarProducto(producto);
+    const tarjeta = document.createElement("article");
+    const imagen = String(producto.imagen || "📦");
+    const esArchivo = /\.(png|jpe?g|webp|gif|avif|svg)(\?.*)?$/i.test(imagen);
+
+    const idSeguro = escaparHTMLCatalogo(producto.id);
+    const nombreSeguro = escaparHTMLCatalogo(producto.nombre);
+    const descripcionSegura = escaparHTMLCatalogo(producto.descripcion);
+    const categoriaSegura = escaparHTMLCatalogo(producto.categoria || t("general"));
+    const imagenSegura = escaparHTMLCatalogo(imagen);
+    const etiquetaSegura = escaparHTMLCatalogo(producto.etiqueta);
+    const disponible = Boolean(producto.stock);
+
+    tarjeta.className = "producto";
+    tarjeta.dataset.productoId = String(producto.id);
+    tarjeta.innerHTML = `
+        <div class="producto-imagen">
+            ${esArchivo
+                ? `<img src="${imagenSegura}" alt="${nombreSeguro}" loading="lazy" decoding="async">`
+                : `<span aria-hidden="true">${imagenSegura}</span>`}
+        </div>
+        <div class="producto-info">
+            <span class="producto-categoria">${categoriaSegura}</span>
+            ${producto.etiqueta ? `<div class="etiqueta-producto">${etiquetaSegura}</div>` : ""}
+            <h3>${nombreSeguro}</h3>
+            <p>${descripcionSegura}</p>
+            <div class="producto-rating" aria-label="${escaparHTMLCatalogo(tf("estrellasDeCinco", { valor: Number(producto.rating) || 0 }))}">
+                ${"⭐".repeat(Math.max(0, Math.min(5, Number(producto.rating) || 0)))}
+            </div>
+            <strong>${formatoMoneda(producto.precio)}</strong>
+            <div class="producto-stock ${disponible ? "disponible" : "agotado"}">
+                ${disponible ? t("disponible") : t("agotado")}
+            </div>
+            <button type="button" class="agregar-carrito"
+                data-id="${idSeguro}" data-nombre="${nombreSeguro}"
+                data-precio="${Number(producto.precio) || 0}" ${disponible ? "" : "disabled"}>
+                <span>${disponible ? t("agregarCarrito") : t("agotado")}</span>
+            </button>
+        </div>`;
+
+    return tarjeta;
+}
+
+function mostrarProductos() {
+    const contenedor = document.getElementById("lista-productos");
+    if (!contenedor) return;
+
+    const esCatalogoCompleto = /catalogo\.html$/i.test(window.location.pathname);
+    const productosFiltrados = obtenerProductosFiltrados();
+    const totalPaginas = Math.max(1, Math.ceil(productosFiltrados.length / estadoCatalogo.porPagina));
+    estadoCatalogo.pagina = Math.min(Math.max(1, estadoCatalogo.pagina), totalPaginas);
+
+    const inicio = esCatalogoCompleto
+        ? (estadoCatalogo.pagina - 1) * estadoCatalogo.porPagina
+        : 0;
+    const limite = esCatalogoCompleto ? estadoCatalogo.porPagina : 8;
+    const visibles = productosFiltrados.slice(inicio, inicio + limite);
+
+    contenedor.innerHTML = "";
+    if (!visibles.length) {
+        contenedor.innerHTML = `<p class="catalogo-vacio">${escaparHTMLCatalogo(t("sinResultados"))}</p>`;
+    } else {
+        const fragmento = document.createDocumentFragment();
+        visibles.forEach(function (producto) {
+            fragmento.appendChild(crearTarjetaProducto(producto));
+        });
+        contenedor.appendChild(fragmento);
+    }
+
+    configurarBotonesAgregar();
+
+    const resumen = document.getElementById("resumen-catalogo");
+    if (resumen) {
+        const desde = productosFiltrados.length ? inicio + 1 : 0;
+        const hasta = Math.min(inicio + limite, productosFiltrados.length);
+        resumen.textContent = tf("mostrandoProductos", { desde: desde, hasta: hasta, total: productosFiltrados.length });
+    }
+
+    document.querySelectorAll("[data-pagina-catalogo]").forEach(function (boton) {
+        const pagina = Number(boton.dataset.paginaCatalogo);
+        boton.classList.toggle("activa", pagina === estadoCatalogo.pagina);
+        boton.setAttribute("aria-current", pagina === estadoCatalogo.pagina ? "page" : "false");
+    });
+
+    const anterior = document.getElementById("pagina-anterior");
+    const siguiente = document.getElementById("pagina-siguiente");
+    if (anterior) anterior.disabled = estadoCatalogo.pagina <= 1;
+    if (siguiente) siguiente.disabled = estadoCatalogo.pagina >= totalPaginas;
+}
+
+function pintarPaginacionCatalogo() {
+    const paginacion = document.getElementById("paginacion-catalogo");
+    if (!paginacion) return;
+
+    const total = obtenerProductosFiltrados().length;
+    const totalPaginas = Math.max(1, Math.ceil(total / estadoCatalogo.porPagina));
+    estadoCatalogo.pagina = Math.min(estadoCatalogo.pagina, totalPaginas);
+    paginacion.hidden = totalPaginas <= 1;
+    const desde = Math.max(1, estadoCatalogo.pagina - 2);
+    const hasta = Math.min(totalPaginas, desde + 4);
+    let paginas = "";
+
+    for (let pagina = desde; pagina <= hasta; pagina += 1) {
+        paginas += `<button type="button" data-pagina-catalogo="${pagina}">${pagina}</button>`;
+    }
+
+    paginacion.innerHTML = `
+        <button type="button" id="pagina-anterior" aria-label="${t("paginaAnterior")}">${t("anterior")}</button>
+        <div class="numeros-paginacion">${paginas}</div>
+        <button type="button" id="pagina-siguiente" aria-label="${t("paginaSiguiente")}">${t("siguiente")}</button>`;
+
+    paginacion.querySelectorAll("[data-pagina-catalogo]").forEach(function (boton) {
+        boton.addEventListener("click", function () {
+            estadoCatalogo.pagina = Number(boton.dataset.paginaCatalogo);
+            actualizarVistaCatalogo(true);
+        });
+    });
+
+    document.getElementById("pagina-anterior").addEventListener("click", function () {
+        estadoCatalogo.pagina -= 1;
+        actualizarVistaCatalogo(true);
+    });
+    document.getElementById("pagina-siguiente").addEventListener("click", function () {
+        estadoCatalogo.pagina += 1;
+        actualizarVistaCatalogo(true);
+    });
+}
+
+function actualizarVistaCatalogo(desplazar) {
+    pintarPaginacionCatalogo();
+    mostrarProductos();
+    if (desplazar) {
+        document.getElementById("productos")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+}
+
+function configurarExploradorProductos() {
+    const contenedor = document.getElementById("lista-productos");
+    const esCatalogoCompleto = /catalogo\.html$/i.test(window.location.pathname);
+    if (!contenedor || !esCatalogoCompleto || document.getElementById("herramientas-catalogo")) return;
+
+    const categorias = [...new Set((window.productos || [])
+        .filter(function (producto) { return producto.activo !== false; })
+        .map(function (producto) { return localizarProducto(producto).categoria; })
+        .filter(Boolean))];
+    const herramientas = document.createElement("section");
+    herramientas.id = "herramientas-catalogo";
+    herramientas.className = "herramientas-catalogo catalogo-controles";
+    herramientas.setAttribute("aria-label", t("catalogo"));
+    herramientas.innerHTML = `
+        <label class="filtro-catalogo">
+            <span>${t("categoria")}</span>
+            <select id="filtro-categoria">
+                <option value="todos">${t("todasCategorias")}</option>
+                ${categorias.map(function (categoria) {
+                    return `<option value="${normalizarTextoCatalogo(categoria)}">${categoria}</option>`;
+                }).join("")}
+            </select>
+        </label>
+        <label class="ordenar-productos">
+            <span>${t("ordenar")}</span>
+            <select id="orden-catalogo">
+                <option value="relevancia">${t("relevancia")}</option>
+                <option value="nuevos">${t("masRecientes")}</option>
+                <option value="menor">${t("menorPrecio")}</option>
+                <option value="mayor">${t("mayorPrecio")}</option>
+            </select>
+        </label>
+        <label class="cantidad-pagina">
+            <span>${t("mostrar")}</span>
+            <select id="cantidad-catalogo">
+                <option value="12">12</option>
+                <option value="24" selected>24</option>
+                <option value="48">48</option>
+            </select>
+        </label>
+        <p id="resumen-catalogo" class="resumen-catalogo" aria-live="polite"></p>`;
+    contenedor.before(herramientas);
+
+    const paginacion = document.createElement("nav");
+    paginacion.id = "paginacion-catalogo";
+    paginacion.className = "paginacion-catalogo";
+    paginacion.setAttribute("aria-label", t("catalogo"));
+    contenedor.after(paginacion);
+
+    document.getElementById("filtro-categoria").addEventListener("change", function (evento) {
+        estadoCatalogo.categoria = evento.target.value;
+        estadoCatalogo.pagina = 1;
+        actualizarVistaCatalogo(false);
+    });
+    document.getElementById("orden-catalogo").addEventListener("change", function (evento) {
+        estadoCatalogo.orden = evento.target.value;
+        estadoCatalogo.pagina = 1;
+        actualizarVistaCatalogo(false);
+    });
+    document.getElementById("cantidad-catalogo").addEventListener("change", function (evento) {
+        estadoCatalogo.porPagina = Number(evento.target.value) || 24;
+        estadoCatalogo.pagina = 1;
+        actualizarVistaCatalogo(false);
+    });
+
+    const entradaBusqueda = document.getElementById("buscador");
+    if (entradaBusqueda) {
+        entradaBusqueda.addEventListener("input", function () {
+            estadoCatalogo.busqueda = entradaBusqueda.value;
+            estadoCatalogo.pagina = 1;
+            actualizarVistaCatalogo(false);
+        });
+    }
+
+    actualizarVistaCatalogo(false);
+}
+
+// Versión localizada del asistente. Al estar al final del archivo sustituye
+// la implementación antigua que solo contemplaba español y chino.
+function actualizarAsistenteIdioma() {
+    if (!asistenteReferencia) return;
+
+    const boton = asistenteReferencia.querySelector(".asistente-boton-texto");
+    const input = asistenteReferencia.querySelector("#asistente-consulta");
+    const encabezado = asistenteReferencia.querySelector(".asistente-encabezado strong");
+    const estado = asistenteReferencia.querySelector(".asistente-encabezado span");
+    const saludo = asistenteReferencia.querySelector(".asistente-mensajes .mensaje-asistente");
+    const sugerencias = asistenteReferencia.querySelectorAll(".asistente-sugerencias button");
+    const cerrar = asistenteReferencia.querySelector(".asistente-cerrar");
+    const enviar = asistenteReferencia.querySelector('.asistente-formulario button[type="submit"]');
+
+    if (boton) boton.textContent = t("ayuda");
+    if (input) {
+        input.placeholder = t("escribeConsulta");
+        input.setAttribute("aria-label", t("escribeConsulta"));
+    }
+    if (encabezado) encabezado.textContent = t("asistenteTitulo");
+    if (estado) {
+        const indicador = estado.querySelector("i");
+        estado.textContent = t("asistenteEnLinea");
+        if (indicador) estado.prepend(indicador);
+    }
+    if (saludo) saludo.textContent = t("saludoAsistente");
+    if (cerrar) cerrar.setAttribute("aria-label", t("cerrar"));
+    if (enviar) enviar.setAttribute("aria-label", t("enviarConsulta"));
+
+    const textosSugerencias = [t("comoComprar"), t("verCarrito"), t("productos")];
+    sugerencias.forEach(function (sugerencia, indice) {
+        sugerencia.textContent = textosSugerencias[indice];
+        sugerencia.dataset.consulta = textosSugerencias[indice];
+    });
 }
