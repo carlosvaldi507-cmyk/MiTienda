@@ -6361,6 +6361,39 @@ nav a:hover::after,
     }
 }
 
+/* Respaldo visual cuando el servidor no entrega una imagen de producto. */
+.producto-imagen.producto-imagen-fallback {
+    background:
+        radial-gradient(circle at 50% 38%, rgba(56, 216, 200, .13), transparent 42%),
+        linear-gradient(145deg, #f7fbfb, #e7f0f1);
+}
+
+.imagen-producto-respaldo {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    place-content: center;
+    justify-items: center;
+    gap: 10px;
+    padding: 24px;
+    color: #315761;
+    text-align: center;
+}
+
+.imagen-producto-respaldo span {
+    font-size: 52px;
+    line-height: 1;
+    filter: drop-shadow(0 10px 14px rgba(10, 48, 58, .16));
+}
+
+.imagen-producto-respaldo small {
+    color: #55747c;
+    font-size: 12px;
+    font-weight: 850;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+}
+
 
 /* =====================================================
    TODO KLICK — EXPERIENCIA PREMIUM 2026

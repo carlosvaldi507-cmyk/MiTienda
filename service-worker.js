@@ -3,7 +3,7 @@
 // ACTUALIZACIÓN AUTOMÁTICA Y CACHÉ INTELIGENTE
 // =====================================================
 
-const CACHE_VERSION = "todo-klick-v20";
+const CACHE_VERSION = "todo-klick-v21";
 
 
 // =====================================================
@@ -107,7 +107,10 @@ self.addEventListener("activate", event => {
                         .filter(key => {
 
                             return (
-                                key.startsWith("mi-tienda-") &&
+                                (
+                                    key.startsWith("mi-tienda-") ||
+                                    key.startsWith("todo-klick-")
+                                ) &&
                                 key !== CACHE_VERSION
                             );
 
@@ -248,9 +251,11 @@ async function obtenerDesdeCache(
 
     try {
 
-        return await caches.match(
+        const cache = await caches.open(CACHE_VERSION);
+
+        return await cache.match(
             request,
-            { ignoreSearch: true }
+            { ignoreSearch: false }
         );
 
     } catch (error) {
@@ -503,6 +508,63 @@ self.addEventListener(
 
 
         // =================================================
+        // IMÁGENES DE PRODUCTO / MARCA
+        // NETWORK FIRST PARA MOSTRAR ACTUALIZACIONES
+        // =================================================
+
+        if (
+            request.destination === "image"
+        ) {
+
+            event.respondWith(
+
+                (async () => {
+
+                    try {
+
+                        const solicitud = new Request(
+                            request,
+                            { cache: "reload" }
+                        );
+
+                        const respuesta = await fetch(solicitud);
+                        const tipoContenido = respuesta.headers.get("Content-Type") || "";
+
+                        if (
+                            !respuesta.ok ||
+                            !tipoContenido.toLowerCase().startsWith("image/")
+                        ) {
+                            throw new Error("El servidor no devolvió una imagen válida.");
+                        }
+
+                        await guardarEnCache(request, respuesta);
+                        return respuesta;
+
+                    } catch (error) {
+
+                        const cache = await obtenerDesdeCache(request);
+
+                        if (cache) {
+                            return cache;
+                        }
+
+                        return new Response("", {
+                            status: 503,
+                            statusText: "Imagen no disponible"
+                        });
+
+                    }
+
+                })()
+
+            );
+
+            return;
+
+        }
+
+
+        // =================================================
         // NAVEGACIÓN / HTML / CSS / JS
         // NETWORK FIRST
         // =================================================
@@ -611,7 +673,7 @@ self.addEventListener(
 
 
         // =================================================
-        // IMÁGENES, ICONOS Y OTROS RECURSOS
+        // ICONOS Y OTROS RECURSOS
         // CACHE FIRST
         // =================================================
 

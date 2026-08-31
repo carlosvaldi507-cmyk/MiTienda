@@ -2350,6 +2350,12 @@ Object.assign(traducciones.fr, { opcionesTitulo:"D’autres façons d’acheter"
 Object.assign(traducciones.pt, { opcionesTitulo:"Mais formas de comprar", opcionesDescripcion:"Escolha uma ferramenta quando precisar.", opcionCategorias:"Explorar categorias", opcionInteligente:"Compra inteligente", opcionBeneficios:"Vantagens de comprar aqui", cerrarOpcion:"Fechar opção", productosEnInicio:"Produtos para você", cargarMas:"Mostrar mais produtos", resumenInicio:"Mostrando {visibles} de {total} produtos" });
 Object.assign(traducciones.zh, { opcionesTitulo:"更多购物方式", opcionesDescripcion:"需要时请选择相应工具。", opcionCategorias:"浏览分类", opcionInteligente:"智能购物", opcionBeneficios:"购物优势", cerrarOpcion:"关闭选项", productosEnInicio:"为您推荐的商品", cargarMas:"显示更多商品", resumenInicio:"正在显示 {visibles} 件，共 {total} 件商品" });
 
+Object.assign(traducciones.es, { imagenNoDisponible: "Imagen próximamente" });
+Object.assign(traducciones.en, { imagenNoDisponible: "Image coming soon" });
+Object.assign(traducciones.fr, { imagenNoDisponible: "Image bientôt disponible" });
+Object.assign(traducciones.pt, { imagenNoDisponible: "Imagem em breve" });
+Object.assign(traducciones.zh, { imagenNoDisponible: "图片即将上线" });
+
 
 // =====================================================
 // IDIOMA ACTUAL
@@ -6694,6 +6700,30 @@ function escaparHTMLCatalogo(valor) {
     });
 }
 
+function resolverURLImagenProducto(ruta) {
+    try {
+        return new URL(String(ruta || ""), document.baseURI).href;
+    } catch (error) {
+        return String(ruta || "");
+    }
+}
+
+function configurarRespaldoImagenProducto(tarjeta, nombreProducto) {
+    const imagen = tarjeta.querySelector(".producto-imagen img");
+    if (!imagen) return;
+
+    imagen.addEventListener("error", function () {
+        const contenedor = imagen.closest(".producto-imagen");
+        if (!contenedor) return;
+        contenedor.classList.add("producto-imagen-fallback");
+        contenedor.innerHTML = `
+            <div class="imagen-producto-respaldo" role="img" aria-label="${escaparHTMLCatalogo(nombreProducto)}">
+                <span aria-hidden="true">📦</span>
+                <small>${escaparHTMLCatalogo(t("imagenNoDisponible"))}</small>
+            </div>`;
+    }, { once: true });
+}
+
 function localizarProducto(producto) {
     const traduccion = window.traduccionesProductos?.[idiomaActual]?.[producto.id] || {};
     return Object.assign({}, producto, traduccion, {
@@ -6751,7 +6781,11 @@ function crearTarjetaProducto(producto) {
     const nombreSeguro = escaparHTMLCatalogo(producto.nombre);
     const descripcionSegura = escaparHTMLCatalogo(producto.descripcion);
     const categoriaSegura = escaparHTMLCatalogo(producto.categoria || t("general"));
-    const imagenSegura = escaparHTMLCatalogo(imagen);
+    const imagenSegura = escaparHTMLCatalogo(
+        esArchivo
+            ? resolverURLImagenProducto(imagen)
+            : imagen
+    );
     const etiquetaSegura = escaparHTMLCatalogo(producto.etiqueta);
     const disponible = Boolean(producto.stock);
 
@@ -6781,6 +6815,8 @@ function crearTarjetaProducto(producto) {
                 <span>${disponible ? t("agregarCarrito") : t("agotado")}</span>
             </button>
         </div>`;
+
+    configurarRespaldoImagenProducto(tarjeta, producto.nombre);
 
     return tarjeta;
 }
