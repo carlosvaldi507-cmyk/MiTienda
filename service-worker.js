@@ -3,7 +3,7 @@
 // ACTUALIZACIÓN AUTOMÁTICA Y CACHÉ INTELIGENTE
 // =====================================================
 
-const CACHE_VERSION = "mi-tienda-v16";
+const CACHE_VERSION = "todo-klick-v20";
 
 
 // =====================================================
@@ -47,7 +47,7 @@ const ARCHIVOS_SIEMPRE_ACTUALIZADOS = [
 self.addEventListener("install", event => {
 
     console.log(
-        "[Mi Tienda] Instalando:",
+        "[Todo Klick] Instalando:",
         CACHE_VERSION
     );
 
@@ -71,7 +71,7 @@ self.addEventListener("install", event => {
             .catch(error => {
 
                 console.error(
-                    "[Mi Tienda] Error instalando caché:",
+                    "[Todo Klick] Error instalando caché:",
                     error
                 );
 
@@ -90,7 +90,7 @@ self.addEventListener("install", event => {
 self.addEventListener("activate", event => {
 
     console.log(
-        "[Mi Tienda] Activando:",
+        "[Todo Klick] Activando:",
         CACHE_VERSION
     );
 
@@ -116,7 +116,7 @@ self.addEventListener("activate", event => {
                         .map(key => {
 
                             console.log(
-                                "[Mi Tienda] Eliminando caché antigua:",
+                                "[Todo Klick] Eliminando caché antigua:",
                                 key
                             );
 
@@ -229,7 +229,7 @@ async function guardarEnCache(
     } catch (error) {
 
         console.warn(
-            "[Mi Tienda] No se pudo guardar:",
+            "[Todo Klick] No se pudo guardar:",
             error
         );
 
@@ -256,7 +256,7 @@ async function obtenerDesdeCache(
     } catch (error) {
 
         console.warn(
-            "[Mi Tienda] Error leyendo caché:",
+            "[Todo Klick] Error leyendo caché:",
             error
         );
 
@@ -293,7 +293,7 @@ function crearPaginaOffline() {
                 content="#0d5c72"
             >
 
-            <title>Mi Tienda</title>
+            <title>Todo Klick</title>
 
             <style>
 
@@ -423,7 +423,7 @@ function crearPaginaOffline() {
                 </div>
 
                 <h1>
-                    Mi Tienda
+                    Todo Klick
                 </h1>
 
                 <p>
@@ -554,7 +554,7 @@ self.addEventListener(
                     } catch (error) {
 
                         console.warn(
-                            "[Mi Tienda] Sin Internet. Buscando copia guardada."
+                            "[Todo Klick] Sin Internet. Buscando copia guardada."
                         );
 
 
@@ -705,7 +705,7 @@ async function avisarActualizacion() {
     } catch (error) {
 
         console.warn(
-            "[Mi Tienda] No se pudo avisar actualización:",
+            "[Todo Klick] No se pudo avisar actualización:",
             error
         );
 
@@ -723,7 +723,7 @@ self.addEventListener(
     () => {
 
         console.log(
-            "[Mi Tienda] Nueva versión activada:",
+            "[Todo Klick] Nueva versión activada:",
             CACHE_VERSION
         );
 

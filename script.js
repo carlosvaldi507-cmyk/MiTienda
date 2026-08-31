@@ -1311,7 +1311,7 @@ const traducciones = {
             "Español",
 
         ofertaSuperior:
-            "Ofertas especiales de Mi Tienda",
+            "Ofertas especiales de Todo Klick",
 
         eslogan:
             "Soluciones para tu hogar y negocio",
@@ -1449,7 +1449,7 @@ const traducciones = {
             "Términos y condiciones",
 
         miTienda:
-            "Mi tienda",
+            "Todo Klick",
 
         productos:
             "Productos",
@@ -1485,7 +1485,7 @@ const traducciones = {
             "Escríbenos",
 
         derechos:
-            "© 2026 Mi Tienda — Todos los derechos reservados",
+            "© 2026 Todo Klick — Todos los derechos reservados",
 
         comprasSeguras:
             "Compras fáciles, rápidas y seguras."
@@ -1499,7 +1499,7 @@ const traducciones = {
             "English",
 
         ofertaSuperior:
-            "Special offers from My Store",
+            "Special offers from Todo Klick",
 
         eslogan:
             "Solutions for your home and business",
@@ -1637,7 +1637,7 @@ const traducciones = {
             "Terms and conditions",
 
         miTienda:
-            "My store",
+            "Todo Klick",
 
         productos:
             "Products",
@@ -1673,7 +1673,7 @@ const traducciones = {
             "Contact us",
 
         derechos:
-            "© 2026 My Store — All rights reserved",
+            "© 2026 Todo Klick — All rights reserved",
 
         comprasSeguras:
             "Easy, fast and secure shopping."
@@ -1687,7 +1687,7 @@ const traducciones = {
             "Français",
 
         ofertaSuperior:
-            "Offres spéciales de Ma Boutique",
+            "Offres spéciales de Todo Klick",
 
         eslogan:
             "Solutions pour votre maison et votre entreprise",
@@ -1825,7 +1825,7 @@ const traducciones = {
             "Conditions générales",
 
         miTienda:
-            "Ma boutique",
+            "Todo Klick",
 
         productos:
             "Produits",
@@ -1861,7 +1861,7 @@ const traducciones = {
             "Écrivez-nous",
 
         derechos:
-            "© 2026 Ma Boutique — Tous droits réservés",
+            "© 2026 Todo Klick — Tous droits réservés",
 
         comprasSeguras:
             "Achats simples, rapides et sécurisés."
@@ -1875,7 +1875,7 @@ const traducciones = {
             "Português",
 
         ofertaSuperior:
-            "Ofertas especiais da Minha Loja",
+            "Ofertas especiais da Todo Klick",
 
         eslogan:
             "Soluções para sua casa e seu negócio",
@@ -2013,7 +2013,7 @@ const traducciones = {
             "Termos e condições",
 
         miTienda:
-            "Minha loja",
+            "Todo Klick",
 
         productos:
             "Produtos",
@@ -2049,7 +2049,7 @@ const traducciones = {
             "Fale conosco",
 
         derechos:
-            "© 2026 Minha Loja — Todos os direitos reservados",
+            "© 2026 Todo Klick — Todos os direitos reservados",
 
         comprasSeguras:
             "Compras fáceis, rápidas e seguras."
@@ -2063,7 +2063,7 @@ const traducciones = {
             "中文",
 
         ofertaSuperior:
-            "Mi Tienda 特别优惠",
+            "Todo Klick 特别优惠",
 
         eslogan:
             "为您的家庭和企业提供解决方案",
@@ -2201,7 +2201,7 @@ const traducciones = {
             "条款和条件",
 
         miTienda:
-            "我的商店",
+            "Todo Klick",
 
         productos:
             "产品",
@@ -2237,7 +2237,7 @@ const traducciones = {
             "联系我们",
 
         derechos:
-            "© 2026 Mi Tienda — 保留所有权利",
+            "© 2026 Todo Klick — 保留所有权利",
 
         comprasSeguras:
             "简单、快速、安全的购物。"
@@ -2256,7 +2256,7 @@ Object.assign(traducciones.es, {
     mostrandoProductos: "Mostrando {desde}–{hasta} de {total} productos", sinResultados: "No encontramos productos con esos criterios.",
     anterior: "Anterior", siguiente: "Siguiente", paginaAnterior: "Página anterior", paginaSiguiente: "Página siguiente",
     disponible: "Disponible", agotado: "Agotado", estrellasDeCinco: "{valor} de 5 estrellas", general: "General",
-    ayuda: "Ayuda", asistenteTitulo: "Asistente de Mi Tienda", asistenteEnLinea: "En línea para ayudarte",
+    ayuda: "Ayuda", asistenteTitulo: "Asistente Todo Klick", asistenteEnLinea: "En línea para ayudarte",
     saludoAsistente: "¡Hola! Cuéntame qué necesitas y te ayudaré a encontrarlo, comprarlo o revisar tu carrito.",
     comoComprar: "Cómo comprar", verCarrito: "Ver carrito", productos: "Productos", escribeConsulta: "Escribe tu consulta…",
     enviarConsulta: "Enviar consulta", respuestaCarrito: "Abro tu carrito para que revises tus productos.",
@@ -2274,7 +2274,7 @@ Object.assign(traducciones.en, {
     mostrandoProductos: "Showing {desde}–{hasta} of {total} products", sinResultados: "No products match those filters.",
     anterior: "Previous", siguiente: "Next", paginaAnterior: "Previous page", paginaSiguiente: "Next page",
     disponible: "Available", agotado: "Out of stock", estrellasDeCinco: "{valor} out of 5 stars", general: "General",
-    ayuda: "Help", asistenteTitulo: "Mi Tienda Assistant", asistenteEnLinea: "Online and ready to help",
+    ayuda: "Help", asistenteTitulo: "Todo Klick Assistant", asistenteEnLinea: "Online and ready to help",
     saludoAsistente: "Hi! Tell me what you need and I’ll help you find it, buy it, or review your cart.",
     comoComprar: "How to buy", verCarrito: "View cart", productos: "Products", escribeConsulta: "Type your question…",
     enviarConsulta: "Send question", respuestaCarrito: "I’ll open your cart so you can review your products.",
@@ -2292,7 +2292,7 @@ Object.assign(traducciones.fr, {
     mostrandoProductos: "Affichage de {desde} à {hasta} sur {total} produits", sinResultados: "Aucun produit ne correspond à ces critères.",
     anterior: "Précédent", siguiente: "Suivant", paginaAnterior: "Page précédente", paginaSiguiente: "Page suivante",
     disponible: "Disponible", agotado: "Épuisé", estrellasDeCinco: "{valor} étoiles sur 5", general: "Général",
-    ayuda: "Aide", asistenteTitulo: "Assistant Mi Tienda", asistenteEnLinea: "En ligne pour vous aider",
+    ayuda: "Aide", asistenteTitulo: "Assistant Todo Klick", asistenteEnLinea: "En ligne pour vous aider",
     saludoAsistente: "Bonjour ! Dites-moi ce dont vous avez besoin et je vous aiderai à le trouver, l’acheter ou vérifier votre panier.",
     comoComprar: "Comment acheter", verCarrito: "Voir le panier", productos: "Produits", escribeConsulta: "Écrivez votre question…",
     enviarConsulta: "Envoyer la question", respuestaCarrito: "J’ouvre votre panier pour que vous puissiez vérifier vos produits.",
@@ -2310,7 +2310,7 @@ Object.assign(traducciones.pt, {
     mostrandoProductos: "Mostrando {desde}–{hasta} de {total} produtos", sinResultados: "Nenhum produto corresponde a esses filtros.",
     anterior: "Anterior", siguiente: "Próximo", paginaAnterior: "Página anterior", paginaSiguiente: "Próxima página",
     disponible: "Disponível", agotado: "Esgotado", estrellasDeCinco: "{valor} de 5 estrelas", general: "Geral",
-    ayuda: "Ajuda", asistenteTitulo: "Assistente Mi Tienda", asistenteEnLinea: "Online para ajudar você",
+    ayuda: "Ajuda", asistenteTitulo: "Assistente Todo Klick", asistenteEnLinea: "Online para ajudar você",
     saludoAsistente: "Olá! Conte o que você precisa e eu ajudarei a encontrar, comprar ou revisar seu carrinho.",
     comoComprar: "Como comprar", verCarrito: "Ver carrinho", productos: "Produtos", escribeConsulta: "Digite sua pergunta…",
     enviarConsulta: "Enviar pergunta", respuestaCarrito: "Vou abrir seu carrinho para você revisar os produtos.",
@@ -2328,7 +2328,7 @@ Object.assign(traducciones.zh, {
     mostrandoProductos: "正在显示第 {desde}–{hasta} 件，共 {total} 件商品", sinResultados: "没有符合这些条件的商品。",
     anterior: "上一页", siguiente: "下一页", paginaAnterior: "上一页", paginaSiguiente: "下一页",
     disponible: "有货", agotado: "缺货", estrellasDeCinco: "5 星中获得 {valor} 星", general: "综合",
-    ayuda: "帮助", asistenteTitulo: "Mi Tienda 助手", asistenteEnLinea: "在线为您服务",
+    ayuda: "帮助", asistenteTitulo: "Todo Klick 助手", asistenteEnLinea: "在线为您服务",
     saludoAsistente: "您好！请告诉我您的需求，我可以帮您查找商品、购买商品或查看购物车。",
     comoComprar: "如何购买", verCarrito: "查看购物车", productos: "商品", escribeConsulta: "请输入您的问题…",
     enviarConsulta: "发送问题", respuestaCarrito: "我将打开购物车，方便您查看商品。",
@@ -2343,6 +2343,12 @@ Object.assign(traducciones.en, { ultimoPaso:"FINAL STEP", entregaTitulo:"Where s
 Object.assign(traducciones.fr, { ultimoPaso:"DERNIÈRE ÉTAPE", entregaTitulo:"Où devons-nous livrer votre commande ?", entregaIntro:"Ces informations seront ajoutées à votre message WhatsApp pour confirmer l’achat.", nombreCompleto:"Nom complet", tuNombre:"Votre nom", telefono:"Téléphone", direccionEntrega:"Adresse de livraison", direccionEjemplo:"Quartier, ville et point de repère", metodoEntrega:"Mode de livraison", domicilio:"Livraison à domicile", retiro:"Retrait en magasin", notaPedido:"Note de commande", opcional:"Facultatif", continuarWhatsApp:"Continuer sur WhatsApp" });
 Object.assign(traducciones.pt, { ultimoPaso:"ÚLTIMA ETAPA", entregaTitulo:"Onde devemos entregar seu pedido?", entregaIntro:"Esses dados serão incluídos na mensagem do WhatsApp para confirmar a compra.", nombreCompleto:"Nome completo", tuNombre:"Seu nome", telefono:"Telefone", direccionEntrega:"Endereço de entrega", direccionEjemplo:"Bairro, cidade e um ponto de referência", metodoEntrega:"Método de entrega", domicilio:"Entrega em domicílio", retiro:"Retirada na loja", notaPedido:"Observação do pedido", opcional:"Opcional", continuarWhatsApp:"Continuar no WhatsApp" });
 Object.assign(traducciones.zh, { ultimoPaso:"最后一步", entregaTitulo:"您的订单要送到哪里？", entregaIntro:"这些信息将包含在 WhatsApp 消息中，以便确认购买。", nombreCompleto:"姓名", tuNombre:"请输入姓名", telefono:"电话号码", direccionEntrega:"配送地址", direccionEjemplo:"社区、城市和附近地标", metodoEntrega:"配送方式", domicilio:"送货上门", retiro:"到店自取", notaPedido:"订单备注", opcional:"选填", continuarWhatsApp:"前往 WhatsApp" });
+
+Object.assign(traducciones.es, { opcionesTitulo:"Más formas de comprar", opcionesDescripcion:"Elige una herramienta cuando la necesites.", opcionCategorias:"Explorar categorías", opcionInteligente:"Compra inteligente", opcionBeneficios:"Ventajas de comprar aquí", cerrarOpcion:"Cerrar opción", productosEnInicio:"Productos para ti", cargarMas:"Mostrar más productos", resumenInicio:"Mostrando {visibles} de {total} productos" });
+Object.assign(traducciones.en, { opcionesTitulo:"More ways to shop", opcionesDescripcion:"Choose a tool whenever you need it.", opcionCategorias:"Browse categories", opcionInteligente:"Smart shopping", opcionBeneficios:"Shopping benefits", cerrarOpcion:"Close option", productosEnInicio:"Products for you", cargarMas:"Show more products", resumenInicio:"Showing {visibles} of {total} products" });
+Object.assign(traducciones.fr, { opcionesTitulo:"D’autres façons d’acheter", opcionesDescripcion:"Choisissez un outil lorsque vous en avez besoin.", opcionCategorias:"Explorer les catégories", opcionInteligente:"Achat intelligent", opcionBeneficios:"Avantages de la boutique", cerrarOpcion:"Fermer l’option", productosEnInicio:"Produits pour vous", cargarMas:"Afficher plus de produits", resumenInicio:"Affichage de {visibles} produits sur {total}" });
+Object.assign(traducciones.pt, { opcionesTitulo:"Mais formas de comprar", opcionesDescripcion:"Escolha uma ferramenta quando precisar.", opcionCategorias:"Explorar categorias", opcionInteligente:"Compra inteligente", opcionBeneficios:"Vantagens de comprar aqui", cerrarOpcion:"Fechar opção", productosEnInicio:"Produtos para você", cargarMas:"Mostrar mais produtos", resumenInicio:"Mostrando {visibles} de {total} produtos" });
+Object.assign(traducciones.zh, { opcionesTitulo:"更多购物方式", opcionesDescripcion:"需要时请选择相应工具。", opcionCategorias:"浏览分类", opcionInteligente:"智能购物", opcionBeneficios:"购物优势", cerrarOpcion:"关闭选项", productosEnInicio:"为您推荐的商品", cargarMas:"显示更多商品", resumenInicio:"正在显示 {visibles} 件，共 {total} 件商品" });
 
 
 // =====================================================
@@ -2570,6 +2576,8 @@ function cambiarIdioma(
             mostrarProductos();
         }
     }
+
+    renderizarCategoriasInicio();
 
     if (asistenteReferencia) {
         asistenteReferencia.remove();
@@ -3358,7 +3366,7 @@ function actualizarResumenCarrito() {
                         await navigator.share({
 
                             title:
-                                "Mi carrito de Mi Tienda",
+                                "Mi carrito de Todo Klick",
 
                             text:
                                 "Te comparto estos productos.",
@@ -4927,7 +4935,7 @@ function crearAsistenteVirtual() {
                 <div>
 
                     <strong>
-                        Asistente de Mi Tienda
+                        Asistente Todo Klick
                     </strong>
 
 
@@ -5577,7 +5585,7 @@ function actualizarAsistenteIdioma() {
         if (encabezado) {
 
             encabezado.textContent =
-                "Mi Tienda 助手";
+                "Todo Klick 助手";
 
         }
 
@@ -5602,12 +5610,518 @@ function actualizarAsistenteIdioma() {
         if (encabezado) {
 
             encabezado.textContent =
-                "Asistente de Mi Tienda";
+                "Asistente Todo Klick";
 
         }
 
     }
 
+}
+
+// =====================================================
+// PORTADA CENTRADA EN PRODUCTOS
+// Las funciones complementarias permanecen disponibles bajo demanda.
+// =====================================================
+
+function configurarInicioPriorizado() {
+    const esPortada = !/catalogo\.html$/i.test(window.location.pathname);
+    const productosSeccion = document.getElementById("productos");
+    const carrusel = document.querySelector(".carrusel");
+    const categorias = document.getElementById("categorias");
+    const beneficios = document.querySelector(".beneficios");
+
+    if (!esPortada || !productosSeccion || !carrusel || document.getElementById("opciones-compra-inicio")) {
+        return;
+    }
+
+    productosSeccion.classList.add("productos-principales-inicio");
+    carrusel.before(productosSeccion);
+
+    const accionesProductos = productosSeccion.querySelector(".boton-ver-catalogo");
+    if (accionesProductos) {
+        accionesProductos.classList.add("acciones-productos-inicio");
+        const resumenProductos = document.createElement("p");
+        resumenProductos.id = "resumen-productos-inicio";
+        resumenProductos.className = "resumen-productos-inicio";
+
+        const cargarMas = document.createElement("button");
+        cargarMas.id = "cargar-mas-productos-inicio";
+        cargarMas.type = "button";
+        cargarMas.className = "cargar-mas-productos-inicio";
+        cargarMas.textContent = t("cargarMas");
+        cargarMas.addEventListener("click", function () {
+            estadoCatalogo.limiteInicio += 12;
+            mostrarProductos();
+        });
+
+        accionesProductos.prepend(cargarMas);
+        accionesProductos.before(resumenProductos);
+    }
+
+    const buscadorInicio = document.getElementById("buscador");
+    if (buscadorInicio) {
+        buscadorInicio.addEventListener("input", function () {
+            estadoCatalogo.busqueda = buscadorInicio.value;
+            estadoCatalogo.limiteInicio = 12;
+            mostrarProductos();
+        });
+    }
+
+    const opciones = document.createElement("section");
+    opciones.id = "opciones-compra-inicio";
+    opciones.className = "opciones-compra-inicio";
+    opciones.innerHTML = `
+        <div class="seccion-titulo opciones-compra-encabezado">
+            <span data-text="comprar">${t("comprar")}</span>
+            <h2 data-text="opcionesTitulo">${t("opcionesTitulo")}</h2>
+            <p data-text="opcionesDescripcion">${t("opcionesDescripcion")}</p>
+        </div>
+        <div class="selector-funciones-inicio" role="tablist" aria-label="${t("opcionesTitulo")}">
+            <button type="button" role="tab" data-panel-inicio="panel-categorias-inicio" data-text="opcionCategorias">${t("opcionCategorias")}</button>
+            <button type="button" role="tab" data-panel-inicio="panel-inteligente-inicio" data-text="opcionInteligente">${t("opcionInteligente")}</button>
+            <button type="button" role="tab" data-panel-inicio="panel-beneficios-inicio" data-text="opcionBeneficios">${t("opcionBeneficios")}</button>
+        </div>
+        <div class="panel-funcion-inicio" id="panel-categorias-inicio" role="tabpanel" hidden></div>
+        <div class="panel-funcion-inicio" id="panel-inteligente-inicio" role="tabpanel" hidden>
+            <div id="panel-compra-inteligente-inicio"></div>
+        </div>
+        <div class="panel-funcion-inicio" id="panel-beneficios-inicio" role="tabpanel" hidden></div>`;
+
+    productosSeccion.after(opciones);
+
+    if (categorias) {
+        opciones.querySelector("#panel-categorias-inicio").appendChild(categorias);
+        renderizarCategoriasInicio();
+    }
+    if (beneficios) {
+        opciones.querySelector("#panel-beneficios-inicio").appendChild(beneficios);
+    }
+
+    const botones = opciones.querySelectorAll("[data-panel-inicio]");
+    botones.forEach(function (boton) {
+        const panel = opciones.querySelector("#" + boton.dataset.panelInicio);
+        boton.setAttribute("aria-controls", panel.id);
+        boton.setAttribute("aria-expanded", "false");
+
+        boton.addEventListener("click", function () {
+            const abrir = panel.hidden;
+
+            opciones.querySelectorAll(".panel-funcion-inicio").forEach(function (otroPanel) {
+                otroPanel.hidden = true;
+            });
+            botones.forEach(function (otroBoton) {
+                otroBoton.classList.remove("activo");
+                otroBoton.setAttribute("aria-selected", "false");
+                otroBoton.setAttribute("aria-expanded", "false");
+            });
+
+            if (abrir) {
+                panel.hidden = false;
+                boton.classList.add("activo");
+                boton.setAttribute("aria-selected", "true");
+                boton.setAttribute("aria-expanded", "true");
+                panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            }
+        });
+    });
+}
+
+function renderizarCategoriasInicio() {
+    const contenedor = document.querySelector("#categorias .categorias-container");
+    if (!contenedor || !Array.isArray(window.productos)) return;
+
+    const iconos = ["🏠", "🔧", "🔌", "📷", "💾", "🎁", "🧸", "📦"];
+    const categorias = [];
+    const conocidas = new Set();
+
+    window.productos.forEach(function (producto) {
+        const clave = normalizarTextoCatalogo(producto.categoria);
+        if (!clave || conocidas.has(clave) || producto.activo === false) return;
+        conocidas.add(clave);
+        categorias.push({
+            clave: clave,
+            nombre: localizarProducto(producto).categoria
+        });
+    });
+
+    contenedor.innerHTML = "";
+    categorias.forEach(function (categoria, indice) {
+        const boton = document.createElement("button");
+        boton.className = "categoria";
+        boton.type = "button";
+        boton.innerHTML = `
+            <div class="icono" aria-hidden="true">${iconos[indice % iconos.length]}</div>
+            <strong>${escaparHTMLCatalogo(categoria.nombre)}</strong>
+            <span>${escaparHTMLCatalogo(t("verProductos"))}</span>`;
+        boton.addEventListener("click", function () {
+            window.location.href = "catalogo.html?categoria=" + encodeURIComponent(categoria.clave);
+        });
+        contenedor.appendChild(boton);
+    });
+}
+
+function crearExperienciaProfesional() {
+    if (document.getElementById("progreso-navegacion")) return;
+
+    document.body.classList.add("experiencia-premium");
+
+    const progreso = document.createElement("div");
+    progreso.id = "progreso-navegacion";
+    progreso.className = "progreso-navegacion";
+    progreso.setAttribute("aria-hidden", "true");
+    document.body.prepend(progreso);
+
+    const encabezado = document.querySelector(".header");
+    const buscadorPrincipal = document.getElementById("buscador");
+    const botonBuscar = document.getElementById("boton-buscar");
+
+    function actualizarNavegacion() {
+        const desplazamiento = window.scrollY || document.documentElement.scrollTop;
+        const maximo = document.documentElement.scrollHeight - window.innerHeight;
+        progreso.style.transform = "scaleX(" + (maximo > 0 ? desplazamiento / maximo : 0) + ")";
+        encabezado?.classList.toggle("header-compacto", desplazamiento > 48);
+    }
+
+    window.addEventListener("scroll", actualizarNavegacion, { passive: true });
+    actualizarNavegacion();
+
+    botonBuscar?.addEventListener("click", function () {
+        buscadorPrincipal?.focus();
+        buscadorPrincipal?.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+
+    document.addEventListener("keydown", function (evento) {
+        const escribiendo = /INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName || "");
+        if (evento.key === "/" && !escribiendo && buscadorPrincipal) {
+            evento.preventDefault();
+            buscadorPrincipal.focus();
+        }
+        if (evento.key === "Escape" && document.activeElement === buscadorPrincipal) {
+            buscadorPrincipal.blur();
+        }
+    });
+
+    const enlaceCategorias = document.querySelector('.nav a[href="#categorias"]');
+    enlaceCategorias?.addEventListener("click", function (evento) {
+        const selector = document.querySelector('[data-panel-inicio="panel-categorias-inicio"]');
+        if (!selector) return;
+        evento.preventDefault();
+        if (selector.getAttribute("aria-expanded") !== "true") selector.click();
+        document.getElementById("opciones-compra-inicio")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    function animarTarjetas() {
+        document.querySelectorAll(".producto").forEach(function (tarjeta, indice) {
+            tarjeta.style.setProperty("--orden-tarjeta", String(indice % 12));
+            tarjeta.classList.add("producto-listo");
+        });
+    }
+
+    window.addEventListener("productosRenderizados", animarTarjetas);
+    requestAnimationFrame(animarTarjetas);
+}
+
+// =====================================================
+// USUARIOS DEMO: CLIENTE Y ADMINISTRADOR
+// =====================================================
+
+const USUARIOS_DEMO = Object.freeze([
+    Object.freeze({
+        rol: "cliente",
+        nombre: "Ana Cliente",
+        correo: "cliente@todoklick.demo",
+        contrasena: "Cliente123!"
+    }),
+    Object.freeze({
+        rol: "administrador",
+        nombre: "Carlos Admin",
+        correo: "admin@todoklick.demo",
+        contrasena: "Admin123!"
+    })
+]);
+
+const CLAVE_SESION_DEMO = "todoKlickSesionDemo";
+
+function textosUsuariosDemo() {
+    const textos = {
+        es: {
+            acceso: "ACCESO DE DEMOSTRACIÓN", titulo: "Bienvenido a Todo Klick", intro: "Prueba la experiencia con uno de los dos perfiles.",
+            cliente: "Cliente", administrador: "Administrador", correo: "Correo electrónico", contrasena: "Contraseña",
+            recordar: "Mantener mi sesión", entrar: "Entrar", mostrar: "Mostrar contraseña", ocultar: "Ocultar contraseña",
+            cuentas: "Credenciales de muestra", usar: "Usar esta cuenta", aviso: "Demo local: estas credenciales son públicas y no deben utilizarse en producción.",
+            incompleto: "Completa el correo y la contraseña.", invalido: "Las credenciales no coinciden con el perfil seleccionado.",
+            miCuenta: "MI CUENTA", bienvenida: "Sesión activa", cerrarSesion: "Cerrar sesión", irCatalogo: "Explorar catálogo",
+            productos: "Productos", categorias: "Categorías", pedidos: "Pedidos demo", carrito: "En carrito", favoritos: "Favoritos",
+            panelAdmin: "Resumen administrativo", panelCliente: "Tu actividad", cerrar: "Cerrar", perfil: "Abrir perfil"
+        },
+        en: {
+            acceso: "DEMO ACCESS", titulo: "Welcome to Todo Klick", intro: "Try the experience with either of the two profiles.",
+            cliente: "Customer", administrador: "Administrator", correo: "Email address", contrasena: "Password",
+            recordar: "Keep me signed in", entrar: "Sign in", mostrar: "Show password", ocultar: "Hide password",
+            cuentas: "Sample credentials", usar: "Use this account", aviso: "Local demo: these credentials are public and must not be used in production.",
+            incompleto: "Enter your email and password.", invalido: "The credentials do not match the selected profile.",
+            miCuenta: "MY ACCOUNT", bienvenida: "Active session", cerrarSesion: "Sign out", irCatalogo: "Browse catalog",
+            productos: "Products", categorias: "Categories", pedidos: "Demo orders", carrito: "In cart", favoritos: "Favorites",
+            panelAdmin: "Admin overview", panelCliente: "Your activity", cerrar: "Close", perfil: "Open profile"
+        },
+        fr: {
+            acceso: "ACCÈS DÉMO", titulo: "Bienvenue sur Todo Klick", intro: "Testez l’expérience avec l’un des deux profils.",
+            cliente: "Client", administrador: "Administrateur", correo: "Adresse e-mail", contrasena: "Mot de passe",
+            recordar: "Rester connecté", entrar: "Se connecter", mostrar: "Afficher le mot de passe", ocultar: "Masquer le mot de passe",
+            cuentas: "Identifiants de test", usar: "Utiliser ce compte", aviso: "Démo locale : ces identifiants sont publics et ne doivent pas être utilisés en production.",
+            incompleto: "Saisissez l’e-mail et le mot de passe.", invalido: "Les identifiants ne correspondent pas au profil choisi.",
+            miCuenta: "MON COMPTE", bienvenida: "Session active", cerrarSesion: "Se déconnecter", irCatalogo: "Voir le catalogue",
+            productos: "Produits", categorias: "Catégories", pedidos: "Commandes démo", carrito: "Dans le panier", favoritos: "Favoris",
+            panelAdmin: "Vue administrateur", panelCliente: "Votre activité", cerrar: "Fermer", perfil: "Ouvrir le profil"
+        },
+        pt: {
+            acceso: "ACESSO DEMONSTRATIVO", titulo: "Bem-vindo ao Todo Klick", intro: "Teste a experiência com um dos dois perfis.",
+            cliente: "Cliente", administrador: "Administrador", correo: "E-mail", contrasena: "Senha",
+            recordar: "Manter minha sessão", entrar: "Entrar", mostrar: "Mostrar senha", ocultar: "Ocultar senha",
+            cuentas: "Credenciais de exemplo", usar: "Usar esta conta", aviso: "Demo local: estas credenciais são públicas e não devem ser usadas em produção.",
+            incompleto: "Preencha o e-mail e a senha.", invalido: "As credenciais não correspondem ao perfil selecionado.",
+            miCuenta: "MINHA CONTA", bienvenida: "Sessão ativa", cerrarSesion: "Sair", irCatalogo: "Ver catálogo",
+            productos: "Produtos", categorias: "Categorias", pedidos: "Pedidos demo", carrito: "No carrinho", favoritos: "Favoritos",
+            panelAdmin: "Resumo administrativo", panelCliente: "Sua atividade", cerrar: "Fechar", perfil: "Abrir perfil"
+        },
+        zh: {
+            acceso: "演示登录", titulo: "欢迎来到 Todo Klick", intro: "使用以下两种账户体验应用。",
+            cliente: "客户", administrador: "管理员", correo: "电子邮箱", contrasena: "密码",
+            recordar: "保持登录", entrar: "登录", mostrar: "显示密码", ocultar: "隐藏密码",
+            cuentas: "演示凭据", usar: "使用此账户", aviso: "本地演示：这些凭据是公开的，请勿用于生产环境。",
+            incompleto: "请输入邮箱和密码。", invalido: "凭据与所选账户类型不匹配。",
+            miCuenta: "我的账户", bienvenida: "已登录", cerrarSesion: "退出登录", irCatalogo: "浏览商品",
+            productos: "商品", categorias: "分类", pedidos: "演示订单", carrito: "购物车", favoritos: "收藏",
+            panelAdmin: "管理概览", panelCliente: "您的活动", cerrar: "关闭", perfil: "打开账户"
+        }
+    };
+
+    return textos[idiomaActual] || textos.es;
+}
+
+function obtenerSesionDemo() {
+    const valor = localStorage.getItem(CLAVE_SESION_DEMO) || sessionStorage.getItem(CLAVE_SESION_DEMO);
+    if (!valor) return null;
+
+    try {
+        const sesion = JSON.parse(valor);
+        const existe = USUARIOS_DEMO.some(function (usuario) {
+            return usuario.correo === sesion.correo && usuario.rol === sesion.rol;
+        });
+        return existe ? sesion : null;
+    } catch (error) {
+        localStorage.removeItem(CLAVE_SESION_DEMO);
+        sessionStorage.removeItem(CLAVE_SESION_DEMO);
+        return null;
+    }
+}
+
+function configurarSistemaUsuariosDemo() {
+    const botonEntrar = document.getElementById("boton-entrar");
+    if (!botonEntrar || document.getElementById("sistema-usuarios-demo")) return;
+
+    botonEntrar.removeAttribute("onclick");
+
+    const sistema = document.createElement("div");
+    sistema.id = "sistema-usuarios-demo";
+    sistema.className = "sistema-usuarios-demo";
+    sistema.setAttribute("aria-hidden", "true");
+    sistema.innerHTML = '<div class="usuario-demo-panel" role="dialog" aria-modal="true" aria-labelledby="usuario-demo-titulo"></div>';
+    document.body.appendChild(sistema);
+
+    const panel = sistema.querySelector(".usuario-demo-panel");
+    let rolSeleccionado = "cliente";
+
+    function escapar(valor) {
+        return String(valor ?? "").replace(/[&<>"']/g, function (caracter) {
+            return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[caracter];
+        });
+    }
+
+    function guardarSesion(usuario, recordar) {
+        const sesion = {
+            rol: usuario.rol,
+            nombre: usuario.nombre,
+            correo: usuario.correo,
+            iniciada: new Date().toISOString()
+        };
+        localStorage.removeItem(CLAVE_SESION_DEMO);
+        sessionStorage.removeItem(CLAVE_SESION_DEMO);
+        (recordar ? localStorage : sessionStorage).setItem(CLAVE_SESION_DEMO, JSON.stringify(sesion));
+    }
+
+    function cerrarModal() {
+        sistema.classList.remove("visible");
+        sistema.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("modal-usuario-abierto");
+        botonEntrar.focus();
+    }
+
+    function actualizarBoton() {
+        const textos = textosUsuariosDemo();
+        const sesion = obtenerSesionDemo();
+        document.body.classList.toggle("usuario-administrador", sesion?.rol === "administrador");
+        document.body.classList.toggle("usuario-cliente", sesion?.rol === "cliente");
+
+        if (sesion) {
+            botonEntrar.classList.add("sesion-iniciada");
+            botonEntrar.setAttribute("aria-label", textos.perfil + ": " + sesion.nombre);
+            botonEntrar.innerHTML = '<span class="usuario-avatar-mini">' + escapar(sesion.nombre.charAt(0)) + '</span><span class="usuario-nombre-mini">' + escapar(sesion.nombre.split(" ")[0]) + '</span>';
+        } else {
+            botonEntrar.classList.remove("sesion-iniciada");
+            botonEntrar.setAttribute("aria-label", textos.entrar);
+            botonEntrar.innerHTML = '<span aria-hidden="true">👤</span><span>' + escapar(textos.entrar) + '</span>';
+        }
+    }
+
+    function estadisticasSesion(sesion) {
+        const textos = textosUsuariosDemo();
+        const productos = (window.productos || []).filter(function (producto) { return producto.activo !== false; });
+        const categorias = new Set(productos.map(function (producto) { return producto.categoria; })).size;
+
+        if (sesion.rol === "administrador") {
+            return [
+                [productos.length, textos.productos],
+                [categorias, textos.categorias],
+                [24, textos.pedidos]
+            ];
+        }
+
+        let favoritos = [];
+        try { favoritos = JSON.parse(localStorage.getItem("favoritosMiTienda") || "[]"); } catch (error) { favoritos = []; }
+        return [
+            [obtenerCantidadCarrito(), textos.carrito],
+            [Array.isArray(favoritos) ? favoritos.length : 0, textos.favoritos],
+            [2, textos.pedidos]
+        ];
+    }
+
+    function renderizarCuenta(sesion) {
+        const textos = textosUsuariosDemo();
+        const nombreRol = sesion.rol === "administrador" ? textos.administrador : textos.cliente;
+        const estadisticas = estadisticasSesion(sesion);
+        panel.innerHTML = `
+            <button type="button" class="usuario-demo-cerrar" aria-label="${escapar(textos.cerrar)}">×</button>
+            <div class="usuario-cuenta-hero">
+                <span class="usuario-demo-etiqueta">${escapar(textos.miCuenta)}</span>
+                <div class="usuario-avatar-grande">${escapar(sesion.nombre.charAt(0))}</div>
+                <div><span class="usuario-rol usuario-rol-${escapar(sesion.rol)}">${escapar(nombreRol)}</span><h2 id="usuario-demo-titulo">${escapar(sesion.nombre)}</h2><p>${escapar(sesion.correo)}</p></div>
+            </div>
+            <section class="usuario-resumen" aria-label="${escapar(textos.bienvenida)}">
+                <div class="usuario-resumen-titulo"><span class="usuario-estado-punto"></span><strong>${escapar(textos.bienvenida)}</strong><small>${escapar(sesion.rol === "administrador" ? textos.panelAdmin : textos.panelCliente)}</small></div>
+                <div class="usuario-estadisticas">${estadisticas.map(function (dato) { return `<article><strong>${dato[0]}</strong><span>${escapar(dato[1])}</span></article>`; }).join("")}</div>
+            </section>
+            <div class="usuario-cuenta-acciones">
+                <a href="catalogo.html" class="usuario-ir-catalogo">${escapar(textos.irCatalogo)} →</a>
+                <button type="button" class="usuario-cerrar-sesion">${escapar(textos.cerrarSesion)}</button>
+            </div>`;
+
+        panel.querySelector(".usuario-demo-cerrar").addEventListener("click", cerrarModal);
+        panel.querySelector(".usuario-cerrar-sesion").addEventListener("click", function () {
+            localStorage.removeItem(CLAVE_SESION_DEMO);
+            sessionStorage.removeItem(CLAVE_SESION_DEMO);
+            actualizarBoton();
+            renderizarAcceso();
+        });
+    }
+
+    function renderizarAcceso() {
+        const textos = textosUsuariosDemo();
+        panel.innerHTML = `
+            <button type="button" class="usuario-demo-cerrar" aria-label="${escapar(textos.cerrar)}">×</button>
+            <div class="usuario-acceso-cabecera"><span class="usuario-demo-etiqueta">${escapar(textos.acceso)}</span><h2 id="usuario-demo-titulo">${escapar(textos.titulo)}</h2><p>${escapar(textos.intro)}</p></div>
+            <div class="usuario-roles" role="tablist">
+                <button type="button" class="usuario-rol-tab${rolSeleccionado === "cliente" ? " activo" : ""}" data-rol-demo="cliente"><span>🛍️</span><strong>${escapar(textos.cliente)}</strong></button>
+                <button type="button" class="usuario-rol-tab${rolSeleccionado === "administrador" ? " activo" : ""}" data-rol-demo="administrador"><span>📊</span><strong>${escapar(textos.administrador)}</strong></button>
+            </div>
+            <form class="usuario-login-form" novalidate>
+                <label><span>${escapar(textos.correo)}</span><input id="usuario-demo-correo" type="email" autocomplete="username" required></label>
+                <label><span>${escapar(textos.contrasena)}</span><div class="usuario-campo-clave"><input id="usuario-demo-clave" type="password" autocomplete="current-password" required><button type="button" class="usuario-mostrar-clave" aria-label="${escapar(textos.mostrar)}">👁</button></div></label>
+                <label class="usuario-recordar"><input id="usuario-demo-recordar" type="checkbox" checked><span>${escapar(textos.recordar)}</span></label>
+                <p class="usuario-login-error" role="alert" aria-live="polite"></p>
+                <button type="submit" class="usuario-login-enviar">${escapar(textos.entrar)} <span>→</span></button>
+            </form>
+            <section class="credenciales-demo"><h3>${escapar(textos.cuentas)}</h3>${USUARIOS_DEMO.map(function (usuario) {
+                const rol = usuario.rol === "administrador" ? textos.administrador : textos.cliente;
+                return `<button type="button" class="credencial-demo${usuario.rol === rolSeleccionado ? " seleccionada" : ""}" data-usar-usuario="${escapar(usuario.rol)}"><span><strong>${escapar(rol)}</strong><small>${escapar(usuario.correo)}</small><code>${escapar(usuario.contrasena)}</code></span><em>${escapar(textos.usar)}</em></button>`;
+            }).join("")}<p>🔒 ${escapar(textos.aviso)}</p></section>`;
+
+        const correo = panel.querySelector("#usuario-demo-correo");
+        const clave = panel.querySelector("#usuario-demo-clave");
+        const error = panel.querySelector(".usuario-login-error");
+
+        function usarUsuario(rol) {
+            const usuario = USUARIOS_DEMO.find(function (item) { return item.rol === rol; });
+            if (!usuario) return;
+            rolSeleccionado = usuario.rol;
+            correo.value = usuario.correo;
+            clave.value = usuario.contrasena;
+            error.textContent = "";
+            panel.querySelectorAll("[data-rol-demo]").forEach(function (boton) { boton.classList.toggle("activo", boton.dataset.rolDemo === rolSeleccionado); });
+            panel.querySelectorAll("[data-usar-usuario]").forEach(function (boton) { boton.classList.toggle("seleccionada", boton.dataset.usarUsuario === rolSeleccionado); });
+            clave.focus();
+        }
+
+        panel.querySelector(".usuario-demo-cerrar").addEventListener("click", cerrarModal);
+        panel.querySelectorAll("[data-rol-demo]").forEach(function (boton) {
+            boton.addEventListener("click", function () { usarUsuario(boton.dataset.rolDemo); });
+        });
+        panel.querySelectorAll("[data-usar-usuario]").forEach(function (boton) {
+            boton.addEventListener("click", function () { usarUsuario(boton.dataset.usarUsuario); });
+        });
+        panel.querySelector(".usuario-mostrar-clave").addEventListener("click", function (evento) {
+            const visible = clave.type === "text";
+            clave.type = visible ? "password" : "text";
+            evento.currentTarget.textContent = visible ? "👁" : "🙈";
+            evento.currentTarget.setAttribute("aria-label", visible ? textos.mostrar : textos.ocultar);
+        });
+        panel.querySelector(".usuario-login-form").addEventListener("submit", function (evento) {
+            evento.preventDefault();
+            if (!correo.value.trim() || !clave.value) {
+                error.textContent = textos.incompleto;
+                return;
+            }
+            const usuario = USUARIOS_DEMO.find(function (item) {
+                return item.rol === rolSeleccionado && item.correo.toLowerCase() === correo.value.trim().toLowerCase() && item.contrasena === clave.value;
+            });
+            if (!usuario) {
+                error.textContent = textos.invalido;
+                panel.querySelector(".usuario-login-form").classList.remove("error-login");
+                requestAnimationFrame(function () { panel.querySelector(".usuario-login-form").classList.add("error-login"); });
+                return;
+            }
+            guardarSesion(usuario, panel.querySelector("#usuario-demo-recordar").checked);
+            actualizarBoton();
+            renderizarCuenta(obtenerSesionDemo());
+        });
+
+        const sugerido = USUARIOS_DEMO.find(function (usuario) { return usuario.rol === rolSeleccionado; });
+        correo.value = sugerido.correo;
+        clave.value = sugerido.contrasena;
+    }
+
+    function abrirModal() {
+        const sesion = obtenerSesionDemo();
+        if (sesion) renderizarCuenta(sesion); else renderizarAcceso();
+        sistema.classList.add("visible");
+        sistema.setAttribute("aria-hidden", "false");
+        document.body.classList.add("modal-usuario-abierto");
+        requestAnimationFrame(function () { panel.querySelector("input, .usuario-demo-cerrar")?.focus(); });
+    }
+
+    botonEntrar.addEventListener("click", abrirModal);
+    sistema.addEventListener("click", function (evento) { if (evento.target === sistema) cerrarModal(); });
+    document.addEventListener("keydown", function (evento) { if (evento.key === "Escape" && sistema.classList.contains("visible")) cerrarModal(); });
+    window.addEventListener("idiomaCambiado", function () {
+        actualizarBoton();
+        if (sistema.classList.contains("visible")) {
+            const sesion = obtenerSesionDemo();
+            if (sesion) renderizarCuenta(sesion); else renderizarAcceso();
+        }
+    });
+
+    actualizarBoton();
+    window.todoKlickUsuariosDemo = { abrir: abrirModal, sesion: obtenerSesionDemo };
 }
 
 
@@ -5649,7 +6163,7 @@ if (
 
 
             console.log(
-                "[Mi Tienda] Nueva versión aplicada."
+                "[Todo Klick] Nueva versión aplicada."
             );
 
 
@@ -5672,7 +6186,7 @@ if (
             ) {
 
                 console.log(
-                    "[Mi Tienda] Nueva versión disponible:",
+                    "[Todo Klick] Nueva versión disponible:",
                     evento.data.version
                 );
 
@@ -5699,7 +6213,7 @@ if (
 
 
                 console.log(
-                    "[Mi Tienda] Service Worker registrado."
+                    "[Todo Klick] Service Worker registrado."
                 );
 
 
@@ -5735,7 +6249,7 @@ if (
                                 ) {
 
                                     console.log(
-                                        "[Mi Tienda] Nueva versión encontrada."
+                                        "[Todo Klick] Nueva versión encontrada."
                                     );
 
 
@@ -5760,7 +6274,7 @@ if (
             ) {
 
                 console.error(
-                    "[Mi Tienda] Error con Service Worker:",
+                    "[Todo Klick] Error con Service Worker:",
                     error
                 );
 
@@ -6041,6 +6555,10 @@ function iniciarTienda() {
 
     crearAsistenteVirtual();
 
+    configurarInicioPriorizado();
+
+    crearExperienciaProfesional();
+
     // Primero generamos los productos
     mostrarProductos();
 
@@ -6054,6 +6572,8 @@ function iniciarTienda() {
     cambiarIdioma(
         idiomaActual
     );
+
+    configurarSistemaUsuariosDemo();
 
     actualizarContador();
 
@@ -6148,6 +6668,7 @@ window.todoKlick = {
 const estadoCatalogo = {
     pagina: 1,
     porPagina: 24,
+    limiteInicio: 12,
     busqueda: "",
     categoria: "todos",
     orden: "relevancia"
@@ -6193,6 +6714,7 @@ function obtenerProductosFiltrados() {
         ? window.productos.filter(function (productoBase) {
             const producto = localizarProducto(productoBase);
             const coincideCategoria = estadoCatalogo.categoria === "todos" ||
+                normalizarTextoCatalogo(productoBase.categoria) === estadoCatalogo.categoria ||
                 normalizarTextoCatalogo(producto.categoria) === estadoCatalogo.categoria;
             const contenido = normalizarTextoCatalogo([
                 producto.nombre,
@@ -6275,7 +6797,7 @@ function mostrarProductos() {
     const inicio = esCatalogoCompleto
         ? (estadoCatalogo.pagina - 1) * estadoCatalogo.porPagina
         : 0;
-    const limite = esCatalogoCompleto ? estadoCatalogo.porPagina : 8;
+    const limite = esCatalogoCompleto ? estadoCatalogo.porPagina : estadoCatalogo.limiteInicio;
     const visibles = productosFiltrados.slice(inicio, inicio + limite);
 
     contenedor.innerHTML = "";
@@ -6297,6 +6819,21 @@ function mostrarProductos() {
         const hasta = Math.min(inicio + limite, productosFiltrados.length);
         resumen.textContent = tf("mostrandoProductos", { desde: desde, hasta: hasta, total: productosFiltrados.length });
     }
+
+    const resumenInicio = document.getElementById("resumen-productos-inicio");
+    const cargarMasInicio = document.getElementById("cargar-mas-productos-inicio");
+    if (!esCatalogoCompleto && resumenInicio) {
+        resumenInicio.textContent = tf("resumenInicio", {
+            visibles: visibles.length,
+            total: productosFiltrados.length
+        });
+    }
+    if (!esCatalogoCompleto && cargarMasInicio) {
+        cargarMasInicio.hidden = visibles.length >= productosFiltrados.length;
+        cargarMasInicio.textContent = t("cargarMas");
+    }
+
+    window.dispatchEvent(new CustomEvent("productosRenderizados"));
 
     document.querySelectorAll("[data-pagina-catalogo]").forEach(function (boton) {
         const pagina = Number(boton.dataset.paginaCatalogo);
@@ -6361,10 +6898,14 @@ function configurarExploradorProductos() {
     const esCatalogoCompleto = /catalogo\.html$/i.test(window.location.pathname);
     if (!contenedor || !esCatalogoCompleto || document.getElementById("herramientas-catalogo")) return;
 
-    const categorias = [...new Set((window.productos || [])
-        .filter(function (producto) { return producto.activo !== false; })
-        .map(function (producto) { return localizarProducto(producto).categoria; })
-        .filter(Boolean))];
+    const categorias = [];
+    const categoriasConocidas = new Set();
+    (window.productos || []).forEach(function (producto) {
+        const valor = normalizarTextoCatalogo(producto.categoria);
+        if (!valor || categoriasConocidas.has(valor) || producto.activo === false) return;
+        categoriasConocidas.add(valor);
+        categorias.push({ valor: valor, nombre: localizarProducto(producto).categoria });
+    });
     const herramientas = document.createElement("section");
     herramientas.id = "herramientas-catalogo";
     herramientas.className = "herramientas-catalogo catalogo-controles";
@@ -6375,7 +6916,7 @@ function configurarExploradorProductos() {
             <select id="filtro-categoria">
                 <option value="todos">${t("todasCategorias")}</option>
                 ${categorias.map(function (categoria) {
-                    return `<option value="${normalizarTextoCatalogo(categoria)}">${categoria}</option>`;
+                    return `<option value="${categoria.valor}">${escaparHTMLCatalogo(categoria.nombre)}</option>`;
                 }).join("")}
             </select>
         </label>
@@ -6404,6 +6945,12 @@ function configurarExploradorProductos() {
     paginacion.className = "paginacion-catalogo";
     paginacion.setAttribute("aria-label", t("catalogo"));
     contenedor.after(paginacion);
+
+    const categoriaURL = normalizarTextoCatalogo(new URLSearchParams(window.location.search).get("categoria"));
+    if (categoriaURL && categorias.some(function (categoria) { return categoria.valor === categoriaURL; })) {
+        estadoCatalogo.categoria = categoriaURL;
+        document.getElementById("filtro-categoria").value = categoriaURL;
+    }
 
     document.getElementById("filtro-categoria").addEventListener("change", function (evento) {
         estadoCatalogo.categoria = evento.target.value;

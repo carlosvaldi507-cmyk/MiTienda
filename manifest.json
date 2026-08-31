@@ -2,7 +2,7 @@
     "name": "Todo Klick",
     "short_name": "Todo Klick",
     "description": "Tienda online de productos para el hogar, herramientas, tecnología y soluciones para tu negocio.",
-    "start_url": "./index.html?v=1.0.1",
+    "start_url": "./index.html",
     "scope": "./",
     "display": "standalone",
     "background_color": "#0a2333",

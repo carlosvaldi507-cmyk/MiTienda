@@ -163,7 +163,12 @@
             <div id="resultados-descubridor" class="contenedor-resultados" aria-live="polite"></div>
         `;
 
-        productos.before(panel);
+        const destinoInicio = document.getElementById("panel-compra-inteligente-inicio");
+        if (destinoInicio) {
+            destinoInicio.appendChild(panel);
+        } else {
+            productos.before(panel);
+        }
         const salida = panel.querySelector("#resultados-descubridor");
         const campoPresupuesto = panel.querySelector("#presupuesto-inteligente");
         const campoNecesidad = panel.querySelector("#necesidad-inteligente");
@@ -202,7 +207,9 @@
         filtroVendedor.addEventListener("change", function () {
             document.querySelectorAll(".producto").forEach(function (tarjeta) {
                 const nombre = tarjeta.querySelector("h3")?.textContent.trim();
-                const producto = disponibles().find(function (item) { return item.nombre === nombre; });
+                const producto = disponibles().find(function (item) {
+                    return String(item.id) === String(tarjeta.dataset.productoId) || item.nombre === nombre;
+                });
                 tarjeta.style.display = !filtroVendedor.value || producto?.vendedor === filtroVendedor.value ? "" : "none";
             });
         });
@@ -232,7 +239,9 @@
 
         tarjetas.forEach(function (tarjeta) {
             const nombre = tarjeta.querySelector("h3")?.textContent.trim();
-            const producto = disponibles().find(function (item) { return item.nombre === nombre; });
+            const producto = disponibles().find(function (item) {
+                return String(item.id) === String(tarjeta.dataset.productoId) || item.nombre === nombre;
+            });
             const info = tarjeta.querySelector(".producto-info");
             if (!producto || !info || info.querySelector(".confianza-vendedor")) return;
 
@@ -330,6 +339,10 @@
         document.getElementById("descubridor-compras")?.remove();
         document.getElementById("comparador-productos")?.remove();
         crearPanel();
+        decorarCatalogo();
+    });
+
+    window.addEventListener("productosRenderizados", function () {
         decorarCatalogo();
     });
 
