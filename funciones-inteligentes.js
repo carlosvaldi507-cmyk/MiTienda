@@ -324,8 +324,10 @@
             return alertas.includes(producto.nombre) && producto.precioAnterior && producto.precio < producto.precioAnterior;
         });
         if (!bajaron.length) return;
-        const aviso = crear("aside", "alerta-precio", "🔔 Bajó de precio: " + bajaron.map(function (p) { return p.nombre + " ahora " + dinero(p.precio); }).join(" · "));
-        document.body.appendChild(aviso);
+        const mensaje = bajaron.map(function (p) { return p.nombre + " ahora " + dinero(p.precio); }).join(" · ");
+        if (window.todoKlickNotificaciones) {
+            window.todoKlickNotificaciones.agregar("Bajó de precio", mensaje, "🏷️");
+        }
     }
 
     function iniciar() {

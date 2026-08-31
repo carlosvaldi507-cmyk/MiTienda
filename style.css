@@ -7855,3 +7855,189 @@ body.modal-usuario-abierto {
         width: 100%;
     }
 }
+.tiempo-carrito {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin: 0.75rem 0 1rem;
+    padding: 0.75rem 0.9rem;
+    border: 1px solid #f0c36a;
+    border-radius: 10px;
+    background: #fff8e8;
+    color: #704b00;
+    font-size: 0.92rem;
+}
+
+.tiempo-carrito[hidden] { display: none !important; }
+
+.tiempo-carrito.recordatorio {
+    border-color: #e8893c;
+    background: #fff0e2;
+    color: #8a3500;
+}
+
+.opciones-catalogo { margin: 1.25rem 0 2rem; }
+.categorias-opcion-catalogo { display:flex; flex-wrap:wrap; justify-content:center; gap:.75rem; padding:1.25rem; }
+.categorias-opcion-catalogo[hidden] { display:none !important; }
+.categorias-opcion-catalogo button { padding:.75rem 1rem; border:1px solid var(--color-principal, #f28c28); border-radius:999px; background:#fff; cursor:pointer; }
+.opciones-catalogo #panel-compra-inteligente-inicio .descubridor-compras { margin:1rem 0 0; }
+.catalogo-sin-seleccion #herramientas-catalogo,
+.catalogo-sin-seleccion #paginacion-catalogo { display:none !important; }
+
+.ver-detalle-producto {
+    width:100%; margin:.45rem 0; padding:.7rem; border:1px solid #0d5c72;
+    border-radius:9px; background:#fff; color:#0d5c72; font-weight:700; cursor:pointer;
+}
+.vista-rapida-producto { display:none; position:fixed; inset:0; z-index:1000000010; padding:20px; background:rgba(3,15,22,.78); align-items:center; justify-content:center; overflow:auto; backdrop-filter:blur(4px); }
+.vista-rapida-producto.visible { display:flex; }
+.vista-rapida-abierta { overflow:hidden; }
+.vista-rapida-contenido { position:relative; display:grid; grid-template-columns:minmax(220px, .9fr) minmax(280px, 1.1fr); width:min(900px,100%); max-height:calc(100vh - 40px); overflow:auto; border-radius:18px; background:#fff; color:#173546; box-shadow:0 24px 70px rgba(0,0,0,.4); }
+.vista-rapida-cerrar { position:absolute; z-index:2; top:12px; right:12px; width:38px; height:38px; border:0; border-radius:50%; background:#edf2f3; font-size:25px; cursor:pointer; }
+.vista-rapida-imagen { display:flex; align-items:center; justify-content:center; min-height:420px; padding:30px; background:#f4f7f7; font-size:100px; }
+.vista-rapida-imagen img { width:100%; max-height:430px; object-fit:contain; }
+.vista-rapida-info { padding:40px 36px; }
+.vista-rapida-info small { color:#168d86; font-weight:800; text-transform:uppercase; }
+.vista-rapida-info h2 { margin:.5rem 2.5rem .5rem 0; }
+.vista-rapida-precio { display:block; margin:1rem 0; color:#0d5c72; font-size:1.65rem; }
+.vista-rapida-info ul { padding-left:1.2rem; line-height:1.9; }
+.vista-rapida-accion { display:flex; align-items:end; gap:12px; margin-top:1.2rem; }
+.vista-rapida-accion label { font-weight:700; }
+.vista-rapida-accion input { display:block; width:80px; margin-top:5px; padding:10px; border:1px solid #cbdadd; border-radius:8px; }
+.vista-rapida-accion button { flex:1; padding:12px; border:0; border-radius:9px; background:#0d5c72; color:#fff; font-weight:800; cursor:pointer; }
+.vista-rapida-accion button:disabled { opacity:.55; cursor:not-allowed; }
+.vista-rapida-mensaje { min-height:1.4em; color:#167540; font-weight:700; }
+.guardar-datos-checkout { display:flex !important; align-items:center; gap:9px; font-weight:500 !important; }
+.guardar-datos-checkout input { width:auto !important; margin:0 !important; }
+.historial-pedidos-cuenta { margin-top:18px; padding:18px; border:1px solid #dbe6e8; border-radius:14px; background:#f8fbfb; }
+.historial-pedidos-cuenta h3 { margin:0 0 12px; }
+.historial-pedidos-cuenta article { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px 0; border-top:1px solid #e1eaec; }
+.historial-pedidos-cuenta article:first-of-type { border-top:0; }
+.historial-pedidos-cuenta article div { display:flex; flex-direction:column; gap:3px; }
+.historial-pedidos-cuenta article div:last-child { text-align:right; }
+.historial-pedidos-cuenta small { color:#667b82; }
+.historial-pedidos-cuenta span { color:#a56709; font-size:.78rem; font-weight:700; }
+.historial-pedidos-cuenta button { margin-top:4px; padding:5px 9px; border:1px solid #0d5c72; border-radius:7px; background:#fff; color:#0d5c72; font-size:.75rem; font-weight:700; cursor:pointer; }
+
+.franja-beneficios-comercial { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; max-width:1280px; margin:12px auto 0; border-radius:14px; overflow:hidden; background:#e6ded0; box-shadow:0 4px 18px rgba(21,48,59,.08); }
+.franja-beneficios-comercial > div { display:flex; align-items:center; justify-content:center; gap:10px; padding:13px 16px; background:#fff9ec; }
+.franja-beneficios-comercial > div > span { font-size:1.3rem; }
+.franja-beneficios-comercial p { display:flex; flex-direction:column; margin:0; line-height:1.25; }
+.franja-beneficios-comercial small { color:#6b7478; }
+.categorias-comerciales { display:flex; gap:14px; max-width:1280px; margin:18px auto; padding:2px 4px 10px; overflow-x:auto; scrollbar-width:thin; }
+.categorias-comerciales button { flex:0 0 100px; border:0; background:transparent; color:#173546; cursor:pointer; }
+.categorias-comerciales button span { display:flex; align-items:center; justify-content:center; width:76px; height:76px; margin:auto; overflow:hidden; border:2px solid #fff; border-radius:24px; background:#edf3f3; font-size:34px; box-shadow:0 5px 15px rgba(17,65,78,.14); }
+.categorias-comerciales button img { width:100%; height:100%; object-fit:cover; }
+.categorias-comerciales button b { display:block; margin-top:7px; font-size:.8rem; line-height:1.15; }
+.precio-comercial-producto { display:flex; align-items:baseline; flex-wrap:wrap; gap:7px; margin-top:7px; }
+.precio-comercial-producto strong { color:#dc4a20 !important; font-size:1.2rem; }
+.precio-comercial-producto del { color:#89969a; font-size:.78rem; }
+.precio-comercial-producto span { padding:2px 5px; border-radius:4px; background:#fff0e8; color:#dc4a20; font-size:.72rem; font-weight:800; }
+.beneficios-tarjeta-producto { display:flex; flex-wrap:wrap; gap:5px; margin:7px 0; }
+.beneficios-tarjeta-producto span { padding:3px 6px; border-radius:5px; background:#e9f8f1; color:#167550; font-size:.7rem; font-weight:700; }
+.navegacion-comercial-movil { display:none; }
+.abrir-categorias-movil,.panel-categorias-movil { display:none; }
+.centro-notificaciones { position:relative; flex:0 0 auto; }
+#boton-notificaciones { position:relative; display:grid; place-items:center; width:42px; height:42px; border:1px solid #dbe5e7; border-radius:50%; background:#fff; color:#173546; cursor:pointer; box-shadow:0 4px 12px rgba(15,55,67,.09); }
+#boton-notificaciones > span { font-size:1.18rem; }
+#boton-notificaciones > em { position:absolute; top:-4px; right:-3px; min-width:18px; height:18px; padding:0 4px; border:2px solid #fff; border-radius:10px; background:#e34d2b; color:#fff; font-size:.65rem; font-style:normal; font-weight:900; line-height:14px; }
+#panel-notificaciones { position:absolute; z-index:1000000012; top:calc(100% + 10px); right:0; width:min(370px,calc(100vw - 24px)); overflow:hidden; border:1px solid #dce6e8; border-radius:16px; background:#fff; color:#173546; box-shadow:0 20px 55px rgba(8,35,44,.25); }
+#panel-notificaciones[hidden] { display:none !important; }
+#panel-notificaciones > header { display:flex; align-items:center; justify-content:space-between; position:static; padding:16px 18px; border-bottom:1px solid #e5ecee; background:linear-gradient(135deg,#f4fbfa,#fff8ec); }
+#panel-notificaciones header small { color:#168d86; font-size:.65rem; font-weight:900; letter-spacing:.12em; }
+#panel-notificaciones header h2 { margin:2px 0 0; font-size:1.08rem; }
+#panel-notificaciones header button { width:32px; height:32px; border:0; border-radius:50%; background:#eaf0f1; font-size:21px; cursor:pointer; }
+.lista-notificaciones { max-height:360px; overflow-y:auto; }
+.lista-notificaciones article { display:grid; grid-template-columns:40px 1fr; gap:11px; padding:14px 16px; border-bottom:1px solid #edf1f2; }
+.lista-notificaciones article > span { display:grid; place-items:center; width:38px; height:38px; border-radius:50%; background:#fff1db; }
+.lista-notificaciones article strong { font-size:.88rem; }
+.lista-notificaciones article p { margin:3px 0; color:#536b72; font-size:.8rem; line-height:1.35; }
+.lista-notificaciones article small { color:#94a1a5; font-size:.68rem; }
+.notificaciones-vacias { margin:0; padding:28px 18px; color:#73868c; text-align:center; font-size:.86rem; }
+
+@media (max-width:700px) {
+    body { padding-bottom:76px; }
+    .franja-beneficios-comercial { display:flex; margin:6px 10px 0; overflow-x:auto; border-radius:10px; scroll-snap-type:x mandatory; }
+    .franja-beneficios-comercial > div { min-width:78vw; justify-content:flex-start; scroll-snap-align:start; }
+    .categorias-comerciales { display:none; }
+    .opciones-catalogo { margin:8px 10px 14px; padding:0; border:0; background:transparent; box-shadow:none; }
+    .opciones-catalogo .opciones-compra-encabezado { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+    .opciones-catalogo .selector-funciones-inicio { display:grid; grid-template-columns:repeat(3,1fr); gap:7px; padding:0; }
+    .opciones-catalogo .selector-funciones-inicio button { min-height:48px; padding:7px 5px; border-radius:10px; font-size:.72rem; line-height:1.15; }
+    .opciones-catalogo .selector-funciones-inicio button::before { display:block; margin:0 auto 3px; font-size:1.05rem; }
+    .navegacion-comercial-movil { display:grid !important; grid-template-columns:repeat(5,1fr); position:fixed; z-index:1000000002; left:0; right:0; bottom:0; height:68px; padding:4px 4px max(4px,env(safe-area-inset-bottom)); border-top:1px solid #dce5e7; background:rgba(255,255,255,.97); box-shadow:0 -8px 30px rgba(12,43,54,.12); backdrop-filter:blur(12px); }
+    .navegacion-comercial-movil a,.navegacion-comercial-movil button { position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; border:0; background:transparent; color:#52676d; text-decoration:none; }
+    .navegacion-comercial-movil span { font-size:1.55rem; line-height:1; }
+    .navegacion-comercial-movil b { font-size:.64rem; }
+    .navegacion-comercial-movil a:nth-child(3) { color:#0d5c72; }
+    .navegacion-comercial-movil em { position:absolute; top:2px; right:18%; min-width:17px; height:17px; padding:0 3px; border-radius:9px; background:#e34d2b; color:#fff; font-size:.65rem; font-style:normal; font-weight:800; line-height:17px; }
+    .productos-container { grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:8px !important; padding-inline:8px !important; }
+    .producto-info { padding:10px !important; }
+    .producto-info > p { display:-webkit-box; overflow:hidden; -webkit-line-clamp:2; -webkit-box-orient:vertical; font-size:.78rem; }
+    .abrir-categorias-movil { display:flex; align-items:center; gap:6px; position:absolute; z-index:5; left:10px; top:50%; transform:translateY(-50%); padding:7px; border:0; background:transparent; color:inherit; cursor:pointer; }
+    .abrir-categorias-movil span { font-size:1.7rem; line-height:1; }
+    .abrir-categorias-movil b { display:none; }
+    .centro-notificaciones { position:absolute; z-index:6; right:62px; top:50%; transform:translateY(-50%); }
+    #boton-notificaciones { width:38px; height:38px; border:0; box-shadow:none; }
+    #panel-notificaciones { position:fixed; top:72px; right:10px; left:10px; width:auto; max-height:70vh; border-radius:14px; }
+    .panel-categorias-movil { display:block; visibility:hidden; position:fixed; z-index:1000000015; inset:0; pointer-events:none; }
+    .panel-categorias-movil.visible { visibility:visible; pointer-events:auto; }
+    .fondo-categorias-movil { position:absolute; inset:0; background:rgba(0,0,0,.58); opacity:0; transition:opacity .25s ease; }
+    .panel-categorias-movil.visible .fondo-categorias-movil { opacity:1; }
+    .panel-categorias-movil aside { position:absolute; inset:0 auto 0 0; width:min(88vw,390px); overflow-y:auto; background:#fff; color:#172f38; box-shadow:16px 0 45px rgba(0,0,0,.28); transform:translateX(-102%); transition:transform .28s ease; }
+    .panel-categorias-movil.visible aside { transform:translateX(0); }
+    .categorias-movil-abiertas { overflow:hidden; }
+    .cabecera-categorias-movil { display:flex; align-items:center; justify-content:space-between; gap:16px; position:sticky; z-index:2; top:0; padding:20px 18px 14px; border-bottom:1px solid #e3e9ea; background:#fff; }
+    .cabecera-categorias-movil small { color:#168d86; font-weight:900; letter-spacing:.12em; }
+    .cabecera-categorias-movil h2 { margin:3px 0 0; font-size:1.25rem; }
+    .cabecera-categorias-movil > button { width:40px; height:40px; border:0; border-radius:50%; background:#172f38; color:#fff; font-size:27px; cursor:pointer; }
+    .lista-categorias-movil > button,.categoria-todos-movil { display:grid; grid-template-columns:58px 1fr auto; align-items:center; width:100%; gap:12px; padding:11px 18px; border:0; border-bottom:1px solid #eef2f2; background:#fff; color:#172f38; text-align:left; cursor:pointer; }
+    .lista-categorias-movil button > span,.categoria-todos-movil > span { display:flex; align-items:center; justify-content:center; width:52px; height:52px; overflow:hidden; border-radius:50%; background:#edf3f3; font-size:25px; }
+    .lista-categorias-movil img { width:100%; height:100%; object-fit:cover; }
+    .lista-categorias-movil b,.categoria-todos-movil b { font-size:1rem; }
+    .lista-categorias-movil em,.categoria-todos-movil em { color:#89979b; font-size:1.8rem; font-style:normal; }
+    .atajos-categorias-movil { display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:16px; }
+    .atajos-categorias-movil button { padding:12px 8px; border:1px solid #dce6e7; border-radius:10px; background:#f6fafa; color:#0d5c72; font-weight:800; cursor:pointer; }
+}
+
+/* Tarjetas comerciales compactas: el detalle completo vive en Vista rápida. */
+.productos-container {
+    grid-template-columns:repeat(auto-fill,minmax(190px,1fr)) !important;
+    gap:14px !important;
+}
+.producto { border-radius:14px !important; overflow:hidden; }
+.producto-imagen {
+    width:100%; height:auto !important; min-height:0 !important;
+    aspect-ratio:1 / 1; cursor:pointer;
+}
+.producto-imagen img { width:100%; height:100%; padding:10px !important; object-fit:contain; }
+.producto-info { padding:12px 12px 11px !important; }
+.producto-info > p,.producto .confianza-vendedor,.producto .acciones-producto-inteligente { display:none !important; }
+.producto-categoria { margin:0 0 5px !important; padding:3px 6px !important; font-size:8px !important; }
+.etiqueta-producto { margin-bottom:3px; font-size:9px !important; }
+.producto h3 { min-height:34px !important; margin:4px 0 !important; font-size:14px !important; line-height:1.22 !important; }
+.producto-rating { min-height:15px !important; margin:2px 0 4px !important; font-size:10px !important; }
+.precio-comercial-producto { margin-top:3px; gap:5px; }
+.precio-comercial-producto strong { margin:0 !important; font-size:1.05rem !important; }
+.beneficios-tarjeta-producto { margin:5px 0 !important; }
+.beneficios-tarjeta-producto span { padding:2px 4px; font-size:.62rem; }
+.producto-stock { margin:3px 0 5px !important; padding:3px 6px !important; font-size:8px !important; }
+.ver-detalle-producto { margin:3px 0 6px; padding:5px !important; border:0; background:transparent; text-decoration:underline; font-size:.7rem; }
+.producto .agregar-carrito { min-height:36px !important; margin:0 !important; padding:7px 8px !important; border-radius:8px !important; font-size:.78rem !important; }
+.favorito-producto { top:8px !important; right:8px !important; width:33px !important; height:33px !important; font-size:20px !important; }
+
+@media (min-width:1200px) {
+    .productos-container { grid-template-columns:repeat(5,minmax(0,1fr)) !important; }
+}
+@media (max-width:700px) {
+    .productos-container { grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:8px !important; padding-inline:8px !important; }
+    .producto-info { padding:9px !important; }
+    .producto h3 { min-height:32px !important; font-size:13px !important; }
+    .producto-rating { white-space:nowrap; overflow:hidden; }
+    .beneficios-tarjeta-producto span:last-child { display:none; }
+    .ver-detalle-producto { font-size:.65rem; }
+}
+@media (max-width:700px) {
+    .vista-rapida-contenido { grid-template-columns:1fr; }
+    .vista-rapida-imagen { min-height:240px; max-height:300px; }
+    .vista-rapida-info { padding:28px 20px; }
+}
