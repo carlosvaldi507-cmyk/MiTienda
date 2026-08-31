@@ -3,7 +3,7 @@
 // ACTUALIZACIÓN AUTOMÁTICA Y CACHÉ INTELIGENTE
 // =====================================================
 
-const CACHE_VERSION = "todo-klick-v30";
+const CACHE_VERSION = "todo-klick-v31";
 
 
 // =====================================================
@@ -25,6 +25,11 @@ const ARCHIVOS = [
     "./assets/productos/termos/termo-hello-kitty-500ml-01.png",
     "./assets/productos/juguetes/peluche-capibara-01.png",
     "./assets/productos/juguetes/peluche-felpa-01.png",
+    "./assets/productos/seguridad/camara-ip-01.png",
+    "./assets/productos/seguridad/dvr-8-canales-01.png",
+    "./assets/productos/redes/cable-cat6-01.png",
+    "./assets/productos/herramientas/kit-herramientas-01.png",
+    "./assets/productos/tecnologia/memoria-usb-01.png",
     "./assets/productos/accesorios/bolso-mujer-01.png",
     "./assets/productos/accesorios/bolso-mujer-02.png"
 ];

@@ -8044,6 +8044,36 @@ body.modal-usuario-abierto {
     .abrir-categorias-movil { top:27px !important; transform:none !important; }
     .centro-notificaciones { top:25px !important; right:10px !important; transform:none !important; }
     .whatsapp-flotante { bottom:82px !important; right:12px !important; }
+    /* La barra inferior sustituye el menú ancho en teléfonos. */
+    .nav { display:none !important; }
+    .header .logo::before { display:none !important; }
+    .navegacion-comercial-movil {
+        box-sizing:border-box !important;
+        grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+        width:100vw !important;
+        min-width:0 !important;
+        max-width:none !important;
+        margin:0 !important;
+        overflow:visible !important;
+    }
+    .navegacion-comercial-movil a,
+    .navegacion-comercial-movil button {
+        box-sizing:border-box !important;
+        width:auto !important;
+        min-width:0 !important;
+        margin:0 !important;
+        padding:2px 0 !important;
+        overflow:hidden !important;
+    }
+    .navegacion-comercial-movil b {
+        display:block;
+        width:100%;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+        text-align:center;
+    }
+    .asistente-virtual { display:none !important; }
 }
 @media (max-width:700px) {
     .vista-rapida-contenido { grid-template-columns:1fr; }
