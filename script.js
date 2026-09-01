@@ -6896,12 +6896,18 @@ function crearExperienciaComercialMovil() {
     if (document.getElementById("navegacion-comercial-movil")) return;
     const nav = document.querySelector(".nav");
     const categorias = [];
-    const conocidas = new Set();
+    const categoriasPorClave = new Map();
     (window.productos || []).filter(function (p) { return p.activo !== false; }).forEach(function (producto) {
         const clave = normalizarTextoCatalogo(producto.categoria);
-        if (!clave || conocidas.has(clave)) return;
-        conocidas.add(clave);
-        categorias.push({ clave:clave, nombre:localizarProducto(producto).categoria, imagen:producto.imagen });
+        if (!clave) return;
+        const categoriaExistente = categoriasPorClave.get(clave);
+        if (categoriaExistente) {
+            categoriaExistente.total += 1;
+            return;
+        }
+        const categoria = { clave:clave, nombre:localizarProducto(producto).categoria, imagen:producto.imagen, total:1 };
+        categoriasPorClave.set(clave, categoria);
+        categorias.push(categoria);
     });
 
     function elegirCategoria(clave) {
@@ -6976,13 +6982,12 @@ function crearExperienciaComercialMovil() {
         panel.className = "panel-categorias-movil";
         panel.setAttribute("aria-hidden", "true");
         panel.innerHTML = `<div class="fondo-categorias-movil"></div><aside role="dialog" aria-modal="true" aria-labelledby="titulo-categorias-movil">
-            <div class="cabecera-categorias-movil"><div><small>TODO KLICK</small><h2 id="titulo-categorias-movil">Comprar por categor\u00eda</h2></div><button type="button" aria-label="Cerrar categor\u00edas">&times;</button></div>
-            <button type="button" class="categoria-todos-movil" data-categoria-panel="todos"><span>\ud83d\uded2</span><b>Todos los productos</b><em>\u203a</em></button>
+            <div class="cabecera-categorias-movil"><div><small>EXPLORAR</small><h2 id="titulo-categorias-movil">¿Qué estás buscando?</h2><p>Elige una categoría para filtrar el catálogo.</p></div><button type="button" aria-label="Cerrar categorías">&times;</button></div>
+            <button type="button" class="categoria-todos-movil" data-categoria-panel="todos"><span>\ud83d\uded2</span><div><b>Ver todo</b><small>${(window.productos || []).filter(function (p) { return p.activo !== false; }).length} productos disponibles</small></div><em>\u203a</em></button>
             <div class="lista-categorias-movil">${categorias.map(function (categoria) {
                 const archivo = /\.(png|jpe?g|webp|gif|avif|svg)(\?.*)?$/i.test(String(categoria.imagen || ""));
-                return `<button type="button" data-categoria-panel="${escaparHTMLCatalogo(categoria.clave)}"><span>${archivo ? `<img src="${escaparHTMLCatalogo(resolverURLImagenProducto(categoria.imagen))}" alt="">` : escaparHTMLCatalogo(categoria.imagen || "\ud83d\udce6")}</span><b>${escaparHTMLCatalogo(categoria.nombre)}</b><em>\u203a</em></button>`;
+                return `<button type="button" data-categoria-panel="${escaparHTMLCatalogo(categoria.clave)}"><span>${archivo ? `<img src="${escaparHTMLCatalogo(resolverURLImagenProducto(categoria.imagen))}" alt="">` : escaparHTMLCatalogo(categoria.imagen || "\ud83d\udce6")}</span><div><b>${escaparHTMLCatalogo(categoria.nombre)}</b><small>${categoria.total} ${categoria.total === 1 ? "producto" : "productos"}</small></div><em>\u203a</em></button>`;
             }).join("")}</div>
-            <div class="atajos-categorias-movil"><button type="button" data-atajo-panel="favoritos">\u2661 Favoritos</button><button type="button" data-atajo-panel="inteligente">\u2728 Compra inteligente</button></div>
         </aside>`;
         document.body.appendChild(panel);
 
