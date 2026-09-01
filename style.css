@@ -8897,6 +8897,62 @@ body.modal-usuario-abierto {
         font-size: 1.4rem !important;
     }
 
+    /* Accesos globales compactos: siempre disponibles, sin competir con productos. */
+    .header > .selector-idioma {
+        display: block !important;
+        position: absolute !important;
+        z-index: 12 !important;
+        top: 7px !important;
+        right: 56px !important;
+    }
+
+    .header #boton-idioma {
+        display: grid !important;
+        width: 38px !important;
+        min-width: 38px !important;
+        height: 38px !important;
+        padding: 0 !important;
+        place-items: center !important;
+        border: 1px solid rgba(255,255,255,.18) !important;
+        border-radius: 12px !important;
+        background: rgba(255,255,255,.1) !important;
+        color: transparent !important;
+        font-size: 0 !important;
+    }
+
+    .header #boton-idioma::after {
+        content: "🌐";
+        color: #fff;
+        font-size: 1.1rem;
+    }
+
+    .header .menu-idiomas {
+        position: fixed !important;
+        z-index: 1000000020 !important;
+        top: 64px !important;
+        right: 10px !important;
+        left: auto !important;
+        width: min(220px, calc(100vw - 20px)) !important;
+        transform: none !important;
+    }
+
+    .atajos-categorias-movil {
+        display: block !important;
+        padding: 8px 16px 4px !important;
+    }
+
+    .atajos-categorias-movil button {
+        width: 100% !important;
+        min-height: 48px !important;
+        border: 0 !important;
+        border-radius: 14px !important;
+        background: linear-gradient(135deg, #123d4a, #176f70) !important;
+        color: #fff !important;
+        font-size: .9rem !important;
+        font-weight: 800 !important;
+        box-shadow: 0 9px 18px rgba(12, 70, 75, .18) !important;
+    }
+
     /* Categorías como selector visual bajo demanda, no como otra sección fija. */
     .panel-categorias-movil aside {
         width: min(92vw, 430px) !important;

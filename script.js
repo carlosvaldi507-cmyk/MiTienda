@@ -6939,10 +6939,8 @@ function crearExperienciaComercialMovil() {
 
         function pintarCentro() {
             const hayNotificaciones = notificaciones.length > 0;
-            centro.hidden = !hayNotificaciones;
             contadorCentro.textContent = notificaciones.length;
             contadorCentro.hidden = !hayNotificaciones;
-            if (!hayNotificaciones) cerrarCentro();
             listaCentro.innerHTML = hayNotificaciones ? notificaciones.map(function (item) {
                 return `<article><span>${escaparHTMLCatalogo(item.icono || "\ud83d\udd14")}</span><div><strong>${escaparHTMLCatalogo(item.titulo)}</strong><p>${escaparHTMLCatalogo(item.mensaje)}</p><small>${escaparHTMLCatalogo(item.fecha)}</small></div></article>`;
             }).join("") : `<p class="notificaciones-vacias">No tienes notificaciones nuevas.</p>`;
@@ -6988,6 +6986,7 @@ function crearExperienciaComercialMovil() {
                 const archivo = /\.(png|jpe?g|webp|gif|avif|svg)(\?.*)?$/i.test(String(categoria.imagen || ""));
                 return `<button type="button" data-categoria-panel="${escaparHTMLCatalogo(categoria.clave)}"><span>${archivo ? `<img src="${escaparHTMLCatalogo(resolverURLImagenProducto(categoria.imagen))}" alt="">` : escaparHTMLCatalogo(categoria.imagen || "\ud83d\udce6")}</span><div><b>${escaparHTMLCatalogo(categoria.nombre)}</b><small>${categoria.total} ${categoria.total === 1 ? "producto" : "productos"}</small></div><em>\u203a</em></button>`;
             }).join("")}</div>
+            <div class="atajos-categorias-movil"><button type="button" data-atajo-panel="inteligente">\u2728 Compra inteligente</button></div>
         </aside>`;
         document.body.appendChild(panel);
 
