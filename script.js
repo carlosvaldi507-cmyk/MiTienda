@@ -6932,9 +6932,12 @@ function crearExperienciaComercialMovil() {
         let notificaciones = [];
 
         function pintarCentro() {
+            const hayNotificaciones = notificaciones.length > 0;
+            centro.hidden = !hayNotificaciones;
             contadorCentro.textContent = notificaciones.length;
-            contadorCentro.hidden = !notificaciones.length;
-            listaCentro.innerHTML = notificaciones.length ? notificaciones.map(function (item) {
+            contadorCentro.hidden = !hayNotificaciones;
+            if (!hayNotificaciones) cerrarCentro();
+            listaCentro.innerHTML = hayNotificaciones ? notificaciones.map(function (item) {
                 return `<article><span>${escaparHTMLCatalogo(item.icono || "\ud83d\udd14")}</span><div><strong>${escaparHTMLCatalogo(item.titulo)}</strong><p>${escaparHTMLCatalogo(item.mensaje)}</p><small>${escaparHTMLCatalogo(item.fecha)}</small></div></article>`;
             }).join("") : `<p class="notificaciones-vacias">No tienes notificaciones nuevas.</p>`;
         }
@@ -7044,7 +7047,7 @@ function crearExperienciaComercialMovil() {
     inferior.className = "navegacion-comercial-movil";
     inferior.setAttribute("aria-label", "Navegaci\u00f3n principal m\u00f3vil");
     const cantidadInicialCarrito = obtenerCantidadCarrito();
-    inferior.innerHTML = `<a href="index.html"><span>\u2302</span><b>Inicio</b></a><button type="button" data-accion-movil="categorias"><span>\u2630</span><b>Categor\u00edas</b></button><a href="catalogo.html"><span>\u25a6</span><b>Comprar</b></a><button type="button" data-accion-movil="carrito"><span>\ud83d\uded2</span><b>Carrito</b><em${cantidadInicialCarrito === 0 ? " hidden" : ""}>${cantidadInicialCarrito}</em></button><button type="button" data-accion-movil="cuenta"><span>\u263a</span><b>Mi cuenta</b></button>`;
+    inferior.innerHTML = `<a href="index.html"><span>\u2302</span><b>Inicio</b></a><button type="button" data-accion-movil="categorias"><span>\u2630</span><b>Categor\u00edas</b></button><a href="catalogo.html"><span>\u25a6</span><b>Comprar</b></a><button type="button" data-accion-movil="carrito"><span>\ud83d\uded2</span><b>Carrito</b><em${cantidadInicialCarrito === 0 ? " hidden" : ""}>${cantidadInicialCarrito}</em></button><button type="button" data-accion-movil="cuenta"><span>\u263a</span><b>Cuenta</b></button>`;
     document.body.appendChild(inferior);
     inferior.addEventListener("click", function (evento) {
         const accion = evento.target.closest("[data-accion-movil]")?.dataset.accionMovil;

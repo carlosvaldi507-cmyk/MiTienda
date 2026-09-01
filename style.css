@@ -8863,3 +8863,37 @@ body.modal-usuario-abierto {
 .opciones-catalogo {
     display: none !important;
 }
+
+/* Móvil: una cabecera despejada y navegación legible dejan el foco al catálogo. */
+.centro-notificaciones[hidden] {
+    display: none !important;
+}
+
+@media (max-width:700px) {
+    .productos-principales-inicio > .seccion-titulo h2,
+    .productos > .seccion-titulo h2 {
+        max-width: 11ch !important;
+        margin-bottom: 8px !important;
+        font-size: clamp(2rem, 9.5vw, 2.65rem) !important;
+        line-height: 1.02 !important;
+        letter-spacing: -.045em !important;
+    }
+
+    .productos-principales-inicio > .seccion-titulo p,
+    .productos > .seccion-titulo p {
+        margin-top: 0 !important;
+        font-size: .94rem !important;
+        line-height: 1.4 !important;
+    }
+
+    .navegacion-comercial-movil b {
+        font-size: 10px !important;
+        font-weight: 750 !important;
+        line-height: 1.1 !important;
+        letter-spacing: -.02em !important;
+    }
+
+    .navegacion-comercial-movil span {
+        font-size: 1.4rem !important;
+    }
+}
