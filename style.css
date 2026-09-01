@@ -7436,6 +7436,13 @@ body.experiencia-premium::before {
     margin-inline: auto;
 }
 
+/* El contador solo comunica algo cuando realmente hay artículos en el carrito. */
+#contador-carrito[hidden],
+.contador-carrito-flotante[hidden],
+[data-accion-movil="carrito"] em[hidden] {
+    display: none !important;
+}
+
 /* Categorías bajo demanda: disponibles sin interrumpir el catálogo. */
 .explorador-categorias-inicio {
     width: min(1320px, calc(100% - 32px));

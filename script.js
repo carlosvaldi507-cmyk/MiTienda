@@ -320,7 +320,10 @@ function actualizarContador() {
         obtenerCantidadCarrito();
 
     const contadorMovil = document.querySelector('[data-accion-movil="carrito"] em');
-    if (contadorMovil) contadorMovil.textContent = cantidad;
+    if (contadorMovil) {
+        contadorMovil.textContent = cantidad;
+        contadorMovil.hidden = cantidad === 0;
+    }
 
 
     // =================================================
@@ -337,6 +340,8 @@ function actualizarContador() {
 
         contador.textContent =
             cantidad;
+
+        contador.hidden = cantidad === 0;
 
     }
 
@@ -355,6 +360,8 @@ function actualizarContador() {
 
         contadorFlotante.textContent =
             cantidad;
+
+        contadorFlotante.hidden = cantidad === 0;
 
     }
 
@@ -967,6 +974,7 @@ function crearCarritoFlotante() {
         <span
             id="contador-carrito-flotante"
             class="contador-carrito-flotante"
+            hidden
         >
             0
         </span>
@@ -7033,7 +7041,8 @@ function crearExperienciaComercialMovil() {
     inferior.id = "navegacion-comercial-movil";
     inferior.className = "navegacion-comercial-movil";
     inferior.setAttribute("aria-label", "Navegaci\u00f3n principal m\u00f3vil");
-    inferior.innerHTML = `<a href="index.html"><span>\u2302</span><b>Inicio</b></a><button type="button" data-accion-movil="categorias"><span>\u2630</span><b>Categor\u00edas</b></button><a href="catalogo.html"><span>\u25a6</span><b>Comprar</b></a><button type="button" data-accion-movil="carrito"><span>\ud83d\uded2</span><b>Carrito</b><em>${obtenerCantidadCarrito()}</em></button><button type="button" data-accion-movil="cuenta"><span>\u263a</span><b>Mi cuenta</b></button>`;
+    const cantidadInicialCarrito = obtenerCantidadCarrito();
+    inferior.innerHTML = `<a href="index.html"><span>\u2302</span><b>Inicio</b></a><button type="button" data-accion-movil="categorias"><span>\u2630</span><b>Categor\u00edas</b></button><a href="catalogo.html"><span>\u25a6</span><b>Comprar</b></a><button type="button" data-accion-movil="carrito"><span>\ud83d\uded2</span><b>Carrito</b><em${cantidadInicialCarrito === 0 ? " hidden" : ""}>${cantidadInicialCarrito}</em></button><button type="button" data-accion-movil="cuenta"><span>\u263a</span><b>Mi cuenta</b></button>`;
     document.body.appendChild(inferior);
     inferior.addEventListener("click", function (evento) {
         const accion = evento.target.closest("[data-accion-movil]")?.dataset.accionMovil;
