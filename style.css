@@ -8870,6 +8870,47 @@ body.modal-usuario-abierto {
 }
 
 @media (max-width:700px) {
+    /* Una sola entrada a categorías: la navegación inferior evita duplicados. */
+    .pagina-inicio .explorador-categorias-inicio {
+        display: none !important;
+    }
+
+    /* Controles globales separados del título y del buscador. */
+    .header .logo {
+        padding-inline: 58px !important;
+    }
+
+    .header .logo h1 {
+        max-width: 100% !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        font-size: clamp(1.15rem, 6.3vw, 1.55rem) !important;
+    }
+
+    .header > .selector-idioma {
+        top: 8px !important;
+        right: auto !important;
+        left: 10px !important;
+    }
+
+    .centro-notificaciones {
+        top: 8px !important;
+        right: 10px !important;
+        left: auto !important;
+        transform: none !important;
+    }
+
+    .header .menu-idiomas {
+        top: 118px !important;
+    }
+
+    #panel-notificaciones {
+        top: 118px !important;
+        right: 10px !important;
+        left: 10px !important;
+        width: auto !important;
+    }
+
     .productos-principales-inicio > .seccion-titulo h2,
     .productos > .seccion-titulo h2 {
         max-width: 11ch !important;
