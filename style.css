@@ -7266,6 +7266,38 @@ body.experiencia-premium::before {
     }
 }
 
+
+/* Centro de notificaciones: alineado con las acciones, no flotando sobre el logo. */
+.header > .centro-notificaciones {
+    order: 5;
+    margin-left: -8px;
+}
+
+#boton-notificaciones {
+    border-color: rgba(255, 138, 61, .28);
+    background: linear-gradient(145deg, #fff, #fff4e9);
+}
+
+@media (max-width:700px) {
+    .centro-notificaciones {
+        left: 12px !important;
+        right: auto !important;
+        top: 24px !important;
+    }
+
+    #boton-notificaciones {
+        border: 1px solid rgba(255, 255, 255, .34) !important;
+        background: rgba(255, 255, 255, .13) !important;
+        color: #fff !important;
+        box-shadow: 0 7px 18px rgba(0, 0, 0, .18) !important;
+        backdrop-filter: blur(12px);
+    }
+
+    #panel-notificaciones {
+        top: 68px !important;
+    }
+}
+
 /* =====================================================
    USUARIOS DEMO: CLIENTE Y ADMINISTRADOR
 ===================================================== */
