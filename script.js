@@ -5844,6 +5844,65 @@ function configurarInicioPriorizado() {
         });
     }
 
+    const categoriasDisponibles = [];
+    const categoriasVistas = new Set();
+    (window.productos || []).forEach(function (producto) {
+        if (producto.activo === false) return;
+
+        const categoria = localizarProducto(producto).categoria;
+        const clave = normalizarTextoCatalogo(categoria);
+        if (!clave || categoriasVistas.has(clave)) return;
+
+        categoriasVistas.add(clave);
+        categoriasDisponibles.push({ clave: clave, nombre: categoria });
+    });
+
+    if (categoriasDisponibles.length) {
+        const exploradorCategorias = document.createElement("section");
+        exploradorCategorias.id = "explorador-categorias-inicio";
+        exploradorCategorias.className = "explorador-categorias-inicio";
+        exploradorCategorias.innerHTML = `
+            <button type="button" class="abrir-explorador-categorias" aria-expanded="false" aria-controls="panel-categorias-inicio-rapido">
+                <span aria-hidden="true">☰</span>
+                <span>${t("opcionCategorias")}</span>
+                <small>${categoriasDisponibles.length}</small>
+            </button>
+            <div id="panel-categorias-inicio-rapido" class="panel-categorias-inicio-rapido" hidden>
+                <p>${t("tituloCategorias")}</p>
+                <div class="chips-categorias-inicio">
+                    <button type="button" class="activo" data-categoria-inicio="todos">${t("todasCategorias")}</button>
+                    ${categoriasDisponibles.map(function (categoria) {
+                        return `<button type="button" data-categoria-inicio="${escaparHTMLCatalogo(categoria.clave)}">${escaparHTMLCatalogo(categoria.nombre)}</button>`;
+                    }).join("")}
+                </div>
+            </div>`;
+
+        productosSeccion.querySelector(".seccion-titulo")?.after(exploradorCategorias);
+
+        const abrirExplorador = exploradorCategorias.querySelector(".abrir-explorador-categorias");
+        const panelExplorador = exploradorCategorias.querySelector(".panel-categorias-inicio-rapido");
+
+        abrirExplorador.addEventListener("click", function () {
+            const abrir = panelExplorador.hidden;
+            panelExplorador.hidden = !abrir;
+            abrirExplorador.setAttribute("aria-expanded", String(abrir));
+        });
+
+        exploradorCategorias.querySelectorAll("[data-categoria-inicio]").forEach(function (boton) {
+            boton.addEventListener("click", function () {
+                estadoCatalogo.categoria = boton.dataset.categoriaInicio;
+                estadoCatalogo.limiteInicio = 24;
+                exploradorCategorias.querySelectorAll("[data-categoria-inicio]").forEach(function (opcion) {
+                    opcion.classList.toggle("activo", opcion === boton);
+                });
+                mostrarProductos();
+                panelExplorador.hidden = true;
+                abrirExplorador.setAttribute("aria-expanded", "false");
+                document.getElementById("lista-productos")?.scrollIntoView({ behavior: "smooth", block: "start" });
+            });
+        });
+    }
+
     const opciones = document.createElement("section");
     opciones.id = "opciones-compra-inicio";
     opciones.className = "opciones-compra-inicio";

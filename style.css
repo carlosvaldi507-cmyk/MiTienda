@@ -7436,6 +7436,118 @@ body.experiencia-premium::before {
     margin-inline: auto;
 }
 
+/* Categorías bajo demanda: disponibles sin interrumpir el catálogo. */
+.explorador-categorias-inicio {
+    width: min(1320px, calc(100% - 32px));
+    margin: -8px auto 28px;
+    text-align: center;
+}
+
+.abrir-explorador-categorias {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 44px;
+    padding: 0 15px;
+    border: 1px solid rgba(255, 255, 255, .2);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .08);
+    color: #f5ffff;
+    font: inherit;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background .2s ease, transform .2s ease;
+}
+
+.abrir-explorador-categorias:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, .15);
+}
+
+.abrir-explorador-categorias > span:first-child {
+    color: #ffc36a;
+    font-size: 1.15rem;
+}
+
+.abrir-explorador-categorias small {
+    display: grid;
+    min-width: 21px;
+    height: 21px;
+    place-items: center;
+    border-radius: 50%;
+    background: #ffc36a;
+    color: #24313a;
+    font-size: .7rem;
+}
+
+.panel-categorias-inicio-rapido {
+    margin-top: 12px;
+    padding: 16px;
+    border: 1px solid rgba(255, 255, 255, .14);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, .07);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08);
+}
+
+.panel-categorias-inicio-rapido p {
+    margin: 0 0 12px;
+    color: #c7dedf;
+    font-size: .85rem;
+    font-weight: 700;
+}
+
+.chips-categorias-inicio {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 9px;
+}
+
+.chips-categorias-inicio button {
+    min-height: 38px;
+    padding: 0 14px;
+    border: 1px solid rgba(193, 227, 224, .24);
+    border-radius: 999px;
+    background: rgba(5, 25, 35, .42);
+    color: #e9f9f7;
+    font: inherit;
+    font-size: .84rem;
+    font-weight: 750;
+    cursor: pointer;
+    transition: background .18s ease, border-color .18s ease, transform .18s ease;
+}
+
+.chips-categorias-inicio button:hover,
+.chips-categorias-inicio button.activo {
+    transform: translateY(-1px);
+    border-color: #ffc36a;
+    background: #ffc36a;
+    color: #24313a;
+}
+
+@media (max-width:700px) {
+    .explorador-categorias-inicio {
+        width: calc(100% - 20px);
+        margin-bottom: 20px;
+    }
+
+    .panel-categorias-inicio-rapido {
+        padding: 13px 10px;
+    }
+
+    .chips-categorias-inicio {
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 3px;
+        scrollbar-width: thin;
+    }
+
+    .chips-categorias-inicio button {
+        flex: 0 0 auto;
+    }
+}
+
 /* =====================================================
    USUARIOS DEMO: CLIENTE Y ADMINISTRADOR
 ===================================================== */
