@@ -6023,6 +6023,7 @@ function configurarOpcionesCatalogo() {
     function cerrarOpciones() {
         categoriasPanel.hidden = true;
         opciones.querySelector("#panel-compra-inteligente-inicio").hidden = true;
+        opciones.classList.remove("modo-inteligente-abierto");
         opciones.querySelectorAll("[data-opcion-catalogo]").forEach(function (boton) {
             boton.classList.remove("activo");
         });
@@ -6044,7 +6045,12 @@ function configurarOpcionesCatalogo() {
                 categoriasPanel.hidden = false;
             } else {
                 productosSeccion.classList.add("catalogo-sin-seleccion");
-                opciones.querySelector("#panel-compra-inteligente-inicio").hidden = false;
+                const panelInteligente = opciones.querySelector("#panel-compra-inteligente-inicio");
+                opciones.classList.add("modo-inteligente-abierto");
+                panelInteligente.hidden = false;
+                setTimeout(function () {
+                    panelInteligente.scrollIntoView({ behavior: "smooth", block: "start" });
+                }, 0);
             }
         });
     });

@@ -8864,6 +8864,18 @@ body.modal-usuario-abierto {
     display: none !important;
 }
 
+/* El asistente se muestra únicamente cuando el cliente lo solicita. */
+.opciones-catalogo.modo-inteligente-abierto {
+    display: block !important;
+    max-width: 980px;
+    margin: 18px auto 28px;
+}
+
+.opciones-catalogo.modo-inteligente-abierto .opciones-compra-encabezado,
+.opciones-catalogo.modo-inteligente-abierto .selector-funciones-inicio {
+    display: none !important;
+}
+
 /* Móvil: una cabecera despejada y navegación legible dejan el foco al catálogo. */
 .centro-notificaciones[hidden] {
     display: none !important;
