@@ -8752,3 +8752,100 @@ body.modal-usuario-abierto {
         scroll-behavior: auto !important;
     }
 }
+
+
+/* Prioridad final: franja de beneficios comercial. */
+.franja-beneficios-comercial {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 0 !important;
+    max-width: 1280px !important;
+    margin: 18px auto 0 !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(112, 185, 184, .20) !important;
+    border-radius: 18px !important;
+    background: radial-gradient(circle at 10% 0%, rgba(72, 209, 190, .15), transparent 34%), linear-gradient(135deg, #102b35, #0a2029) !important;
+    box-shadow: 0 14px 32px rgba(7, 34, 43, .16) !important;
+}
+
+.franja-beneficios-comercial > div {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    min-height: 86px !important;
+    gap: 13px !important;
+    padding: 16px 22px !important;
+    background: transparent !important;
+}
+
+.franja-beneficios-comercial > div + div::before {
+    content: "" !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 20% !important;
+    width: 1px !important;
+    height: 60% !important;
+    background: linear-gradient(transparent, rgba(194, 235, 231, .24), transparent) !important;
+}
+
+.franja-beneficios-comercial > div > span {
+    display: grid !important;
+    flex: 0 0 auto !important;
+    width: 42px !important;
+    height: 42px !important;
+    place-items: center !important;
+    border: 1px solid rgba(255, 255, 255, .14) !important;
+    border-radius: 13px !important;
+    background: linear-gradient(145deg, rgba(64, 207, 192, .24), rgba(255, 195, 106, .16)) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12) !important;
+    font-size: 1.2rem !important;
+}
+
+.franja-beneficios-comercial p {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 3px !important;
+    margin: 0 !important;
+    color: #f6ffff !important;
+    line-height: 1.2 !important;
+}
+
+.franja-beneficios-comercial strong {
+    color: #f9ffff !important;
+    font-size: .92rem !important;
+    font-weight: 850 !important;
+    letter-spacing: .01em !important;
+}
+
+.franja-beneficios-comercial small {
+    color: #b9d1d3 !important;
+    font-size: .8rem !important;
+    line-height: 1.35 !important;
+}
+
+@media (max-width:700px) {
+    .franja-beneficios-comercial {
+        display: flex !important;
+        margin: 10px 10px 0 !important;
+        border-radius: 15px !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        scrollbar-width: none !important;
+    }
+
+    .franja-beneficios-comercial::-webkit-scrollbar {
+        display: none !important;
+    }
+
+    .franja-beneficios-comercial > div {
+        min-width: 86vw !important;
+        min-height: 76px !important;
+        padding: 14px 16px !important;
+        scroll-snap-align: start !important;
+    }
+
+    .franja-beneficios-comercial > div + div::before {
+        display: none !important;
+    }
+}
