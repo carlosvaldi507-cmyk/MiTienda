@@ -7669,6 +7669,106 @@ body.experiencia-premium::before {
     }
 }
 
+
+/* Beneficios de compra: banda de confianza clara, sobria y legible. */
+.franja-beneficios-comercial {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    max-width: 1280px;
+    margin: 18px auto 0;
+    overflow: hidden;
+    border: 1px solid rgba(112, 185, 184, .20);
+    border-radius: 18px;
+    background:
+        radial-gradient(circle at 10% 0%, rgba(72, 209, 190, .15), transparent 34%),
+        linear-gradient(135deg, #102b35, #0a2029);
+    box-shadow: 0 14px 32px rgba(7, 34, 43, .16);
+}
+
+.franja-beneficios-comercial > div {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 86px;
+    gap: 13px;
+    padding: 16px 22px;
+    background: transparent;
+}
+
+.franja-beneficios-comercial > div + div::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 20%;
+    width: 1px;
+    height: 60%;
+    background: linear-gradient(transparent, rgba(194, 235, 231, .24), transparent);
+}
+
+.franja-beneficios-comercial > div > span {
+    display: grid;
+    flex: 0 0 auto;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, .14);
+    border-radius: 13px;
+    background: linear-gradient(145deg, rgba(64, 207, 192, .24), rgba(255, 195, 106, .16));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12);
+    font-size: 1.2rem;
+}
+
+.franja-beneficios-comercial p {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin: 0;
+    color: #f6ffff;
+    line-height: 1.2;
+}
+
+.franja-beneficios-comercial strong {
+    color: #f9ffff;
+    font-size: .92rem;
+    font-weight: 850;
+    letter-spacing: .01em;
+}
+
+.franja-beneficios-comercial small {
+    color: #b9d1d3;
+    font-size: .8rem;
+    line-height: 1.35;
+}
+
+@media (max-width:700px) {
+    .franja-beneficios-comercial {
+        display: flex;
+        gap: 0;
+        margin: 10px 10px 0;
+        border-radius: 15px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+    }
+
+    .franja-beneficios-comercial::-webkit-scrollbar {
+        display: none;
+    }
+
+    .franja-beneficios-comercial > div {
+        min-width: 86vw;
+        min-height: 76px;
+        padding: 14px 16px;
+        scroll-snap-align: start;
+    }
+
+    .franja-beneficios-comercial > div + div::before {
+        display: none;
+    }
+}
+
 /* =====================================================
    USUARIOS DEMO: CLIENTE Y ADMINISTRADOR
 ===================================================== */
