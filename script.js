@@ -6136,11 +6136,11 @@ function crearExperienciaProfesional() {
 
     const enlaceCategorias = document.querySelector('.nav a[href="#categorias"]');
     enlaceCategorias?.addEventListener("click", function (evento) {
-        const selector = document.querySelector('[data-panel-inicio="panel-categorias-inicio"]');
+        const selector = document.querySelector("#explorador-categorias-inicio .abrir-explorador-categorias");
         if (!selector) return;
         evento.preventDefault();
         if (selector.getAttribute("aria-expanded") !== "true") selector.click();
-        document.getElementById("opciones-compra-inicio")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        document.getElementById("explorador-categorias-inicio")?.scrollIntoView({ behavior: "smooth", block: "center" });
     });
 
     function animarTarjetas() {
@@ -7076,7 +7076,16 @@ function iniciarTienda() {
             evento.preventDefault();
         });
         enlace.setAttribute("aria-disabled", "true");
+        enlace.hidden = true;
+        enlace.style.display = "none";
         enlace.setAttribute("title", "Enlace próximamente disponible");
+    });
+
+    document.querySelectorAll('a[href="#promociones"]').forEach(function (enlace) {
+        enlace.addEventListener("click", function (evento) {
+            evento.preventDefault();
+            document.getElementById("productos")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
     });
 
     cargarCarritoCompartido();
