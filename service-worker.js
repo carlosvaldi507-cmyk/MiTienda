@@ -3,7 +3,7 @@
 // ACTUALIZACIÓN AUTOMÁTICA Y CACHÉ INTELIGENTE
 // =====================================================
 
-const CACHE_VERSION = "todo-klick-v37";
+const CACHE_VERSION = "todo-klick-v38";
 
 
 // =====================================================

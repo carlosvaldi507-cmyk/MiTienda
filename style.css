@@ -8849,3 +8849,17 @@ body.modal-usuario-abierto {
         display: none !important;
     }
 }
+
+
+/* Producto primero: lo editorial y las herramientas secundarias se piden, no se imponen. */
+.pagina-inicio .carrusel,
+.pagina-inicio .opciones-compra-inicio,
+.pagina-inicio .beneficios,
+.pagina-inicio .categorias,
+.pagina-inicio .testimonios,
+.pagina-inicio .contacto,
+.franja-beneficios-comercial,
+.categorias-comerciales,
+.opciones-catalogo {
+    display: none !important;
+}

@@ -5819,6 +5819,8 @@ function configurarInicioPriorizado() {
         return;
     }
 
+    document.body.classList.add("pagina-inicio");
+
     productosSeccion.classList.add("productos-principales-inicio");
     carrusel.before(productosSeccion);
 
@@ -6001,8 +6003,8 @@ function configurarOpcionesCatalogo() {
         <div id="panel-compra-inteligente-inicio" class="panel-funcion-inicio" hidden></div>`;
 
     titulo.after(opciones);
-    productosSeccion.classList.add("catalogo-sin-seleccion");
-    lista.hidden = true;
+    productosSeccion.classList.remove("catalogo-sin-seleccion");
+    lista.hidden = false;
 
     const categoriasPanel = opciones.querySelector("#categorias-opcion-catalogo");
     const categorias = [];
