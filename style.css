@@ -7610,6 +7610,61 @@ body.experiencia-premium::before {
     }
 }
 
+
+/* Centro de notificaciones: compacto y coherente con la cabecera oscura. */
+.header #boton-notificaciones {
+    display: grid !important;
+    width: 40px !important;
+    height: 40px !important;
+    min-height: 0 !important;
+    place-items: center;
+    box-sizing: border-box;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 1px solid rgba(255, 255, 255, .16) !important;
+    border-radius: 13px !important;
+    background: linear-gradient(145deg, rgba(255, 255, 255, .14), rgba(255, 255, 255, .055)) !important;
+    color: #ffc36a !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .13), 0 7px 16px rgba(0, 0, 0, .18) !important;
+    backdrop-filter: blur(12px);
+    transition: transform .2s cubic-bezier(.2, .8, .2, 1), background .2s ease, box-shadow .2s ease !important;
+}
+
+.header #boton-notificaciones > span {
+    font-size: 1.22rem !important;
+    line-height: 1;
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, .2));
+}
+
+.header #boton-notificaciones:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(145deg, rgba(255, 195, 106, .24), rgba(255, 255, 255, .10)) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18), 0 11px 20px rgba(0, 0, 0, .24) !important;
+}
+
+.header #boton-notificaciones > em {
+    top: -6px !important;
+    right: -6px !important;
+    display: grid;
+    min-width: 18px;
+    height: 18px;
+    place-items: center;
+    padding: 0 4px;
+    border: 2px solid #0b2029 !important;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #ff7b64, #df3d67) !important;
+    box-shadow: 0 4px 9px rgba(223, 61, 103, .36);
+    line-height: 1 !important;
+}
+
+@media (max-width:700px) {
+    .header #boton-notificaciones {
+        width: 36px !important;
+        height: 36px !important;
+        border-radius: 12px !important;
+    }
+}
+
 /* =====================================================
    USUARIOS DEMO: CLIENTE Y ADMINISTRADOR
 ===================================================== */
