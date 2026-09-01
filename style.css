@@ -7555,6 +7555,61 @@ body.experiencia-premium::before {
     }
 }
 
+
+/* Favoritos: acción ligera sobre la imagen, no un bloque que compita con el producto. */
+.producto-imagen .favorito-producto {
+    position: absolute !important;
+    z-index: 6;
+    top: 12px !important;
+    right: 12px !important;
+    display: grid !important;
+    width: 42px !important;
+    height: 42px !important;
+    min-height: 0 !important;
+    place-items: center;
+    box-sizing: border-box;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 1px solid rgba(20, 69, 82, .12) !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, .90) !important;
+    color: #315d68 !important;
+    box-shadow: 0 8px 20px rgba(8, 44, 56, .18) !important;
+    backdrop-filter: blur(10px);
+    font-size: 1.4rem !important;
+    line-height: 1 !important;
+    cursor: pointer;
+    transition: transform .2s cubic-bezier(.2, .8, .2, 1), background .2s ease, color .2s ease, box-shadow .2s ease !important;
+}
+
+.producto-imagen .favorito-producto:hover {
+    transform: translateY(-2px) scale(1.08);
+    background: #fff !important;
+    color: #e44963 !important;
+    box-shadow: 0 12px 24px rgba(8, 44, 56, .24) !important;
+}
+
+.producto-imagen .favorito-producto.activo {
+    border-color: transparent !important;
+    background: linear-gradient(135deg, #ff7d67, #df3d67) !important;
+    color: #fff !important;
+    box-shadow: 0 10px 22px rgba(222, 61, 103, .34) !important;
+}
+
+.producto-imagen .favorito-producto:active {
+    transform: scale(.92);
+}
+
+@media (max-width:700px) {
+    .producto-imagen .favorito-producto {
+        top: 8px !important;
+        right: 8px !important;
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 1.18rem !important;
+    }
+}
+
 /* =====================================================
    USUARIOS DEMO: CLIENTE Y ADMINISTRADOR
 ===================================================== */
