@@ -8122,3 +8122,130 @@ body.modal-usuario-abierto {
     .producto h3 { min-height:2.45em !important; }
     .producto .agregar-carrito { min-height:36px !important; }
 }
+
+
+/* =========================================================
+   SISTEMA DE ACCIONES — ACABADO "SUPER APP"
+   ========================================================= */
+
+:root {
+    --accion-principal-inicio: #ff8a3d;
+    --accion-principal-fin: #ec4c65;
+    --accion-resplandor: rgba(236, 76, 101, .34);
+    --accion-texto: #172f38;
+}
+
+/* Acciones de compra: volumen, contraste y una respuesta táctil clara. */
+:is(
+    .agregar-carrito,
+    .finalizar-compra,
+    .boton-whatsapp-contacto,
+    .slide-contenido button,
+    .boton-ver-catalogo > button,
+    .acciones-productos-inicio > button
+) {
+    position: relative;
+    isolation: isolate;
+    border: 1px solid rgba(255, 255, 255, .38) !important;
+    background: linear-gradient(125deg, var(--accion-principal-inicio), var(--accion-principal-fin)) !important;
+    box-shadow:
+        0 12px 24px var(--accion-resplandor),
+        inset 0 1px 0 rgba(255, 255, 255, .42),
+        inset 0 -2px 0 rgba(112, 27, 51, .18) !important;
+    letter-spacing: .015em;
+    text-shadow: 0 1px 1px rgba(76, 20, 35, .18);
+    transition: transform .22s cubic-bezier(.2, .8, .2, 1), box-shadow .22s ease, filter .22s ease !important;
+}
+
+:is(
+    .agregar-carrito,
+    .finalizar-compra,
+    .boton-whatsapp-contacto,
+    .slide-contenido button,
+    .boton-ver-catalogo > button,
+    .acciones-productos-inicio > button
+):hover {
+    transform: translateY(-3px) scale(1.01);
+    filter: saturate(1.08) brightness(1.04);
+    box-shadow:
+        0 17px 30px rgba(199, 56, 83, .38),
+        inset 0 1px 0 rgba(255, 255, 255, .48),
+        inset 0 -2px 0 rgba(112, 27, 51, .2) !important;
+}
+
+:is(
+    .agregar-carrito,
+    .finalizar-compra,
+    .boton-whatsapp-contacto,
+    .slide-contenido button,
+    .boton-ver-catalogo > button,
+    .acciones-productos-inicio > button
+):active {
+    transform: translateY(1px) scale(.985);
+    box-shadow: 0 6px 13px rgba(199, 56, 83, .26), inset 0 2px 5px rgba(95, 18, 42, .2) !important;
+}
+
+/* Acciones secundarias: apariencia de cristal y estado activo inequívoco. */
+:is(
+    .boton-entrar,
+    .boton-carrito,
+    .filtro-categoria,
+    .filtro,
+    .categoria-boton,
+    .paginacion-catalogo button,
+    .selector-funciones-inicio button
+) {
+    border-color: rgba(20, 99, 112, .18) !important;
+    background: linear-gradient(145deg, rgba(255, 255, 255, .97), rgba(239, 247, 247, .92)) !important;
+    color: var(--accion-texto) !important;
+    box-shadow: 0 7px 17px rgba(17, 65, 78, .10), inset 0 1px 0 #fff !important;
+    transition: transform .2s cubic-bezier(.2, .8, .2, 1), border-color .2s ease, box-shadow .2s ease, background .2s ease !important;
+}
+
+:is(
+    .boton-entrar,
+    .boton-carrito,
+    .filtro-categoria,
+    .filtro,
+    .categoria-boton,
+    .paginacion-catalogo button,
+    .selector-funciones-inicio button
+):hover {
+    transform: translateY(-2px);
+    border-color: rgba(236, 76, 101, .42) !important;
+    background: #fff !important;
+    box-shadow: 0 12px 23px rgba(17, 65, 78, .16), inset 0 1px 0 #fff !important;
+}
+
+.boton-carrito {
+    border-color: rgba(255, 138, 61, .36) !important;
+}
+
+.boton-carrito #contador-carrito {
+    background: linear-gradient(135deg, #ff8a3d, #ec4c65) !important;
+    box-shadow: 0 4px 10px rgba(236, 76, 101, .35);
+}
+
+/* Anillo consistente para navegación por teclado. */
+:is(button, a, select):focus-visible {
+    outline: 0;
+    box-shadow: 0 0 0 4px rgba(255, 138, 61, .24), 0 0 0 7px rgba(236, 76, 101, .12) !important;
+}
+
+@media (max-width:700px) {
+    :is(.agregar-carrito, .finalizar-compra, .boton-whatsapp-contacto) {
+        min-height: 44px !important;
+        border-radius: 12px !important;
+    }
+
+    :is(.agregar-carrito, .finalizar-compra, .boton-whatsapp-contacto):hover {
+        transform: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    :is(button, a) {
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
