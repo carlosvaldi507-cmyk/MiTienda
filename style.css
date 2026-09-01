@@ -7298,6 +7298,127 @@ body.experiencia-premium::before {
     }
 }
 
+
+/* =========================================================
+   PRIORIDAD COMERCIAL — EL PRODUCTO ES EL PROTAGONISTA
+   ========================================================= */
+
+.productos {
+    position: relative;
+}
+
+.productos-container {
+    gap: 20px !important;
+}
+
+.producto {
+    position: relative;
+    border: 1px solid rgba(20, 69, 82, .10) !important;
+    background: #fff !important;
+    box-shadow: 0 10px 25px rgba(12, 55, 67, .09) !important;
+    transition: transform .28s cubic-bezier(.2, .8, .2, 1), box-shadow .28s ease, border-color .28s ease !important;
+}
+
+.producto::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    border: 1px solid transparent;
+    border-radius: inherit;
+    pointer-events: none;
+    transition: border-color .28s ease;
+}
+
+.producto:hover {
+    z-index: 2;
+    transform: translateY(-7px);
+    border-color: rgba(255, 138, 61, .35) !important;
+    box-shadow: 0 22px 42px rgba(12, 55, 67, .18) !important;
+}
+
+.producto:hover::before {
+    border-color: rgba(255, 138, 61, .28);
+}
+
+.producto-imagen {
+    background:
+        radial-gradient(circle at 74% 20%, rgba(255, 204, 124, .32), transparent 34%),
+        linear-gradient(145deg, #f8fcfc, #e9f4f4) !important;
+}
+
+.producto-imagen img,
+.producto-imagen > span {
+    transition: transform .35s cubic-bezier(.2, .8, .2, 1), filter .35s ease;
+}
+
+.producto:hover .producto-imagen img,
+.producto:hover .producto-imagen > span {
+    transform: scale(1.075) rotate(-1deg);
+    filter: saturate(1.08) contrast(1.02);
+}
+
+.producto-info {
+    position: relative;
+    z-index: 2;
+}
+
+.producto-categoria {
+    color: #a34526 !important;
+    background: #fff0df !important;
+    font-weight: 850 !important;
+    letter-spacing: .06em;
+}
+
+.producto h3 {
+    color: #102f3a !important;
+    font-size: clamp(1rem, 1.2vw, 1.12rem) !important;
+    font-weight: 850 !important;
+    letter-spacing: -.015em;
+}
+
+.producto strong,
+.precio-comercial-producto strong {
+    color: #d74258 !important;
+    font-size: clamp(1.2rem, 1.5vw, 1.42rem) !important;
+    font-weight: 950 !important;
+    letter-spacing: -.035em;
+}
+
+.producto .agregar-carrito {
+    margin-top: 10px !important;
+}
+
+@media (min-width:1200px) {
+    .productos-container {
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        max-width: 1280px;
+    }
+}
+
+@media (max-width:700px) {
+    .productos-container {
+        gap: 11px !important;
+    }
+
+    .producto:hover {
+        transform: none;
+    }
+
+    .producto-info {
+        padding: 11px !important;
+    }
+
+    .producto h3 {
+        font-size: .9rem !important;
+    }
+
+    .producto strong,
+    .precio-comercial-producto strong {
+        font-size: 1.08rem !important;
+    }
+}
+
 /* =====================================================
    USUARIOS DEMO: CLIENTE Y ADMINISTRADOR
 ===================================================== */
