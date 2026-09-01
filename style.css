@@ -8080,3 +8080,45 @@ body.modal-usuario-abierto {
     .vista-rapida-imagen { min-height:240px; max-height:300px; }
     .vista-rapida-info { padding:28px 20px; }
 }
+
+/* Revisión móvil v1.9: controles únicos y tarjetas realmente compactas. */
+.productos-container { align-items:start !important; }
+.productos-container[hidden] { display:none !important; }
+.producto { align-self:start !important; }
+.producto-info { flex:0 0 auto !important; }
+.producto .agregar-carrito {
+    width:100% !important;
+    margin:6px 0 0 !important;
+    border-radius:9px !important;
+}
+
+@media (max-width:700px) {
+    .abrir-categorias-movil { display:none !important; }
+    .carrito-flotante,
+    #carrito-flotante { display:none !important; }
+    .whatsapp-flotante {
+        width:50px !important;
+        height:50px !important;
+        right:10px !important;
+        bottom:78px !important;
+    }
+    .opciones-catalogo .selector-funciones-inicio button {
+        display:flex !important;
+        min-width:0 !important;
+        min-height:64px !important;
+        padding:7px 4px !important;
+        align-items:center !important;
+        justify-content:center !important;
+        text-align:center !important;
+        overflow-wrap:anywhere;
+    }
+    .opciones-catalogo .selector-funciones-inicio button::before {
+        position:static !important;
+        display:block !important;
+        margin:0 0 4px !important;
+        transform:none !important;
+        line-height:1 !important;
+    }
+    .producto h3 { min-height:2.45em !important; }
+    .producto .agregar-carrito { min-height:36px !important; }
+}

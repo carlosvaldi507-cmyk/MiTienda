@@ -1,0 +1,6 @@
+debug.log
+*.log
+.vscode/
+/.edge-*/
+.DS_Store
+Thumbs.db

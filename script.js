@@ -4535,10 +4535,10 @@ if (
 
 
 // =====================================================
-// EXPLORADOR DE PRODUCTOS
+// EXPLORADOR HISTÓRICO DE PRODUCTOS
 // =====================================================
 
-function configurarExploradorProductos() {
+function configurarExploradorProductosLegacy() {
 
     const contenedor =
         document.querySelector(
@@ -5706,10 +5706,10 @@ function crearAsistenteVirtual() {
 
 
 // =====================================================
-// IDIOMA DEL ASISTENTE
+// IDIOMA HISTÓRICO DEL ASISTENTE
 // =====================================================
 
-function actualizarAsistenteIdioma() {
+function actualizarAsistenteIdiomaLegacy() {
 
     if (
         !asistenteReferencia
@@ -6613,10 +6613,10 @@ window.addEventListener(
     }
 );
 // =====================================================
-// MOSTRAR PRODUCTOS DESDE productos.js
+// RENDERIZADOR HISTÓRICO CONSERVADO SOLO COMO REFERENCIA
 // =====================================================
 
-function mostrarProductos() {
+function mostrarProductosLegacy() {
 
     const contenedor =
         document.getElementById(
@@ -7335,7 +7335,7 @@ function crearTarjetaProducto(producto) {
     tarjeta.innerHTML = `
         <div class="producto-imagen">
             ${esArchivo
-                ? `<img src="${imagenSegura}" alt="${nombreSeguro}" loading="lazy" decoding="async">`
+                ? `<img src="${imagenSegura}" alt="${nombreSeguro}" loading="eager" decoding="async">`
                 : `<span aria-hidden="true">${imagenSegura}</span>`}
             <button type="button" class="favorito-producto${esFavorito ? " activo" : ""}" aria-label="Guardar en favoritos" aria-pressed="${esFavorito}">${esFavorito ? "\u2665" : "\u2661"}</button>
         </div>
@@ -7358,7 +7358,6 @@ function crearTarjetaProducto(producto) {
             <div class="producto-stock ${disponible ? "disponible" : "agotado"}">
                 ${disponible ? t("disponible") : t("agotado")}
             </div>
-            <button type="button" class="ver-detalle-producto">${({ es:"Ver detalles", en:"Quick view", fr:"Aper\u00e7u rapide", pt:"Visualiza\u00e7\u00e3o r\u00e1pida", zh:"\u5feb\u901f\u67e5\u770b" })[idiomaActual] || "Ver detalles"}</button>
             <button type="button" class="agregar-carrito"
                 data-id="${idSeguro}" data-nombre="${nombreSeguro}"
                 data-precio="${Number(producto.precio) || 0}" ${disponible ? "" : "disabled"}>
@@ -7380,9 +7379,6 @@ function crearTarjetaProducto(producto) {
         evento.currentTarget.setAttribute("aria-pressed", String(activo));
         evento.currentTarget.textContent = activo ? "\u2665" : "\u2661";
         if (estadoCatalogo.categoria === "favoritos" && !activo) actualizarVistaCatalogo(false);
-    });
-    tarjeta.querySelector(".ver-detalle-producto").addEventListener("click", function () {
-        abrirVistaRapidaProducto(producto.id);
     });
     const imagenInteractiva = tarjeta.querySelector(".producto-imagen");
     imagenInteractiva.addEventListener("click", function (evento) {
