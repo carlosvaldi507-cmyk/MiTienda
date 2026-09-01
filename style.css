@@ -7657,6 +7657,10 @@ body.experiencia-premium::before {
     line-height: 1 !important;
 }
 
+.header #boton-notificaciones > em[hidden] {
+    display: none !important;
+}
+
 @media (max-width:700px) {
     .header #boton-notificaciones {
         width: 36px !important;
