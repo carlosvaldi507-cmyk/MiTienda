@@ -7019,7 +7019,7 @@ function crearExperienciaComercialMovil() {
         const franja = document.createElement("section");
         franja.id = "franja-beneficios-comercial";
         franja.className = "franja-beneficios-comercial";
-        franja.innerHTML = `<div><span>\ud83d\ude9a</span><p><strong>Env\u00edo gratis</strong><small>En compras desde C$ 1,500</small></p></div><div><span>\ud83d\udee1\ufe0f</span><p><strong>Compra segura</strong><small>Confirmaci\u00f3n directa por WhatsApp</small></p></div><div><span>\u21a9\ufe0f</span><p><strong>Atenci\u00f3n cercana</strong><small>Ayuda antes y despu\u00e9s de comprar</small></p></div>`;
+        franja.innerHTML = `<div><span>\ud83d\ude9a</span><p><strong>Env\u00edo gratis</strong><small>Desde C$ 1,500</small></p></div><div><span>\ud83d\udee1\ufe0f</span><p><strong>Compra segura</strong><small>Por WhatsApp</small></p></div><div><span>\u21a9\ufe0f</span><p><strong>Te ayudamos</strong><small>Antes y despu\u00e9s</small></p></div>`;
         nav.after(franja);
         const rail = document.createElement("section");
         rail.id = "categorias-comerciales";
