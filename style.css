@@ -7419,6 +7419,23 @@ body.experiencia-premium::before {
     }
 }
 
+
+/* Portada directa: el catálogo aparece antes que cualquier contenido editorial. */
+.productos-principales-inicio + .opciones-compra-inicio,
+.productos-principales-inicio + .opciones-compra-inicio + .carrusel,
+.productos-principales-inicio ~ .testimonios {
+    display: none !important;
+}
+
+.productos-principales-inicio {
+    padding-bottom: 72px;
+}
+
+.productos-principales-inicio .productos-container {
+    max-width: 1320px;
+    margin-inline: auto;
+}
+
 /* =====================================================
    USUARIOS DEMO: CLIENTE Y ADMINISTRADOR
 ===================================================== */

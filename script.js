@@ -5827,7 +5827,7 @@ function configurarInicioPriorizado() {
         cargarMas.className = "cargar-mas-productos-inicio";
         cargarMas.textContent = t("cargarMas");
         cargarMas.addEventListener("click", function () {
-            estadoCatalogo.limiteInicio += 12;
+            estadoCatalogo.limiteInicio += 24;
             mostrarProductos();
         });
 
@@ -5839,7 +5839,7 @@ function configurarInicioPriorizado() {
     if (buscadorInicio) {
         buscadorInicio.addEventListener("input", function () {
             estadoCatalogo.busqueda = buscadorInicio.value;
-            estadoCatalogo.limiteInicio = 12;
+            estadoCatalogo.limiteInicio = 24;
             mostrarProductos();
         });
     }
@@ -7136,7 +7136,7 @@ window.todoKlick = {
 const estadoCatalogo = {
     pagina: 1,
     porPagina: 24,
-    limiteInicio: 12,
+    limiteInicio: 24,
     busqueda: "",
     categoria: "todos",
     orden: "relevancia"
