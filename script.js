@@ -6228,7 +6228,53 @@ function obtenerSesionDemo() {
     }
 }
 
+function configurarSistemaUsuariosFirebase() {
+    const boton = document.getElementById("boton-entrar");
+    if (!boton || document.getElementById("sistema-usuarios-firebase")) return;
+    const sistema = document.createElement("div");
+    sistema.id = "sistema-usuarios-firebase";
+    sistema.className = "sistema-usuarios-demo";
+    sistema.setAttribute("aria-hidden", "true");
+    sistema.innerHTML = '<div class="usuario-demo-panel" role="dialog" aria-modal="true"></div>';
+    document.body.appendChild(sistema);
+    const panel = sistema.querySelector(".usuario-demo-panel");
+    const cerrar = function () { sistema.classList.remove("visible"); sistema.setAttribute("aria-hidden", "true"); document.body.classList.remove("modal-usuario-abierto"); };
+    const actualizar = function () {
+        const usuario = window.todoKlickNube?.usuario;
+        boton.innerHTML = usuario ? '<span class="usuario-avatar-mini">' + escaparHTMLCatalogo(usuario.nombre.charAt(0)) + '</span><span class="usuario-nombre-mini">' + escaparHTMLCatalogo(usuario.nombre.split(" ")[0]) + '</span>' : '<span aria-hidden="true">👤</span><span>Entrar</span>';
+        boton.classList.toggle("sesion-iniciada", Boolean(usuario));
+    };
+    const renderizar = function (registro) {
+        const usuario = window.todoKlickNube?.usuario;
+        if (usuario) {
+            panel.innerHTML = '<button type="button" class="usuario-demo-cerrar">×</button><div class="usuario-cuenta-hero"><div class="usuario-avatar-grande">' + escaparHTMLCatalogo(usuario.nombre.charAt(0)) + '</div><div><span class="usuario-rol usuario-rol-cliente">CLIENTE</span><h2>' + escaparHTMLCatalogo(usuario.nombre) + '</h2><p>' + escaparHTMLCatalogo(usuario.correo) + '</p></div></div><p>Tus datos se guardan de forma privada.</p><button type="button" class="usuario-cerrar-sesion">Cerrar sesión</button>';
+            panel.querySelector(".usuario-demo-cerrar").addEventListener("click", cerrar);
+            panel.querySelector(".usuario-cerrar-sesion").addEventListener("click", async function () { await window.todoKlickNube.cerrarSesion(); cerrar(); });
+            return;
+        }
+        panel.innerHTML = '<button type="button" class="usuario-demo-cerrar">×</button><div class="usuario-acceso-cabecera"><span class="usuario-demo-etiqueta">CUENTA SEGURA</span><h2>' + (registro ? "Crea tu cuenta" : "Bienvenido") + '</h2></div><form class="usuario-login-form"><label' + (registro ? "" : " hidden") + '><span>Nombre</span><input name="nombre" autocomplete="name"></label><label><span>Correo electrónico</span><input name="correo" type="email" required></label><label><span>Contraseña</span><input name="contrasena" type="password" minlength="6" required></label><p class="usuario-login-error" role="alert"></p><button class="usuario-login-enviar" type="submit">' + (registro ? "Crear cuenta" : "Entrar") + '</button></form><button type="button" class="usuario-cambiar-modo">' + (registro ? "Ya tengo cuenta" : "Crear una cuenta") + '</button>';
+        panel.querySelector(".usuario-demo-cerrar").addEventListener("click", cerrar);
+        panel.querySelector(".usuario-cambiar-modo").addEventListener("click", function () { renderizar(!registro); });
+        panel.querySelector("form").addEventListener("submit", async function (evento) {
+            evento.preventDefault();
+            const datos = new FormData(evento.currentTarget);
+            try {
+                if (registro) await window.todoKlickNube.registrarUsuario(datos.get("nombre"), datos.get("correo"), datos.get("contrasena"));
+                else await window.todoKlickNube.iniciarSesion(datos.get("correo"), datos.get("contrasena"));
+            } catch (_) { panel.querySelector(".usuario-login-error").textContent = "No se pudo completar el acceso. Revisa tus datos."; }
+        });
+    };
+    boton.addEventListener("click", function () { sistema.classList.add("visible"); sistema.setAttribute("aria-hidden", "false"); document.body.classList.add("modal-usuario-abierto"); renderizar(false); });
+    sistema.addEventListener("click", function (evento) { if (evento.target === sistema) cerrar(); });
+    window.todoKlickNube.alCambiarSesion(function () { actualizar(); if (sistema.classList.contains("visible")) renderizar(false); });
+    actualizar();
+}
+
 function configurarSistemaUsuariosDemo() {
+    if (window.todoKlickNube?.activa) {
+        configurarSistemaUsuariosFirebase();
+        return;
+    }
     const botonEntrar = document.getElementById("boton-entrar");
     if (!botonEntrar || document.getElementById("sistema-usuarios-demo")) return;
 
@@ -7095,6 +7141,15 @@ function iniciarTienda() {
 // ARRANCAR
 // =====================================================
 
+function iniciarAplicacion() {
+    const nube = window.todoKlickNube?.lista;
+    if (nube) {
+        nube.finally(iniciarTienda);
+    } else {
+        iniciarTienda();
+    }
+}
+
 if (
     document.readyState ===
     "loading"
@@ -7102,14 +7157,14 @@ if (
 
     document.addEventListener(
         "DOMContentLoaded",
-        iniciarTienda
+        iniciarAplicacion
     );
 
 } else {
 
     // Permite que las extensiones del catálogo declaradas al final del
     // archivo terminen de inicializarse antes de construir la interfaz.
-    setTimeout(iniciarTienda, 0);
+    setTimeout(iniciarAplicacion, 0);
 
 }
 

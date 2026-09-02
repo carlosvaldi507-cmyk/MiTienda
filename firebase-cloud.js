@@ -19,14 +19,61 @@
     window.todoKlickNube.lista = Promise.all([
         import("https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js"),
         import("https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js"),
+        import("https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js"),
         import("https://www.gstatic.com/firebasejs/10.12.5/firebase-functions.js")
     ]).then(function (modulos) {
         const app = modulos[0].initializeApp(configuracion);
-        const auth = modulos[1].getAuth(app);
-        const functions = modulos[2].getFunctions(app);
-        const crearPedidoSeguro = modulos[2].httpsCallable(functions, "crearPedidoSeguro");
+        const authSdk = modulos[1];
+        const firestoreSdk = modulos[2];
+        const functionsSdk = modulos[3];
+        const auth = authSdk.getAuth(app);
+        const db = firestoreSdk.getFirestore(app);
+        const functions = functionsSdk.getFunctions(app);
+        const crearPedidoSeguro = functionsSdk.httpsCallable(functions, "crearPedidoSeguro");
+
+        function perfil(usuario) {
+            return usuario ? {
+                uid: usuario.uid,
+                nombre: usuario.displayName || usuario.email.split("@")[0],
+                correo: usuario.email || "",
+                rol: "cliente"
+            } : null;
+        }
+
+        async function guardarPerfil(usuario) {
+            const datos = perfil(usuario);
+            if (!datos) return null;
+            await firestoreSdk.setDoc(
+                firestoreSdk.doc(db, "usuarios", usuario.uid),
+                { nombre: datos.nombre, correo: datos.correo, actualizadoEn: firestoreSdk.serverTimestamp() },
+                { merge: true }
+            );
+            return datos;
+        }
 
         window.todoKlickNube.activa = true;
+        window.todoKlickNube.usuario = perfil(auth.currentUser);
+        window.todoKlickNube.iniciarSesion = async function (correo, contrasena) {
+            const credencial = await authSdk.signInWithEmailAndPassword(auth, correo, contrasena);
+            return guardarPerfil(credencial.user);
+        };
+        window.todoKlickNube.registrarUsuario = async function (nombre, correo, contrasena) {
+            const credencial = await authSdk.createUserWithEmailAndPassword(auth, correo, contrasena);
+            if (nombre) await authSdk.updateProfile(credencial.user, { displayName: nombre });
+            return guardarPerfil(credencial.user);
+        };
+        window.todoKlickNube.cerrarSesion = function () {
+            return authSdk.signOut(auth);
+        };
+        window.todoKlickNube.alCambiarSesion = function (callback) {
+            return authSdk.onAuthStateChanged(auth, async usuario => {
+                window.todoKlickNube.usuario = perfil(usuario);
+                if (usuario) {
+                    try { await guardarPerfil(usuario); } catch (error) { console.warn("No se pudo actualizar el perfil en la nube.", error); }
+                }
+                callback(window.todoKlickNube.usuario);
+            });
+        };
         window.todoKlickNube.guardarPedido = async function (pedido) {
             if (!auth.currentUser) {
                 throw new Error("Inicia sesión para guardar tu pedido en la nube.");

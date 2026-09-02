@@ -5,5 +5,4 @@ debug.log
 .DS_Store
 Thumbs.db
 tmp/
-firebase-config.js
 functions/node_modules/

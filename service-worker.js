@@ -3,7 +3,7 @@
 // ACTUALIZACIÓN AUTOMÁTICA Y CACHÉ INTELIGENTE
 // =====================================================
 
-const CACHE_VERSION = "todo-klick-v59";
+const CACHE_VERSION = "todo-klick-v61";
 
 
 // =====================================================
@@ -14,8 +14,10 @@ const ARCHIVOS = [
     "./",
     "./index.html",
     "./catalogo.html",
+    "./firebase-config.js?v=1.0.0",
+    "./firebase-cloud.js?v=1.1.0",
     "./style.css?v=1.9.2",
-    "./script.js?v=2.0.2",
+    "./script.js?v=2.0.3",
     "./productos.js?v=1.9.0",
     "./funciones-inteligentes.js?v=1.4.3",
     "./manifest.json",
