@@ -7,7 +7,10 @@ service cloud.firestore {
     }
 
     function administrador() {
-      return autenticado() && request.auth.token.admin == true;
+      // Cuenta propietaria actual. El UID lo asigna Firebase y no puede ser
+      // elegido ni alterado por un cliente desde el navegador.
+      return autenticado()
+        && request.auth.uid == "PK8B1k9c2vasxqJbMnPIff1uINB2";
     }
 
     // Catálogo público: solo el administrador puede cambiarlo.

@@ -21,8 +21,9 @@ deben guardar datos de clientes en la nube hasta completar todos estos pasos.
    firebase deploy --only firestore:rules,storage,functions
    ```
 
-5. Desde un entorno de administrador asigna el *custom claim* `admin: true`
-   solo a tu cuenta. No se asigna desde el navegador.
+5. La cuenta propietaria actual queda protegida por su UID en las reglas de
+   Firestore. Si en el futuro cambias de cuenta administradora, actualiza ese
+   UID en las reglas y vuelve a publicarlas.
 6. Carga los productos en la colección `productos`, usando el ID del producto
    como identificador de documento y los campos `nombre`, `precio`, `stock` y
    `activo`. La función de pedidos vuelve a leer esos datos en el servidor, por

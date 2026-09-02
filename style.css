@@ -7257,6 +7257,38 @@ body.experiencia-premium::before {
     }
 }
 
+/* Cuenta Firebase: interfaz compacta y comercial. */
+#sistema-usuarios-firebase .usuario-demo-panel {
+    grid-template-columns: 1fr;
+    width: min(460px, 100%);
+    min-height: 0;
+    padding: clamp(26px, 6vw, 38px);
+    gap: 18px;
+    border-color: rgba(100, 235, 215, .23);
+    border-radius: 30px;
+    background: radial-gradient(circle at 92% 4%, rgba(81, 228, 207, .17), transparent 13rem), linear-gradient(155deg, #123846, #061820 76%);
+}
+
+#sistema-usuarios-firebase .usuario-acceso-cabecera { max-width: none; padding-right: 42px; }
+#sistema-usuarios-firebase .usuario-acceso-cabecera::before { content: "🔒"; display: grid; width: 46px; height: 46px; margin-bottom: 16px; place-items: center; border: 1px solid rgba(115, 239, 216, .28); border-radius: 15px; background: rgba(82, 224, 204, .1); font-size: 21px; }
+#sistema-usuarios-firebase .usuario-acceso-cabecera h2 { font-size: clamp(2rem, 9vw, 2.75rem); letter-spacing: -.06em; }
+#sistema-usuarios-firebase .usuario-login-form { gap: 14px; padding: 0; border: 0; background: transparent; }
+#sistema-usuarios-firebase .usuario-login-form > label { display: grid; gap: 7px; color: #c4dce1; font-size: .8rem; font-weight: 800; }
+#sistema-usuarios-firebase .usuario-login-form input { width: 100%; min-height: 52px; padding: 0 15px; border: 1px solid rgba(196, 233, 233, .18); border-radius: 14px; outline: 0; color: #f8ffff; background: rgba(0, 10, 16, .34); font: inherit; transition: border-color .2s ease, box-shadow .2s ease, background .2s ease; }
+#sistema-usuarios-firebase .usuario-login-form input:focus { border-color: #55dccb; background: rgba(3, 23, 30, .74); box-shadow: 0 0 0 4px rgba(85, 220, 203, .13); }
+#sistema-usuarios-firebase .usuario-login-enviar { min-height: 54px; margin-top: 4px; border: 0; border-radius: 15px; color: #062225; background: linear-gradient(135deg, #5de4d4, #b4ec76); box-shadow: 0 13px 27px rgba(40, 206, 181, .2); font: inherit; font-weight: 950; cursor: pointer; transition: transform .2s ease, box-shadow .2s ease; }
+#sistema-usuarios-firebase .usuario-login-enviar:hover { transform: translateY(-2px); box-shadow: 0 17px 32px rgba(40, 206, 181, .3); }
+#sistema-usuarios-firebase .usuario-cambiar-modo { justify-self: center; padding: 5px 8px; border: 0; color: #7de9db; background: transparent; font: inherit; font-size: .88rem; font-weight: 800; cursor: pointer; }
+#sistema-usuarios-firebase .usuario-cambiar-modo:hover { color: #e5ffff; text-decoration: underline; text-underline-offset: 4px; }
+#sistema-usuarios-firebase .usuario-cuenta-hero { display: flex; align-items: center; gap: 16px; padding: 5px 42px 10px 0; }
+#sistema-usuarios-firebase .usuario-avatar-grande { flex: 0 0 auto; width: 64px; height: 64px; font-size: 1.45rem; }
+#sistema-usuarios-firebase .usuario-cerrar-sesion { min-height: 48px; border: 1px solid rgba(255, 181, 162, .24); border-radius: 14px; color: #ffd4c9; background: rgba(255, 121, 91, .08); font: inherit; font-weight: 800; cursor: pointer; }
+
+@media (max-width: 560px) {
+    #sistema-usuarios-firebase.sistema-usuarios-demo { padding: 12px; align-items: end; }
+    #sistema-usuarios-firebase .usuario-demo-panel { border-radius: 25px; padding: 26px 20px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
         scroll-behavior: auto !important;
