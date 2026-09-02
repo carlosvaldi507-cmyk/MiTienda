@@ -136,7 +136,6 @@
             <div class="descubridor-encabezado">
                 <span>✨ ${ti("compraInteligente")}</span>
                 <h2 id="titulo-descubridor">${ti("titulo")}</h2>
-                <p>${ti("intro")}</p>
             </div>
             <div class="descubridor-formulario">
                 <label>${ti("presupuesto")}
@@ -145,11 +144,7 @@
                 <label>${ti("necesidad")}
                     <input id="necesidad-inteligente" type="text" maxlength="100" placeholder="${ti("ejemplo")}">
                 </label>
-                <div class="acciones-inteligentes">
-                    <button type="button" id="buscar-presupuesto">${ti("elegir")}</button>
-                    <button type="button" id="armar-carrito">${ti("armar")}</button>
-                    <button type="button" id="entrega-rapida">${ti("manana")}</button>
-                </div>
+                <button type="button" id="buscar-presupuesto" class="buscar-inteligente-principal">${ti("elegir")}</button>
             </div>
             <div class="presupuestos-rapidos" aria-label="Mejores compras por presupuesto"></div>
             <label class="filtro-vendedor">Marketplace
