@@ -1,0 +1,8 @@
+{
+  "appId": "com.todoklick.app",
+  "appName": "Todo Klick",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  }
+}

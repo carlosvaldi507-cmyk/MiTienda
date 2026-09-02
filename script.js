@@ -6513,8 +6513,39 @@ function configurarSistemaUsuariosDemo() {
 // que este script.js.
 // =====================================================
 
+// El APK ya contiene los archivos de la versión instalada. Mantener un
+// Service Worker allí puede conservar recursos de un APK anterior y mostrar
+// controles antiguos durante unos segundos. En web/PWA sí se mantiene.
+const esAplicacionNativa = Boolean(
+    window.Capacitor &&
+    typeof window.Capacitor.isNativePlatform === "function" &&
+    window.Capacitor.isNativePlatform()
+);
+
+if (esAplicacionNativa && "serviceWorker" in navigator) {
+    Promise.all([
+        navigator.serviceWorker.getRegistrations().then(function (registros) {
+            return Promise.all(registros.map(function (registro) {
+                return registro.unregister();
+            }));
+        }),
+        typeof caches !== "undefined"
+            ? caches.keys().then(function (claves) {
+                return Promise.all(claves.filter(function (clave) {
+                    return clave.startsWith("todo-klick-") || clave.startsWith("mi-tienda-");
+                }).map(function (clave) {
+                    return caches.delete(clave);
+                }));
+            })
+            : Promise.resolve()
+    ]).catch(function (error) {
+        console.warn("[Todo Klick] No se pudo limpiar la caché anterior del APK.", error);
+    });
+}
+
 if (
-    "serviceWorker" in navigator
+    "serviceWorker" in navigator &&
+    !esAplicacionNativa
 ) {
 
     let recargaPorActualizacion =

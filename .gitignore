@@ -5,4 +5,6 @@ debug.log
 .DS_Store
 Thumbs.db
 tmp/
+node_modules/
+www/
 functions/node_modules/

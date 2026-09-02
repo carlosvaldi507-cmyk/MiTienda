@@ -3,7 +3,9 @@
 // ACTUALIZACIÓN AUTOMÁTICA Y CACHÉ INTELIGENTE
 // =====================================================
 
-const CACHE_VERSION = "todo-klick-v62";
+// Cambia este identificador en cada publicación. Nunca se mezclan archivos
+// de dos versiones distintas de la tienda.
+const CACHE_VERSION = "todo-klick-v63";
 
 
 // =====================================================
@@ -14,12 +16,12 @@ const ARCHIVOS = [
     "./",
     "./index.html",
     "./catalogo.html",
-    "./firebase-config.js?v=1.0.0",
-    "./firebase-cloud.js?v=1.1.0",
-    "./style.css?v=1.9.3",
-    "./script.js?v=2.0.3",
-    "./productos.js?v=1.9.0",
-    "./funciones-inteligentes.js?v=1.4.3",
+    "./firebase-config.js?v=1.0.1",
+    "./firebase-cloud.js?v=1.1.1",
+    "./style.css?v=1.9.4",
+    "./script.js?v=2.0.4",
+    "./productos.js?v=1.9.1",
+    "./funciones-inteligentes.js?v=1.4.4",
     "./manifest.json",
     "./mi-fondo.png",
     "./icon-192.png",
