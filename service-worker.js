@@ -3,7 +3,7 @@
 // ACTUALIZACIÓN AUTOMÁTICA Y CACHÉ INTELIGENTE
 // =====================================================
 
-const CACHE_VERSION = "todo-klick-v57";
+const CACHE_VERSION = "todo-klick-v58";
 
 
 // =====================================================
@@ -14,10 +14,10 @@ const ARCHIVOS = [
     "./",
     "./index.html",
     "./catalogo.html",
-    "./style.css",
-    "./script.js",
-    "./productos.js",
-    "./funciones-inteligentes.js",
+    "./style.css?v=1.9.2",
+    "./script.js?v=2.0.2",
+    "./productos.js?v=1.9.0",
+    "./funciones-inteligentes.js?v=1.4.3",
     "./manifest.json",
     "./mi-fondo.png",
     "./icon-192.png",
