@@ -9195,3 +9195,36 @@ body.modal-usuario-abierto {
         display: none !important;
     }
 }
+
+/* Buscador móvil: el estado comunica claramente abrir o confirmar. */
+@media (max-width:700px) {
+    .header .buscador-principal:focus-within {
+        z-index: 40 !important;
+    }
+
+    .header #buscador {
+        padding-right: 68px !important;
+        font-size: 16px !important;
+    }
+
+    .header #boton-buscar {
+        width: 50px !important;
+        height: 50px !important;
+        border-radius: 15px !important;
+        touch-action: manipulation;
+    }
+
+    .header #boton-buscar.busqueda-lista {
+        background: linear-gradient(135deg, #1cc68e, #159b86) !important;
+    }
+
+    .header #boton-buscar.busqueda-lista::after {
+        content: "✓";
+        font-size: 1.25rem;
+        color: #fff;
+    }
+
+    .header #boton-buscar.busqueda-lista {
+        font-size: 0 !important;
+    }
+}

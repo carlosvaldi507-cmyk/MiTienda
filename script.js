@@ -6116,6 +6116,39 @@ function crearExperienciaProfesional() {
     const buscadorPrincipal = document.getElementById("buscador");
     const botonBuscar = document.getElementById("boton-buscar");
 
+    function actualizarEstadoBuscador() {
+        if (!buscadorPrincipal || !botonBuscar) return;
+        const hayTexto = buscadorPrincipal.value.trim().length > 0;
+        botonBuscar.classList.toggle("busqueda-lista", hayTexto);
+        botonBuscar.setAttribute("aria-label", hayTexto ? "Buscar y cerrar teclado" : "Abrir buscador");
+    }
+
+    function abrirBuscador() {
+        if (!buscadorPrincipal) return;
+        requestAnimationFrame(function () {
+            buscadorPrincipal.focus({ preventScroll: true });
+            buscadorPrincipal.click();
+        });
+    }
+
+    function ejecutarBusqueda() {
+        if (!buscadorPrincipal) return;
+        buscadorPrincipal.dispatchEvent(new Event("input", { bubbles: true }));
+        buscadorPrincipal.blur();
+        document.activeElement?.blur?.();
+    }
+
+    buscadorPrincipal?.setAttribute("enterkeyhint", "search");
+    buscadorPrincipal?.addEventListener("input", actualizarEstadoBuscador);
+    buscadorPrincipal?.addEventListener("keydown", function (evento) {
+        if (evento.key === "Enter") {
+            evento.preventDefault();
+            ejecutarBusqueda();
+        }
+    });
+    buscadorPrincipal?.addEventListener("focus", actualizarEstadoBuscador);
+    actualizarEstadoBuscador();
+
     function actualizarNavegacion() {
         const desplazamiento = window.scrollY || document.documentElement.scrollTop;
         const maximo = document.documentElement.scrollHeight - window.innerHeight;
@@ -6126,9 +6159,16 @@ function crearExperienciaProfesional() {
     window.addEventListener("scroll", actualizarNavegacion, { passive: true });
     actualizarNavegacion();
 
+    botonBuscar?.addEventListener("pointerdown", function (evento) {
+        evento.preventDefault();
+    });
+
     botonBuscar?.addEventListener("click", function () {
-        buscadorPrincipal?.focus();
-        buscadorPrincipal?.dispatchEvent(new Event("input", { bubbles: true }));
+        if (!buscadorPrincipal?.value.trim()) {
+            abrirBuscador();
+            return;
+        }
+        ejecutarBusqueda();
     });
 
     document.addEventListener("keydown", function (evento) {
