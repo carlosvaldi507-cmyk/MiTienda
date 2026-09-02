@@ -1,0 +1,23 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    function administrador() {
+      return request.auth != null && request.auth.token.admin == true;
+    }
+
+    // Las imágenes visibles del catálogo pueden leerse, pero solo el
+    // administrador autenticado puede cargarlas o reemplazarlas.
+    match /productos/{allPaths=**} {
+      allow read: if true;
+      allow write: if administrador()
+        && request.resource.size < 5 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+    }
+
+    // No se exponen otros archivos por defecto.
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

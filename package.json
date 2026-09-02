@@ -2,6 +2,6 @@
   "name": "todo-klick",
   "private": true,
   "scripts": {
-    "check": "node --check script.js && node --check productos.js && node --check funciones-inteligentes.js && node --check service-worker.js && node scripts/verificar-integridad.js"
+    "check": "node --check script.js && node --check productos.js && node --check funciones-inteligentes.js && node --check service-worker.js && node --check firebase-cloud.js && node --check functions/index.js && node scripts/verificar-integridad.js"
   }
 }
