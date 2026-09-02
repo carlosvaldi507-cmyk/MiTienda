@@ -127,7 +127,11 @@
 
     function crearPanel() {
         const productos = document.querySelector(".productos-container");
-        if (!productos || document.getElementById("descubridor-compras")) return;
+        const destinoInicio = document.getElementById("panel-compra-inteligente-inicio");
+        // La herramienta se abre desde su opción propia. Nunca se inserta
+        // automáticamente en el inicio, para reservar ese espacio a ofertas
+        // y productos.
+        if (!productos || !destinoInicio || document.getElementById("descubridor-compras")) return;
 
         const panel = crear("section", "descubridor-compras");
         panel.id = "descubridor-compras";
@@ -165,12 +169,7 @@
             <div id="resultados-descubridor" class="contenedor-resultados" aria-live="polite"></div>
         `;
 
-        const destinoInicio = document.getElementById("panel-compra-inteligente-inicio");
-        if (destinoInicio) {
-            destinoInicio.appendChild(panel);
-        } else {
-            productos.before(panel);
-        }
+        destinoInicio.appendChild(panel);
         const salida = panel.querySelector("#resultados-descubridor");
         const campoPresupuesto = panel.querySelector("#presupuesto-inteligente");
         const campoNecesidad = panel.querySelector("#necesidad-inteligente");
@@ -275,6 +274,10 @@
                     .sort(function (a, b) { return b.rating - a.rating || b.precio - a.precio; })
                     .slice(0, 4);
                 const salida = document.getElementById("resultados-descubridor");
+                if (!salida) {
+                    window.location.href = "catalogo.html?modo=inteligente";
+                    return;
+                }
                 mostrarResultados(salida, opciones, opciones.length ? tir("alternativas") + " " + nombre : tir("sinAlternativas"));
                 document.getElementById("descubridor-compras")?.scrollIntoView({ behavior: "smooth" });
             });

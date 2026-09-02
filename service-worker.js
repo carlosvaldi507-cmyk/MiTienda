@@ -5,7 +5,7 @@
 
 // Cambia este identificador en cada publicación. Nunca se mezclan archivos
 // de dos versiones distintas de la tienda.
-const CACHE_VERSION = "todo-klick-v63";
+const CACHE_VERSION = "todo-klick-v64";
 
 
 // =====================================================
@@ -21,7 +21,7 @@ const ARCHIVOS = [
     "./style.css?v=1.9.4",
     "./script.js?v=2.0.4",
     "./productos.js?v=1.9.1",
-    "./funciones-inteligentes.js?v=1.4.4",
+    "./funciones-inteligentes.js?v=1.4.5",
     "./manifest.json",
     "./mi-fondo.png",
     "./icon-192.png",
