@@ -180,9 +180,9 @@
                 mostrarResultados(salida, [], tir("carrito"));
                 return;
             }
-            window.todoKlick.reemplazarCarrito(propuesta.productos.map(function (producto) {
-                return { nombre: producto.nombre, cantidad: 1 };
-            }));
+            propuesta.productos.forEach(function (producto) {
+                window.todoKlick.agregarProducto(producto.id, 1);
+            });
             mostrarResultados(salida, propuesta.productos, tir("carrito") + ": " + dinero(propuesta.total) + " · " + tir("ahorro") + ": " + dinero(propuesta.ahorro));
         });
 

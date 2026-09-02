@@ -119,9 +119,9 @@ function obtenerCarritoGuardado() {
 let carrito =
     obtenerCarritoGuardado();
 
-// Vigencia persistente del carrito: 15 minutos, con aviso a los 5 restantes.
-const DURACION_CARRITO = 15 * 60 * 1000;
-const AVISO_CARRITO = 5 * 60 * 1000;
+// El carrito acompaña al cliente durante una semana; no debe perder una compra por una pausa corta.
+const DURACION_CARRITO = 7 * 24 * 60 * 60 * 1000;
+const AVISO_CARRITO = 24 * 60 * 60 * 1000;
 const CLAVE_EXPIRACION = "expiracionCarrito";
 const CLAVE_AVISO = "recordatorioCarritoMostrado";
 let intervaloVigenciaCarrito;
@@ -184,7 +184,7 @@ function actualizarVigenciaCarrito() {
     }
     if (restante <= AVISO_CARRITO && localStorage.getItem(CLAVE_AVISO) !== "true") {
         localStorage.setItem(CLAVE_AVISO, "true");
-        mostrarAvisoVigencia("Tu carrito vence en 5 minutos. Finaliza tu compra para conservar tus productos.");
+        mostrarAvisoVigencia("Tu carrito vence mañana. Finaliza tu compra para conservar tus productos.");
     }
 }
 
@@ -4302,61 +4302,6 @@ const buscador =
     document.getElementById(
         "buscador"
     );
-
-
-if (buscador) {
-
-    buscador.addEventListener(
-        "input",
-        function () {
-
-            const texto =
-                buscador.value
-                    .toLowerCase()
-                    .trim();
-
-
-            document
-                .querySelectorAll(
-                    ".producto"
-                )
-                .forEach(
-                    function (
-                        producto
-                    ) {
-
-                        const titulo =
-                            producto.querySelector(
-                                "h3"
-                            );
-
-
-                        if (!titulo) {
-
-                            return;
-
-                        }
-
-
-                        const nombre =
-                            titulo.textContent
-                                .toLowerCase();
-
-
-                        producto.style.display =
-                            nombre.includes(
-                                texto
-                            )
-                                ? ""
-                                : "none";
-
-                    }
-                );
-
-        }
-    );
-
-}
 
 
 // =====================================================
