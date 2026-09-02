@@ -6061,11 +6061,29 @@ function crearExperienciaProfesional() {
     const buscadorPrincipal = document.getElementById("buscador");
     const botonBuscar = document.getElementById("boton-buscar");
 
+    if (buscadorPrincipal && !document.getElementById("limpiar-buscador")) {
+        const limpiar = document.createElement("button");
+        limpiar.id = "limpiar-buscador";
+        limpiar.className = "limpiar-buscador";
+        limpiar.type = "button";
+        limpiar.setAttribute("aria-label", "Limpiar búsqueda");
+        limpiar.textContent = "×";
+        limpiar.hidden = true;
+        buscadorPrincipal.after(limpiar);
+        limpiar.addEventListener("click", function () {
+            buscadorPrincipal.value = "";
+            buscadorPrincipal.dispatchEvent(new Event("input", { bubbles: true }));
+            abrirBuscador();
+        });
+    }
+
     function actualizarEstadoBuscador() {
         if (!buscadorPrincipal || !botonBuscar) return;
         const hayTexto = buscadorPrincipal.value.trim().length > 0;
         botonBuscar.classList.toggle("busqueda-lista", hayTexto);
         botonBuscar.setAttribute("aria-label", hayTexto ? "Buscar y cerrar teclado" : "Abrir buscador");
+        const limpiar = document.getElementById("limpiar-buscador");
+        if (limpiar) limpiar.hidden = !hayTexto;
     }
 
     function abrirBuscador() {
@@ -7637,6 +7655,12 @@ function configurarExploradorProductos() {
         <p id="resumen-catalogo" class="resumen-catalogo" aria-live="polite"></p>`;
     contenedor.before(herramientas);
 
+    const contextoBusqueda = document.createElement("div");
+    contextoBusqueda.id = "contexto-busqueda-catalogo";
+    contextoBusqueda.className = "contexto-busqueda-catalogo";
+    contextoBusqueda.hidden = true;
+    herramientas.after(contextoBusqueda);
+
     const paginacion = document.createElement("nav");
     paginacion.id = "paginacion-catalogo";
     paginacion.className = "paginacion-catalogo";
@@ -7659,6 +7683,7 @@ function configurarExploradorProductos() {
     document.getElementById("filtro-categoria").addEventListener("change", function (evento) {
         estadoCatalogo.categoria = evento.target.value;
         estadoCatalogo.pagina = 1;
+        actualizarContextoBusqueda();
         actualizarVistaCatalogo(false);
     });
     document.getElementById("orden-catalogo").addEventListener("change", function (evento) {
@@ -7673,6 +7698,35 @@ function configurarExploradorProductos() {
     });
 
     const entradaBusqueda = document.getElementById("buscador");
+    function actualizarContextoBusqueda() {
+        const termino = String(estadoCatalogo.busqueda || "").trim();
+        if (!termino) {
+            contextoBusqueda.hidden = true;
+            contextoBusqueda.replaceChildren();
+            return;
+        }
+        const categoriaSeleccionada = categorias.find(function (categoria) {
+            return categoria.valor === estadoCatalogo.categoria;
+        });
+        const texto = document.createElement("span");
+        texto.textContent = categoriaSeleccionada
+            ? "Buscando “" + termino + "” en " + categoriaSeleccionada.nombre
+            : "Resultados para “" + termino + "”";
+        contextoBusqueda.replaceChildren(texto);
+        if (categoriaSeleccionada) {
+            const todo = document.createElement("button");
+            todo.type = "button";
+            todo.textContent = "Buscar en todo";
+            todo.addEventListener("click", function () {
+                estadoCatalogo.categoria = "todos";
+                document.getElementById("filtro-categoria").value = "todos";
+                actualizarContextoBusqueda();
+                actualizarVistaCatalogo(false);
+            });
+            contextoBusqueda.appendChild(todo);
+        }
+        contextoBusqueda.hidden = false;
+    }
     function aplicarBusquedaCatalogo(valor) {
         estadoCatalogo.busqueda = String(valor || "").trim();
         estadoCatalogo.pagina = 1;
@@ -7683,6 +7737,7 @@ function configurarExploradorProductos() {
         if (estadoCatalogo.busqueda) url.searchParams.set("buscar", estadoCatalogo.busqueda);
         else url.searchParams.delete("buscar");
         window.history.replaceState({}, "", url);
+        actualizarContextoBusqueda();
         actualizarVistaCatalogo(false);
     }
 
@@ -7697,6 +7752,7 @@ function configurarExploradorProductos() {
         });
     }
 
+    actualizarContextoBusqueda();
     actualizarVistaCatalogo(false);
 }
 
