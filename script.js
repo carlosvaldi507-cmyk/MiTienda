@@ -7673,11 +7673,27 @@ function configurarExploradorProductos() {
     });
 
     const entradaBusqueda = document.getElementById("buscador");
+    function aplicarBusquedaCatalogo(valor) {
+        estadoCatalogo.busqueda = String(valor || "").trim();
+        estadoCatalogo.pagina = 1;
+        document.getElementById("productos")?.classList.remove("catalogo-sin-seleccion");
+        contenedor.hidden = false;
+
+        const url = new URL(window.location.href);
+        if (estadoCatalogo.busqueda) url.searchParams.set("buscar", estadoCatalogo.busqueda);
+        else url.searchParams.delete("buscar");
+        window.history.replaceState({}, "", url);
+        actualizarVistaCatalogo(false);
+    }
+
     if (entradaBusqueda) {
+        const busquedaURL = new URLSearchParams(window.location.search).get("buscar");
+        if (busquedaURL) {
+            entradaBusqueda.value = busquedaURL;
+            estadoCatalogo.busqueda = busquedaURL;
+        }
         entradaBusqueda.addEventListener("input", function () {
-            estadoCatalogo.busqueda = entradaBusqueda.value;
-            estadoCatalogo.pagina = 1;
-            actualizarVistaCatalogo(false);
+            aplicarBusquedaCatalogo(entradaBusqueda.value);
         });
     }
 
