@@ -9356,6 +9356,19 @@ body.modal-usuario-abierto {
     color: var(--tk-acento-profundo) !important;
 }
 
+.navegacion-comercial-movil a.activo {
+    color: var(--tk-acento-profundo) !important;
+}
+
+.navegacion-comercial-movil a.activo span {
+    display: grid;
+    width: 36px;
+    height: 30px;
+    place-items: center;
+    border-radius: 10px;
+    background: rgba(32, 198, 183, .12);
+}
+
 .vista-rapida-contenido,
 #panel-notificaciones {
     border-radius: 20px !important;
@@ -9386,6 +9399,14 @@ body.modal-usuario-abierto {
     .navegacion-comercial-movil b {
         font-size: 10px !important;
         font-weight: 800 !important;
+    }
+
+    .navegacion-comercial-movil a:nth-child(3) {
+        color: #52676d !important;
+    }
+
+    .navegacion-comercial-movil a.activo {
+        color: var(--tk-acento-profundo) !important;
     }
 
     .navegacion-comercial-movil span {

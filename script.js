@@ -6971,7 +6971,7 @@ function crearExperienciaComercialMovil() {
         panel.className = "panel-categorias-movil";
         panel.setAttribute("aria-hidden", "true");
         panel.innerHTML = `<div class="fondo-categorias-movil"></div><aside role="dialog" aria-modal="true" aria-labelledby="titulo-categorias-movil">
-            <div class="cabecera-categorias-movil"><div><small>EXPLORAR</small><h2 id="titulo-categorias-movil">¿Qué estás buscando?</h2><p>Elige una categoría para filtrar el catálogo.</p></div><button type="button" aria-label="Cerrar categorías">&times;</button></div>
+            <div class="cabecera-categorias-movil"><div><small>EXPLORAR</small><h2 id="titulo-categorias-movil">Encuentra lo que necesitas</h2><p>Elige una categoría o usa Compra inteligente.</p></div><button type="button" aria-label="Cerrar categorías">&times;</button></div>
             <button type="button" class="categoria-todos-movil" data-categoria-panel="todos"><span>\ud83d\uded2</span><div><b>Ver todo</b><small>${(window.productos || []).filter(function (p) { return p.activo !== false; }).length} productos disponibles</small></div><em>\u203a</em></button>
             <div class="lista-categorias-movil">${categorias.map(function (categoria) {
                 const archivo = /\.(png|jpe?g|webp|gif|avif|svg)(\?.*)?$/i.test(String(categoria.imagen || ""));
@@ -7042,7 +7042,8 @@ function crearExperienciaComercialMovil() {
     inferior.className = "navegacion-comercial-movil";
     inferior.setAttribute("aria-label", "Navegaci\u00f3n principal m\u00f3vil");
     const cantidadInicialCarrito = obtenerCantidadCarrito();
-    inferior.innerHTML = `<a href="index.html"><span>\u2302</span><b>Inicio</b></a><button type="button" data-accion-movil="categorias"><span>\u2630</span><b>Categor\u00edas</b></button><a href="catalogo.html"><span>\u25a6</span><b>Comprar</b></a><button type="button" data-accion-movil="carrito"><span>\ud83d\uded2</span><b>Carrito</b><em${cantidadInicialCarrito === 0 ? " hidden" : ""}>${cantidadInicialCarrito}</em></button><button type="button" data-accion-movil="cuenta"><span>\u263a</span><b>Cuenta</b></button>`;
+    const enCatalogo = /catalogo\.html$/i.test(window.location.pathname);
+    inferior.innerHTML = `<a href="index.html" class="${enCatalogo ? "" : "activo"}"><span>\u2302</span><b>Inicio</b></a><button type="button" data-accion-movil="categorias" aria-label="Explorar categorías y compra inteligente"><span>\u2630</span><b>Explorar</b></button><a href="catalogo.html" class="${enCatalogo ? "activo" : ""}"><span>\u25a6</span><b>Comprar</b></a><button type="button" data-accion-movil="carrito"><span>\ud83d\uded2</span><b>Carrito</b><em${cantidadInicialCarrito === 0 ? " hidden" : ""}>${cantidadInicialCarrito}</em></button><button type="button" data-accion-movil="cuenta"><span>\u263a</span><b>Cuenta</b></button>`;
     document.body.appendChild(inferior);
     inferior.addEventListener("click", function (evento) {
         const accion = evento.target.closest("[data-accion-movil]")?.dataset.accionMovil;
