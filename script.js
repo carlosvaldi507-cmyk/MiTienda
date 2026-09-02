@@ -3931,6 +3931,12 @@ function abrirCheckout() {
                     ${t("entregaIntro")}
                 </p>
 
+                <aside class="checkout-resumen-pedido" aria-live="polite">
+                    <h3>Resumen de tu pedido</h3>
+                    <div id="checkout-resumen-lineas"></div>
+                    <p>El costo y el tiempo de entrega se confirman contigo por WhatsApp.</p>
+                </aside>
+
 
                 <label>
 
@@ -3968,7 +3974,7 @@ function abrirCheckout() {
                 </label>
 
 
-                <label>
+                <label class="campo-direccion-checkout">
 
                     ${t("direccionEntrega")}
 
@@ -4164,6 +4170,8 @@ function abrirCheckout() {
                             resumen.total
                         );
 
+                    mensaje += "\n\nEl costo y tiempo de entrega se confirman por WhatsApp.";
+
 
                     mensaje +=
                         "\n\nDATOS DE ENTREGA";
@@ -4192,9 +4200,7 @@ function abrirCheckout() {
 
                     mensaje +=
                         "\nDirección: " +
-                        cliente.get(
-                            "direccion"
-                        );
+                        (cliente.get("direccion") || "No aplica (retiro en tienda)");
 
 
                     if (
@@ -4244,6 +4250,25 @@ function abrirCheckout() {
         "visible"
     );
 
+    const resumenCheckout = obtenerResumenCompra();
+    const lineasResumen = checkout.querySelector("#checkout-resumen-lineas");
+    if (lineasResumen) {
+        const unidades = carrito.reduce(function (total, producto) {
+            return total + (Number(producto.cantidad) || 0);
+        }, 0);
+        lineasResumen.innerHTML = `<span><b>${unidades} producto${unidades === 1 ? "" : "s"}</b><strong>${formatoMoneda(resumenCheckout.total)}</strong></span>${resumenCheckout.descuento ? `<span>Descuento <strong>-${formatoMoneda(resumenCheckout.descuento)}</strong></span>` : ""}`;
+    }
+
+    const selectorEntrega = checkout.querySelector("[name='entrega']");
+    const campoDireccion = checkout.querySelector(".campo-direccion-checkout");
+    const entradaDireccion = checkout.querySelector("[name='direccion']");
+    function actualizarCamposEntrega() {
+        const esRetiro = selectorEntrega && selectorEntrega.value === t("retiro");
+        if (campoDireccion) campoDireccion.hidden = esRetiro;
+        if (entradaDireccion) entradaDireccion.required = !esRetiro;
+    }
+    if (selectorEntrega) selectorEntrega.onchange = actualizarCamposEntrega;
+
     try {
         const guardados = JSON.parse(localStorage.getItem(CLAVE_DATOS_CLIENTE) || "null");
         if (guardados) {
@@ -4255,6 +4280,8 @@ function abrirCheckout() {
     } catch (error) {
         localStorage.removeItem(CLAVE_DATOS_CLIENTE);
     }
+
+    actualizarCamposEntrega();
 
 
     const nombre =
@@ -7235,7 +7262,9 @@ const estadoCatalogo = {
     limiteInicio: 24,
     busqueda: "",
     categoria: "todos",
-    orden: "relevancia"
+    orden: "relevancia",
+    soloDisponibles: false,
+    precioMaximo: 0
 };
 
 function normalizarTextoCatalogo(valor) {
@@ -7316,7 +7345,10 @@ function obtenerProductosFiltrados() {
                 ...(Array.isArray(producto.tags) ? producto.tags : [])
             ].join(" "));
 
-            return producto.activo !== false && coincideCategoria && (!termino || contenido.includes(termino));
+            const coincideDisponibilidad = !estadoCatalogo.soloDisponibles || producto.stock === true;
+            const coincidePrecio = !estadoCatalogo.precioMaximo || Number(producto.precio) <= estadoCatalogo.precioMaximo;
+
+            return producto.activo !== false && coincideCategoria && coincideDisponibilidad && coincidePrecio && (!termino || contenido.includes(termino));
         })
         : [];
 
@@ -7644,6 +7676,22 @@ function configurarExploradorProductos() {
                 <option value="mayor">${t("mayorPrecio")}</option>
             </select>
         </label>
+        <label class="filtro-disponibilidad">
+            <span>Disponibilidad</span>
+            <select id="filtro-disponibilidad">
+                <option value="todos">Todos</option>
+                <option value="disponibles">Solo disponibles</option>
+            </select>
+        </label>
+        <label class="filtro-precio">
+            <span>Precio máximo</span>
+            <select id="filtro-precio">
+                <option value="0">Cualquier precio</option>
+                <option value="1000">Hasta C$1,000</option>
+                <option value="2000">Hasta C$2,000</option>
+                <option value="3000">Hasta C$3,000</option>
+            </select>
+        </label>
         <label class="cantidad-pagina">
             <span>${t("mostrar")}</span>
             <select id="cantidad-catalogo">
@@ -7691,6 +7739,18 @@ function configurarExploradorProductos() {
         estadoCatalogo.pagina = 1;
         actualizarVistaCatalogo(false);
     });
+    document.getElementById("filtro-disponibilidad").addEventListener("change", function (evento) {
+        estadoCatalogo.soloDisponibles = evento.target.value === "disponibles";
+        estadoCatalogo.pagina = 1;
+        actualizarContextoBusqueda();
+        actualizarVistaCatalogo(false);
+    });
+    document.getElementById("filtro-precio").addEventListener("change", function (evento) {
+        estadoCatalogo.precioMaximo = Number(evento.target.value) || 0;
+        estadoCatalogo.pagina = 1;
+        actualizarContextoBusqueda();
+        actualizarVistaCatalogo(false);
+    });
     document.getElementById("cantidad-catalogo").addEventListener("change", function (evento) {
         estadoCatalogo.porPagina = Number(evento.target.value) || 24;
         estadoCatalogo.pagina = 1;
@@ -7700,7 +7760,8 @@ function configurarExploradorProductos() {
     const entradaBusqueda = document.getElementById("buscador");
     function actualizarContextoBusqueda() {
         const termino = String(estadoCatalogo.busqueda || "").trim();
-        if (!termino) {
+        const hayFiltros = estadoCatalogo.categoria !== "todos" || estadoCatalogo.soloDisponibles || estadoCatalogo.precioMaximo;
+        if (!termino && !hayFiltros) {
             contextoBusqueda.hidden = true;
             contextoBusqueda.replaceChildren();
             return;
@@ -7709,9 +7770,14 @@ function configurarExploradorProductos() {
             return categoria.valor === estadoCatalogo.categoria;
         });
         const texto = document.createElement("span");
-        texto.textContent = categoriaSeleccionada
+        const partes = [];
+        if (termino) partes.push(categoriaSeleccionada
             ? "Buscando “" + termino + "” en " + categoriaSeleccionada.nombre
-            : "Resultados para “" + termino + "”";
+            : "Resultados para “" + termino + "”");
+        else if (categoriaSeleccionada) partes.push("Mostrando " + categoriaSeleccionada.nombre);
+        if (estadoCatalogo.soloDisponibles) partes.push("solo disponibles");
+        if (estadoCatalogo.precioMaximo) partes.push("hasta " + formatoMoneda(estadoCatalogo.precioMaximo));
+        texto.textContent = partes.join(" · ");
         contextoBusqueda.replaceChildren(texto);
         if (categoriaSeleccionada) {
             const todo = document.createElement("button");
@@ -7724,6 +7790,22 @@ function configurarExploradorProductos() {
                 actualizarVistaCatalogo(false);
             });
             contextoBusqueda.appendChild(todo);
+        }
+        if (hayFiltros) {
+            const limpiar = document.createElement("button");
+            limpiar.type = "button";
+            limpiar.textContent = "Limpiar filtros";
+            limpiar.addEventListener("click", function () {
+                estadoCatalogo.categoria = "todos";
+                estadoCatalogo.soloDisponibles = false;
+                estadoCatalogo.precioMaximo = 0;
+                document.getElementById("filtro-categoria").value = "todos";
+                document.getElementById("filtro-disponibilidad").value = "todos";
+                document.getElementById("filtro-precio").value = "0";
+                actualizarContextoBusqueda();
+                actualizarVistaCatalogo(false);
+            });
+            contextoBusqueda.appendChild(limpiar);
         }
         contextoBusqueda.hidden = false;
     }

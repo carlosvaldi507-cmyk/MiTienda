@@ -7266,6 +7266,56 @@ body.experiencia-premium::before {
     }
 }
 
+/* Controles de catálogo y confirmación: información compacta, sin promesas de entrega no confirmadas. */
+.herramientas-catalogo .filtro-disponibilidad,
+.herramientas-catalogo .filtro-precio {
+    min-width: 148px;
+}
+
+.checkout-resumen-pedido {
+    margin: 16px 0;
+    padding: 13px 14px;
+    border: 1px solid rgba(18, 126, 120, .18);
+    border-radius: 13px;
+    background: #f1fbf9;
+}
+
+.checkout-resumen-pedido h3 {
+    margin: 0 0 7px;
+    color: #144c54;
+    font-size: .94rem;
+}
+
+.checkout-resumen-pedido #checkout-resumen-lineas span {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    color: #28555b;
+    font-size: .9rem;
+}
+
+.checkout-resumen-pedido p {
+    margin: 8px 0 0 !important;
+    color: #557277 !important;
+    font-size: .78rem !important;
+    line-height: 1.35;
+}
+
+.campo-direccion-checkout[hidden] {
+    display: none !important;
+}
+
+@media (max-width:700px) {
+    .herramientas-catalogo .filtro-disponibilidad,
+    .herramientas-catalogo .filtro-precio {
+        min-width: 0;
+    }
+
+    .checkout-resumen-pedido {
+        margin: 13px 0;
+    }
+}
+
 
 /* Centro de notificaciones: alineado con las acciones, no flotando sobre el logo. */
 .header > .centro-notificaciones {
