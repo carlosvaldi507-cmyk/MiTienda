@@ -7395,6 +7395,11 @@ function abrirVistaRapidaProducto(referencia) {
 
     const imagen = String(producto.imagen || "");
     const esArchivo = /\.(png|jpe?g|webp|gif|avif|svg)(\?.*)?$/i.test(imagen);
+    const similares = (window.productos || []).filter(function (item) {
+        const candidato = localizarProducto(item);
+        return item.activo !== false && String(item.id) !== String(producto.id) &&
+            normalizarTextoCatalogo(candidato.categoria) === normalizarTextoCatalogo(producto.categoria);
+    }).slice(0, 4);
     modal.innerHTML = `<div class="vista-rapida-contenido" role="dialog" aria-modal="true" aria-labelledby="vista-rapida-titulo">
         <button type="button" class="vista-rapida-cerrar" aria-label="${escaparHTMLCatalogo(tx.cerrar)}">&times;</button>
         <div class="vista-rapida-imagen">${esArchivo
@@ -7417,6 +7422,12 @@ function abrirVistaRapidaProducto(referencia) {
                 <button type="button" id="agregar-vista-rapida" ${producto.stock ? "" : "disabled"}>${producto.stock ? escaparHTMLCatalogo(tx.agregar) : escaparHTMLCatalogo(tx.agotado)}</button>
             </div>
             <p class="vista-rapida-mensaje" aria-live="polite"></p>
+            ${similares.length ? `<section class="vista-rapida-similares" aria-label="Productos parecidos"><h3>Productos parecidos</h3><div>${similares.map(function (item) {
+                const parecido = localizarProducto(item);
+                const imagenParecida = String(parecido.imagen || "");
+                const archivoParecido = /\.(png|jpe?g|webp|gif|avif|svg)(\?.*)?$/i.test(imagenParecida);
+                return `<button type="button" data-producto-parecido="${escaparHTMLCatalogo(item.id)}">${archivoParecido ? `<img src="${escaparHTMLCatalogo(resolverURLImagenProducto(imagenParecida))}" alt="${escaparHTMLCatalogo(parecido.nombre)}" loading="lazy">` : `<span aria-hidden="true">${escaparHTMLCatalogo(imagenParecida)}</span>`}<small>${escaparHTMLCatalogo(parecido.nombre)}</small><strong>${formatoMoneda(parecido.precio)}</strong></button>`;
+            }).join("")}</div></section>` : ""}
         </div></div>`;
     modal.classList.add("visible");
     document.body.classList.add("vista-rapida-abierta");
@@ -7432,6 +7443,11 @@ function abrirVistaRapidaProducto(referencia) {
         if (window.todoKlick.agregarProducto(productoBase.id, cantidad)) {
             modal.querySelector(".vista-rapida-mensaje").textContent = tx.agregado;
         }
+    });
+    modal.querySelectorAll("[data-producto-parecido]").forEach(function (boton) {
+        boton.addEventListener("click", function () {
+            abrirVistaRapidaProducto(boton.dataset.productoParecido);
+        });
     });
     modal.querySelector(".vista-rapida-cerrar").focus();
 }
@@ -7483,6 +7499,7 @@ function crearTarjetaProducto(producto) {
                 <strong>${formatoMoneda(producto.precio)}</strong>
                 ${descuento ? `<del>${formatoMoneda(precioAnterior)}</del><span>-${descuento}%</span>` : ""}
             </div>
+            <p class="producto-comentario">${descripcionSegura}</p>
             <div class="beneficios-tarjeta-producto">
                 <span>\u26a1 Entrega ${Number(producto.entregaDias) <= 1 ? "r\u00e1pida" : "en " + Number(producto.entregaDias) + " d\u00edas"}</span>
                 ${Number(producto.resenas) ? `<span>${Number(producto.resenas)} rese\u00f1as</span>` : ""}
@@ -7512,9 +7529,8 @@ function crearTarjetaProducto(producto) {
         evento.currentTarget.textContent = activo ? "\u2665" : "\u2661";
         if (estadoCatalogo.categoria === "favoritos" && !activo) actualizarVistaCatalogo(false);
     });
-    const imagenInteractiva = tarjeta.querySelector(".producto-imagen");
-    imagenInteractiva.addEventListener("click", function (evento) {
-        if (!evento.target.closest(".favorito-producto")) abrirVistaRapidaProducto(producto.id);
+    tarjeta.addEventListener("click", function (evento) {
+        if (!evento.target.closest("button")) abrirVistaRapidaProducto(producto.id);
     });
 
     return tarjeta;
