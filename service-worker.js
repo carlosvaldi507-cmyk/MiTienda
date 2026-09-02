@@ -3,7 +3,7 @@
 // ACTUALIZACIÓN AUTOMÁTICA Y CACHÉ INTELIGENTE
 // =====================================================
 
-const CACHE_VERSION = "todo-klick-v58";
+const CACHE_VERSION = "todo-klick-v59";
 
 
 // =====================================================
@@ -55,9 +55,21 @@ self.addEventListener("install", event => {
 
         caches.open(CACHE_VERSION)
 
-            .then(cache => {
+            .then(async cache => {
 
-                return cache.addAll(ARCHIVOS);
+                // Cada archivo se obtiene desde la red. Así una nueva caché
+                // no puede quedar formada con copias antiguas del navegador.
+                await Promise.all(ARCHIVOS.map(async archivo => {
+                    const respuesta = await fetch(
+                        new Request(archivo, { cache: "no-store" })
+                    );
+
+                    if (!respuesta.ok) {
+                        throw new Error(`No se pudo precargar ${archivo}.`);
+                    }
+
+                    await cache.put(archivo, respuesta);
+                }));
 
             })
 

@@ -4,3 +4,4 @@ debug.log
 /.edge-*/
 .DS_Store
 Thumbs.db
+tmp/
