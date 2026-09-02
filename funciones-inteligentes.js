@@ -146,14 +146,21 @@
                 </label>
                 <button type="button" id="buscar-presupuesto" class="buscar-inteligente-principal">${ti("elegir")}</button>
             </div>
-            <div class="presupuestos-rapidos" aria-label="Mejores compras por presupuesto"></div>
-            <label class="filtro-vendedor">Marketplace
+            <details class="opciones-inteligentes-extra">
+                <summary>Más opciones de compra</summary>
+                <div class="acciones-inteligentes">
+                    <button type="button" id="armar-carrito">${ti("armar")}</button>
+                    <button type="button" id="entrega-rapida">${ti("manana")}</button>
+                </div>
+                <div class="presupuestos-rapidos" aria-label="Mejores compras por presupuesto"></div>
+                <label class="filtro-vendedor">Marketplace
                 <select id="filtro-vendedor"><option value="">${ti("vendedores")}</option></select>
-            </label>
+                </label>
             <details class="busqueda-foto">
                 <summary>📸 ${ti("foto")}</summary>
                 <p>${ti("fotoAyuda")}</p>
                 <input id="foto-producto" type="file" accept="image/*">
+                </details>
             </details>
             <div id="resultados-descubridor" class="contenedor-resultados" aria-live="polite"></div>
         `;

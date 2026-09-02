@@ -8922,7 +8922,10 @@ body.modal-usuario-abierto {
 #panel-compra-inteligente-inicio .descubridor-formulario input { min-height:42px; padding:9px 10px; }
 .buscar-inteligente-principal { align-self:end; min-height:42px; padding:0 15px !important; white-space:nowrap; }
 #panel-compra-inteligente-inicio .acciones-inteligentes { grid-column:1 / -1; margin:0; }
-#panel-compra-inteligente-inicio .presupuestos-rapidos,#panel-compra-inteligente-inicio .filtro-vendedor,#panel-compra-inteligente-inicio .busqueda-foto { display:none !important; }
+#panel-compra-inteligente-inicio .opciones-inteligentes-extra { margin-top:10px; border-top:1px solid rgba(126,198,201,.25); }
+#panel-compra-inteligente-inicio .opciones-inteligentes-extra > summary { padding:10px 2px 2px; color:#b9d8dc; font-size:.8rem; font-weight:800; cursor:pointer; }
+#panel-compra-inteligente-inicio .opciones-inteligentes-extra .acciones-inteligentes { margin-top:10px; }
+#panel-compra-inteligente-inicio .opciones-inteligentes-extra .filtro-vendedor { display:block; margin-top:10px; }
 @media (max-width:700px) { #panel-compra-inteligente-inicio .descubridor-encabezado { display:block; } #panel-compra-inteligente-inicio .descubridor-formulario { grid-template-columns:1fr 1fr !important; } .buscar-inteligente-principal { grid-column:1 / -1; width:100%; } }
 
 /* Móvil: una cabecera despejada y navegación legible dejan el foco al catálogo. */
