@@ -5784,8 +5784,6 @@ function configurarInicioPriorizado() {
     const esPortada = !/catalogo\.html$/i.test(window.location.pathname);
     const productosSeccion = document.getElementById("productos");
     const carrusel = document.querySelector(".carrusel");
-    const categorias = document.getElementById("categorias");
-    const beneficios = document.querySelector(".beneficios");
 
     if (!esPortada || !productosSeccion || !carrusel || document.getElementById("opciones-compra-inicio")) {
         return;
@@ -5885,63 +5883,6 @@ function configurarInicioPriorizado() {
         });
     }
 
-    const opciones = document.createElement("section");
-    opciones.id = "opciones-compra-inicio";
-    opciones.className = "opciones-compra-inicio";
-    opciones.innerHTML = `
-        <div class="seccion-titulo opciones-compra-encabezado">
-            <span data-text="comprar">${t("comprar")}</span>
-            <h2 data-text="opcionesTitulo">${t("opcionesTitulo")}</h2>
-            <p data-text="opcionesDescripcion">${t("opcionesDescripcion")}</p>
-        </div>
-        <div class="selector-funciones-inicio" role="tablist" aria-label="${t("opcionesTitulo")}">
-            <button type="button" role="tab" data-panel-inicio="panel-categorias-inicio" data-text="opcionCategorias">${t("opcionCategorias")}</button>
-            <button type="button" role="tab" data-panel-inicio="panel-inteligente-inicio" data-text="opcionInteligente">${t("opcionInteligente")}</button>
-            <button type="button" role="tab" data-panel-inicio="panel-beneficios-inicio" data-text="opcionBeneficios">${t("opcionBeneficios")}</button>
-        </div>
-        <div class="panel-funcion-inicio" id="panel-categorias-inicio" role="tabpanel" hidden></div>
-        <div class="panel-funcion-inicio" id="panel-inteligente-inicio" role="tabpanel" hidden>
-            <div id="panel-compra-inteligente-inicio"></div>
-        </div>
-        <div class="panel-funcion-inicio" id="panel-beneficios-inicio" role="tabpanel" hidden></div>`;
-
-    productosSeccion.after(opciones);
-
-    if (categorias) {
-        opciones.querySelector("#panel-categorias-inicio").appendChild(categorias);
-        renderizarCategoriasInicio();
-    }
-    if (beneficios) {
-        opciones.querySelector("#panel-beneficios-inicio").appendChild(beneficios);
-    }
-
-    const botones = opciones.querySelectorAll("[data-panel-inicio]");
-    botones.forEach(function (boton) {
-        const panel = opciones.querySelector("#" + boton.dataset.panelInicio);
-        boton.setAttribute("aria-controls", panel.id);
-        boton.setAttribute("aria-expanded", "false");
-
-        boton.addEventListener("click", function () {
-            const abrir = panel.hidden;
-
-            opciones.querySelectorAll(".panel-funcion-inicio").forEach(function (otroPanel) {
-                otroPanel.hidden = true;
-            });
-            botones.forEach(function (otroBoton) {
-                otroBoton.classList.remove("activo");
-                otroBoton.setAttribute("aria-selected", "false");
-                otroBoton.setAttribute("aria-expanded", "false");
-            });
-
-            if (abrir) {
-                panel.hidden = false;
-                boton.classList.add("activo");
-                boton.setAttribute("aria-selected", "true");
-                boton.setAttribute("aria-expanded", "true");
-                panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
-            }
-        });
-    });
 }
 
 // En el catálogo completo, el cliente elige primero cómo desea comprar.
@@ -6930,7 +6871,6 @@ function mostrarProductosLegacy() {
 
 function crearExperienciaComercialMovil() {
     if (document.getElementById("navegacion-comercial-movil")) return;
-    const nav = document.querySelector(".nav");
     const categorias = [];
     const categoriasPorClave = new Map();
     (window.productos || []).filter(function (p) { return p.activo !== false; }).forEach(function (producto) {
@@ -7060,35 +7000,13 @@ function crearExperienciaComercialMovil() {
         document.addEventListener("keydown", function (evento) { if (evento.key === "Escape" && panel.classList.contains("visible")) cerrarPanelCategorias(); });
     }
 
-    if (nav && !document.getElementById("franja-beneficios-comercial")) {
-        const franja = document.createElement("section");
-        franja.id = "franja-beneficios-comercial";
-        franja.className = "franja-beneficios-comercial";
-        franja.innerHTML = `<div><span>\ud83d\ude9a</span><p><strong>Env\u00edo gratis</strong><small>Desde C$ 1,500</small></p></div><div><span>\ud83d\udee1\ufe0f</span><p><strong>Compra segura</strong><small>Por WhatsApp</small></p></div><div><span>\u21a9\ufe0f</span><p><strong>Te ayudamos</strong><small>Antes y despu\u00e9s</small></p></div>`;
-        nav.after(franja);
-        const rail = document.createElement("section");
-        rail.id = "categorias-comerciales";
-        rail.className = "categorias-comerciales";
-        rail.setAttribute("aria-label", "Categor\u00edas destacadas");
-        rail.innerHTML = categorias.map(function (categoria) {
-            const archivo = /\.(png|jpe?g|webp|gif|avif|svg)(\?.*)?$/i.test(String(categoria.imagen || ""));
-            return `<button type="button" data-categoria-comercial="${escaparHTMLCatalogo(categoria.clave)}"><span>${archivo ? `<img src="${escaparHTMLCatalogo(resolverURLImagenProducto(categoria.imagen))}" alt="">` : escaparHTMLCatalogo(categoria.imagen || "\ud83d\udce6")}</span><b>${escaparHTMLCatalogo(categoria.nombre)}</b></button>`;
-        }).join("");
-        franja.after(rail);
-        rail.addEventListener("click", function (evento) {
-            const boton = evento.target.closest("[data-categoria-comercial]");
-            if (!boton) return;
-            elegirCategoria(boton.dataset.categoriaComercial);
-        });
-    }
-
     const inferior = document.createElement("nav");
     inferior.id = "navegacion-comercial-movil";
     inferior.className = "navegacion-comercial-movil";
     inferior.setAttribute("aria-label", "Navegaci\u00f3n principal m\u00f3vil");
     const cantidadInicialCarrito = obtenerCantidadCarrito();
     const enCatalogo = /catalogo\.html$/i.test(window.location.pathname);
-    inferior.innerHTML = `<a href="index.html" class="${enCatalogo ? "" : "activo"}"><span>\u2302</span><b>Inicio</b></a><button type="button" data-accion-movil="categorias" aria-label="Explorar categorías y compra inteligente"><span>\u2630</span><b>Explorar</b></button><a href="catalogo.html" class="${enCatalogo ? "activo" : ""}"><span>\u25a6</span><b>Comprar</b></a><button type="button" data-accion-movil="carrito"><span>\ud83d\uded2</span><b>Carrito</b><em${cantidadInicialCarrito === 0 ? " hidden" : ""}>${cantidadInicialCarrito}</em></button><button type="button" data-accion-movil="cuenta"><span>\u263a</span><b>Cuenta</b></button>`;
+    inferior.innerHTML = `<a href="index.html" class="${enCatalogo ? "" : "activo"}"><span>\u2302</span><b>Inicio</b></a><button type="button" data-accion-movil="categorias" aria-label="Explorar categorías y compra inteligente"><span>\u2630</span><b>Explorar</b></button><a href="catalogo.html" class="${enCatalogo ? "activo" : ""}"><span>\u25a6</span><b>Catálogo</b></a><button type="button" data-accion-movil="carrito"><span>\ud83d\uded2</span><b>Carrito</b><em${cantidadInicialCarrito === 0 ? " hidden" : ""}>${cantidadInicialCarrito}</em></button><button type="button" data-accion-movil="cuenta"><span>\u263a</span><b>Cuenta</b></button>`;
     document.body.appendChild(inferior);
     inferior.addEventListener("click", function (evento) {
         const accion = evento.target.closest("[data-accion-movil]")?.dataset.accionMovil;

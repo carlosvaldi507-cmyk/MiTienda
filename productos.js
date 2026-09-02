@@ -19,7 +19,7 @@ window.productos = [
 
     {
         id: 1,
-        nombre: "Termo Hello Kitty-Actualzado",
+        nombre: "Termo Hello Kitty actualizado",
         descripcion: "Termo de Hello Kitty de 500ml.",
         precio: 800,
         categoria: "Hogar",
@@ -166,7 +166,7 @@ window.traduccionesProductos = traduccionesProductos;
 // Metadatos comunes para recomendaciones, entregas y marketplace.
 const metadatosProductos = {
     "Cámara IP": { vendedor: "Seguridad Norte", entregaDias: 1, garantiaMeses: 12, tags: ["seguridad", "casa", "cámara"], precioAnterior: 2800 },
-    "Termo Hello Kitty-Actualzado": { vendedor: "Todo Klick", entregaDias: 1, garantiaMeses: 1, tags: ["hogar", "regalo", "mamá", "termo"], precioAnterior: 950 },
+    "Termo Hello Kitty actualizado": { vendedor: "Todo Klick", entregaDias: 1, garantiaMeses: 1, tags: ["hogar", "regalo", "mamá", "termo"], precioAnterior: 950 },
     "DVR 8 canales": { vendedor: "Seguridad Norte", entregaDias: 2, garantiaMeses: 12, tags: ["seguridad", "negocio", "cámara"] },
     "Cable Cat6": { vendedor: "TecnoRed", entregaDias: 1, garantiaMeses: 6, tags: ["tecnología", "red", "negocio"] },
     "Kit de herramientas": { vendedor: "FerreKlick", entregaDias: 1, garantiaMeses: 6, tags: ["herramientas", "casa", "papá"] },
