@@ -6361,6 +6361,241 @@ nav a:hover::after,
     }
 }
 
+/* =====================================================
+   NICHI · AUDITORÍA DE PALETA
+   Esta capa es deliberadamente la última: neutraliza los temas históricos
+   en cada flujo operativo sin depender del orden de estilos anteriores.
+   ===================================================== */
+:root {
+    --nichi-azul: #061636;
+    --nichi-azul-medio: #102a5b;
+    --nichi-rojo: #e31b2b;
+    --nichi-rojo-profundo: #b90f23;
+    --nichi-blanco: #ffffff;
+    --nichi-fondo: #f5f7fb;
+    --nichi-borde: #dfe5f0;
+    --nichi-texto: #14213d;
+    --nichi-texto-suave: #5d6980;
+    --tk-fondo: var(--nichi-azul);
+    --tk-fondo-2: var(--nichi-azul-medio);
+    --tk-panel: var(--nichi-azul);
+    --tk-panel-alto: var(--nichi-azul-medio);
+    --tk-superficie: var(--nichi-azul-medio);
+    --tk-superficie-clara: var(--nichi-fondo);
+    --tk-texto: var(--nichi-texto);
+    --tk-texto-suave: var(--nichi-texto-suave);
+    --tk-acento: var(--nichi-rojo);
+    --tk-acento-profundo: var(--nichi-rojo-profundo);
+    --tk-precio: var(--nichi-rojo);
+    --tk-lima: #ffffff;
+    --tk-ambar: #fff0f1;
+    --tk-peligro: var(--nichi-rojo);
+    --tk-linea: var(--nichi-borde);
+    --tk-sombra: 0 14px 32px rgba(6, 22, 54, .14);
+}
+
+body.experiencia-premium,
+body {
+    color: var(--nichi-texto) !important;
+    background: linear-gradient(180deg, #fafbfe, #f1f4f9) !important;
+}
+
+/* Acciones generales de compra y formularios */
+:is(.agregar-carrito, .finalizar-compra, .confirmar-pedido, .cupon-compra button,
+    .vista-rapida-accion button, .buscar-inteligente-principal,
+    .acciones-inteligentes button, .boton-inteligente, .usuario-login-enviar,
+    #ver-carrito-notificacion, .ver-carrito-notificacion) {
+    border-color: transparent !important;
+    color: #fff !important;
+    background: linear-gradient(135deg, var(--nichi-rojo), var(--nichi-rojo-profundo)) !important;
+    box-shadow: 0 8px 18px rgba(185, 15, 35, .22) !important;
+}
+
+:is(.agregar-carrito, .finalizar-compra, .confirmar-pedido, .cupon-compra button,
+    .vista-rapida-accion button, .buscar-inteligente-principal,
+    .acciones-inteligentes button, .boton-inteligente, .usuario-login-enviar):hover {
+    background: linear-gradient(135deg, #f03543, var(--nichi-rojo-profundo)) !important;
+}
+
+/* Carrito flotante y avisos de compra */
+.carrito-flotante {
+    color: #fff !important;
+    background: linear-gradient(135deg, var(--nichi-rojo), var(--nichi-rojo-profundo)) !important;
+    box-shadow: 0 13px 28px rgba(185, 15, 35, .3) !important;
+}
+.contador-carrito-flotante,
+.navegacion-comercial-movil em,
+#boton-notificaciones > em {
+    color: #fff !important;
+    background: var(--nichi-rojo) !important;
+    border-color: #fff !important;
+}
+.notificacion-carrito {
+    border-color: var(--nichi-borde) !important;
+    background: #fff !important;
+}
+.notificacion-icono {
+    color: #fff !important;
+    background: var(--nichi-rojo) !important;
+}
+.notificacion-texto strong { color: var(--nichi-azul) !important; }
+.notificacion-texto span { color: var(--nichi-texto-suave) !important; }
+
+/* Catálogo: filtros, categorías, favoritos y beneficios */
+.chips-categorias button,
+.ordenar-productos select,
+.categorias-opcion-catalogo button,
+.atajos-categorias-movil button,
+.filtro-vendedor select {
+    border-color: var(--nichi-borde) !important;
+    color: var(--nichi-azul) !important;
+    background: #fff !important;
+}
+.chips-categorias button.activo,
+.categorias-opcion-catalogo button.activo,
+.atajos-categorias-movil button.activo {
+    border-color: var(--nichi-rojo) !important;
+    color: #fff !important;
+    background: var(--nichi-rojo) !important;
+}
+.favorito-producto,
+#boton-notificaciones {
+    border-color: var(--nichi-borde) !important;
+    color: var(--nichi-rojo) !important;
+    background: #fff !important;
+}
+.favorito-producto.activo { color: var(--nichi-rojo-profundo) !important; }
+.beneficio-envio,
+.beneficio-envio.completo {
+    border-color: #f2c5ca !important;
+    color: var(--nichi-azul) !important;
+    background: #fff4f5 !important;
+}
+.beneficio-envio i { background: var(--nichi-rojo) !important; }
+.desglose-compra .descuento,
+.vista-rapida-mensaje { color: var(--nichi-rojo-profundo) !important; }
+.vaciar-carrito { color: var(--nichi-rojo-profundo) !important; }
+
+/* Vista rápida, checkout y compra inteligente opcional */
+.vista-rapida-contenido,
+.checkout-form,
+.resultado-inteligente,
+.panel-inteligente,
+#panel-compra-inteligente-inicio,
+.compartir-carrito {
+    border-color: var(--nichi-borde) !important;
+    color: var(--nichi-texto) !important;
+    background: #fff !important;
+}
+.vista-rapida-contenido h2,
+.checkout-form h2,
+.resultado-inteligente h3,
+#panel-compra-inteligente-inicio h2,
+#panel-compra-inteligente-inicio h3 { color: var(--nichi-azul) !important; }
+.vista-rapida-imagen { background: #f3f5f9 !important; }
+.vista-rapida-info small,
+.resultado-categoria,
+.checkout-paso { color: var(--nichi-rojo-profundo) !important; }
+.vista-rapida-similares button,
+.acciones-producto-inteligente button,
+.compartir-carrito {
+    border-color: #edc2c7 !important;
+    color: var(--nichi-rojo-profundo) !important;
+    background: #fff6f7 !important;
+}
+.acciones-producto-inteligente button.activo {
+    border-color: var(--nichi-rojo) !important;
+    color: #fff !important;
+    background: var(--nichi-rojo) !important;
+}
+.descubridor-encabezado,
+.comparador-productos,
+.tabla-comparador article {
+    color: #fff !important;
+    background: linear-gradient(145deg, var(--nichi-azul), var(--nichi-azul-medio)) !important;
+}
+.descubridor-encabezado span,
+.descubridor-encabezado p,
+#panel-compra-inteligente-inicio .opciones-inteligentes-extra > summary { color: #f4cdd1 !important; }
+.presupuestos-rapidos button {
+    border-color: rgba(255,255,255,.2) !important;
+    color: #fff !important;
+    background: var(--nichi-azul-medio) !important;
+}
+.alerta-precio {
+    color: #fff !important;
+    background: var(--nichi-rojo) !important;
+}
+
+/* Cuenta, historial y autenticación */
+#sistema-perfil-cliente .perfil-cliente-panel,
+#sistema-usuarios-firebase .usuario-demo-panel,
+.sistema-usuarios-demo .usuario-demo-panel {
+    color: #fff !important;
+    background: linear-gradient(160deg, var(--nichi-azul), var(--nichi-azul-medio)) !important;
+}
+#sistema-perfil-cliente :is(strong, h2, h3, b),
+#sistema-usuarios-firebase :is(h2, h3, strong) { color: #fff !important; }
+#sistema-perfil-cliente :is(small, span, p),
+#sistema-usuarios-firebase :is(small, span, p) { color: #d6deed !important; }
+#sistema-perfil-cliente .historial-pedidos-cuenta {
+    border-color: rgba(255,255,255,.15) !important;
+    background: rgba(255,255,255,.08) !important;
+}
+#sistema-perfil-cliente .usuario-ir-catalogo,
+#sistema-perfil-cliente .perfil-seccion-titulo button {
+    border-color: rgba(255,255,255,.22) !important;
+    color: #fff !important;
+    background: var(--nichi-rojo) !important;
+}
+
+/* Panel de avisos, navegación y menú de categorías en móvil */
+#panel-notificaciones {
+    border-color: var(--nichi-borde) !important;
+    color: var(--nichi-texto) !important;
+    background: #fff !important;
+}
+#panel-notificaciones > header {
+    border-color: var(--nichi-borde) !important;
+    background: #fff4f5 !important;
+}
+#panel-notificaciones header small { color: var(--nichi-rojo-profundo) !important; }
+.lista-notificaciones article > span { background: #fff0f1 !important; }
+.lista-notificaciones article p,
+.notificaciones-vacias { color: var(--nichi-texto-suave) !important; }
+
+@media (max-width: 700px) {
+    .navegacion-comercial-movil {
+        border-color: var(--nichi-borde) !important;
+        background: rgba(255,255,255,.98) !important;
+        box-shadow: 0 -8px 26px rgba(6, 22, 54, .12) !important;
+    }
+    .navegacion-comercial-movil a,
+    .navegacion-comercial-movil button,
+    .navegacion-comercial-movil a:nth-child(3) { color: #647087 !important; }
+    .navegacion-comercial-movil a.activo,
+    .navegacion-comercial-movil button:active { color: var(--nichi-rojo) !important; }
+    .navegacion-comercial-movil a.activo :is(span, .nav-icon) {
+        color: var(--nichi-rojo) !important;
+        background: #fff0f1 !important;
+    }
+    .panel-categorias-movil aside,
+    .cabecera-categorias-movil,
+    .lista-categorias-movil > button,
+    .categoria-todos-movil {
+        border-color: var(--nichi-borde) !important;
+        color: var(--nichi-azul) !important;
+        background: #fff !important;
+    }
+    .cabecera-categorias-movil small { color: var(--nichi-rojo-profundo) !important; }
+    .cabecera-categorias-movil > button {
+        color: #fff !important;
+        background: var(--nichi-azul) !important;
+    }
+    .lista-categorias-movil button > span,
+    .categoria-todos-movil > span { background: #fff0f1 !important; }
+}
+
 /* Respaldo visual cuando el servidor no entrega una imagen de producto. */
 .producto-imagen.producto-imagen-fallback {
     background:
@@ -9997,4 +10232,110 @@ body.modal-usuario-abierto {
     #boton-notificaciones {
         transition: none !important;
     }
+}
+
+/* =====================================================
+   NICHI · PALETA ACTIVA FINAL (no mover)
+   Garantía de cascada para web, PWA y cada modal operativo.
+   ===================================================== */
+:root {
+    --nichi-azul: #061636;
+    --nichi-azul-medio: #102a5b;
+    --nichi-rojo: #e31b2b;
+    --nichi-rojo-profundo: #b90f23;
+    --nichi-fondo: #f5f7fb;
+    --nichi-borde: #dfe5f0;
+    --nichi-texto: #14213d;
+    --nichi-texto-suave: #5d6980;
+    --tk-fondo: var(--nichi-azul);
+    --tk-fondo-2: var(--nichi-azul-medio);
+    --tk-panel: var(--nichi-azul);
+    --tk-panel-alto: var(--nichi-azul-medio);
+    --tk-superficie: var(--nichi-azul-medio);
+    --tk-superficie-clara: var(--nichi-fondo);
+    --tk-texto: var(--nichi-texto);
+    --tk-texto-suave: var(--nichi-texto-suave);
+    --tk-acento: var(--nichi-rojo);
+    --tk-acento-profundo: var(--nichi-rojo-profundo);
+    --tk-precio: var(--nichi-rojo);
+    --tk-lima: #fff;
+    --tk-ambar: #fff0f1;
+    --tk-peligro: var(--nichi-rojo);
+    --tk-linea: var(--nichi-borde);
+    --tk-sombra: 0 14px 32px rgba(6, 22, 54, .14);
+}
+
+body,
+body.experiencia-premium { color: var(--nichi-texto) !important; background: linear-gradient(180deg, #fafbfe, #f1f4f9) !important; }
+
+/* Compra, formulario, promoción y notificaciones */
+:is(.agregar-carrito, .finalizar-compra, .confirmar-pedido, .cupon-compra button,
+    .vista-rapida-accion button, .buscar-inteligente-principal, .acciones-inteligentes button,
+    .boton-inteligente, .usuario-login-enviar, #ver-carrito-notificacion,
+    .ver-carrito-notificacion) {
+    border-color: transparent !important;
+    color: #fff !important;
+    background: linear-gradient(135deg, var(--nichi-rojo), var(--nichi-rojo-profundo)) !important;
+    box-shadow: 0 8px 18px rgba(185, 15, 35, .22) !important;
+}
+.carrito-flotante { color: #fff !important; background: linear-gradient(135deg, var(--nichi-rojo), var(--nichi-rojo-profundo)) !important; box-shadow: 0 13px 28px rgba(185,15,35,.3) !important; }
+.contador-carrito-flotante, .navegacion-comercial-movil em, #boton-notificaciones > em { color: #fff !important; background: var(--nichi-rojo) !important; border-color: #fff !important; }
+.notificacion-carrito, .vista-rapida-contenido, .checkout-form, .resultado-inteligente, .panel-inteligente, #panel-compra-inteligente-inicio, .compartir-carrito, #panel-notificaciones { border-color: var(--nichi-borde) !important; color: var(--nichi-texto) !important; background: #fff !important; }
+.notificacion-icono { color: #fff !important; background: var(--nichi-rojo) !important; }
+.notificacion-texto strong, .vista-rapida-contenido h2, .checkout-form h2, .resultado-inteligente h3, #panel-compra-inteligente-inicio :is(h2,h3) { color: var(--nichi-azul) !important; }
+.notificacion-texto span, .lista-notificaciones article p, .notificaciones-vacias { color: var(--nichi-texto-suave) !important; }
+.vista-rapida-imagen { background: #f3f5f9 !important; }
+.vista-rapida-info small, .resultado-categoria, .checkout-paso, #panel-notificaciones header small { color: var(--nichi-rojo-profundo) !important; }
+.vista-rapida-similares button, .acciones-producto-inteligente button, .compartir-carrito { border-color: #edc2c7 !important; color: var(--nichi-rojo-profundo) !important; background: #fff6f7 !important; }
+.acciones-producto-inteligente button.activo { border-color: var(--nichi-rojo) !important; color: #fff !important; background: var(--nichi-rojo) !important; }
+.descubridor-encabezado, .comparador-productos, .tabla-comparador article { color: #fff !important; background: linear-gradient(145deg, var(--nichi-azul), var(--nichi-azul-medio)) !important; }
+.descubridor-encabezado :is(span,p), #panel-compra-inteligente-inicio .opciones-inteligentes-extra > summary { color: #f4cdd1 !important; }
+.presupuestos-rapidos button { border-color: rgba(255,255,255,.2) !important; color: #fff !important; background: var(--nichi-azul-medio) !important; }
+.alerta-precio { color: #fff !important; background: var(--nichi-rojo) !important; }
+
+/* Catálogo, filtros, descuentos y estados */
+.chips-categorias button, .ordenar-productos select, .categorias-opcion-catalogo button, .atajos-categorias-movil button, .filtro-vendedor select { border-color: var(--nichi-borde) !important; color: var(--nichi-azul) !important; background: #fff !important; }
+.chips-categorias button.activo, .categorias-opcion-catalogo button.activo, .atajos-categorias-movil button.activo { border-color: var(--nichi-rojo) !important; color: #fff !important; background: var(--nichi-rojo) !important; }
+.favorito-producto, #boton-notificaciones { border-color: var(--nichi-borde) !important; color: var(--nichi-rojo) !important; background: #fff !important; }
+.favorito-producto.activo { color: var(--nichi-rojo-profundo) !important; }
+.beneficio-envio, .beneficio-envio.completo { border-color: #f2c5ca !important; color: var(--nichi-azul) !important; background: #fff4f5 !important; }
+.beneficio-envio i { background: var(--nichi-rojo) !important; }
+.desglose-compra .descuento, .vista-rapida-mensaje, .vaciar-carrito { color: var(--nichi-rojo-profundo) !important; }
+.producto { border-color: var(--nichi-borde) !important; background: #fff !important; box-shadow: 0 7px 20px rgba(6,22,54,.09) !important; }
+.producto:hover { border-color: rgba(227,27,43,.45) !important; box-shadow: var(--tk-sombra) !important; }
+.producto-imagen { background: linear-gradient(145deg, #fff, #edf0f6) !important; }
+.producto-info :is(h3,p), .producto-comentario, .beneficios-tarjeta-producto span { color: var(--nichi-texto) !important; }
+.producto-info p, .producto-comentario, .beneficios-tarjeta-producto span { color: var(--nichi-texto-suave) !important; }
+.producto-categoria { color: var(--nichi-rojo-profundo) !important; background: #fff0f1 !important; }
+.precio-comercial-producto strong, .vista-rapida-precio { color: var(--nichi-rojo) !important; }
+.etiqueta-producto { color: #fff !important; background: var(--nichi-rojo) !important; }
+.contexto-busqueda-catalogo { border-color: #f2c5ca !important; color: var(--nichi-azul) !important; background: #fff3f4 !important; }
+.contexto-busqueda-catalogo button, .limpiar-buscador { border-color: #edc2c7 !important; color: var(--nichi-rojo-profundo) !important; background: #fff !important; }
+
+/* Cuenta de cliente y pedidos */
+#sistema-perfil-cliente .perfil-cliente-panel, #sistema-usuarios-firebase .usuario-demo-panel, .sistema-usuarios-demo .usuario-demo-panel { color: #fff !important; background: linear-gradient(160deg, var(--nichi-azul), var(--nichi-azul-medio)) !important; }
+#sistema-perfil-cliente :is(strong,h2,h3,b), #sistema-usuarios-firebase :is(h2,h3,strong) { color: #fff !important; }
+#sistema-perfil-cliente :is(small,span,p), #sistema-usuarios-firebase :is(small,span,p) { color: #d6deed !important; }
+#sistema-perfil-cliente .historial-pedidos-cuenta { border-color: rgba(255,255,255,.15) !important; background: rgba(255,255,255,.08) !important; }
+#sistema-perfil-cliente .usuario-ir-catalogo, #sistema-perfil-cliente .perfil-seccion-titulo button { border-color: rgba(255,255,255,.22) !important; color: #fff !important; background: var(--nichi-rojo) !important; }
+#panel-notificaciones > header { border-color: var(--nichi-borde) !important; background: #fff4f5 !important; }
+.lista-notificaciones article > span { background: #fff0f1 !important; }
+
+/* Carrito compacto final */
+.carrito-ventana { background: rgba(3,10,28,.58) !important; }
+.carrito-contenido { border-color: rgba(6,22,54,.12) !important; background: #fff !important; }
+.carrito-contenido h2, .cerrar-carrito, .carrito-contenido .info-producto .nombre-producto, .carrito-contenido .controles-cantidad > span, .carrito-contenido .total-carrito { color: var(--nichi-azul) !important; }
+.carrito-contenido .subtotal, .carrito-contenido .total-carrito #total-carrito { color: var(--nichi-rojo) !important; }
+.carrito-contenido .eliminar-producto { color: var(--nichi-rojo) !important; background: #fff2f3 !important; }
+
+@media (max-width:700px) {
+    .navegacion-comercial-movil { border-color: var(--nichi-borde) !important; background: rgba(255,255,255,.98) !important; box-shadow: 0 -8px 26px rgba(6,22,54,.12) !important; }
+    .navegacion-comercial-movil :is(a,button), .navegacion-comercial-movil a:nth-child(3) { color: #647087 !important; }
+    .navegacion-comercial-movil :is(a.activo,button:active) { color: var(--nichi-rojo) !important; }
+    .navegacion-comercial-movil a.activo :is(span,.nav-icon) { color: var(--nichi-rojo) !important; background: #fff0f1 !important; }
+    .panel-categorias-movil aside, .cabecera-categorias-movil, .lista-categorias-movil > button, .categoria-todos-movil { border-color: var(--nichi-borde) !important; color: var(--nichi-azul) !important; background: #fff !important; }
+    .cabecera-categorias-movil small { color: var(--nichi-rojo-profundo) !important; }
+    .cabecera-categorias-movil > button { color: #fff !important; background: var(--nichi-azul) !important; }
+    .lista-categorias-movil button > span, .categoria-todos-movil > span { background: #fff0f1 !important; }
+    .header #boton-buscar.busqueda-lista { background: linear-gradient(135deg, var(--nichi-rojo), var(--nichi-rojo-profundo)) !important; }
 }

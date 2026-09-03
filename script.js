@@ -660,7 +660,7 @@ function crearCarritoFlotante() {
 
     border-radius: 50%;
 
-    background: #0d5c72;
+    background: #061636;
 
     color: white;
 
@@ -714,7 +714,7 @@ function crearCarritoFlotante() {
 
             border-radius:50px;
 
-            background:#f5a623;
+            background:#e31b2b;
 
             color:white;
 
@@ -829,7 +829,7 @@ function crearCarritoFlotante() {
 
             border-radius:50%;
 
-            background:#25d366;
+            background:#e31b2b;
 
             color:white;
 
@@ -863,7 +863,7 @@ function crearCarritoFlotante() {
 
         .notificacion-texto strong {
 
-            color:#123b4a;
+            color:#14213d;
 
             font-size:14px;
 
@@ -872,7 +872,7 @@ function crearCarritoFlotante() {
 
         .notificacion-texto span {
 
-            color:#697b83;
+            color:#5d6980;
 
             font-size:13px;
 
@@ -893,7 +893,7 @@ function crearCarritoFlotante() {
 
             padding:9px 12px;
 
-            background:#0d5c72;
+            background:#061636;
 
             color:white;
 
