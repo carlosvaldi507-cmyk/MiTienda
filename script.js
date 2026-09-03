@@ -1416,7 +1416,7 @@ const traducciones = {
             "Español",
 
         ofertaSuperior:
-            "Ofertas especiales de Todo Klick",
+            "Ofertas especiales de NICHI",
 
         eslogan:
             "Soluciones para tu hogar y negocio",
@@ -1554,7 +1554,7 @@ const traducciones = {
             "Términos y condiciones",
 
         miTienda:
-            "Todo Klick",
+            "NICHI",
 
         productos:
             "Productos",
@@ -1590,7 +1590,7 @@ const traducciones = {
             "Escríbenos",
 
         derechos:
-            "© 2026 Todo Klick — Todos los derechos reservados",
+            "© 2026 NICHI — Todos los derechos reservados",
 
         comprasSeguras:
             "Compras fáciles, rápidas y seguras."
@@ -1604,7 +1604,7 @@ const traducciones = {
             "English",
 
         ofertaSuperior:
-            "Special offers from Todo Klick",
+            "Special offers from NICHI",
 
         eslogan:
             "Solutions for your home and business",
@@ -1742,7 +1742,7 @@ const traducciones = {
             "Terms and conditions",
 
         miTienda:
-            "Todo Klick",
+            "NICHI",
 
         productos:
             "Products",
@@ -1778,7 +1778,7 @@ const traducciones = {
             "Contact us",
 
         derechos:
-            "© 2026 Todo Klick — All rights reserved",
+            "© 2026 NICHI — All rights reserved",
 
         comprasSeguras:
             "Easy, fast and secure shopping."
@@ -1792,7 +1792,7 @@ const traducciones = {
             "Français",
 
         ofertaSuperior:
-            "Offres spéciales de Todo Klick",
+            "Offres spéciales de NICHI",
 
         eslogan:
             "Solutions pour votre maison et votre entreprise",
@@ -1930,7 +1930,7 @@ const traducciones = {
             "Conditions générales",
 
         miTienda:
-            "Todo Klick",
+            "NICHI",
 
         productos:
             "Produits",
@@ -1966,7 +1966,7 @@ const traducciones = {
             "Écrivez-nous",
 
         derechos:
-            "© 2026 Todo Klick — Tous droits réservés",
+            "© 2026 NICHI — Tous droits réservés",
 
         comprasSeguras:
             "Achats simples, rapides et sécurisés."
@@ -1980,7 +1980,7 @@ const traducciones = {
             "Português",
 
         ofertaSuperior:
-            "Ofertas especiais da Todo Klick",
+            "Ofertas especiais da NICHI",
 
         eslogan:
             "Soluções para sua casa e seu negócio",
@@ -2118,7 +2118,7 @@ const traducciones = {
             "Termos e condições",
 
         miTienda:
-            "Todo Klick",
+            "NICHI",
 
         productos:
             "Produtos",
@@ -2154,7 +2154,7 @@ const traducciones = {
             "Fale conosco",
 
         derechos:
-            "© 2026 Todo Klick — Todos os direitos reservados",
+            "© 2026 NICHI — Todos os direitos reservados",
 
         comprasSeguras:
             "Compras fáceis, rápidas e seguras."
@@ -2168,7 +2168,7 @@ const traducciones = {
             "中文",
 
         ofertaSuperior:
-            "Todo Klick 特别优惠",
+            "NICHI 特别优惠",
 
         eslogan:
             "为您的家庭和企业提供解决方案",
@@ -2306,7 +2306,7 @@ const traducciones = {
             "条款和条件",
 
         miTienda:
-            "Todo Klick",
+            "NICHI",
 
         productos:
             "产品",
@@ -2342,7 +2342,7 @@ const traducciones = {
             "联系我们",
 
         derechos:
-            "© 2026 Todo Klick — 保留所有权利",
+            "© 2026 NICHI — 保留所有权利",
 
         comprasSeguras:
             "简单、快速、安全的购物。"
@@ -2361,7 +2361,7 @@ Object.assign(traducciones.es, {
     mostrandoProductos: "Mostrando {desde}–{hasta} de {total} productos", sinResultados: "No encontramos productos con esos criterios.",
     anterior: "Anterior", siguiente: "Siguiente", paginaAnterior: "Página anterior", paginaSiguiente: "Página siguiente",
     disponible: "Disponible", agotado: "Agotado", estrellasDeCinco: "{valor} de 5 estrellas", general: "General",
-    ayuda: "Ayuda", asistenteTitulo: "Asistente Todo Klick", asistenteEnLinea: "En línea para ayudarte",
+    ayuda: "Ayuda", asistenteTitulo: "Asistente NICHI", asistenteEnLinea: "En línea para ayudarte",
     saludoAsistente: "¡Hola! Cuéntame qué necesitas y te ayudaré a encontrarlo, comprarlo o revisar tu carrito.",
     comoComprar: "Cómo comprar", verCarrito: "Ver carrito", productos: "Productos", escribeConsulta: "Escribe tu consulta…",
     enviarConsulta: "Enviar consulta", respuestaCarrito: "Abro tu carrito para que revises tus productos.",
@@ -2379,7 +2379,7 @@ Object.assign(traducciones.en, {
     mostrandoProductos: "Showing {desde}–{hasta} of {total} products", sinResultados: "No products match those filters.",
     anterior: "Previous", siguiente: "Next", paginaAnterior: "Previous page", paginaSiguiente: "Next page",
     disponible: "Available", agotado: "Out of stock", estrellasDeCinco: "{valor} out of 5 stars", general: "General",
-    ayuda: "Help", asistenteTitulo: "Todo Klick Assistant", asistenteEnLinea: "Online and ready to help",
+    ayuda: "Help", asistenteTitulo: "NICHI Assistant", asistenteEnLinea: "Online and ready to help",
     saludoAsistente: "Hi! Tell me what you need and I’ll help you find it, buy it, or review your cart.",
     comoComprar: "How to buy", verCarrito: "View cart", productos: "Products", escribeConsulta: "Type your question…",
     enviarConsulta: "Send question", respuestaCarrito: "I’ll open your cart so you can review your products.",
@@ -2397,7 +2397,7 @@ Object.assign(traducciones.fr, {
     mostrandoProductos: "Affichage de {desde} à {hasta} sur {total} produits", sinResultados: "Aucun produit ne correspond à ces critères.",
     anterior: "Précédent", siguiente: "Suivant", paginaAnterior: "Page précédente", paginaSiguiente: "Page suivante",
     disponible: "Disponible", agotado: "Épuisé", estrellasDeCinco: "{valor} étoiles sur 5", general: "Général",
-    ayuda: "Aide", asistenteTitulo: "Assistant Todo Klick", asistenteEnLinea: "En ligne pour vous aider",
+    ayuda: "Aide", asistenteTitulo: "Assistant NICHI", asistenteEnLinea: "En ligne pour vous aider",
     saludoAsistente: "Bonjour ! Dites-moi ce dont vous avez besoin et je vous aiderai à le trouver, l’acheter ou vérifier votre panier.",
     comoComprar: "Comment acheter", verCarrito: "Voir le panier", productos: "Produits", escribeConsulta: "Écrivez votre question…",
     enviarConsulta: "Envoyer la question", respuestaCarrito: "J’ouvre votre panier pour que vous puissiez vérifier vos produits.",
@@ -2415,7 +2415,7 @@ Object.assign(traducciones.pt, {
     mostrandoProductos: "Mostrando {desde}–{hasta} de {total} produtos", sinResultados: "Nenhum produto corresponde a esses filtros.",
     anterior: "Anterior", siguiente: "Próximo", paginaAnterior: "Página anterior", paginaSiguiente: "Próxima página",
     disponible: "Disponível", agotado: "Esgotado", estrellasDeCinco: "{valor} de 5 estrelas", general: "Geral",
-    ayuda: "Ajuda", asistenteTitulo: "Assistente Todo Klick", asistenteEnLinea: "Online para ajudar você",
+    ayuda: "Ajuda", asistenteTitulo: "Assistente NICHI", asistenteEnLinea: "Online para ajudar você",
     saludoAsistente: "Olá! Conte o que você precisa e eu ajudarei a encontrar, comprar ou revisar seu carrinho.",
     comoComprar: "Como comprar", verCarrito: "Ver carrinho", productos: "Produtos", escribeConsulta: "Digite sua pergunta…",
     enviarConsulta: "Enviar pergunta", respuestaCarrito: "Vou abrir seu carrinho para você revisar os produtos.",
@@ -2433,7 +2433,7 @@ Object.assign(traducciones.zh, {
     mostrandoProductos: "正在显示第 {desde}–{hasta} 件，共 {total} 件商品", sinResultados: "没有符合这些条件的商品。",
     anterior: "上一页", siguiente: "下一页", paginaAnterior: "上一页", paginaSiguiente: "下一页",
     disponible: "有货", agotado: "缺货", estrellasDeCinco: "5 星中获得 {valor} 星", general: "综合",
-    ayuda: "帮助", asistenteTitulo: "Todo Klick 助手", asistenteEnLinea: "在线为您服务",
+    ayuda: "帮助", asistenteTitulo: "NICHI 助手", asistenteEnLinea: "在线为您服务",
     saludoAsistente: "您好！请告诉我您的需求，我可以帮您查找商品、购买商品或查看购物车。",
     comoComprar: "如何购买", verCarrito: "查看购物车", productos: "商品", escribeConsulta: "请输入您的问题…",
     enviarConsulta: "发送问题", respuestaCarrito: "我将打开购物车，方便您查看商品。",
@@ -3477,7 +3477,7 @@ function actualizarResumenCarrito() {
                         await navigator.share({
 
                             title:
-                                "Mi carrito de Todo Klick",
+                                "Mi carrito de NICHI",
 
                             text:
                                 "Te comparto estos productos.",
@@ -5099,7 +5099,7 @@ function crearAsistenteVirtual() {
                 <div>
 
                     <strong>
-                        Asistente Todo Klick
+                        Asistente NICHI
                     </strong>
 
 
@@ -5749,7 +5749,7 @@ function actualizarAsistenteIdiomaLegacy() {
         if (encabezado) {
 
             encabezado.textContent =
-                "Todo Klick 助手";
+                "NICHI 助手";
 
         }
 
@@ -5774,7 +5774,7 @@ function actualizarAsistenteIdiomaLegacy() {
         if (encabezado) {
 
             encabezado.textContent =
-                "Asistente Todo Klick";
+                "Asistente NICHI";
 
         }
 
@@ -6164,7 +6164,7 @@ const CLAVE_SESION_DEMO = "todoKlickSesionDemo";
 function textosUsuariosDemo() {
     const textos = {
         es: {
-            acceso: "ACCESO DE DEMOSTRACIÓN", titulo: "Bienvenido a Todo Klick", intro: "Prueba la experiencia con uno de los dos perfiles.",
+            acceso: "ACCESO DE DEMOSTRACIÓN", titulo: "Bienvenido a NICHI", intro: "Prueba la experiencia con uno de los dos perfiles.",
             cliente: "Cliente", administrador: "Administrador", correo: "Correo electrónico", contrasena: "Contraseña",
             recordar: "Mantener mi sesión", entrar: "Entrar", mostrar: "Mostrar contraseña", ocultar: "Ocultar contraseña",
             cuentas: "Credenciales de muestra", usar: "Usar esta cuenta", aviso: "Demo local: estas credenciales son públicas y no deben utilizarse en producción.",
@@ -6174,7 +6174,7 @@ function textosUsuariosDemo() {
             panelAdmin: "Resumen administrativo", panelCliente: "Tu actividad", cerrar: "Cerrar", perfil: "Abrir perfil"
         },
         en: {
-            acceso: "DEMO ACCESS", titulo: "Welcome to Todo Klick", intro: "Try the experience with either of the two profiles.",
+            acceso: "DEMO ACCESS", titulo: "Welcome to NICHI", intro: "Try the experience with either of the two profiles.",
             cliente: "Customer", administrador: "Administrator", correo: "Email address", contrasena: "Password",
             recordar: "Keep me signed in", entrar: "Sign in", mostrar: "Show password", ocultar: "Hide password",
             cuentas: "Sample credentials", usar: "Use this account", aviso: "Local demo: these credentials are public and must not be used in production.",
@@ -6184,7 +6184,7 @@ function textosUsuariosDemo() {
             panelAdmin: "Admin overview", panelCliente: "Your activity", cerrar: "Close", perfil: "Open profile"
         },
         fr: {
-            acceso: "ACCÈS DÉMO", titulo: "Bienvenue sur Todo Klick", intro: "Testez l’expérience avec l’un des deux profils.",
+            acceso: "ACCÈS DÉMO", titulo: "Bienvenue sur NICHI", intro: "Testez l’expérience avec l’un des deux profils.",
             cliente: "Client", administrador: "Administrateur", correo: "Adresse e-mail", contrasena: "Mot de passe",
             recordar: "Rester connecté", entrar: "Se connecter", mostrar: "Afficher le mot de passe", ocultar: "Masquer le mot de passe",
             cuentas: "Identifiants de test", usar: "Utiliser ce compte", aviso: "Démo locale : ces identifiants sont publics et ne doivent pas être utilisés en production.",
@@ -6194,7 +6194,7 @@ function textosUsuariosDemo() {
             panelAdmin: "Vue administrateur", panelCliente: "Votre activité", cerrar: "Fermer", perfil: "Ouvrir le profil"
         },
         pt: {
-            acceso: "ACESSO DEMONSTRATIVO", titulo: "Bem-vindo ao Todo Klick", intro: "Teste a experiência com um dos dois perfis.",
+            acceso: "ACESSO DEMONSTRATIVO", titulo: "Bem-vindo ao NICHI", intro: "Teste a experiência com um dos dois perfis.",
             cliente: "Cliente", administrador: "Administrador", correo: "E-mail", contrasena: "Senha",
             recordar: "Manter minha sessão", entrar: "Entrar", mostrar: "Mostrar senha", ocultar: "Ocultar senha",
             cuentas: "Credenciais de exemplo", usar: "Usar esta conta", aviso: "Demo local: estas credenciais são públicas e não devem ser usadas em produção.",
@@ -6204,7 +6204,7 @@ function textosUsuariosDemo() {
             panelAdmin: "Resumo administrativo", panelCliente: "Sua atividade", cerrar: "Fechar", perfil: "Abrir perfil"
         },
         zh: {
-            acceso: "演示登录", titulo: "欢迎来到 Todo Klick", intro: "使用以下两种账户体验应用。",
+            acceso: "演示登录", titulo: "欢迎来到 NICHI", intro: "使用以下两种账户体验应用。",
             cliente: "客户", administrador: "管理员", correo: "电子邮箱", contrasena: "密码",
             recordar: "保持登录", entrar: "登录", mostrar: "显示密码", ocultar: "隐藏密码",
             cuentas: "演示凭据", usar: "使用此账户", aviso: "本地演示：这些凭据是公开的，请勿用于生产环境。",
@@ -6636,7 +6636,7 @@ if (esAplicacionNativa && "serviceWorker" in navigator) {
             })
             : Promise.resolve()
     ]).catch(function (error) {
-        console.warn("[Todo Klick] No se pudo limpiar la caché anterior del APK.", error);
+        console.warn("[NICHI] No se pudo limpiar la caché anterior del APK.", error);
     });
 }
 
@@ -6667,7 +6667,7 @@ if (
 
 
             console.log(
-                "[Todo Klick] Nueva versión aplicada."
+                "[NICHI] Nueva versión aplicada."
             );
 
 
@@ -6690,7 +6690,7 @@ if (
             ) {
 
                 console.log(
-                    "[Todo Klick] Nueva versión disponible:",
+                    "[NICHI] Nueva versión disponible:",
                     evento.data.version
                 );
 
@@ -6717,7 +6717,7 @@ if (
 
 
                 console.log(
-                    "[Todo Klick] Service Worker registrado."
+                    "[NICHI] Service Worker registrado."
                 );
 
 
@@ -6753,7 +6753,7 @@ if (
                                 ) {
 
                                     console.log(
-                                        "[Todo Klick] Nueva versión encontrada."
+                                        "[NICHI] Nueva versión encontrada."
                                     );
 
 
@@ -6778,7 +6778,7 @@ if (
             ) {
 
                 console.error(
-                    "[Todo Klick] Error con Service Worker:",
+                    "[NICHI] Error con Service Worker:",
                     error
                 );
 
@@ -7079,7 +7079,7 @@ function crearExperienciaComercialMovil() {
         const centro = document.createElement("div");
         centro.className = "centro-notificaciones";
         centro.innerHTML = `<button type="button" id="boton-notificaciones" aria-label="Abrir notificaciones" aria-expanded="false"><span aria-hidden="true">\ud83d\udd14</span><em hidden>0</em></button>
-            <section id="panel-notificaciones" hidden><header><div><small>TODO KLICK</small><h2>Notificaciones</h2></div><button type="button" aria-label="Cerrar">&times;</button></header><div class="lista-notificaciones"><p class="notificaciones-vacias">No tienes notificaciones nuevas.</p></div></section>`;
+            <section id="panel-notificaciones" hidden><header><div><small>NICHI</small><h2>Notificaciones</h2></div><button type="button" aria-label="Cerrar">&times;</button></header><div class="lista-notificaciones"><p class="notificaciones-vacias">No tienes notificaciones nuevas.</p></div></section>`;
         encabezado.appendChild(centro);
         const botonCentro = centro.querySelector("#boton-notificaciones");
         const panelCentro = centro.querySelector("#panel-notificaciones");
@@ -7519,7 +7519,7 @@ function abrirVistaRapidaProducto(referencia) {
             <strong class="vista-rapida-precio">${formatoMoneda(producto.precio)}</strong>
             <ul>
                 <li><b>${escaparHTMLCatalogo(tx.disponibilidad)}:</b> ${producto.stock ? tx.disponible : tx.agotado}</li>
-                <li><b>${escaparHTMLCatalogo(tx.vendedor)}:</b> ${escaparHTMLCatalogo(producto.vendedor || "Todo Klick")}</li>
+                <li><b>${escaparHTMLCatalogo(tx.vendedor)}:</b> ${escaparHTMLCatalogo(producto.vendedor || "NICHI")}</li>
                 <li><b>${escaparHTMLCatalogo(tx.entrega)}:</b> ${Number(producto.entregaDias) || 1} ${escaparHTMLCatalogo(tx.dias)}</li>
                 <li><b>${escaparHTMLCatalogo(tx.garantia)}:</b> ${Number(producto.garantiaMeses) || 1} ${escaparHTMLCatalogo(tx.meses)}</li>
             </ul>

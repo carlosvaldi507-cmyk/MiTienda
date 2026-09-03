@@ -5,7 +5,7 @@
 
 // Cambia este identificador en cada publicación. Nunca se mezclan archivos
 // de dos versiones distintas de la tienda.
-const CACHE_VERSION = "todo-klick-v67";
+const CACHE_VERSION = "nichi-v1";
 
 
 // =====================================================
@@ -17,10 +17,10 @@ const ARCHIVOS = [
     "./index.html",
     "./catalogo.html",
     "./firebase-config.js?v=1.0.1",
-    "./firebase-cloud.js?v=1.1.2",
+    "./firebase-cloud.js?v=1.1.3",
     "./style.css?v=1.9.7",
-    "./script.js?v=2.0.6",
-    "./productos.js?v=1.9.1",
+    "./script.js?v=2.0.7",
+    "./productos.js?v=1.9.2",
     "./funciones-inteligentes.js?v=1.4.5",
     "./manifest.json?v=2.0.0",
     "./mi-fondo.png",
@@ -52,7 +52,7 @@ const ARCHIVOS_SIEMPRE_ACTUALIZADOS = [
 self.addEventListener("install", event => {
 
     console.log(
-        "[Todo Klick] Instalando:",
+        "[NICHI] Instalando:",
         CACHE_VERSION
     );
 
@@ -88,7 +88,7 @@ self.addEventListener("install", event => {
             .catch(error => {
 
                 console.error(
-                    "[Todo Klick] Error instalando caché:",
+                    "[NICHI] Error instalando caché:",
                     error
                 );
 
@@ -107,7 +107,7 @@ self.addEventListener("install", event => {
 self.addEventListener("activate", event => {
 
     console.log(
-        "[Todo Klick] Activando:",
+        "[NICHI] Activando:",
         CACHE_VERSION
     );
 
@@ -126,7 +126,8 @@ self.addEventListener("activate", event => {
                             return (
                                 (
                                     key.startsWith("mi-tienda-") ||
-                                    key.startsWith("todo-klick-")
+                                key.startsWith("todo-klick-") ||
+                                key.startsWith("nichi-")
                                 ) &&
                                 key !== CACHE_VERSION
                             );
@@ -136,7 +137,7 @@ self.addEventListener("activate", event => {
                         .map(key => {
 
                             console.log(
-                                "[Todo Klick] Eliminando caché antigua:",
+                                "[NICHI] Eliminando caché antigua:",
                                 key
                             );
 
@@ -249,7 +250,7 @@ async function guardarEnCache(
     } catch (error) {
 
         console.warn(
-            "[Todo Klick] No se pudo guardar:",
+            "[NICHI] No se pudo guardar:",
             error
         );
 
@@ -279,7 +280,7 @@ async function obtenerDesdeCache(
     } catch (error) {
 
         console.warn(
-            "[Todo Klick] Error leyendo caché:",
+            "[NICHI] Error leyendo caché:",
             error
         );
 
@@ -316,7 +317,7 @@ function crearPaginaOffline() {
                 content="#0d5c72"
             >
 
-            <title>Todo Klick</title>
+            <title>NICHI</title>
 
             <style>
 
@@ -446,7 +447,7 @@ function crearPaginaOffline() {
                 </div>
 
                 <h1>
-                    Todo Klick
+                    NICHI
                 </h1>
 
                 <p>
@@ -634,7 +635,7 @@ self.addEventListener(
                     } catch (error) {
 
                         console.warn(
-                            "[Todo Klick] Sin Internet. Buscando copia guardada."
+                            "[NICHI] Sin Internet. Buscando copia guardada."
                         );
 
 
@@ -785,7 +786,7 @@ async function avisarActualizacion() {
     } catch (error) {
 
         console.warn(
-            "[Todo Klick] No se pudo avisar actualización:",
+            "[NICHI] No se pudo avisar actualización:",
             error
         );
 
@@ -803,7 +804,7 @@ self.addEventListener(
     () => {
 
         console.log(
-            "[Todo Klick] Nueva versión activada:",
+            "[NICHI] Nueva versión activada:",
             CACHE_VERSION
         );
 

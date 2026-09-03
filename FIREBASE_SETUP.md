@@ -3,7 +3,7 @@
 La tienda conserva el modo local mientras Firebase no esté conectado. No se
 deben guardar datos de clientes en la nube hasta completar todos estos pasos.
 
-1. En la consola de Firebase crea el proyecto **Todo Klick** y registra una
+1. En la consola de Firebase crea el proyecto **NICHI** y registra una
    aplicación web. Activa Cloud Firestore en modo de producción y Cloud
    Storage.
 2. Activa Firebase Authentication con **correo y contraseña**. Las cuentas de

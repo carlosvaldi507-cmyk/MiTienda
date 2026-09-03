@@ -183,7 +183,7 @@ window.traduccionesProductos = traduccionesProductos;
 // Metadatos comunes para recomendaciones, entregas y marketplace.
 const metadatosProductos = {
     "Cámara IP": { vendedor: "Seguridad Norte", entregaDias: 1, garantiaMeses: 12, tags: ["seguridad", "casa", "cámara"], precioAnterior: 2800 },
-    "Termo Hello Kitty actualizado": { vendedor: "Todo Klick", entregaDias: 1, garantiaMeses: 1, tags: ["hogar", "regalo", "mamá", "termo"], precioAnterior: 950 },
+    "Termo Hello Kitty actualizado": { vendedor: "NICHI", entregaDias: 1, garantiaMeses: 1, tags: ["hogar", "regalo", "mamá", "termo"], precioAnterior: 950 },
     "DVR 8 canales": { vendedor: "Seguridad Norte", entregaDias: 2, garantiaMeses: 12, tags: ["seguridad", "negocio", "cámara"] },
     "Cable Cat6": { vendedor: "TecnoRed", entregaDias: 1, garantiaMeses: 6, tags: ["tecnología", "red", "negocio"] },
     "Kit de herramientas": { vendedor: "FerreKlick", entregaDias: 1, garantiaMeses: 6, tags: ["herramientas", "casa", "papá"] },
@@ -193,7 +193,7 @@ const metadatosProductos = {
 };
 
 const vendedoresTodoKlick = {
-    "Todo Klick": { verificado: true, rating: 4.9, pedidos: 842, entregados: 99, respuestaMinutos: 8 },
+    "NICHI": { verificado: true, rating: 4.9, pedidos: 842, entregados: 99, respuestaMinutos: 8 },
     "Seguridad Norte": { verificado: true, rating: 4.8, pedidos: 1245, entregados: 98, respuestaMinutos: 15 },
     "TecnoRed": { verificado: true, rating: 4.7, pedidos: 634, entregados: 97, respuestaMinutos: 20 },
     "FerreKlick": { verificado: true, rating: 4.6, pedidos: 391, entregados: 96, respuestaMinutos: 18 },
@@ -202,7 +202,7 @@ const vendedoresTodoKlick = {
 
 window.productos.forEach(function (producto) {
     Object.assign(producto, metadatosProductos[producto.nombre] || {});
-    producto.vendedorInfo = vendedoresTodoKlick[producto.vendedor] || vendedoresTodoKlick["Todo Klick"];
+    producto.vendedorInfo = vendedoresTodoKlick[producto.vendedor] || vendedoresTodoKlick["NICHI"];
 });
 
 window.vendedoresTodoKlick = vendedoresTodoKlick;

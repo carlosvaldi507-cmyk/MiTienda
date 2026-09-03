@@ -13,7 +13,7 @@
             return [];
         },
         guardarPedido: async function () {
-            throw new Error("La nube de Todo Klick todavía no está configurada.");
+            throw new Error("La nube de NICHI todavía no está configurada.");
         }
     };
 
@@ -130,7 +130,7 @@
         window.dispatchEvent(new CustomEvent("todoKlickNubeLista"));
         return true;
     }).catch(function (error) {
-        console.error("No se pudo iniciar la nube de Todo Klick.", error);
+        console.error("No se pudo iniciar la nube de NICHI.", error);
         return false;
     });
 }());
