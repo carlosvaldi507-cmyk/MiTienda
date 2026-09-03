@@ -6655,6 +6655,19 @@ const esAplicacionNativa = Boolean(
 );
 
 if (esAplicacionNativa && "serviceWorker" in navigator) {
+    const VERSION_LIMPIEZA_NATIVA = "nichi-native-v9";
+    const claveLimpiezaNativa = "nichi-limpieza-nativa";
+    let requiereRecargaNativa = false;
+
+    try {
+        requiereRecargaNativa = sessionStorage.getItem(claveLimpiezaNativa) !== VERSION_LIMPIEZA_NATIVA;
+        if (requiereRecargaNativa) {
+            sessionStorage.setItem(claveLimpiezaNativa, VERSION_LIMPIEZA_NATIVA);
+        }
+    } catch (error) {
+        requiereRecargaNativa = true;
+    }
+
     Promise.all([
         navigator.serviceWorker.getRegistrations().then(function (registros) {
             return Promise.all(registros.map(function (registro) {
@@ -6664,13 +6677,19 @@ if (esAplicacionNativa && "serviceWorker" in navigator) {
         typeof caches !== "undefined"
             ? caches.keys().then(function (claves) {
                 return Promise.all(claves.filter(function (clave) {
-                    return clave.startsWith("todo-klick-") || clave.startsWith("mi-tienda-");
+                    return clave.startsWith("todo-klick-") ||
+                        clave.startsWith("mi-tienda-") ||
+                        clave.startsWith("nichi-");
                 }).map(function (clave) {
                     return caches.delete(clave);
                 }));
             })
             : Promise.resolve()
-    ]).catch(function (error) {
+    ]).then(function () {
+        if (requiereRecargaNativa) {
+            window.location.reload();
+        }
+    }).catch(function (error) {
         console.warn("[NICHI] No se pudo limpiar la caché anterior del APK.", error);
     });
 }
@@ -6743,7 +6762,7 @@ if (
 
                 const registro =
                     await navigator.serviceWorker.register(
-                        "./service-worker.js",
+                        "./service-worker.js?v=nichi-v9",
                         {
                             updateViaCache:
                                 "none"
