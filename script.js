@@ -7083,7 +7083,15 @@ function crearExperienciaComercialMovil() {
     inferior.setAttribute("aria-label", "Navegaci\u00f3n principal m\u00f3vil");
     const cantidadInicialCarrito = obtenerCantidadCarrito();
     const enCatalogo = /catalogo\.html$/i.test(window.location.pathname);
+    const iconosNavegacion = {
+        inicio: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1Z"/></svg>',
+        explorar: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-2.2-.8-4.2-2.2-5.8L12 12Z"/><path d="m12 12 4-5"/><circle cx="12" cy="12" r="1"/></svg>',
+        catalogo: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>',
+        carrito: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.2 10.1a2 2 0 0 0 2 1.6h8.9a2 2 0 0 0 1.9-1.5L21 8H6"/><circle cx="10" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/></svg>',
+        cuenta: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c.9-4 3.6-6 8-6s7.1 2 8 6"/></svg>'
+    };
     inferior.innerHTML = `<a href="index.html" class="${enCatalogo ? "" : "activo"}"><span>\u2302</span><b>Inicio</b></a><button type="button" data-accion-movil="categorias" aria-label="Explorar categorías y compra inteligente"><span>\u2630</span><b>Explorar</b></button><a href="catalogo.html" class="${enCatalogo ? "activo" : ""}"><span>\u25a6</span><b>Catálogo</b></a><button type="button" data-accion-movil="carrito"><span>\ud83d\uded2</span><b>Carrito</b><em${cantidadInicialCarrito === 0 ? " hidden" : ""}>${cantidadInicialCarrito}</em></button><button type="button" data-accion-movil="cuenta"><span>\u263a</span><b>Cuenta</b></button>`;
+    inferior.innerHTML = `<a href="index.html" class="${enCatalogo ? "" : "activo"}"><span class="nav-icon">${iconosNavegacion.inicio}</span><b>Inicio</b></a><button type="button" data-accion-movil="categorias" aria-label="Explorar categorías y compra inteligente"><span class="nav-icon">${iconosNavegacion.explorar}</span><b>Explorar</b></button><a href="catalogo.html" class="${enCatalogo ? "activo" : ""}"><span class="nav-icon">${iconosNavegacion.catalogo}</span><b>Catálogo</b></a><button type="button" data-accion-movil="carrito"><span class="nav-icon">${iconosNavegacion.carrito}</span><b>Carrito</b><em${cantidadInicialCarrito === 0 ? " hidden" : ""}>${cantidadInicialCarrito}</em></button><button type="button" data-accion-movil="cuenta"><span class="nav-icon">${iconosNavegacion.cuenta}</span><b>Cuenta</b></button>`;
     document.body.appendChild(inferior);
     inferior.addEventListener("click", function (evento) {
         const accion = evento.target.closest("[data-accion-movil]")?.dataset.accionMovil;
