@@ -7389,6 +7389,50 @@ body.experiencia-premium::before {
     }
 }
 
+/* Perfil del cliente: actividad y compras con jerarquía clara. */
+#sistema-perfil-cliente .perfil-cliente-panel {
+    max-height: min(780px, calc(100vh - 28px));
+    overflow-y: auto;
+}
+#sistema-perfil-cliente .usuario-cuenta-hero {
+    padding-bottom: 18px;
+    border-bottom: 1px solid rgba(185, 224, 222, .17);
+}
+.perfil-cliente-resumen {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 9px;
+    margin: 18px 0;
+}
+.perfil-cliente-resumen button {
+    min-height: 78px;
+    padding: 10px 6px;
+    border: 1px solid rgba(178, 229, 221, .16);
+    border-radius: 14px;
+    color: #d8f8f3;
+    background: rgba(255, 255, 255, .055);
+    font: inherit;
+    cursor: pointer;
+}
+.perfil-cliente-resumen button:hover { background: rgba(92, 227, 207, .12); }
+.perfil-cliente-resumen strong,
+.perfil-cliente-resumen span { display: block; }
+.perfil-cliente-resumen strong { color: #a9f1e6; font-size: 1.35rem; }
+.perfil-cliente-resumen span { margin-top: 4px; color: #c1d9dc; font-size: .76rem; font-weight: 750; }
+#sistema-perfil-cliente .historial-pedidos-cuenta { border-color: rgba(178, 229, 221, .17); background: rgba(255, 255, 255, .045); }
+#sistema-perfil-cliente .perfil-seccion-titulo { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+#sistema-perfil-cliente .perfil-seccion-titulo small { color: #75e5d8; font-size: .65rem; font-weight: 900; letter-spacing: .11em; }
+#sistema-perfil-cliente .perfil-seccion-titulo h3 { margin: 2px 0 0; color: #f1ffff; }
+#sistema-perfil-cliente .perfil-seccion-titulo button { padding: 7px 9px; border: 0; border-radius: 9px; color: #76ebdc; background: rgba(101, 229, 214, .1); font: inherit; font-size: .73rem; font-weight: 850; cursor: pointer; }
+#sistema-perfil-cliente .historial-pedidos-cuenta article { border-color: rgba(202, 235, 234, .12); }
+#sistema-perfil-cliente .historial-pedidos-cuenta strong,
+#sistema-perfil-cliente .historial-pedidos-cuenta b { color: #f1ffff; }
+#sistema-perfil-cliente .historial-pedidos-cuenta small { color: #afc9cd; }
+#sistema-perfil-cliente .historial-pedidos-cuenta span { color: #ffca72; }
+#sistema-perfil-cliente .historial-pedidos-cuenta button { border-color: rgba(104, 231, 215, .35); color: #8ef3e6; background: transparent; }
+#sistema-perfil-cliente .perfil-sin-pedidos { margin: 0; padding: 16px 0 4px; color: #bdd5d8; line-height: 1.5; }
+#sistema-perfil-cliente .usuario-ir-catalogo { border: 0; border-radius: 14px; color: #062225; background: linear-gradient(135deg, #5de4d4, #b4ec76); font: inherit; font-weight: 900; cursor: pointer; }
+
 /* Controles de catálogo y confirmación: información compacta, sin promesas de entrega no confirmadas. */
 .herramientas-catalogo .filtro-disponibilidad,
 .herramientas-catalogo .filtro-precio {

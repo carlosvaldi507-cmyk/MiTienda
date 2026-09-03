@@ -3848,6 +3848,7 @@ function guardarPedidoPendiente(cliente, resumen) {
     const pedido = {
         numero: crearNumeroPedido(),
         fecha: new Date().toISOString(),
+        clienteUid: window.todoKlickNube?.usuario?.uid || "",
         estado: "Pendiente de confirmaci\u00f3n",
         cliente: {
             nombre: String(cliente.get("nombre") || ""),
@@ -4104,6 +4105,12 @@ function abrirCheckout() {
                         obtenerResumenCompra();
 
                     const pedido = guardarPedidoPendiente(cliente, resumen);
+
+                    if (window.todoKlickNube?.usuario?.uid) {
+                        window.todoKlickNube.guardarPedido(pedido).catch(function (error) {
+                            console.warn("El pedido quedó guardado en este dispositivo; no se pudo sincronizar todavía.", error);
+                        });
+                    }
 
                     if (cliente.get("guardarDatos")) {
                         localStorage.setItem(CLAVE_DATOS_CLIENTE, JSON.stringify({
@@ -6270,9 +6277,99 @@ function configurarSistemaUsuariosFirebase() {
     actualizar();
 }
 
+function configurarPerfilClienteFirebase() {
+    const boton = document.getElementById("boton-entrar");
+    if (!boton || document.getElementById("sistema-perfil-cliente")) return;
+
+    boton.removeAttribute("onclick");
+    const sistema = document.createElement("div");
+    sistema.id = "sistema-perfil-cliente";
+    sistema.className = "sistema-usuarios-demo";
+    sistema.setAttribute("aria-hidden", "true");
+    sistema.innerHTML = '<div class="usuario-demo-panel perfil-cliente-panel" role="dialog" aria-modal="true"></div>';
+    document.body.appendChild(sistema);
+    const panel = sistema.querySelector(".usuario-demo-panel");
+
+    const cerrar = function () {
+        sistema.classList.remove("visible");
+        sistema.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("modal-usuario-abierto");
+        boton.focus();
+    };
+    const pedidosLocales = function (usuario) {
+        return obtenerPedidosGuardados().filter(function (pedido) {
+            return pedido.clienteUid && pedido.clienteUid === usuario.uid;
+        });
+    };
+    const actualizarBoton = function () {
+        const usuario = window.todoKlickNube?.usuario;
+        boton.classList.toggle("sesion-iniciada", Boolean(usuario));
+        boton.setAttribute("aria-label", usuario ? "Abrir perfil de " + usuario.nombre : "Entrar o crear cuenta");
+        boton.innerHTML = usuario
+            ? '<span class="usuario-avatar-mini">' + escaparHTMLCatalogo(usuario.nombre.charAt(0)) + '</span><span class="usuario-nombre-mini">' + escaparHTMLCatalogo(usuario.nombre.split(" ")[0]) + '</span>'
+            : '<span aria-hidden="true">👤</span><span>Entrar</span>';
+    };
+    const pintar = function (registro, pedidos) {
+        const usuario = window.todoKlickNube?.usuario;
+        if (!usuario) {
+            panel.innerHTML = '<button type="button" class="usuario-demo-cerrar" aria-label="Cerrar">×</button><div class="usuario-acceso-cabecera"><span class="usuario-demo-etiqueta">CUENTA SEGURA</span><h2>' + (registro ? "Crea tu cuenta" : "Bienvenido") + '</h2><p>Guarda tus datos y consulta tus pedidos desde cualquier dispositivo.</p></div><form class="usuario-login-form"><label' + (registro ? "" : " hidden") + '><span>Nombre</span><input name="nombre" autocomplete="name" required></label><label><span>Correo electrónico</span><input name="correo" type="email" autocomplete="email" required></label><label><span>Contraseña</span><input name="contrasena" type="password" autocomplete="' + (registro ? "new-password" : "current-password") + '" minlength="6" required></label><p class="usuario-login-error" role="alert"></p><button class="usuario-login-enviar" type="submit">' + (registro ? "Crear cuenta" : "Entrar") + '</button></form><button type="button" class="usuario-cambiar-modo">' + (registro ? "Ya tengo cuenta" : "Crear una cuenta") + '</button>';
+            panel.querySelector(".usuario-demo-cerrar").addEventListener("click", cerrar);
+            panel.querySelector(".usuario-cambiar-modo").addEventListener("click", function () { pintar(!registro); });
+            panel.querySelector("form").addEventListener("submit", async function (evento) {
+                evento.preventDefault();
+                const datos = new FormData(evento.currentTarget);
+                try {
+                    if (registro) await window.todoKlickNube.registrarUsuario(datos.get("nombre"), datos.get("correo"), datos.get("contrasena"));
+                    else await window.todoKlickNube.iniciarSesion(datos.get("correo"), datos.get("contrasena"));
+                } catch (error) {
+                    panel.querySelector(".usuario-login-error").textContent = "No se pudo completar el acceso. Revisa tus datos.";
+                }
+            });
+            return;
+        }
+
+        const listaPedidos = Array.isArray(pedidos) ? pedidos : pedidosLocales(usuario);
+        let favoritos = [];
+        try { favoritos = JSON.parse(localStorage.getItem("favoritosMiTienda") || "[]"); } catch (_) { favoritos = []; }
+        panel.innerHTML = '<button type="button" class="usuario-demo-cerrar" aria-label="Cerrar">×</button><div class="usuario-cuenta-hero"><div class="usuario-avatar-grande">' + escaparHTMLCatalogo(usuario.nombre.charAt(0)) + '</div><div><span class="usuario-rol usuario-rol-cliente">MI CUENTA</span><h2>' + escaparHTMLCatalogo(usuario.nombre) + '</h2><p>' + escaparHTMLCatalogo(usuario.correo) + '</p></div></div><section class="perfil-cliente-resumen"><button type="button" data-perfil-accion="pedidos"><strong>' + listaPedidos.length + '</strong><span>Pedidos</span></button><button type="button" data-perfil-accion="favoritos"><strong>' + (Array.isArray(favoritos) ? favoritos.length : 0) + '</strong><span>Favoritos</span></button><button type="button" data-perfil-accion="carrito"><strong>' + obtenerCantidadCarrito() + '</strong><span>Carrito</span></button></section><section class="historial-pedidos-cuenta"><div class="perfil-seccion-titulo"><div><small>TU ACTIVIDAD</small><h3>Pedidos recientes</h3></div><button type="button" data-perfil-accion="catalogo">Seguir comprando</button></div>' + (listaPedidos.length ? listaPedidos.map(function (pedido) { const fecha = new Date(pedido.fecha).toLocaleDateString("es-NI"); const unidades = (pedido.productos || []).reduce(function (total, producto) { return total + Number(producto.cantidad || 0); }, 0); return '<article><div><strong>' + escaparHTMLCatalogo(pedido.numero) + '</strong><small>' + escaparHTMLCatalogo(fecha) + ' · ' + unidades + ' producto(s)</small></div><div><span>' + escaparHTMLCatalogo(pedido.estado || "Pendiente de confirmación") + '</span><b>' + escaparHTMLCatalogo(formatoMoneda(pedido.total)) + '</b><button type="button" data-repetir-pedido="' + escaparHTMLCatalogo(pedido.numero) + '">Repetir pedido</button></div></article>'; }).join("") : '<p class="perfil-sin-pedidos">Aún no tienes pedidos. Cuando confirmes uno por WhatsApp, aparecerá aquí.</p>') + '</section><div class="usuario-cuenta-acciones"><button type="button" class="usuario-ir-catalogo" data-perfil-accion="catalogo">Explorar catálogo</button><button type="button" class="usuario-cerrar-sesion">Cerrar sesión</button></div>';
+        panel.querySelector(".usuario-demo-cerrar").addEventListener("click", cerrar);
+        panel.querySelector(".usuario-cerrar-sesion").addEventListener("click", async function () { await window.todoKlickNube.cerrarSesion(); cerrar(); });
+        panel.querySelectorAll("[data-perfil-accion]").forEach(function (accion) {
+            accion.addEventListener("click", function () {
+                if (accion.dataset.perfilAccion === "carrito") { cerrar(); abrirCarrito(); }
+                if (accion.dataset.perfilAccion === "catalogo") { window.location.href = "catalogo.html"; }
+                if (accion.dataset.perfilAccion === "favoritos") { window.location.href = "catalogo.html?vista=favoritos"; }
+                if (accion.dataset.perfilAccion === "pedidos") { panel.querySelector(".historial-pedidos-cuenta")?.scrollIntoView({ behavior: "smooth", block: "start" }); }
+            });
+        });
+        panel.querySelectorAll("[data-repetir-pedido]").forEach(function (accion) {
+            accion.addEventListener("click", function () {
+                const pedido = listaPedidos.find(function (item) { return item.numero === accion.dataset.repetirPedido; });
+                if (!pedido) return;
+                window.todoKlick.reemplazarCarrito(pedido.productos || []);
+                cerrar();
+                abrirCarrito();
+            });
+        });
+    };
+    const abrir = function () {
+        sistema.classList.add("visible");
+        sistema.setAttribute("aria-hidden", "false");
+        document.body.classList.add("modal-usuario-abierto");
+        pintar(false);
+        const usuario = window.todoKlickNube?.usuario;
+        if (usuario) window.todoKlickNube.obtenerPedidos().then(function (pedidos) { if (sistema.classList.contains("visible")) pintar(false, pedidos); }).catch(function () {});
+    };
+    boton.addEventListener("click", abrir);
+    sistema.addEventListener("click", function (evento) { if (evento.target === sistema) cerrar(); });
+    window.todoKlickNube.alCambiarSesion(function () { actualizarBoton(); if (sistema.classList.contains("visible")) abrir(); });
+    window.todoKlickCuenta = { abrir: abrir };
+    actualizarBoton();
+}
+
 function configurarSistemaUsuariosDemo() {
     if (window.todoKlickNube?.activa) {
-        configurarSistemaUsuariosFirebase();
+        configurarPerfilClienteFirebase();
         return;
     }
     const botonEntrar = document.getElementById("boton-entrar");
@@ -7100,7 +7197,8 @@ function crearExperienciaComercialMovil() {
         } else if (accion === "carrito") {
             abrirCarrito();
         } else if (accion === "cuenta") {
-            document.getElementById("boton-entrar")?.click();
+            if (window.todoKlickCuenta?.abrir) window.todoKlickCuenta.abrir();
+            else document.getElementById("boton-entrar")?.click();
         } else if (accion === "favoritos") {
             if (!/catalogo\.html$/i.test(window.location.pathname)) window.location.href = "catalogo.html?vista=favoritos";
             else {
