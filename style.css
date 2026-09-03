@@ -7295,6 +7295,146 @@ body.experiencia-premium::before {
     }
 }
 
+/* =====================================================
+   NICHI — sistema visual definitivo
+   Azul marino + rojo + blanco, con contraste comercial.
+===================================================== */
+:root {
+    --nichi-azul: #061636;
+    --nichi-azul-medio: #102a5b;
+    --nichi-rojo: #e31b2b;
+    --nichi-rojo-profundo: #b90f23;
+    --nichi-blanco: #ffffff;
+    --nichi-gris: #f3f5f9;
+    --nichi-texto: #14213d;
+    --nichi-texto-suave: #58657d;
+    --tk-fondo: var(--nichi-azul);
+    --tk-superficie: var(--nichi-azul-medio);
+    --tk-superficie-clara: var(--nichi-gris);
+    --tk-texto: var(--nichi-texto);
+    --tk-texto-suave: var(--nichi-texto-suave);
+    --tk-acento: var(--nichi-rojo);
+    --tk-acento-profundo: var(--nichi-rojo-profundo);
+    --tk-precio: var(--nichi-rojo);
+    --tk-linea: rgba(255, 255, 255, .16);
+    --tk-sombra: 0 16px 38px rgba(6, 22, 54, .16);
+}
+
+html { color-scheme: light; scrollbar-color: var(--nichi-rojo) #e8ecf4; }
+body.experiencia-premium {
+    color: var(--nichi-texto);
+    background: linear-gradient(180deg, #f7f8fb 0, #eef1f7 100%) !important;
+}
+body.experiencia-premium::before {
+    opacity: .5;
+    background-image: radial-gradient(circle at 8% 0, rgba(227, 27, 43, .10), transparent 30rem), radial-gradient(circle at 92% 20%, rgba(6, 22, 54, .08), transparent 28rem);
+    mask-image: none;
+}
+
+.barra-oferta {
+    color: #fff !important;
+    background: linear-gradient(90deg, var(--nichi-rojo-profundo), var(--nichi-rojo), #f33b47) !important;
+    box-shadow: inset 0 -1px rgba(255,255,255,.2);
+}
+.header,
+.header.header-compacto {
+    border-bottom-color: rgba(255,255,255,.13) !important;
+    background: rgba(6, 22, 54, .97) !important;
+    box-shadow: 0 10px 28px rgba(6, 22, 54, .2) !important;
+}
+.header .logo h1 { color: #fff !important; }
+.header .logo span { color: #f2cfd3 !important; }
+.nav,
+.header-compacto + .nav { background: var(--nichi-azul) !important; border-color: rgba(255,255,255,.13) !important; }
+.nav a { color: #d7dfef !important; }
+.nav a:hover,
+.nav a:focus-visible { color: #fff !important; }
+.nav a::after { background: var(--nichi-rojo) !important; }
+
+.buscador-principal input,
+#buscador {
+    border-color: rgba(255,255,255,.2) !important;
+    color: #fff !important;
+    background: rgba(255,255,255,.09) !important;
+}
+.buscador-principal input::placeholder { color: #c5cfdf !important; }
+.buscador-principal input:focus { border-color: #fff !important; box-shadow: 0 0 0 4px rgba(227,27,43,.28) !important; }
+#boton-buscar,
+.agregar-carrito,
+.vista-rapida-accion button,
+.buscar-inteligente-principal,
+.cupon-compra button {
+    color: #fff !important;
+    background: linear-gradient(135deg, var(--nichi-rojo), var(--nichi-rojo-profundo)) !important;
+    box-shadow: 0 9px 19px rgba(185,15,35,.24) !important;
+}
+.boton-entrar,
+.boton-carrito,
+.selector-idioma #boton-idioma,
+#boton-notificaciones {
+    border-color: rgba(255,255,255,.22) !important;
+    color: #fff !important;
+    background: rgba(255,255,255,.09) !important;
+}
+
+.productos,
+.productos-principales-inicio,
+.catalogo-principal { color: var(--nichi-texto); }
+.producto {
+    border-color: #e0e5ef !important;
+    background: #fff !important;
+    box-shadow: 0 7px 20px rgba(6,22,54,.09) !important;
+}
+.producto:hover { border-color: rgba(227,27,43,.42) !important; box-shadow: var(--tk-sombra) !important; }
+.producto-imagen { background: linear-gradient(145deg, #fff, #edf0f6) !important; }
+.producto-info h3,
+.producto-info p { color: var(--nichi-texto) !important; }
+.producto-info p,
+.producto-comentario,
+.beneficios-tarjeta-producto span { color: var(--nichi-texto-suave) !important; }
+.producto-categoria { color: var(--nichi-rojo-profundo) !important; background: #fff0f1 !important; }
+.precio-comercial-producto strong,
+.vista-rapida-precio { color: var(--nichi-rojo) !important; }
+.etiqueta-producto { color: #fff !important; background: var(--nichi-rojo) !important; }
+.favorito-producto { color: var(--nichi-rojo) !important; background: #fff !important; }
+
+.contexto-busqueda-catalogo { border-color: rgba(227,27,43,.22) !important; color: var(--nichi-azul) !important; background: #fff3f4 !important; }
+.contexto-busqueda-catalogo button,
+.limpiar-buscador { border-color: rgba(227,27,43,.35) !important; color: var(--nichi-rojo-profundo) !important; background: #fff !important; }
+.vista-rapida-contenido,
+#panel-notificaciones,
+.historial-pedidos-cuenta { border-color: #dce2ee !important; background: #fff !important; color: var(--nichi-texto) !important; }
+.vista-rapida-contenido h2,
+#panel-notificaciones h2,
+.historial-pedidos-cuenta h3 { color: var(--nichi-azul) !important; }
+
+#sistema-perfil-cliente .perfil-cliente-panel,
+#sistema-usuarios-firebase .usuario-demo-panel,
+.sistema-usuarios-demo .usuario-demo-panel { background: linear-gradient(160deg, #061636, #102a5b) !important; }
+.perfil-cliente-resumen button { border-color: rgba(255,255,255,.18) !important; background: rgba(255,255,255,.08) !important; }
+.perfil-cliente-resumen strong,
+#sistema-perfil-cliente .perfil-seccion-titulo small { color: #fff !important; }
+#sistema-perfil-cliente .historial-pedidos-cuenta { background: rgba(255,255,255,.06) !important; }
+#sistema-perfil-cliente .usuario-ir-catalogo,
+#sistema-usuarios-firebase .usuario-login-enviar { color: #fff !important; background: linear-gradient(135deg, var(--nichi-rojo), var(--nichi-rojo-profundo)) !important; }
+
+footer { color: #d9e0ed !important; background: var(--nichi-azul) !important; }
+footer a { color: #fff !important; }
+
+@media (max-width:700px) {
+    .navegacion-comercial-movil {
+        border-top-color: #e1e5ee !important;
+        background: rgba(255,255,255,.98) !important;
+    }
+    .navegacion-comercial-movil a,
+    .navegacion-comercial-movil button { color: #647087 !important; }
+    .navegacion-comercial-movil a.activo { color: var(--nichi-rojo) !important; }
+    .navegacion-comercial-movil a.activo .nav-icon { background: #fff0f1 !important; box-shadow: inset 0 0 0 1px rgba(227,27,43,.12) !important; }
+    .navegacion-comercial-movil em { background: var(--nichi-rojo) !important; }
+    .productos-principales-inicio > .seccion-titulo p,
+    .productos > .seccion-titulo p { color: #718097 !important; }
+}
+
 /* Navegación móvil: controles de comercio claros, táctiles y consistentes. */
 @media (max-width:700px) {
     body { padding-bottom: 86px; }
