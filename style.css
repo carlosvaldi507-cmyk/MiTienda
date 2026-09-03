@@ -10780,3 +10780,171 @@ button:disabled,
     .pagina-inicio .productos-principales-inicio > .seccion-titulo h2 { font-size: 1.62rem !important; }
     .navegacion-comercial-movil b { font-size: 9px !important; }
 }
+
+/* Inicio de compra rápida: más producto visible y accesos directos sin un hero que consuma la pantalla. */
+.pagina-inicio .explorador-categorias-inicio {
+    display: grid;
+    gap: 10px;
+}
+
+.franja-ofertas-nichi {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 9px 13px;
+    border: 1px solid rgba(227, 27, 43, .25);
+    border-radius: 14px;
+    color: #fff;
+    background: linear-gradient(104deg, var(--nichi-azul), #192f62 58%, var(--nichi-rojo-profundo));
+    box-shadow: 0 9px 22px rgba(6, 22, 54, .12);
+}
+
+.franja-ofertas-nichi span {
+    flex: 0 0 auto;
+    padding: 4px 6px;
+    border-radius: 5px;
+    color: #fff;
+    background: var(--nichi-rojo);
+    font-size: .62rem;
+    font-weight: 900;
+    letter-spacing: .08em;
+}
+
+.franja-ofertas-nichi b { font-size: .85rem; line-height: 1.15; }
+.franja-ofertas-nichi a { margin-left: auto; color: #fff; font-size: .78rem; font-weight: 800; text-decoration: none; white-space: nowrap; }
+.franja-ofertas-nichi a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+.beneficios-rapidos-nichi {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    overflow: auto hidden;
+    color: var(--nichi-texto-suave);
+    scrollbar-width: none;
+}
+.beneficios-rapidos-nichi::-webkit-scrollbar { display: none; }
+.beneficios-rapidos-nichi span {
+    flex: 0 0 auto;
+    padding: 0 11px;
+    border-right: 1px solid var(--nichi-borde);
+    font-size: .7rem;
+    font-weight: 700;
+    line-height: 1.1;
+    white-space: nowrap;
+}
+.beneficios-rapidos-nichi span:last-child { border-right: 0; }
+
+.categorias-rapidas-nichi {
+    display: grid;
+    grid-template-columns: repeat(9, minmax(0, 1fr));
+    gap: 10px;
+    overflow: auto hidden;
+    padding: 2px 1px 5px;
+    scrollbar-width: none;
+}
+.categorias-rapidas-nichi::-webkit-scrollbar { display: none; }
+.categoria-rapida-nichi {
+    display: grid;
+    justify-items: center;
+    gap: 6px;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    color: var(--nichi-texto);
+    background: transparent;
+    box-shadow: none;
+    font: inherit;
+}
+.categoria-rapida-imagen {
+    display: grid;
+    place-items: center;
+    width: 58px;
+    height: 58px;
+    overflow: hidden;
+    border: 1px solid var(--nichi-borde);
+    border-radius: 50%;
+    background: #f4f6fa;
+    box-shadow: 0 4px 10px rgba(6, 22, 54, .07);
+}
+.categoria-rapida-imagen img { width: 100%; height: 100%; object-fit: cover; }
+.categoria-rapida-imagen span { font-size: 1.4rem; }
+.categoria-todas-nichi { color: #fff; background: linear-gradient(135deg, var(--nichi-rojo), var(--nichi-rojo-profundo)); }
+.categoria-rapida-nichi b {
+    display: -webkit-box;
+    overflow: hidden;
+    max-width: 74px;
+    color: var(--nichi-texto);
+    font-size: .69rem;
+    font-weight: 750;
+    line-height: 1.1;
+    text-align: center;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+.categoria-rapida-nichi:hover .categoria-rapida-imagen,
+.categoria-rapida-nichi:focus-visible .categoria-rapida-imagen,
+.categoria-rapida-nichi.activo .categoria-rapida-imagen {
+    border-color: var(--nichi-rojo);
+    box-shadow: 0 0 0 3px rgba(227, 27, 43, .13);
+}
+
+@media (max-width:700px) {
+    .pagina-inicio .productos-principales-inicio > .seccion-titulo {
+        display: flex;
+        align-items: baseline;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 8px !important;
+    }
+    .pagina-inicio .productos-principales-inicio > .seccion-titulo > span { display: none !important; }
+    .pagina-inicio .productos-principales-inicio > .seccion-titulo h2 {
+        margin: 0 !important;
+        font-size: 1.26rem !important;
+        letter-spacing: -.025em !important;
+    }
+    .pagina-inicio .productos-principales-inicio > .seccion-titulo p { display: none !important; }
+    .pagina-inicio .explorador-categorias-inicio { margin: 0 auto 14px !important; }
+    .franja-ofertas-nichi { min-height: 43px; padding: 8px 10px; border-radius: 11px; }
+    .franja-ofertas-nichi span { padding: 3px 5px; font-size: .55rem; }
+    .franja-ofertas-nichi b { font-size: .75rem; }
+    .franja-ofertas-nichi a { font-size: .68rem; }
+    .beneficios-rapidos-nichi { justify-content: flex-start; margin-inline: -2px; }
+    .beneficios-rapidos-nichi span { padding: 0 9px; font-size: .62rem; }
+    .categorias-rapidas-nichi {
+        display: flex;
+        gap: 10px;
+        margin-right: -14px;
+        padding-right: 14px;
+    }
+    .categoria-rapida-nichi { flex: 0 0 60px; }
+    .categoria-rapida-imagen { width: 50px; height: 50px; }
+    .categoria-rapida-nichi b { max-width: 60px; font-size: .6rem; }
+    .pagina-inicio .abrir-explorador-categorias {
+        justify-self: center;
+        min-height: 30px !important;
+        padding-inline: 9px !important;
+        font-size: .67rem !important;
+    }
+    .pagina-inicio .productos-container { padding-inline: 0 !important; gap: 7px !important; }
+    .pagina-inicio .producto { border-radius: 10px !important; }
+    .pagina-inicio .producto-imagen { border-radius: 10px 10px 0 0 !important; }
+    .pagina-inicio .producto-info { padding: 7px !important; }
+    .pagina-inicio .producto h3 { font-size: .75rem !important; line-height: 1.18 !important; }
+    .pagina-inicio .precio-comercial-producto { margin-top: 4px !important; }
+    .pagina-inicio .precio-comercial-producto strong { font-size: .92rem !important; }
+    .pagina-inicio .producto-comentario { margin-top: 3px !important; font-size: .66rem !important; }
+    .pagina-inicio .producto .agregar-carrito { min-height: 32px !important; margin-top: 6px !important; }
+    .notificacion-carrito {
+        right: 12px !important;
+        bottom: calc(72px + env(safe-area-inset-bottom)) !important;
+        left: 12px !important;
+        width: auto !important;
+        min-height: 48px !important;
+        padding: 10px 13px !important;
+        border-radius: 13px !important;
+        box-shadow: 0 14px 34px rgba(6, 22, 54, .24) !important;
+        font-size: .82rem !important;
+    }
+}

@@ -5841,17 +5841,52 @@ function configurarInicioPriorizado() {
         if (!clave || categoriasVistas.has(clave)) return;
 
         categoriasVistas.add(clave);
-        categoriasDisponibles.push({ clave: clave, nombre: categoria });
+        categoriasDisponibles.push({
+            clave: clave,
+            nombre: categoria,
+            producto: localizarProducto(producto)
+        });
     });
 
     if (categoriasDisponibles.length) {
         const exploradorCategorias = document.createElement("section");
         exploradorCategorias.id = "explorador-categorias-inicio";
         exploradorCategorias.className = "explorador-categorias-inicio";
+        const crearAccesoCategoria = function (categoria) {
+            const productoCategoria = categoria.producto || {};
+            const imagenCategoria = String(productoCategoria.imagen || "📦");
+            const tieneImagen = /\.(png|jpe?g|webp|gif|avif|svg)(\?.*)?$/i.test(imagenCategoria);
+            const visual = tieneImagen
+                ? `<img src="${escaparHTMLCatalogo(resolverURLImagenProducto(imagenCategoria))}" alt="" loading="lazy">`
+                : `<span aria-hidden="true">${escaparHTMLCatalogo(imagenCategoria)}</span>`;
+
+            return `<button type="button" class="categoria-rapida-nichi" data-categoria-inicio="${escaparHTMLCatalogo(categoria.clave)}">
+                <span class="categoria-rapida-imagen">${visual}</span>
+                <b>${escaparHTMLCatalogo(categoria.nombre)}</b>
+            </button>`;
+        };
+
         exploradorCategorias.innerHTML = `
+            <div class="franja-ofertas-nichi" aria-label="Ofertas NICHI">
+                <span>OFERTAS NICHI</span>
+                <b>Productos para descubrir hoy</b>
+                <a href="catalogo.html">Ver todo</a>
+            </div>
+            <div class="beneficios-rapidos-nichi" aria-label="Beneficios de compra">
+                <span>Compra protegida</span>
+                <span>Catálogo actualizado</span>
+                <span>Atención por WhatsApp</span>
+            </div>
+            <div class="categorias-rapidas-nichi" aria-label="${t("tituloCategorias")}">
+                <button type="button" class="categoria-rapida-nichi activo" data-categoria-inicio="todos">
+                    <span class="categoria-rapida-imagen categoria-todas-nichi" aria-hidden="true">✦</span>
+                    <b>${t("todasCategorias")}</b>
+                </button>
+                ${categoriasDisponibles.slice(0, 8).map(crearAccesoCategoria).join("")}
+            </div>
             <button type="button" class="abrir-explorador-categorias" aria-expanded="false" aria-controls="panel-categorias-inicio-rapido">
                 <span aria-hidden="true">☰</span>
-                <span>${t("opcionCategorias")}</span>
+                <span>Ver todas las categorías</span>
                 <small>${categoriasDisponibles.length}</small>
             </button>
             <div id="panel-categorias-inicio-rapido" class="panel-categorias-inicio-rapido" hidden>
