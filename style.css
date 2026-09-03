@@ -10781,6 +10781,163 @@ button:disabled,
     .navegacion-comercial-movil b { font-size: 9px !important; }
 }
 
+/* Carrito NICHI: estructura de comercio real, cómoda en táctil y clara en escritorio. */
+.carrito-ventana {
+    padding: 24px !important;
+    background: rgba(3, 10, 28, .64) !important;
+}
+
+.carrito-contenido {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 310px;
+    grid-template-rows: auto minmax(0, 1fr) auto auto;
+    column-gap: 0;
+    width: min(900px, 100%) !important;
+    max-width: 900px !important;
+    max-height: min(760px, calc(100dvh - 48px)) !important;
+    border-radius: 22px !important;
+}
+
+.carrito-contenido h2 {
+    grid-column: 1 / -1;
+    padding: 20px 64px 17px 22px !important;
+    font-size: 1.2rem !important;
+}
+
+.carrito-contenido #lista-carrito {
+    grid-column: 1;
+    grid-row: 2 / 5;
+    padding: 4px 22px 16px !important;
+    border-right: 1px solid #e7eaf0;
+}
+
+.carrito-contenido .item-carrito {
+    grid-template-columns: 64px minmax(0, 1fr) auto auto auto !important;
+    grid-template-areas: "imagen info cantidad subtotal eliminar" !important;
+    align-items: center;
+    gap: 12px !important;
+    min-height: 92px;
+    padding: 13px 0 !important;
+}
+
+.carrito-miniatura {
+    grid-area: imagen;
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    overflow: hidden;
+    border: 1px solid #e1e6ef;
+    border-radius: 12px;
+    background: #f5f7fa;
+}
+.carrito-miniatura img { width: 100%; height: 100%; object-fit: contain; padding: 5px; }
+.carrito-miniatura span { font-size: 1.5rem; }
+
+.carrito-contenido .info-producto .nombre-producto { font-size: .92rem; }
+.carrito-contenido .controles-cantidad {
+    min-height: 42px;
+    gap: 4px !important;
+    padding: 3px !important;
+    border-radius: 11px;
+}
+.carrito-contenido .controles-cantidad button {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    border: 1px solid #e1e6ef !important;
+    border-radius: 8px !important;
+}
+.carrito-contenido .controles-cantidad > span { min-width: 22px; font-size: .9rem; }
+.carrito-contenido .subtotal { align-self: center; font-size: .92rem; white-space: nowrap; }
+.carrito-contenido .eliminar-producto { width: 36px; height: 36px; border-radius: 10px !important; }
+
+.carrito-contenido .resumen-compra {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: start;
+    margin: 0 !important;
+    padding: 17px 18px 12px;
+    overflow-y: auto;
+}
+.carrito-contenido .beneficio-envio { padding: 10px 11px; font-size: .78rem; }
+.carrito-contenido .cupon-compra { margin-top: 12px; }
+.carrito-contenido .cupon-compra label { font-size: .78rem; }
+.carrito-contenido .cupon-compra input { min-height: 40px; padding: 8px; }
+.carrito-contenido .cupon-compra button { min-height: 40px; padding-inline: 11px; font-size: .78rem; }
+.carrito-contenido .cupon-compra small { font-size: .68rem; line-height: 1.3; }
+
+.carrito-contenido .total-carrito {
+    grid-column: 2;
+    grid-row: 3;
+    padding: 14px 18px 9px !important;
+    border-top: 1px solid #e7eaf0 !important;
+}
+.carrito-contenido .finalizar-compra {
+    grid-column: 2;
+    grid-row: 4;
+    width: auto !important;
+    min-height: 52px;
+    margin: 0 18px 18px !important;
+    border-radius: 13px !important;
+    font-size: .91rem !important;
+}
+.carrito-contenido :is(.vaciar-carrito, .compartir-carrito) { min-height: 38px; }
+
+@media (max-width:700px) {
+    .carrito-ventana { padding: 0 !important; }
+    .carrito-contenido {
+        display: flex !important;
+        width: 100% !important;
+        max-width: none !important;
+        max-height: min(88dvh, 760px) !important;
+        border-width: 1px 0 0 !important;
+        border-radius: 24px 24px 0 0 !important;
+    }
+    .carrito-contenido h2 { padding: 18px 62px 15px 18px !important; font-size: 1.08rem !important; }
+    .cerrar-carrito { top: 12px !important; right: 14px !important; width: 40px; height: 40px; }
+    .carrito-contenido #lista-carrito {
+        flex: 1 1 auto;
+        padding: 3px 16px 11px !important;
+        border-right: 0;
+    }
+    .carrito-contenido .item-carrito {
+        grid-template-columns: 58px minmax(0, 1fr) auto !important;
+        grid-template-areas:
+            "imagen info eliminar"
+            "imagen cantidad subtotal" !important;
+        gap: 8px 10px !important;
+        min-height: 102px;
+        padding: 12px 0 !important;
+    }
+    .carrito-miniatura { width: 58px; height: 58px; border-radius: 11px; }
+    .carrito-contenido .info-producto .nombre-producto { font-size: .86rem; }
+    .carrito-contenido .info-producto > span { font-size: .76rem; }
+    .carrito-contenido .controles-cantidad { min-height: 44px; width: max-content; }
+    .carrito-contenido .controles-cantidad button { width: 38px !important; height: 38px !important; min-width: 38px !important; font-size: 1.2rem !important; }
+    .carrito-contenido .controles-cantidad > span { min-width: 24px; font-size: .92rem; }
+    .carrito-contenido .subtotal { align-self: center; font-size: .95rem; }
+    .carrito-contenido .eliminar-producto { width: 38px; height: 38px; }
+    .carrito-contenido .resumen-compra {
+        flex: 0 0 auto;
+        max-height: 186px;
+        margin: 0 !important;
+        padding: 10px 16px 8px;
+        border-top: 1px solid #e7eaf0;
+    }
+    .carrito-contenido .beneficio-envio { padding: 8px 10px; font-size: .72rem; }
+    .carrito-contenido .cupon-compra { margin-top: 8px; }
+    .carrito-contenido .cupon-compra small { display: none; }
+    .carrito-contenido .total-carrito { flex: 0 0 auto; padding: 11px 16px 8px !important; }
+    .carrito-contenido .finalizar-compra {
+        flex: 0 0 auto;
+        width: calc(100% - 32px) !important;
+        min-height: 54px;
+        margin: 0 16px max(14px, env(safe-area-inset-bottom)) !important;
+        font-size: .92rem !important;
+    }
+}
+
 /* Inicio de compra rápida: más producto visible y accesos directos sin un hero que consuma la pantalla. */
 .pagina-inicio .explorador-categorias-inicio {
     display: grid;

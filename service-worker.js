@@ -5,7 +5,7 @@
 
 // Cambia este identificador en cada publicación. Nunca se mezclan archivos
 // de dos versiones distintas de la tienda.
-const CACHE_VERSION = "nichi-v9";
+const CACHE_VERSION = "nichi-v10";
 
 
 // =====================================================
@@ -18,8 +18,8 @@ const ARCHIVOS = [
     "./catalogo.html",
     "./firebase-config.js?v=1.0.1",
     "./firebase-cloud.js?v=1.1.3",
-    "./style.css?v=1.10.4",
-    "./script.js?v=2.0.9",
+    "./style.css?v=1.10.5",
+    "./script.js?v=2.1.0",
     "./productos.js?v=1.9.2",
     "./funciones-inteligentes.js?v=1.4.5",
     "./manifest.json?v=2.0.0",

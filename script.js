@@ -3629,12 +3629,23 @@ function mostrarCarrito() {
                     "div"
                 );
 
+            const productoVisual = localizarProducto(producto);
+            const imagenProducto = String(productoVisual.imagen || "📦");
+            const imagenEsArchivo = /\.(png|jpe?g|webp|gif|avif|svg)(\?.*)?$/i.test(imagenProducto);
+            const miniaturaProducto = imagenEsArchivo
+                ? `<img src="${escaparHTMLCatalogo(resolverURLImagenProducto(imagenProducto))}" alt="" loading="lazy">`
+                : `<span aria-hidden="true">${escaparHTMLCatalogo(imagenProducto)}</span>`;
+
 
             item.className =
                 "item-carrito";
 
 
             item.innerHTML = `
+
+                <div class="carrito-miniatura">
+                    ${miniaturaProducto}
+                </div>
 
                 <div class="info-producto">
 
@@ -3659,6 +3670,7 @@ function mostrarCarrito() {
                     <button
                         onclick="disminuirCantidad(${indice})"
                         type="button"
+                        aria-label="Disminuir cantidad de ${escaparHTMLCatalogo(nombreProductoLocalizado(producto.id, producto.nombre))}"
                     >
                         −
                     </button>
@@ -3672,6 +3684,7 @@ function mostrarCarrito() {
                     <button
                         onclick="aumentarCantidad(${indice})"
                         type="button"
+                        aria-label="Aumentar cantidad de ${escaparHTMLCatalogo(nombreProductoLocalizado(producto.id, producto.nombre))}"
                     >
                         +
                     </button>
