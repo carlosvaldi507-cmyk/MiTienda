@@ -5,7 +5,7 @@
 
 // Cambia este identificador en cada publicación. Nunca se mezclan archivos
 // de dos versiones distintas de la tienda.
-const CACHE_VERSION = "todo-klick-v66";
+const CACHE_VERSION = "todo-klick-v67";
 
 
 // =====================================================
@@ -18,14 +18,15 @@ const ARCHIVOS = [
     "./catalogo.html",
     "./firebase-config.js?v=1.0.1",
     "./firebase-cloud.js?v=1.1.2",
-    "./style.css?v=1.9.6",
+    "./style.css?v=1.9.7",
     "./script.js?v=2.0.6",
     "./productos.js?v=1.9.1",
     "./funciones-inteligentes.js?v=1.4.5",
-    "./manifest.json",
+    "./manifest.json?v=2.0.0",
     "./mi-fondo.png",
-    "./icon-192.png",
-    "./icon-512.png"
+    "./assets/marca/nichi-emblema-v1.png",
+    "./assets/marca/nichi-icon-192.png",
+    "./assets/marca/nichi-icon-512.png"
 ];
 
 
