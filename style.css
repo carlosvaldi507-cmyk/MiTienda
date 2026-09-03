@@ -7296,6 +7296,216 @@ body.experiencia-premium::before {
 }
 
 /* =====================================================
+   NICHI · CARRITO COMPACTO
+   Un panel corto de compra: más catálogo visible y el pago siempre al alcance.
+   ===================================================== */
+.carrito-ventana {
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 16px !important;
+    background: rgba(3, 10, 28, .58) !important;
+    backdrop-filter: blur(8px) !important;
+}
+
+.carrito-contenido {
+    display: flex !important;
+    flex-direction: column !important;
+    width: min(430px, 100%) !important;
+    max-width: 430px !important;
+    max-height: min(720px, calc(100dvh - 32px)) !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(6, 22, 54, .12) !important;
+    border-radius: 20px !important;
+    background: #fff !important;
+    box-shadow: 0 24px 70px rgba(1, 12, 37, .3) !important;
+}
+
+.carrito-contenido h2 {
+    flex: 0 0 auto;
+    margin: 0 !important;
+    padding: 18px 58px 14px 18px !important;
+    border-bottom: 1px solid #e8ebf2;
+    color: var(--nichi-azul, #061636) !important;
+    font-size: 1.12rem !important;
+    line-height: 1.2;
+}
+
+.cerrar-carrito {
+    z-index: 2;
+    top: 12px !important;
+    right: 12px !important;
+    width: 36px;
+    height: 36px;
+    padding: 0 !important;
+    border: 1px solid #e1e5ed !important;
+    border-radius: 10px !important;
+    background: #f7f8fb !important;
+    color: var(--nichi-azul, #061636) !important;
+    font-size: 1rem !important;
+}
+
+.carrito-contenido #lista-carrito {
+    flex: 1 1 auto;
+    min-height: 0;
+    margin: 0 !important;
+    padding: 0 18px !important;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+.carrito-contenido .item-carrito {
+    grid-template-columns: minmax(0, 1fr) auto auto !important;
+    grid-template-areas:
+        "info cantidad eliminar"
+        "info subtotal subtotal";
+    gap: 5px 9px !important;
+    min-height: 72px;
+    padding: 11px 0 !important;
+    border-color: #e9ecf2 !important;
+}
+
+.carrito-contenido .info-producto {
+    grid-area: info;
+    gap: 3px !important;
+}
+
+.carrito-contenido .info-producto .nombre-producto {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    color: var(--nichi-azul, #061636);
+    font-size: .91rem;
+    line-height: 1.25;
+}
+
+.carrito-contenido .info-producto > span {
+    color: #68748b;
+    font-size: .8rem;
+}
+
+.carrito-contenido .controles-cantidad {
+    grid-area: cantidad;
+    gap: 3px !important;
+    padding: 2px;
+    border: 1px solid #e0e5ee;
+    border-radius: 9px;
+    background: #f7f8fb;
+}
+
+.carrito-contenido .controles-cantidad button {
+    width: 29px !important;
+    height: 29px !important;
+    min-width: 29px;
+    padding: 0 !important;
+    border-radius: 7px !important;
+    background: #fff !important;
+    color: var(--nichi-azul, #061636) !important;
+    font-size: 1.06rem !important;
+    line-height: 1;
+}
+
+.carrito-contenido .controles-cantidad > span {
+    min-width: 17px;
+    color: var(--nichi-azul, #061636);
+    font-size: .83rem;
+    font-weight: 800;
+    text-align: center;
+}
+
+.carrito-contenido .subtotal {
+    grid-area: subtotal;
+    align-self: center;
+    color: var(--nichi-rojo, #e31b2b) !important;
+    font-size: .84rem;
+    font-weight: 800;
+    text-align: right;
+}
+
+.carrito-contenido .eliminar-producto {
+    grid-area: eliminar;
+    width: 30px;
+    height: 30px;
+    padding: 0 !important;
+    border-radius: 8px !important;
+    background: #fff2f3 !important;
+    color: var(--nichi-rojo, #e31b2b) !important;
+    font-size: .9rem !important;
+}
+
+.carrito-contenido .carrito-vacio {
+    margin: 0;
+    padding: 34px 10px !important;
+    color: #69758b !important;
+    font-size: .92rem;
+}
+
+.carrito-contenido .total-carrito {
+    flex: 0 0 auto;
+    margin: 0 !important;
+    padding: 13px 18px 9px !important;
+    border-top: 1px solid #e7eaf0 !important;
+    background: #fff;
+    color: var(--nichi-azul, #061636) !important;
+    font-size: .97rem !important;
+}
+
+.carrito-contenido .total-carrito #total-carrito {
+    color: var(--nichi-rojo, #e31b2b);
+    font-size: 1.13rem;
+    font-weight: 900;
+}
+
+.carrito-contenido .finalizar-compra {
+    flex: 0 0 auto;
+    width: calc(100% - 36px) !important;
+    min-height: 46px;
+    margin: 0 18px 18px !important;
+    padding: 11px 14px !important;
+    border-radius: 12px !important;
+    background: linear-gradient(135deg, var(--nichi-rojo, #e31b2b), #bd1023) !important;
+    box-shadow: 0 9px 19px rgba(227, 27, 43, .22) !important;
+    color: #fff !important;
+    font-size: .91rem !important;
+    font-weight: 800;
+}
+
+@media (max-width: 700px) {
+    .carrito-ventana {
+        align-items: flex-end !important;
+        padding: 0 !important;
+    }
+
+    .carrito-contenido {
+        width: 100% !important;
+        max-width: none !important;
+        max-height: min(76dvh, 620px) !important;
+        border-width: 1px 0 0 !important;
+        border-radius: 22px 22px 0 0 !important;
+    }
+
+    .carrito-contenido h2 {
+        padding-top: 16px !important;
+        padding-bottom: 13px !important;
+    }
+
+    .carrito-contenido #lista-carrito {
+        padding-inline: 16px !important;
+    }
+
+    .carrito-contenido .total-carrito {
+        padding-inline: 16px !important;
+    }
+
+    .carrito-contenido .finalizar-compra {
+        width: calc(100% - 32px) !important;
+        margin-inline: 16px !important;
+        margin-bottom: max(14px, env(safe-area-inset-bottom)) !important;
+    }
+}
+
+/* =====================================================
    NICHI — sistema visual definitivo
    Azul marino + rojo + blanco, con contraste comercial.
 ===================================================== */
