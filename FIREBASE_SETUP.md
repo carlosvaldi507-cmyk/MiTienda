@@ -3,9 +3,8 @@
 La tienda conserva el modo local mientras Firebase no esté conectado. No se
 deben guardar datos de clientes en la nube hasta completar todos estos pasos.
 
-1. En la consola de Firebase crea el proyecto **NICHI** y registra una
-   aplicación web. Activa Cloud Firestore en modo de producción y Cloud
-   Storage.
+1. En la consola de Firebase registra la aplicación web del proyecto **NICHI**.
+   Activa Cloud Firestore en modo de producción y Cloud Storage.
 2. Activa Firebase Authentication con **correo y contraseña**. Las cuentas de
    demostración actuales no son cuentas reales y deben retirarse antes del
    lanzamiento.
@@ -17,18 +16,26 @@ deben guardar datos de clientes en la nube hasta completar todos estos pasos.
    cuenta y ejecuta:
 
    ```powershell
-   firebase use TU_PROYECTO
-   firebase deploy --only firestore:rules,storage,functions
+   npm.cmd run build:android-web
+   firebase.cmd deploy --project mitienda-5848e --only hosting
    ```
 
-5. La cuenta propietaria actual queda protegida por su UID en las reglas de
-   Firestore. Si en el futuro cambias de cuenta administradora, actualiza ese
-   UID en las reglas y vuelve a publicarlas.
+5. Antes de desplegar reglas y Functions, configura Firebase App Check para la
+   web y Android, e inicialízalo en la aplicación. La función
+   `crearPedidoSeguro` exige un token de App Check por seguridad.
 6. Carga los productos en la colección `productos`, usando el ID del producto
    como identificador de documento y los campos `nombre`, `precio`, `stock` y
    `activo`. La función de pedidos vuelve a leer esos datos en el servidor, por
    lo que no acepta precios enviados por el cliente.
-7. Configura copias de seguridad programadas en Google Cloud y prueba las reglas
+7. Cuando los productos y App Check estén listos, instala las dependencias de
+   la función y publica el backend:
+
+   ```powershell
+   npm.cmd --prefix functions install
+   firebase.cmd deploy --project mitienda-5848e --only firestore:rules,firestore:indexes,storage,functions
+   ```
+
+8. Configura copias de seguridad programadas en Google Cloud y prueba las reglas
    con el Emulator Suite antes de procesar pedidos reales.
 
 ## Estructura protegida
@@ -41,7 +48,8 @@ deben guardar datos de clientes en la nube hasta completar todos estos pasos.
 - `productos/*` en Storage: lectura pública y carga limitada a imágenes de menos
   de 5 MB por administrador.
 
-La app todavía necesita sustituir el acceso de demostración por Firebase
-Authentication y conectar el checkout a la función antes de considerar activa
-la nube. Compárteme la configuración web pública del proyecto cuando lo crees;
-no compartas contraseñas ni claves de cuenta de servicio.
+La aplicación ya usa Firebase Authentication y tiene el checkout conectado a la
+función de servidor. No publiques las reglas de pedidos hasta haber cargado el
+catálogo de Firestore y configurado App Check; de otro modo el pedido seguirá
+por WhatsApp, pero no se sincronizará en la nube. No compartas contraseñas ni
+claves de cuenta de servicio.

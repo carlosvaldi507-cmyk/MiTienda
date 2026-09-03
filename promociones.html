@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ofertas activas y descuentos reales en NICHI.">
+    <meta name="theme-color" content="#061636">
+    <title>Promociones | NICHI</title>
+    <link rel="stylesheet" href="style.css?v=1.11.0">
+    <link rel="manifest" href="manifest.json?v=2.0.0">
+    <link rel="icon" type="image/png" href="assets/marca/nichi-icon-192.png?v=1.0.0">
+</head>
+<body class="pagina-promociones">
+    <header class="header">
+        <div class="logo"><h1>NICHI</h1></div>
+        <div class="buscador-principal">
+            <input id="buscador" type="search" placeholder="¿Qué estás buscando?" autocomplete="off">
+            <button type="button" id="boton-buscar" aria-label="Buscar">🔍</button>
+        </div>
+        <button id="boton-entrar" class="boton-entrar" type="button" aria-label="Entrar o crear cuenta" data-tooltip="Cuenta"><span class="icono-accion" aria-hidden="true">👤</span><span class="texto-accion">Entrar</span></button>
+        <button id="boton-carrito" class="boton-carrito" type="button" aria-label="Abrir carrito" data-tooltip="Carrito"><span class="icono-accion" aria-hidden="true">🛒</span><span class="texto-accion">Carrito</span><span id="contador-carrito" hidden>0</span></button>
+    </header>
+    <nav class="nav" aria-label="Navegación principal">
+        <a href="index.html">Inicio</a>
+        <a href="index.html#categorias">Categorías</a>
+        <a href="promociones.html" class="activo" aria-current="page">Promociones</a>
+        <a href="catalogo.html">Catálogo</a>
+        <a href="#carrito" data-accion-nav="carrito">Comprar</a>
+        <a href="inteligente.html">Compra inteligente</a>
+    </nav>
+    <main class="promociones-principal">
+        <section class="promociones-introduccion" aria-labelledby="titulo-promociones">
+            <div>
+                <span>OFERTAS NICHI</span>
+                <h1 id="titulo-promociones">Descuentos reales, sin confusiones.</h1>
+                <p>Estos productos tienen un precio anterior registrado y una rebaja vigente. Elige con claridad y agrega al carrito cuando estés listo.</p>
+            </div>
+            <p id="total-promociones" class="promociones-contador" aria-live="polite">Cargando ofertas…</p>
+        </section>
+        <section aria-label="Productos en promoción">
+            <div id="lista-productos" class="productos-container"></div>
+        </section>
+    </main>
+    <div id="ventana-carrito" class="carrito-ventana"><div class="carrito-contenido"><button id="cerrar-carrito" class="cerrar-carrito" type="button" aria-label="Cerrar carrito">×</button><h2>Mi carrito</h2><div id="lista-carrito"><p class="carrito-vacio">Tu carrito está vacío.</p></div><div class="total-carrito"><strong>Total:</strong><span id="total-carrito">C$ 0</span></div><button id="finalizar-compra" class="finalizar-compra" type="button">Finalizar compra por WhatsApp</button></div></div>
+    <script src="firebase-config.js?v=1.0.1"></script>
+    <script src="firebase-cloud.js?v=1.1.3"></script>
+    <script src="productos.js?v=2.0.0"></script>
+    <script src="script.js?v=2.3.0"></script>
+</body>
+</html>

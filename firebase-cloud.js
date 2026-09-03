@@ -91,39 +91,20 @@
             return respuesta.data;
         };
 
-        // Los pedidos de esta tienda se registran como solicitudes pendientes:
-        // la confirmación final se hace por WhatsApp, nunca como un pago web.
-        window.todoKlickNube.guardarPedido = async function (pedido) {
-            if (!auth.currentUser) {
-                throw new Error("Inicia sesión para guardar tu pedido en la nube.");
-            }
-            const pedidoSeguro = {
-                numero: String(pedido.numero || ""),
-                clienteUid: auth.currentUser.uid,
-                cliente: pedido.cliente || {},
-                productos: Array.isArray(pedido.productos) ? pedido.productos : [],
-                total: Number(pedido.total) || 0,
-                estado: "Pendiente de confirmación",
-                fecha: pedido.fecha || new Date().toISOString(),
-                creadoEn: firestoreSdk.serverTimestamp()
-            };
-            await firestoreSdk.setDoc(
-                firestoreSdk.doc(db, "pedidos", pedidoSeguro.numero),
-                pedidoSeguro
-            );
-            return pedidoSeguro;
-        };
         window.todoKlickNube.obtenerPedidos = async function () {
             if (!auth.currentUser) return [];
             const consulta = firestoreSdk.query(
                 firestoreSdk.collection(db, "pedidos"),
                 firestoreSdk.where("clienteUid", "==", auth.currentUser.uid),
-                firestoreSdk.orderBy("fecha", "desc"),
-                firestoreSdk.limit(10)
+                firestoreSdk.limit(25)
             );
             const resultado = await firestoreSdk.getDocs(consulta);
             return resultado.docs.map(function (documento) {
                 return documento.data();
+            }).sort(function (primero, segundo) {
+                const fechaPrimero = primero.fecha || primero.creadoEn?.toDate?.().toISOString?.() || "";
+                const fechaSegundo = segundo.fecha || segundo.creadoEn?.toDate?.().toISOString?.() || "";
+                return String(fechaSegundo).localeCompare(String(fechaPrimero));
             });
         };
 

@@ -31,7 +31,9 @@ if (!Array.isArray(productos) || productos.length === 0) {
 const paginas = ["index.html", "catalogo.html"].map(leer).join("\n");
 const worker = leer("service-worker.js");
 const recursos = ["style.css", "productos.js", "script.js", "funciones-inteligentes.js"];
+const cachePwaActiva = /const PWA_CON_CACHE_ACTIVA = true/.test(leer("script.js"));
 
+if (cachePwaActiva) {
 recursos.forEach(recurso => {
     const archivoSeguro = recurso.replace(".", "\\.");
     const versionPagina = new RegExp(`${archivoSeguro}\\?v=([\\w.-]+)`).exec(paginas);
@@ -39,8 +41,10 @@ recursos.forEach(recurso => {
     if (!versionPagina || !versionWorker) return fallar(`Falta la versión de ${recurso} en una página o en el service worker.`);
     if (versionPagina[1] !== versionWorker[1]) fallar(`La versión de ${recurso} no coincide entre las páginas y el service worker.`);
 });
+}
 
 const registros = (leer("script.js").match(/navigator\.serviceWorker\.register/g) || []).length;
-if (registros !== 1) fallar(`Se esperaban 1 registro del service worker y se encontraron ${registros}.`);
+if (cachePwaActiva && registros !== 1) fallar(`Se esperaban 1 registro del service worker y se encontraron ${registros}.`);
+if (!cachePwaActiva && registros > 1) fallar(`La política sin caché permite como máximo un registro legado; se encontraron ${registros}.`);
 
 if (!process.exitCode) console.log(`Integridad correcta: ${productos.length} productos, imágenes y versiones verificadas.`);

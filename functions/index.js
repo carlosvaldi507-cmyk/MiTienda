@@ -60,6 +60,7 @@ exports.crearPedidoSeguro = onCall({ enforceAppCheck: true }, async request => {
             productos,
             nota: texto(datos.nota, 180),
             total,
+            fecha: new Date().toISOString(),
             creadoEn: FieldValue.serverTimestamp(),
             actualizadoEn: FieldValue.serverTimestamp()
         };

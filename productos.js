@@ -10,7 +10,7 @@ window.productos = [
         descripcion: "Cámara de seguridad para interiores y exteriores.",
         precio: 2500,
         categoria: "Seguridad",
-        imagen: "assets/productos/seguridad/camara-ip-01.png?v=1.8.0",
+        imagen: "assets/productos/optimizado/8.webp?v=2.0.0",
         etiqueta: "",
         stock: true,
         rating: 5,
@@ -23,7 +23,7 @@ window.productos = [
         descripcion: "Termo de Hello Kitty de 500ml.",
         precio: 800,
         categoria: "Hogar",
-        imagen: "assets/productos/termos/termo-hello-kitty-500ml-01.png?v=1.3.2",
+        imagen: "assets/productos/optimizado/1.webp?v=2.0.0",
         etiqueta: "⭐ Recomendado",
         stock: true,
         rating: 5,
@@ -37,7 +37,7 @@ window.productos = [
         descripcion: "Grabador para sistemas de videovigilancia.",
         precio: 4200,
         categoria: "Seguridad",
-        imagen: "assets/productos/seguridad/dvr-8-canales-01.png?v=1.8.0",
+        imagen: "assets/productos/optimizado/2.webp?v=2.0.0",
         etiqueta: "🔥 Más vendido",
         stock: true,
         rating: 5,
@@ -51,7 +51,7 @@ window.productos = [
         descripcion: "Cable de red para instalaciones.",
         precio: 3500,
         categoria: "Eléctrico",
-        imagen: "assets/productos/redes/cable-cat6-01.png?v=1.8.0",
+        imagen: "assets/productos/optimizado/3.webp?v=2.0.0",
         etiqueta: "🏷 Oferta",
         stock: true,
         rating: 4,
@@ -65,7 +65,7 @@ window.productos = [
         descripcion: "Herramientas para instalación y mantenimiento.",
         precio: 1800,
         categoria: "Herramientas",
-        imagen: "assets/productos/herramientas/kit-herramientas-01.png?v=1.8.0",
+        imagen: "assets/productos/optimizado/4.webp?v=2.0.0",
         etiqueta: "⭐ Recomendado",
         stock: true,
         rating: 5,
@@ -79,7 +79,7 @@ window.productos = [
         descripcion: "Memoria USB para almacenamiento de archivos.",
         precio: 1850,
         categoria: "Tecnología",
-        imagen: "assets/productos/tecnologia/memoria-usb-01.png?v=1.8.0",
+        imagen: "assets/productos/optimizado/5.webp?v=2.0.0",
         etiqueta: "🔥 Más vendido",
         stock: true,
         rating: 4,
@@ -93,7 +93,7 @@ window.productos = [
         descripcion: "Peluche suave y adorable de capibara.",
         precio: 900,
         categoria: "Juguetes",
-        imagen: "assets/productos/juguetes/peluche-capibara-01.png?v=1.3.2",
+        imagen: "assets/productos/optimizado/6.webp?v=2.0.0",
         etiqueta: "🆕 Nuevo",
         stock: true,
         rating: 5,
@@ -107,29 +107,29 @@ window.productos = [
         descripcion: "Peluche suave ideal para regalo.",
         precio: 750,
         categoria: "Juguetes",
-        imagen: "assets/productos/juguetes/peluche-felpa-01.png?v=1.3.2",
+        imagen: "assets/productos/optimizado/7.webp?v=2.0.0",
         etiqueta: "🎁 Ideal para regalo",
         stock: true,
         rating: 5,
         resenas: 5
     },
 
-    { id: 9, nombre: "Termo Owala Hello Kitty", descripcion: "Termo reutilizable con diseño Hello Kitty.", precio: 850, categoria: "Hogar", imagen: "assets/productos/IMG_4387.jpg", etiqueta: "⭐ Recomendado", stock: true, rating: 5, resenas: 0 },
-    { id: 10, nombre: "Termo Owala rosa", descripcion: "Termo reutilizable de color rosa.", precio: 850, categoria: "Hogar", imagen: "assets/productos/IMG_4388.jpg", etiqueta: "", stock: true, rating: 5, resenas: 0 },
-    { id: 11, nombre: "Termo Owala colores", descripcion: "Termo reutilizable disponible en varios colores.", precio: 800, categoria: "Hogar", imagen: "assets/productos/IMG_4390.jpg", etiqueta: "", stock: true, rating: 5, resenas: 0 },
-    { id: 12, nombre: "Bolso blanco de cerezas", descripcion: "Bolso compacto con estampado de cerezas.", precio: 1000, categoria: "Accesorios", imagen: "assets/productos/IMG_4397.jpg", etiqueta: "🆕 Nuevo", stock: true, rating: 5, resenas: 0 },
-    { id: 13, nombre: "Bolso corazón estampado", descripcion: "Bolso de mano compacto con diseño estampado.", precio: 950, categoria: "Accesorios", imagen: "assets/productos/IMG_4406.jpg", etiqueta: "", stock: true, rating: 4, resenas: 0 },
-    { id: 14, nombre: "Bolso corazón negro", descripcion: "Bolso de mano compacto en color negro.", precio: 950, categoria: "Accesorios", imagen: "assets/productos/IMG_4407.jpg", etiqueta: "", stock: true, rating: 4, resenas: 0 },
-    { id: 15, nombre: "Bolso de cerezas negro", descripcion: "Bolso redondo con estampado de cerezas.", precio: 1000, categoria: "Accesorios", imagen: "assets/productos/IMG_4410.jpg", etiqueta: "", stock: true, rating: 5, resenas: 0 },
-    { id: 16, nombre: "Peluche Capibara grande", descripcion: "Peluche suave para regalo.", precio: 900, categoria: "Juguetes", imagen: "assets/productos/IMG_4412.jpg", etiqueta: "🎁 Ideal para regalo", stock: true, rating: 5, resenas: 0 },
-    { id: 17, nombre: "Peluche Osito rosa", descripcion: "Peluche suave de color rosa.", precio: 850, categoria: "Juguetes", imagen: "assets/productos/IMG_4413.jpg", etiqueta: "", stock: true, rating: 5, resenas: 0 },
-    { id: 18, nombre: "Mochila Stitch azul", descripcion: "Mochila infantil con diseño Stitch.", precio: 1200, categoria: "Accesorios", imagen: "assets/productos/IMG_4414.jpg", etiqueta: "🆕 Nuevo", stock: true, rating: 5, resenas: 0 },
-    { id: 19, nombre: "Bolso Kuromi", descripcion: "Bolso de mano con diseño Kuromi.", precio: 1100, categoria: "Accesorios", imagen: "assets/productos/IMG_4415.jpg", etiqueta: "", stock: true, rating: 5, resenas: 0 },
-    { id: 20, nombre: "Lámpara LED para uñas", descripcion: "Lámpara LED 2 en 1 para secado de uñas.", precio: 950, categoria: "Belleza", imagen: "assets/productos/IMG_4422.jpg", etiqueta: "", stock: true, rating: 4, resenas: 0 },
-    { id: 21, nombre: "Removedor de uñas acrílicas", descripcion: "Removedor para cuidado de uñas.", precio: 300, categoria: "Belleza", imagen: "assets/productos/IMG_4424.jpg", etiqueta: "", stock: true, rating: 4, resenas: 0 },
-    { id: 22, nombre: "Cámara WiFi inteligente", descripcion: "Cámara WiFi para monitoreo desde el celular.", precio: 1800, categoria: "Seguridad", imagen: "assets/productos/IMG_4428.jpg", etiqueta: "🔥 Más vendido", stock: true, rating: 5, resenas: 0 },
-    { id: 23, nombre: "Taza térmica Hello Kitty", descripcion: "Taza térmica con diseño Hello Kitty.", precio: 750, categoria: "Hogar", imagen: "assets/productos/IMG_4435.jpg", etiqueta: "", stock: true, rating: 5, resenas: 0 },
-    { id: 24, nombre: "Crema Skala Amido de Milho", descripcion: "Crema capilar nutritiva Skala.", precio: 350, categoria: "Belleza", imagen: "assets/productos/IMG_4443.jpg", etiqueta: "", stock: true, rating: 4, resenas: 0 }
+    { id: 9, nombre: "Termo Owala Hello Kitty", descripcion: "Termo reutilizable con diseño Hello Kitty.", precio: 850, categoria: "Hogar", imagen: "assets/productos/optimizado/9.webp?v=2.0.0", etiqueta: "⭐ Recomendado", stock: true, rating: 5, resenas: 0 },
+    { id: 10, nombre: "Termo Owala rosa", descripcion: "Termo reutilizable de color rosa.", precio: 850, categoria: "Hogar", imagen: "assets/productos/optimizado/10.webp?v=2.0.0", etiqueta: "", stock: true, rating: 5, resenas: 0 },
+    { id: 11, nombre: "Termo Owala colores", descripcion: "Termo reutilizable disponible en varios colores.", precio: 800, categoria: "Hogar", imagen: "assets/productos/optimizado/11.webp?v=2.0.0", etiqueta: "", stock: true, rating: 5, resenas: 0 },
+    { id: 12, nombre: "Bolso blanco de cerezas", descripcion: "Bolso compacto con estampado de cerezas.", precio: 1000, categoria: "Accesorios", imagen: "assets/productos/optimizado/12.webp?v=2.0.0", etiqueta: "🆕 Nuevo", stock: true, rating: 5, resenas: 0 },
+    { id: 13, nombre: "Bolso corazón estampado", descripcion: "Bolso de mano compacto con diseño estampado.", precio: 950, categoria: "Accesorios", imagen: "assets/productos/optimizado/13.webp?v=2.0.0", etiqueta: "", stock: true, rating: 4, resenas: 0 },
+    { id: 14, nombre: "Bolso corazón negro", descripcion: "Bolso de mano compacto en color negro.", precio: 950, categoria: "Accesorios", imagen: "assets/productos/optimizado/14.webp?v=2.0.0", etiqueta: "", stock: true, rating: 4, resenas: 0 },
+    { id: 15, nombre: "Bolso de cerezas negro", descripcion: "Bolso redondo con estampado de cerezas.", precio: 1000, categoria: "Accesorios", imagen: "assets/productos/optimizado/15.webp?v=2.0.0", etiqueta: "", stock: true, rating: 5, resenas: 0 },
+    { id: 16, nombre: "Peluche Capibara grande", descripcion: "Peluche suave para regalo.", precio: 900, categoria: "Juguetes", imagen: "assets/productos/optimizado/16.webp?v=2.0.0", etiqueta: "🎁 Ideal para regalo", stock: true, rating: 5, resenas: 0 },
+    { id: 17, nombre: "Peluche Osito rosa", descripcion: "Peluche suave de color rosa.", precio: 850, categoria: "Juguetes", imagen: "assets/productos/optimizado/17.webp?v=2.0.0", etiqueta: "", stock: true, rating: 5, resenas: 0 },
+    { id: 18, nombre: "Mochila Stitch azul", descripcion: "Mochila infantil con diseño Stitch.", precio: 1200, categoria: "Accesorios", imagen: "assets/productos/optimizado/18.webp?v=2.0.0", etiqueta: "🆕 Nuevo", stock: true, rating: 5, resenas: 0 },
+    { id: 19, nombre: "Bolso Kuromi", descripcion: "Bolso de mano con diseño Kuromi.", precio: 1100, categoria: "Accesorios", imagen: "assets/productos/optimizado/19.webp?v=2.0.0", etiqueta: "", stock: true, rating: 5, resenas: 0 },
+    { id: 20, nombre: "Lámpara LED para uñas", descripcion: "Lámpara LED 2 en 1 para secado de uñas.", precio: 950, categoria: "Belleza", imagen: "assets/productos/optimizado/20.webp?v=2.0.0", etiqueta: "", stock: true, rating: 4, resenas: 0 },
+    { id: 21, nombre: "Removedor de uñas acrílicas", descripcion: "Removedor para cuidado de uñas.", precio: 300, categoria: "Belleza", imagen: "assets/productos/optimizado/21.webp?v=2.0.0", etiqueta: "", stock: true, rating: 4, resenas: 0 },
+    { id: 22, nombre: "Cámara WiFi inteligente", descripcion: "Cámara WiFi para monitoreo desde el celular.", precio: 1800, categoria: "Seguridad", imagen: "assets/productos/optimizado/22.webp?v=2.0.0", etiqueta: "🔥 Más vendido", stock: true, rating: 5, resenas: 0 },
+    { id: 23, nombre: "Taza térmica Hello Kitty", descripcion: "Taza térmica con diseño Hello Kitty.", precio: 750, categoria: "Hogar", imagen: "assets/productos/optimizado/23.webp?v=2.0.0", etiqueta: "", stock: true, rating: 5, resenas: 0 },
+    { id: 24, nombre: "Crema Skala Amido de Milho", descripcion: "Crema capilar nutritiva Skala.", precio: 350, categoria: "Belleza", imagen: "assets/productos/optimizado/24.webp?v=2.0.0", etiqueta: "", stock: true, rating: 4, resenas: 0 }
 
 ];
 
@@ -202,6 +202,14 @@ const vendedoresTodoKlick = {
 
 window.productos.forEach(function (producto) {
     Object.assign(producto, metadatosProductos[producto.nombre] || {});
+    producto.vendedor = producto.vendedor || "NICHI";
+    producto.entregaDias = Number.isFinite(Number(producto.entregaDias)) && Number(producto.entregaDias) > 0
+        ? Number(producto.entregaDias)
+        : 2;
+    producto.garantiaMeses = Number.isFinite(Number(producto.garantiaMeses)) && Number(producto.garantiaMeses) >= 0
+        ? Number(producto.garantiaMeses)
+        : 0;
+    producto.tags = Array.isArray(producto.tags) ? producto.tags : [];
     producto.vendedorInfo = vendedoresTodoKlick[producto.vendedor] || vendedoresTodoKlick["NICHI"];
 });
 

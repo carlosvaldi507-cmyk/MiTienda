@@ -2,7 +2,8 @@
   "name": "nichi-tienda",
   "private": true,
   "scripts": {
-    "check": "node --check script.js && node --check productos.js && node --check funciones-inteligentes.js && node --check service-worker.js && node --check firebase-cloud.js && node --check functions/index.js && node scripts/verificar-integridad.js",
+    "check": "node --check script.js && node --check productos.js && node --check funciones-inteligentes.js && node --check service-worker.js && node --check firebase-cloud.js && node --check functions/index.js && node scripts/verificar-integridad.js && node scripts/verificar-carrito.js && node scripts/verificar-rendimiento.js",
+    "preview": "node scripts/servidor-estatico.js",
     "build:android-web": "node scripts/preparar-android.js",
     "android:add": "npm run build:android-web && npx cap add android",
     "android:sync": "npm run build:android-web && npx cap sync android"

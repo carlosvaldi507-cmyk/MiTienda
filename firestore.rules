@@ -31,9 +31,7 @@ service cloud.firestore {
     match /pedidos/{pedidoId} {
       allow read: if autenticado()
         && (resource.data.clienteUid == request.auth.uid || administrador());
-      allow create: if autenticado()
-        && request.resource.data.clienteUid == request.auth.uid
-        && request.resource.data.estado == "Pendiente de confirmación";
+      allow create: if false;
       allow update, delete: if administrador();
     }
 

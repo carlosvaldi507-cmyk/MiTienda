@@ -37,7 +37,7 @@ body {
             rgba(15, 35, 48, 0.08),
             rgba(15, 35, 48, 0.08)
         ),
-        url("mi-fondo.png");
+        url("mi-fondo.webp?v=2.0.0");
 
     background-size: cover;
     background-position: center center;
@@ -3184,7 +3184,7 @@ body {
     background-color: var(--fondo-profundo);
     background-image:
         linear-gradient(180deg, rgba(4, 18, 28, .86), rgba(7, 25, 35, .92)),
-        url("mi-fondo.png");
+        url("mi-fondo.webp?v=2.0.0");
 }
 
 ::selection {
@@ -10944,34 +10944,6 @@ button:disabled,
     gap: 10px;
 }
 
-.franja-ofertas-nichi {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    min-height: 48px;
-    padding: 9px 13px;
-    border: 1px solid rgba(227, 27, 43, .25);
-    border-radius: 14px;
-    color: #fff;
-    background: linear-gradient(104deg, var(--nichi-azul), #192f62 58%, var(--nichi-rojo-profundo));
-    box-shadow: 0 9px 22px rgba(6, 22, 54, .12);
-}
-
-.franja-ofertas-nichi span {
-    flex: 0 0 auto;
-    padding: 4px 6px;
-    border-radius: 5px;
-    color: #fff;
-    background: var(--nichi-rojo);
-    font-size: .62rem;
-    font-weight: 900;
-    letter-spacing: .08em;
-}
-
-.franja-ofertas-nichi b { font-size: .85rem; line-height: 1.15; }
-.franja-ofertas-nichi a { margin-left: auto; color: #fff; font-size: .78rem; font-weight: 800; text-decoration: none; white-space: nowrap; }
-.franja-ofertas-nichi a:hover { text-decoration: underline; text-underline-offset: 3px; }
-
 .beneficios-rapidos-nichi {
     display: flex;
     align-items: center;
@@ -11063,10 +11035,6 @@ button:disabled,
     }
     .pagina-inicio .productos-principales-inicio > .seccion-titulo p { display: none !important; }
     .pagina-inicio .explorador-categorias-inicio { margin: 0 auto 14px !important; }
-    .franja-ofertas-nichi { min-height: 43px; padding: 8px 10px; border-radius: 11px; }
-    .franja-ofertas-nichi span { padding: 3px 5px; font-size: .55rem; }
-    .franja-ofertas-nichi b { font-size: .75rem; }
-    .franja-ofertas-nichi a { font-size: .68rem; }
     .beneficios-rapidos-nichi { justify-content: flex-start; margin-inline: -2px; }
     .beneficios-rapidos-nichi span { padding: 0 9px; font-size: .62rem; }
     .categorias-rapidas-nichi {
@@ -11104,4 +11072,263 @@ button:disabled,
         box-shadow: 0 14px 34px rgba(6, 22, 54, .24) !important;
         font-size: .82rem !important;
     }
+}
+
+/* Acciones del encabezado: iconos puros, con ayuda al pasar el cursor. */
+@media (min-width:701px) {
+    .header .boton-entrar,
+    .header .boton-carrito,
+    .header #boton-idioma,
+    .header #boton-notificaciones {
+        position: relative;
+        display: grid !important;
+        place-items: center;
+        flex: 0 0 44px;
+        width: 44px !important;
+        height: 44px !important;
+        min-height: 44px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border-radius: 50% !important;
+        font-size: 1.15rem !important;
+    }
+
+    .header .boton-entrar .texto-accion,
+    .header .boton-carrito .texto-accion,
+    .header #boton-idioma .texto-accion,
+    .header #boton-idioma .indicador-desplegable,
+    .header .boton-entrar .usuario-nombre-mini {
+        display: none !important;
+    }
+
+    .header .boton-entrar .icono-accion,
+    .header .boton-carrito .icono-accion,
+    .header #boton-idioma .icono-accion {
+        display: grid;
+        place-items: center;
+        line-height: 1;
+    }
+
+    .header .boton-entrar.sesion-iniciada .usuario-avatar-mini {
+        display: grid;
+        place-items: center;
+        width: 30px;
+        height: 30px;
+        margin: 0 !important;
+        border-radius: 50%;
+    }
+
+    .header .boton-carrito #contador-carrito {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        display: grid;
+        min-width: 20px;
+        height: 20px;
+        place-items: center;
+        padding: 0 4px;
+        border: 2px solid var(--nichi-azul) !important;
+        border-radius: 50px;
+        font-size: .65rem !important;
+        font-style: normal;
+        line-height: 1;
+    }
+
+    .header [data-tooltip]::after {
+        position: absolute;
+        z-index: 20;
+        top: calc(100% + 9px);
+        left: 50%;
+        padding: 6px 8px;
+        border-radius: 7px;
+        color: #fff;
+        background: #061636;
+        box-shadow: 0 7px 18px rgba(1, 12, 37, .2);
+        content: attr(data-tooltip);
+        font-size: .7rem;
+        font-weight: 700;
+        line-height: 1;
+        pointer-events: none;
+        opacity: 0;
+        transform: translate(-50%, -3px);
+        transition: opacity .16s ease, transform .16s ease;
+        white-space: nowrap;
+    }
+
+    .header [data-tooltip]:hover::after,
+    .header [data-tooltip]:focus-visible::after {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+/* Cabecera esencial: sin franja promocional, emblema ni eslogan. */
+.barra-oferta { display: none !important; }
+.header,
+.header.header-compacto {
+    min-height: 68px;
+    padding: 12px max(4%, calc((100% - 1320px) / 2)) !important;
+    gap: 14px !important;
+}
+.header .logo {
+    display: flex !important;
+    align-items: center;
+    min-width: auto;
+    padding: 0 !important;
+}
+.header .logo h1 {
+    margin: 0 !important;
+    color: #fff !important;
+    font-size: 1.42rem !important;
+    font-weight: 900 !important;
+    letter-spacing: .08em !important;
+    line-height: 1 !important;
+}
+
+@media (max-width:700px) {
+    .header,
+    .header.header-compacto {
+        min-height: 0;
+        padding: 9px 0 10px !important;
+    }
+    .header .logo { padding-inline: 0 !important; }
+    .header .logo h1 { font-size: 1.22rem !important; }
+}
+
+/* Las categorías se muestran solo cuando el cliente abre “Categorías”. */
+.pagina-inicio .categorias-rapidas-nichi[hidden] {
+    display: none !important;
+}
+
+@media (max-width:700px) {
+    .pagina-inicio .explorador-categorias-inicio.categorias-abiertas {
+        display: grid !important;
+    }
+}
+
+/* Navegación única en Inicio y Catálogo: cambia solo el enlace activo. */
+@media (min-width:701px) {
+    .nav,
+    .header-compacto + .nav {
+        position: sticky !important;
+        top: 68px !important;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        min-height: 52px;
+        margin: 0;
+        padding: 6px 20px !important;
+        gap: 5px !important;
+        border-top: 1px solid rgba(255,255,255,.07) !important;
+        border-bottom: 1px solid rgba(255,255,255,.13) !important;
+        background: #061636 !important;
+        box-shadow: 0 8px 18px rgba(2, 11, 31, .12) !important;
+    }
+
+    .nav a {
+        position: relative;
+        padding: 9px 14px !important;
+        border: 0 !important;
+        border-radius: 9px !important;
+        color: #cbd5e7 !important;
+        background: transparent !important;
+        font-size: .84rem !important;
+        font-weight: 750 !important;
+        line-height: 1;
+        text-decoration: none;
+    }
+
+    .nav a:hover,
+    .nav a:focus-visible {
+        color: #fff !important;
+        background: rgba(255,255,255,.08) !important;
+        transform: none !important;
+    }
+
+    .nav a.activo,
+    .nav a[aria-current="page"] {
+        color: #fff !important;
+        background: rgba(227,27,43,.18) !important;
+        box-shadow: inset 0 -2px 0 var(--nichi-rojo) !important;
+    }
+}
+
+/* Página independiente de compra inteligente. */
+.inteligente-principal {
+    width: min(1120px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 42px 0 72px;
+}
+.inteligente-introduccion {
+    max-width: 650px;
+    margin: 0 auto 24px;
+    text-align: center;
+}
+.inteligente-introduccion > span {
+    color: var(--nichi-rojo-profundo);
+    font-size: .7rem;
+    font-weight: 900;
+    letter-spacing: .12em;
+}
+.inteligente-introduccion h1 {
+    margin: 9px 0;
+    color: var(--nichi-azul);
+    font-size: clamp(1.7rem, 4vw, 2.7rem);
+    line-height: 1.08;
+}
+.inteligente-introduccion p { margin: 0; color: var(--nichi-texto-suave); line-height: 1.5; }
+.pagina-inteligente-nichi #panel-compra-inteligente-inicio { max-width: 900px; margin: 0 auto; }
+.pagina-inteligente-nichi #panel-compra-inteligente-inicio .descubridor-compras { margin: 0; }
+
+/* Promociones es una página de compra, no otra capa del catálogo. */
+.promociones-principal {
+    width: min(1240px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 34px 0 72px;
+}
+.promociones-introduccion {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 22px;
+    margin-bottom: 24px;
+    padding: 22px 26px;
+    border: 1px solid rgba(227, 27, 43, .18);
+    border-radius: 18px;
+    color: #fff;
+    background: linear-gradient(115deg, #061636 0%, #162b5c 64%, #b3142c 150%);
+    box-shadow: 0 12px 28px rgba(6, 22, 54, .13);
+}
+.promociones-introduccion span {
+    display: block;
+    margin-bottom: 7px;
+    color: #ffc7ce;
+    font-size: .72rem;
+    font-weight: 900;
+    letter-spacing: .12em;
+}
+.promociones-introduccion h1 {
+    margin: 0;
+    font-size: clamp(1.65rem, 3vw, 2.4rem);
+    line-height: 1.05;
+}
+.promociones-introduccion p { max-width: 570px; margin: 8px 0 0; color: #dbe5f7; line-height: 1.5; }
+.promociones-contador {
+    flex: 0 0 auto;
+    padding: 9px 12px;
+    border-radius: 999px;
+    color: #fff;
+    background: rgba(255,255,255,.12);
+    font-size: .82rem;
+    font-weight: 800;
+    white-space: nowrap;
+}
+.pagina-promociones #lista-productos { min-height: 220px; }
+@media (max-width:700px) {
+    .inteligente-principal { width: min(100% - 24px, 620px); padding: 26px 0 88px; }
+    .inteligente-introduccion { margin-bottom: 16px; }
+    .promociones-principal { width: min(100% - 24px, 620px); padding: 20px 0 88px; }
+    .promociones-introduccion { display: block; margin-bottom: 16px; padding: 18px; border-radius: 14px; }
+    .promociones-introduccion p { font-size: .91rem; }
+    .promociones-contador { display: inline-flex; margin-top: 14px; }
 }

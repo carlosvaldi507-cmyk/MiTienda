@@ -46,7 +46,7 @@
 
     function disponibles() {
         return (window.productos || []).filter(function (producto) {
-            return producto.stock;
+            return producto.activo !== false && producto.stock === true;
         });
     }
 
@@ -275,7 +275,7 @@
                     .slice(0, 4);
                 const salida = document.getElementById("resultados-descubridor");
                 if (!salida) {
-                    window.location.href = "catalogo.html?modo=inteligente";
+                    window.location.href = "inteligente.html";
                     return;
                 }
                 mostrarResultados(salida, opciones, opciones.length ? tir("alternativas") + " " + nombre : tir("sinAlternativas"));

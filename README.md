@@ -5,19 +5,29 @@
 Con Node.js instalado, ejecutar desde esta carpeta:
 
 ```bash
-node --check script.js
-node --check productos.js
-node --check funciones-inteligentes.js
-node --check service-worker.js
-node scripts/verificar-integridad.js
+npm run check
+npm run build:android-web
 ```
 
 ## Publicación en GitHub Pages
 
-Subir siempre el proyecto completo conservando las carpetas, especialmente
-`assets/productos`. No subir `debug.log`, `.vscode` ni otros archivos locales.
-Cuando cambien JavaScript, CSS o imágenes, actualizar también la versión de
-caché en `service-worker.js`.
+La web publicada en GitHub Pages sale de la rama `main` y la raíz del proyecto.
+Antes de enviar una versión, ejecuta las comprobaciones anteriores y publica
+solamente los archivos fuente; `www/`, `node_modules/` y las carpetas de prueba
+están excluidos del repositorio.
+
+El servicio de caché se retira automáticamente para que una versión antigua no
+vuelva a quedarse abierta. Las referencias de CSS y JavaScript usan versión y
+Firebase Hosting revalida los recursos en cada visita.
+
+## Publicación en Firebase Hosting
+
+Firebase Hosting usa el contenido generado en `www/`. Después de ejecutar
+`npm run build:android-web`, se publica con:
+
+```bash
+firebase.cmd deploy --project mitienda-5848e --only hosting
+```
 
 ## Datos en la nube
 
