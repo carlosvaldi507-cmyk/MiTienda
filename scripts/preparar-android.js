@@ -21,7 +21,9 @@ const archivos = [
     "icon-192.png",
     "icon-512.png",
     "assets/marca/nichi-icon-192.png",
-    "assets/marca/nichi-icon-512.png"
+    "assets/marca/nichi-icon-512.png",
+    "assets/marca/nichi-icon-maskable-192.png",
+    "assets/marca/nichi-icon-maskable-512.png"
 ];
 const directorios = [
     "assets/productos/optimizado"

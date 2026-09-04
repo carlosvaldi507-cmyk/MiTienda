@@ -6700,7 +6700,10 @@ const esAplicacionNativa = Boolean(
 const PWA_CON_CACHE_ACTIVA = false;
 
 if (!PWA_CON_CACHE_ACTIVA && "serviceWorker" in navigator) {
-    const VERSION_LIMPIEZA_TOTAL = "nichi-sin-cache-v2";
+    // Cambiar esta marca obliga a retirar una vez cualquier Service Worker o
+    // caché heredada. Es deliberado: evita combinar la interfaz nueva con
+    // recursos de una publicación anterior.
+    const VERSION_LIMPIEZA_TOTAL = "nichi-sin-cache-v3";
     const claveLimpiezaTotal = "nichi-limpieza-total";
     let requiereLimpieza = false;
 
@@ -7410,7 +7413,56 @@ function configurarAccesoCuandoEsteListo() {
     }, { once: true });
 }
 
+// El catálogo es la parte esencial de la tienda. Si una mejora visual o un
+// módulo secundario falla, la página debe seguir mostrando los productos.
+function asegurarProductosRenderizados(origen) {
+    const lista = document.getElementById("lista-productos");
+    const hayCatalogo = Array.isArray(window.productos) && window.productos.length > 0;
+
+    if (!lista || !hayCatalogo) return false;
+
+    // Un estado vacío con su mensaje es válido: puede ser una búsqueda sin
+    // resultados o la vista de favoritos. Solo se reintenta si no se pintó
+    // absolutamente nada dentro del contenedor.
+    if (lista.querySelector(".producto, .catalogo-vacio")) return true;
+
+    try {
+        mostrarProductos();
+    } catch (error) {
+        console.error("[NICHI] No se pudo recuperar el catálogo (" + origen + ").", error);
+        return false;
+    }
+
+    return Boolean(lista.querySelector(".producto, .catalogo-vacio"));
+}
+
+function ejecutarModuloSecundario(nombre, tarea) {
+    try {
+        return tarea();
+    } catch (error) {
+        // La experiencia adicional no debe impedir comprar ni navegar.
+        console.error("[NICHI] No se pudo iniciar " + nombre + ".", error);
+        return undefined;
+    }
+}
+
+function verificarProductosAlRegresar() {
+    asegurarProductosRenderizados("pageshow");
+
+    // Algunos navegadores restauran la vista desde memoria un instante
+    // después de pageshow. Un único reintento cubre ese caso sin alterar una
+    // búsqueda que ya haya producido su mensaje de resultados vacíos.
+    window.setTimeout(function () {
+        asegurarProductosRenderizados("pageshow-reintento");
+    }, 250);
+}
+
 function iniciarTienda() {
+
+    // Renderizar primero el contenido de venta. Antes, esta primera pintura
+    // dependía de módulos de presentación que no son necesarios para usar la
+    // tienda; si uno fallaba, el contenedor permanecía vacío.
+    asegurarProductosRenderizados("arranque");
 
     prepararDialogoCarrito();
 
@@ -7438,25 +7490,24 @@ function iniciarTienda() {
 
     crearCarritoFlotante();
 
-    configurarInicioPriorizado();
+    ejecutarModuloSecundario("la portada", configurarInicioPriorizado);
 
-    configurarOpcionesCatalogo();
+    ejecutarModuloSecundario("las opciones del catálogo", configurarOpcionesCatalogo);
 
-    crearExperienciaProfesional();
+    ejecutarModuloSecundario("la experiencia visual", crearExperienciaProfesional);
 
-    configurarMenuIdiomas();
+    ejecutarModuloSecundario("el selector de idioma", function () {
+        configurarMenuIdiomas();
+        cambiarIdioma(idiomaActual);
+    });
 
-    cambiarIdioma(
-        idiomaActual
-    );
-
-    configurarExploradorProductos();
+    ejecutarModuloSecundario("los controles del catálogo", configurarExploradorProductos);
 
     if (window.matchMedia("(max-width: 760px)").matches) {
-        crearExperienciaComercialMovil();
+        ejecutarModuloSecundario("la navegación móvil", crearExperienciaComercialMovil);
     }
 
-    configurarAccesoCuandoEsteListo();
+    ejecutarModuloSecundario("el acceso de cuenta", configurarAccesoCuandoEsteListo);
 
     actualizarContador();
 
@@ -7465,6 +7516,8 @@ function iniciarTienda() {
     iniciarVigenciaCarrito();
 
     programarTareaSecundaria(crearAsistenteVirtual);
+
+    asegurarProductosRenderizados("fin-arranque");
 
 }
 
@@ -7476,6 +7529,8 @@ function iniciarTienda() {
 function iniciarAplicacion() {
     iniciarTienda();
 }
+
+window.addEventListener("pageshow", verificarProductosAlRegresar);
 
 if (
     document.readyState ===
